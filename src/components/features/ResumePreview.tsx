@@ -17,10 +17,10 @@ const templates = [
 ]
 
 const sampleSections: ResumeSection[] = [
-  { title: 'Experience', content: 'Software Engineer Intern at TechCorp\nDeveloped REST APIs serving 10K+ requests/day' },
-  { title: 'Education', content: 'B.Tech Computer Science, IIT Delhi\nCGPA: 8.9/10 | 2021 - 2025' },
-  { title: 'Skills', content: 'Python, JavaScript, React, Node.js, SQL, Docker, AWS' },
-  { title: 'Projects', content: 'AI Chat Application - Built with Next.js & OpenAI API\nE-commerce Platform - Full stack with payment integration' },
+  { title: 'Experience', content: 'Management Trainee at GlobalCorp\nLed cross-functional team of 8 for product launch' },
+  { title: 'Education', content: 'B.Tech, IIT Delhi\nCGPA: 8.9/10 | 2021 - 2025' },
+  { title: 'Skills', content: 'Communication, Leadership, Negotiation, Sales, Time Management, Public Speaking' },
+  { title: 'Achievements', content: 'Best Speaker Award - Inter-college Debate Championship\nLed sales team to 140% quarterly target achievement' },
 ]
 
 export default function ResumePreview() {

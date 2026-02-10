@@ -2,7 +2,7 @@
 
 import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Users, BookOpen, Award, Mic } from 'lucide-react'
 
 const stats = [
@@ -12,33 +12,61 @@ const stats = [
   { label: 'Interview Sessions', value: 89000, icon: Mic, suffix: '+' },
 ]
 
+function CelebrationDots({ trigger }: { trigger: boolean }) {
+  if (!trigger) return null
+
+  return (
+    <div className="absolute inset-0 pointer-events-none">
+      {Array.from({ length: 8 }).map((_, i) => {
+        const angle = (i / 8) * 360
+        const rad = (angle * Math.PI) / 180
+        return (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 rounded-full bg-blue-300"
+            style={{ left: '50%', top: '50%' }}
+            initial={{ x: 0, y: 0, opacity: 0.7, scale: 1 }}
+            animate={{
+              x: Math.cos(rad) * 28,
+              y: Math.sin(rad) * 28,
+              opacity: 0,
+              scale: 0.3,
+            }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
 function AnimatedCounter({
   value,
   inView,
+  onComplete,
 }: {
   value: number
   inView: boolean
+  onComplete: () => void
 }) {
   const motionValue = useMotionValue(0)
-  const springValue = useSpring(motionValue, {
-    stiffness: 50,
-    damping: 30,
-  })
-  const display = useTransform(springValue, (v) =>
-    Math.round(v).toLocaleString()
-  )
+  const springValue = useSpring(motionValue, { stiffness: 50, damping: 30 })
+  const display = useTransform(springValue, (v) => Math.round(v).toLocaleString())
 
   useEffect(() => {
     if (inView) {
       motionValue.set(value)
+      const timeout = setTimeout(onComplete, 1800)
+      return () => clearTimeout(timeout)
     }
-  }, [inView, value, motionValue])
+  }, [inView, value, motionValue, onComplete])
 
   return <motion.span>{display}</motion.span>
 }
 
 export default function StatsCounter() {
   const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true })
+  const [celebrated, setCelebrated] = useState<Record<number, boolean>>({})
 
   return (
     <section className="relative py-20 md:py-24 px-4 sm:px-6 bg-white">
@@ -70,9 +98,14 @@ export default function StatsCounter() {
               <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mx-auto mb-4">
                 <stat.icon size={24} className="text-blue-800" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                <AnimatedCounter value={stat.value} inView={inView} />
+              <div className="relative text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                <AnimatedCounter
+                  value={stat.value}
+                  inView={inView}
+                  onComplete={() => setCelebrated((p) => ({ ...p, [index]: true }))}
+                />
                 <span className="text-xl text-gray-400">{stat.suffix}</span>
+                <CelebrationDots trigger={!!celebrated[index]} />
               </div>
               <div className="text-sm text-gray-500">{stat.label}</div>
             </motion.div>

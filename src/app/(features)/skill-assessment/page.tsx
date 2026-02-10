@@ -6,37 +6,37 @@ import { TrendingUp, Award, Target, Zap } from 'lucide-react'
 import SkillRadarChart from '@/components/features/SkillRadarChart'
 
 const skills = [
-  { label: 'Python', value: 82, maxValue: 100 },
-  { label: 'JavaScript', value: 75, maxValue: 100 },
-  { label: 'SQL', value: 68, maxValue: 100 },
-  { label: 'DSA', value: 55, maxValue: 100 },
-  { label: 'System Design', value: 40, maxValue: 100 },
-  { label: 'Communication', value: 72, maxValue: 100 },
+  { label: 'Communication', value: 82, maxValue: 100 },
+  { label: 'Confidence', value: 75, maxValue: 100 },
+  { label: 'Leadership', value: 68, maxValue: 100 },
+  { label: 'Time Mgmt', value: 55, maxValue: 100 },
+  { label: 'Negotiation', value: 40, maxValue: 100 },
+  { label: 'Presentation', value: 72, maxValue: 100 },
 ]
 
 const peerAverage = [
-  { label: 'Python', value: 65, maxValue: 100 },
-  { label: 'JavaScript', value: 60, maxValue: 100 },
-  { label: 'SQL', value: 55, maxValue: 100 },
-  { label: 'DSA', value: 50, maxValue: 100 },
-  { label: 'System Design', value: 45, maxValue: 100 },
-  { label: 'Communication', value: 58, maxValue: 100 },
+  { label: 'Communication', value: 65, maxValue: 100 },
+  { label: 'Confidence', value: 60, maxValue: 100 },
+  { label: 'Leadership', value: 55, maxValue: 100 },
+  { label: 'Time Mgmt', value: 50, maxValue: 100 },
+  { label: 'Negotiation', value: 45, maxValue: 100 },
+  { label: 'Presentation', value: 58, maxValue: 100 },
 ]
 
 const skillBars = [
-  { name: 'Python', score: 82, tier: 'Advanced', color: '#1E40AF' },
-  { name: 'JavaScript', score: 75, tier: 'Advanced', color: '#1E40AF' },
-  { name: 'Communication', score: 72, tier: 'Intermediate', color: '#166534' },
-  { name: 'SQL', score: 68, tier: 'Intermediate', color: '#166534' },
-  { name: 'DSA', score: 55, tier: 'Intermediate', color: '#92400E' },
-  { name: 'System Design', score: 40, tier: 'Beginner', color: '#991B1B' },
+  { name: 'Communication', score: 82, tier: 'Advanced', color: '#1E40AF' },
+  { name: 'Confidence', score: 75, tier: 'Advanced', color: '#1E40AF' },
+  { name: 'Presentation', score: 72, tier: 'Intermediate', color: '#166534' },
+  { name: 'Leadership', score: 68, tier: 'Intermediate', color: '#166534' },
+  { name: 'Time Management', score: 55, tier: 'Intermediate', color: '#92400E' },
+  { name: 'Negotiation', score: 40, tier: 'Beginner', color: '#991B1B' },
 ]
 
 const roadmapCards = [
-  { title: 'Complete DSA Module', desc: 'Practice 50 problems to reach Advanced tier', module: 'Skill Assessment', color: '#92400E', progress: 35 },
-  { title: 'System Design Course', desc: 'Start the fundamentals course', module: 'AI Courses', color: '#991B1B', progress: 0 },
+  { title: 'Confidence Building', desc: 'Complete 10 mock scenarios to reach Advanced tier', module: 'Skill Assessment', color: '#92400E', progress: 35 },
+  { title: 'Negotiation Course', desc: 'Start the persuasion fundamentals course', module: 'AI Courses', color: '#991B1B', progress: 0 },
   { title: 'Mock Interviews', desc: '5 more sessions to unlock certification', module: 'AI Interview', color: '#1E40AF', progress: 60 },
-  { title: 'Soft Skills Workshop', desc: 'Communication and presentation practice', module: 'Courses', color: '#166534', progress: 20 },
+  { title: 'Public Speaking', desc: 'Presentation delivery and body language practice', module: 'Courses', color: '#166534', progress: 20 },
 ]
 
 function getTierColor(tier: string) {
@@ -62,7 +62,7 @@ export default function SkillAssessmentPage() {
           className="mb-8"
         >
           <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Skill Assessment</h1>
-          <p className="text-gray-500">Track your skills, discover gaps, and follow your AI-powered roadmap</p>
+          <p className="text-gray-500">Track your soft skills, discover gaps, and follow your AI-powered improvement roadmap</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

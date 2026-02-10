@@ -16,8 +16,8 @@ const faqs = [
 ]
 
 const mentors = [
-  { name: 'Dr. Priya Sharma', role: 'AI/ML Expert', rating: 4.9, slots: ['10:00 AM', '2:00 PM', '4:30 PM'], color: '#1E40AF' },
-  { name: 'Rahul Verma', role: 'Full Stack Engineer', rating: 4.8, slots: ['9:00 AM', '11:30 AM', '3:00 PM'], color: '#1E40AF' },
+  { name: 'Dr. Priya Sharma', role: 'Communication Coach', rating: 4.9, slots: ['10:00 AM', '2:00 PM', '4:30 PM'], color: '#1E40AF' },
+  { name: 'Rahul Verma', role: 'Leadership Mentor', rating: 4.8, slots: ['9:00 AM', '11:30 AM', '3:00 PM'], color: '#1E40AF' },
   { name: 'Dr. Ananya Desai', role: 'Career Counselor', rating: 4.9, slots: ['10:30 AM', '1:00 PM'], color: '#166534' },
 ]
 

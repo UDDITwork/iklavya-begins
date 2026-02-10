@@ -7,31 +7,31 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 const testimonials = [
   {
     name: 'Priya Sharma',
-    role: 'Software Engineer at Google',
+    role: 'Business Development at Google',
     content: 'The AI interview simulator was a game-changer. I practiced daily for 2 weeks and landed my dream job. The real-time feedback on filler words and confidence helped me improve dramatically.',
     avatar: 'PS',
   },
   {
     name: 'Rahul Verma',
-    role: 'Data Analyst at Microsoft',
-    content: 'Iklavya\'s skill assessment showed me exactly where my gaps were. The AI-generated learning roadmap was incredibly accurate. I went from beginner to advanced in Python within 3 months.',
+    role: 'Management Trainee at Deloitte',
+    content: 'Iklavya\'s skill assessment showed me exactly where my communication gaps were. The AI-generated learning roadmap was incredibly accurate. I went from beginner to advanced in confidence within 3 months.',
     avatar: 'RV',
   },
   {
     name: 'Ananya Desai',
-    role: 'Product Manager at Flipkart',
+    role: 'Business Analyst at Flipkart',
     content: 'The resume builder\'s ATS optimization increased my callback rate by 300%. The AI writing suggestions were better than any career counselor I\'ve worked with.',
     avatar: 'AD',
   },
   {
     name: 'Vikram Patel',
-    role: 'Full Stack Developer at Paytm',
+    role: 'Sales Manager at Paytm',
     content: 'Live quiz broadcasts made learning competitive and fun. I earned 5 certifications that I proudly showcase on my LinkedIn. The certificate verification QR code adds instant credibility.',
     avatar: 'VP',
   },
   {
     name: 'Sneha Iyer',
-    role: 'ML Engineer at Amazon',
+    role: 'HR Manager at Amazon',
     content: 'The career guidance AI understood my goals better than any human advisor. It connected insights from my assessments, course progress, and interview performance into one actionable plan.',
     avatar: 'SI',
   },

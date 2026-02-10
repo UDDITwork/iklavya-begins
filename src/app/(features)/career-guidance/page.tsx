@@ -14,17 +14,17 @@ interface Message {
 const quickActions = [
   'What career paths match my skills?',
   'How should I prepare for placements?',
-  'Suggest a learning roadmap for AI/ML',
+  'Suggest a roadmap for leadership skills',
   'Review my interview performance',
 ]
 
 const aiResponses: Record<string, string> = {
   'What career paths match my skills?':
-    'Based on your profile analysis, I see strong potential in **Software Engineering**, **Data Science**, and **Product Management**. Your Python and React skills, combined with your analytical assessments, suggest you would excel in roles that combine technical implementation with data-driven decision making.\n\n**Recommended next steps:**\n1. Complete the System Design course to strengthen your architecture skills\n2. Practice 2-3 mock interviews per week\n3. Build a portfolio project showcasing full-stack + ML capabilities',
+    'Based on your profile analysis, I see strong potential in **Sales & Business Development**, **Management Consulting**, and **Human Resources**. Your communication and confidence scores, combined with your leadership assessments, suggest you would excel in roles that require interpersonal influence and team coordination.\n\n**Recommended next steps:**\n1. Complete the Negotiation Skills course to strengthen your persuasion ability\n2. Practice 2-3 mock interviews per week\n3. Build your portfolio with real-world case studies from the simulation modules',
   'How should I prepare for placements?':
-    'Great question! Based on your current skill assessment scores, here is a **4-week placement prep plan:**\n\n**Week 1:** Focus on DSA fundamentals — complete the coding assessment module daily\n**Week 2:** System design + behavioral interview practice\n**Week 3:** Resume optimization (your ATS score is currently 78 — let us push it to 90+)\n**Week 4:** Full mock interview simulations with our AI interviewer\n\nI have also noticed your communication score could improve. I recommend the Soft Skills course.',
-  'Suggest a learning roadmap for AI/ML':
-    'Here is your personalized **AI/ML Learning Roadmap:**\n\n**Foundation (Month 1-2):**\n- Python for Data Science *(you are 65% done — finish this first!)*\n- Statistics & Probability basics\n- NumPy, Pandas mastery\n\n**Core ML (Month 3-4):**\n- Supervised & Unsupervised Learning\n- Scikit-learn hands-on projects\n- Feature Engineering\n\n**Advanced (Month 5-6):**\n- Deep Learning with PyTorch\n- NLP or Computer Vision specialization\n- Capstone project\n\nShall I enroll you in the Machine Learning A-Z course?',
+    'Great question! Based on your current skill assessment scores, here is a **4-week placement prep plan:**\n\n**Week 1:** Focus on communication fundamentals — complete the active listening module daily\n**Week 2:** Confidence building + behavioral interview practice\n**Week 3:** Resume optimization (your ATS score is currently 78 — let us push it to 90+)\n**Week 4:** Full mock interview simulations with our AI interviewer\n\nI have also noticed your negotiation score could improve. I recommend the Sales & Persuasion course.',
+  'Suggest a roadmap for leadership skills':
+    'Here is your personalized **Leadership Development Roadmap:**\n\n**Foundation (Month 1-2):**\n- Communication Mastery *(you are 65% done — finish this first!)*\n- Active Listening & Empathy basics\n- Conflict Resolution essentials\n\n**Core Skills (Month 3-4):**\n- Team Management & Delegation\n- Decision Making under pressure\n- Public Speaking & Presentation\n\n**Advanced (Month 5-6):**\n- Strategic Thinking & Planning\n- Cross-functional Leadership\n- Capstone: Lead a simulated project\n\nShall I enroll you in the Leadership Fundamentals course?',
   default:
     'I understand your question. Let me analyze your profile data and provide personalized guidance. Based on your assessment scores, course progress, and interview performance, I can see several areas where targeted improvement would make a significant impact on your career readiness.',
 }

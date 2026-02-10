@@ -13,11 +13,11 @@ interface Notification {
 }
 
 const sampleNotifications: Omit<Notification, 'id'>[] = [
-  { type: 'achievement', title: 'Certificate Earned!', message: 'You completed the Python Advanced course', time: '2m ago' },
-  { type: 'quiz', title: 'Live Quiz Starting', message: 'Data Structures quiz begins in 5 minutes', time: '5m ago' },
-  { type: 'whatsapp', title: 'Mentor Message', message: 'Dr. Sharma: "Great progress on your resume!"', time: '10m ago' },
-  { type: 'email', title: 'Interview Scheduled', message: 'Mock interview with AI at 3:00 PM tomorrow', time: '1h ago' },
-  { type: 'course', title: 'New Course Available', message: 'Machine Learning Fundamentals just launched', time: '2h ago' },
+  { type: 'achievement', title: 'Certificate Earned!', message: 'You completed the Communication Mastery course', time: '2m ago' },
+  { type: 'quiz', title: 'Live Quiz Starting', message: 'Negotiation Skills quiz begins in 5 minutes', time: '5m ago' },
+  { type: 'whatsapp', title: 'Mentor Message', message: 'Dr. Sharma: "Great progress on your confidence scores!"', time: '10m ago' },
+  { type: 'email', title: 'Interview Scheduled', message: 'Sales Pitch simulation with AI at 3:00 PM tomorrow', time: '1h ago' },
+  { type: 'course', title: 'New Course Available', message: 'Conflict Resolution Strategies just launched', time: '2h ago' },
   { type: 'system', title: 'Profile Reminder', message: 'Complete your profile to unlock all features', time: '3h ago' },
 ]
 

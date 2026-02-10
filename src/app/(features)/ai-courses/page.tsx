@@ -3,28 +3,28 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import {
-  Play, Pause, Clock, BookOpen, Award, Star, Users, Code, MonitorPlay, Brain, Database, Network, MessageSquare
+  Play, Pause, Clock, BookOpen, Award, Star, Users, MessageSquare, Handshake, Timer, TrendingUp, Mic, MonitorPlay, UserCheck
 } from 'lucide-react'
 
 const courseIcons: Record<string, React.ElementType> = {
-  python: Code,
-  react: MonitorPlay,
-  ml: Brain,
-  sql: Database,
-  system: Network,
   comm: MessageSquare,
+  sales: Handshake,
+  time: Timer,
+  leadership: TrendingUp,
+  confidence: Mic,
+  presentation: MonitorPlay,
 }
 
 const courses = [
-  { id: 1, title: 'Python for Data Science', category: 'Programming', duration: '12h', lessons: 48, rating: 4.8, students: 12400, progress: 65, color: '#1E40AF', iconKey: 'python' },
-  { id: 2, title: 'React & Next.js Mastery', category: 'Web Development', duration: '16h', lessons: 62, rating: 4.9, students: 8900, progress: 30, color: '#1E40AF', iconKey: 'react' },
-  { id: 3, title: 'Machine Learning A-Z', category: 'AI/ML', duration: '20h', lessons: 85, rating: 4.7, students: 15600, progress: 0, color: '#166534', iconKey: 'ml' },
-  { id: 4, title: 'SQL & Database Design', category: 'Databases', duration: '8h', lessons: 32, rating: 4.6, students: 9200, progress: 100, color: '#92400E', iconKey: 'sql' },
-  { id: 5, title: 'System Design Interview', category: 'Interview Prep', duration: '10h', lessons: 40, rating: 4.9, students: 18000, progress: 15, color: '#991B1B', iconKey: 'system' },
-  { id: 6, title: 'Communication Skills', category: 'Soft Skills', duration: '6h', lessons: 24, rating: 4.5, students: 6800, progress: 0, color: '#374151', iconKey: 'comm' },
+  { id: 1, title: 'Communication Mastery', category: 'Communication', duration: '10h', lessons: 42, rating: 4.8, students: 14200, progress: 65, color: '#1E40AF', iconKey: 'comm' },
+  { id: 2, title: 'Sales & Persuasion', category: 'Sales', duration: '12h', lessons: 52, rating: 4.9, students: 9800, progress: 30, color: '#1E40AF', iconKey: 'sales' },
+  { id: 3, title: 'Time Management Pro', category: 'Productivity', duration: '6h', lessons: 28, rating: 4.7, students: 16400, progress: 0, color: '#166534', iconKey: 'time' },
+  { id: 4, title: 'Leadership Fundamentals', category: 'Leadership', duration: '14h', lessons: 56, rating: 4.6, students: 11200, progress: 100, color: '#92400E', iconKey: 'leadership' },
+  { id: 5, title: 'Confidence Building', category: 'Interview Prep', duration: '8h', lessons: 36, rating: 4.9, students: 18500, progress: 15, color: '#991B1B', iconKey: 'confidence' },
+  { id: 6, title: 'Public Speaking & Presentation', category: 'Communication', duration: '9h', lessons: 38, rating: 4.5, students: 7600, progress: 0, color: '#374151', iconKey: 'presentation' },
 ]
 
-const categories = ['All', 'Programming', 'Web Development', 'AI/ML', 'Databases', 'Interview Prep', 'Soft Skills']
+const categories = ['All', 'Communication', 'Sales', 'Productivity', 'Leadership', 'Interview Prep']
 
 export default function AICoursesPage() {
   const [activeCategory, setActiveCategory] = useState('All')
@@ -44,7 +44,7 @@ export default function AICoursesPage() {
           className="mb-8"
         >
           <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
-          <p className="text-gray-500">Learn from AI-powered interactive courses</p>
+          <p className="text-gray-500">AI-powered soft skill courses with interactive simulations</p>
         </motion.div>
 
         <motion.div
@@ -71,7 +71,7 @@ export default function AICoursesPage() {
         <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" layout>
           <AnimatePresence>
             {filteredCourses.map((course, index) => {
-              const IconComp = courseIcons[course.iconKey] || Code
+              const IconComp = (courseIcons[course.iconKey] || MessageSquare) as typeof MessageSquare
               return (
                 <motion.div
                   key={course.id}
@@ -146,7 +146,7 @@ export default function AICoursesPage() {
                 exit={{ scale: 0.95, y: 20 }}
               >
                 {(() => {
-                  const IconComp = courseIcons[selectedCourse.iconKey] || Code
+                  const IconComp = (courseIcons[selectedCourse.iconKey] || MessageSquare) as typeof MessageSquare
                   return (
                     <div className="h-64 md:h-80 relative flex items-center justify-center bg-gray-50">
                       <IconComp size={80} className="text-gray-200" />

@@ -12,18 +12,18 @@ interface QuizQuestion {
 
 const sampleQuestions: QuizQuestion[] = [
   {
-    question: 'What is the time complexity of binary search?',
-    options: ['O(n)', 'O(log n)', 'O(n log n)', 'O(1)'],
+    question: 'Which body language signal conveys confidence during a presentation?',
+    options: ['Crossed arms', 'Open palms', 'Looking down', 'Fidgeting'],
     correct: 1,
   },
   {
-    question: 'Which data structure uses FIFO principle?',
-    options: ['Stack', 'Queue', 'Tree', 'Graph'],
+    question: 'What is the ideal pace for public speaking?',
+    options: ['200+ wpm', '120-150 wpm', '80-100 wpm', '50-70 wpm'],
     correct: 1,
   },
   {
-    question: 'What does SQL stand for?',
-    options: ['Structured Query Language', 'Simple Query Language', 'Standard Query Logic', 'System Query Language'],
+    question: 'Which active listening technique involves restating what someone said?',
+    options: ['Paraphrasing', 'Summarizing', 'Empathizing', 'Clarifying'],
     correct: 0,
   },
 ]

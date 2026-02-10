@@ -35,9 +35,9 @@ const feedIcons: Record<string, React.ElementType> = {
 }
 
 const activityFeed = [
-  { user: 'Priya S.', action: 'completed Python Advanced quiz', time: '2m ago', iconKey: 'quiz', color: '#1E40AF' },
-  { user: 'Rahul V.', action: 'earned React certification', time: '5m ago', iconKey: 'certification', color: '#92400E' },
-  { user: 'Ananya D.', action: 'started System Design course', time: '8m ago', iconKey: 'course', color: '#1E40AF' },
+  { user: 'Priya S.', action: 'completed Communication Skills quiz', time: '2m ago', iconKey: 'quiz', color: '#1E40AF' },
+  { user: 'Rahul V.', action: 'earned Sales & Persuasion certification', time: '5m ago', iconKey: 'certification', color: '#92400E' },
+  { user: 'Ananya D.', action: 'started Leadership Fundamentals course', time: '8m ago', iconKey: 'course', color: '#1E40AF' },
   { user: 'Vikram P.', action: 'booked mentor session', time: '12m ago', iconKey: 'mentor', color: '#166534' },
   { user: 'Sneha I.', action: 'completed mock interview', time: '15m ago', iconKey: 'interview', color: '#1E40AF' },
   { user: 'Arjun M.', action: 'updated resume (ATS: 92)', time: '18m ago', iconKey: 'resume', color: '#6B7280' },
@@ -207,7 +207,7 @@ export default function AdminPage() {
             </div>
             <div className="space-y-3 overflow-y-auto max-h-[520px] pr-1">
               {feedItems.map((item, i) => {
-                const FeedIcon = feedIcons[item.iconKey] || Target
+                const FeedIcon = (feedIcons[item.iconKey] || Target) as typeof Target
                 return (
                   <motion.div
                     key={`${item.user}-${item.time}-${i}`}

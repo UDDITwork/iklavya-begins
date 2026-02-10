@@ -20,7 +20,15 @@ export default function CinematicFooter() {
   const [email, setEmail] = useState('')
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 pt-16 pb-8 px-4 sm:px-6">
+    <footer className="relative bg-gray-50 border-t border-gray-200 pt-16 pb-8 px-4 sm:px-6">
+      {/* Gradient accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{
+          background: 'linear-gradient(90deg, transparent 5%, #60a5fa 30%, #818cf8 50%, #60a5fa 70%, transparent 95%)',
+        }}
+      />
+
       <div className="max-w-6xl mx-auto">
         {/* Newsletter */}
         <div className="text-center mb-14 max-w-md mx-auto">

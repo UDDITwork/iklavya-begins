@@ -38,6 +38,87 @@ body {
   background: #9CA3AF;
 }
 
+/* Hero gradient mesh */
+@keyframes meshDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.05); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.hero-mesh {
+  position: relative;
+  overflow: hidden;
+}
+.hero-mesh::before,
+.hero-mesh::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: meshDrift 20s ease-in-out infinite;
+}
+.hero-mesh::before {
+  width: 500px;
+  height: 500px;
+  background: rgba(96, 165, 250, 0.07);
+  top: -100px;
+  right: 5%;
+}
+.hero-mesh::after {
+  width: 400px;
+  height: 400px;
+  background: rgba(99, 102, 241, 0.05);
+  bottom: -80px;
+  left: 15%;
+  animation-delay: -10s;
+}
+
+/* Spotlight card utility */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(30, 64, 175, 0.04),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Gradient border on hover */
+.gradient-border-hover {
+  position: relative;
+}
+.gradient-border-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(96,165,250,0.3), rgba(99,102,241,0.1), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.gradient-border-hover:hover::after {
+  opacity: 1;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

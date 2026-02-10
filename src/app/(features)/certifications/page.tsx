@@ -4,26 +4,26 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import {
   Award, Download, Share2, QrCode, Lock,
-  Code, MonitorPlay, Database, Brain, Network, MessageSquare,
+  MessageSquare, Handshake, Timer, Brain, TrendingUp, MonitorPlay,
   Star, Flame, Zap, Target
 } from 'lucide-react'
 
 const certIcons: Record<string, React.ElementType> = {
-  python: Code,
-  react: MonitorPlay,
-  sql: Database,
+  python: MessageSquare,
+  react: Handshake,
+  sql: Timer,
   ml: Brain,
-  system: Network,
-  comm: MessageSquare,
+  system: TrendingUp,
+  comm: MonitorPlay,
 }
 
 const certificates = [
-  { id: 1, title: 'Python Advanced', issueDate: '2025-01-15', status: 'earned', grade: 'A', color: '#1E40AF', iconKey: 'python' },
-  { id: 2, title: 'React & Next.js', issueDate: '2025-02-01', status: 'earned', grade: 'A+', color: '#1E40AF', iconKey: 'react' },
-  { id: 3, title: 'SQL Fundamentals', issueDate: '2024-12-20', status: 'earned', grade: 'B+', color: '#92400E', iconKey: 'sql' },
-  { id: 4, title: 'Machine Learning', issueDate: '', status: 'in-progress', grade: '', color: '#166534', iconKey: 'ml', progress: 45 },
-  { id: 5, title: 'System Design', issueDate: '', status: 'locked', grade: '', color: '#991B1B', iconKey: 'system', progress: 0 },
-  { id: 6, title: 'Communication Pro', issueDate: '', status: 'locked', grade: '', color: '#6B7280', iconKey: 'comm', progress: 0 },
+  { id: 1, title: 'Communication Mastery', issueDate: '2025-01-15', status: 'earned', grade: 'A', color: '#1E40AF', iconKey: 'python' },
+  { id: 2, title: 'Sales & Persuasion', issueDate: '2025-02-01', status: 'earned', grade: 'A+', color: '#1E40AF', iconKey: 'react' },
+  { id: 3, title: 'Time Management', issueDate: '2024-12-20', status: 'earned', grade: 'B+', color: '#92400E', iconKey: 'sql' },
+  { id: 4, title: 'Leadership Skills', issueDate: '', status: 'in-progress', grade: '', color: '#166534', iconKey: 'ml', progress: 45 },
+  { id: 5, title: 'Negotiation Expert', issueDate: '', status: 'locked', grade: '', color: '#991B1B', iconKey: 'system', progress: 0 },
+  { id: 6, title: 'Public Speaking Pro', issueDate: '', status: 'locked', grade: '', color: '#6B7280', iconKey: 'comm', progress: 0 },
 ]
 
 const badgeIcons: Record<string, React.ElementType> = {
@@ -81,7 +81,7 @@ export default function CertificationsPage() {
           <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Micro-Credentials</h3>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {badges.map((badge, i) => {
-              const BadgeIcon = badgeIcons[badge.iconKey] || Star
+              const BadgeIcon = (badgeIcons[badge.iconKey] || Star) as typeof Star
               return (
                 <motion.div
                   key={badge.name}
@@ -111,7 +111,7 @@ export default function CertificationsPage() {
         {/* Certificate Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {certificates.map((cert, i) => {
-            const CertIcon = certIcons[cert.iconKey] || Code
+            const CertIcon = (certIcons[cert.iconKey] || MessageSquare) as typeof MessageSquare
             return (
               <motion.div
                 key={cert.id}
