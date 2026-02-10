@@ -47,7 +47,7 @@ const Waveform = () => (
     {[...Array(20)].map((_, i) => (
       <motion.div
         key={i}
-        className="w-1 bg-indigo-500 rounded-full"
+        className="w-1 bg-blue-500 rounded-full"
         animate={{
           height: [10, Math.random() * 40 + 10, 10],
           opacity: [0.3, 1, 0.3]
@@ -126,25 +126,25 @@ export default function NewLandingPage() {
       tag: "Real-time AI",
       desc: "Experience 0.2s latency feedback. Our engine analyzes tone, sentiment, and technical accuracy as you speak.",
       visual: (
-        <div className="bg-slate-900 rounded-xl p-6 shadow-2xl border border-slate-700">
+        <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="flex justify-between items-center mb-6">
             <div className="flex gap-2">
               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span className="text-[10px] text-slate-400 font-mono">LATENCY: 184ms</span>
+              <span className="text-[10px] text-slate-500 font-mono">LATENCY: 184ms</span>
             </div>
-            <div className="text-[10px] text-emerald-400 font-mono">STABILITY: 99.9%</div>
+            <div className="text-[10px] text-emerald-600 font-mono font-bold">STABILITY: 99.9%</div>
           </div>
           <div className="space-y-4">
-            <div className="flex gap-4 items-center bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-              <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center">
+            <div className="flex gap-4 items-center bg-blue-50 p-3 rounded-lg border border-blue-100">
+              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
                 <Mic className="text-white w-5 h-5" />
               </div>
               <Waveform />
             </div>
-            <div className="bg-indigo-900/30 p-4 rounded-lg border border-indigo-500/30">
-              <p className="text-[11px] text-indigo-300 font-mono mb-2">AI LIVE ANALYSIS:</p>
-              <p className="text-xs text-white leading-relaxed">
-                &quot;Subject shows strong grasp of <span className="text-amber-400">System Design</span>. Suggesting deeper dive into <span className="text-amber-400">Consistency models</span>.&quot;
+            <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+              <p className="text-[11px] text-blue-600 font-mono mb-2">AI LIVE ANALYSIS:</p>
+              <p className="text-xs text-slate-700 leading-relaxed">
+                &quot;Subject shows strong grasp of <span className="text-orange-500 font-bold">System Design</span>. Suggesting deeper dive into <span className="text-orange-500 font-bold">Consistency models</span>.&quot;
               </p>
             </div>
           </div>
@@ -407,30 +407,30 @@ export default function NewLandingPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-24 items-center">
               <div className="relative">
-                <div className="bg-slate-800 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 relative overflow-hidden shadow-2xl">
+                <div className="bg-white border border-slate-200 rounded-2xl p-8 relative overflow-hidden shadow-lg">
                   <div className="flex justify-between items-center mb-10">
                     <div className="flex items-center gap-2">
                       <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-[10px] font-black tracking-widest uppercase text-white">Live Arena: DSA Speed Quiz</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-800">Live Arena: DSA Speed Quiz</span>
                     </div>
-                    <div className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold">14,203 LIVE</div>
+                    <div className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded text-[10px] font-bold border border-emerald-200">14,203 LIVE</div>
                   </div>
 
                   <div className="space-y-6">
                     {[
-                      { name: "Arjun K.", score: "2840 pts", rank: 1, color: "text-amber-400" },
-                      { name: "Priya M.", score: "2790 pts", rank: 2, color: "text-slate-300" },
-                      { name: "Siddharth", score: "2650 pts", rank: 3, color: "text-orange-400" }
+                      { name: "Arjun K.", score: "2840 pts", rank: 1, color: "text-amber-500" },
+                      { name: "Priya M.", score: "2790 pts", rank: 2, color: "text-slate-500" },
+                      { name: "Siddharth", score: "2650 pts", rank: 3, color: "text-orange-500" }
                     ].map((user, i) => (
-                      <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
+                      <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
                         <div className="flex items-center gap-4">
                           <span className={`font-serif italic font-bold text-xl ${user.color}`}>#{user.rank}</span>
                           <div>
-                            <p className="font-bold text-sm text-white">{user.name}</p>
+                            <p className="font-bold text-sm text-slate-800">{user.name}</p>
                             <p className="text-[10px] text-slate-400 uppercase">NIT Trichy</p>
                           </div>
                         </div>
-                        <span className="font-mono text-amber-400">{user.score}</span>
+                        <span className="font-mono text-amber-600 font-semibold">{user.score}</span>
                       </div>
                     ))}
                   </div>
