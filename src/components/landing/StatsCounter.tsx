@@ -7,10 +7,10 @@ import { Users, BookOpen, Award, Mic } from 'lucide-react'
 import DotGridPattern from '@/components/illustrations/decorative/DotGridPattern'
 
 const stats = [
-  { label: 'Active Students', value: 50000, icon: Users, suffix: '+' },
-  { label: 'Courses Completed', value: 125000, icon: BookOpen, suffix: '+' },
-  { label: 'Certifications Issued', value: 32000, icon: Award, suffix: '+' },
-  { label: 'Interview Sessions', value: 89000, icon: Mic, suffix: '+' },
+  { label: 'Active Students', value: 480, icon: Users, suffix: '+' },
+  { label: 'Courses Completed', value: 1250, icon: BookOpen, suffix: '+' },
+  { label: 'Certifications Issued', value: 320, icon: Award, suffix: '+' },
+  { label: 'Interview Sessions', value: 890, icon: Mic, suffix: '+' },
 ]
 
 function CelebrationDots({ trigger }: { trigger: boolean }) {
@@ -82,7 +82,7 @@ export default function StatsCounter() {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-            Trusted by Thousands
+            Growing Every Day
           </h2>
           <p className="text-gray-500">
             Join the growing community of career-ready students.
