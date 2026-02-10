@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import {
   Mic, MicOff, Video, VideoOff, Phone, Clock, MessageSquare, User, Volume2,
-  Bot, TrendingUp, Award, AlertCircle, Lightbulb, Activity
+  Bot, TrendingUp, Award, AlertCircle, Lightbulb, Activity,
+  Briefcase, BarChart3, Handshake, Scale, Users
 } from 'lucide-react'
 import AIAvatarScene from '@/components/features/AIAvatarScene'
 
@@ -24,12 +25,20 @@ interface TranscriptEntry {
 
 /* ─── Constants ─── */
 
+const scenarioIcons: Record<string, React.ElementType> = {
+  job: Briefcase,
+  sales: BarChart3,
+  negotiation: Handshake,
+  conflict: Scale,
+  team: Users,
+}
+
 const scenarios = [
-  { id: 'job', label: 'Job Interview Q&A', role: 'HR Manager', icon: '💼' },
-  { id: 'sales', label: 'Sales Pitch', role: 'Client', icon: '📊' },
-  { id: 'negotiation', label: 'Negotiation', role: 'Stakeholder', icon: '🤝' },
-  { id: 'conflict', label: 'Conflict Resolution', role: 'Team Lead', icon: '⚖️' },
-  { id: 'team', label: 'Team Discussion', role: 'Manager', icon: '👥' },
+  { id: 'job', label: 'Job Interview Q&A', role: 'HR Manager' },
+  { id: 'sales', label: 'Sales Pitch', role: 'Client' },
+  { id: 'negotiation', label: 'Negotiation', role: 'Stakeholder' },
+  { id: 'conflict', label: 'Conflict Resolution', role: 'Team Lead' },
+  { id: 'team', label: 'Team Discussion', role: 'Manager' },
 ]
 
 const scenarioQuestions: Record<string, string[]> = {
@@ -785,23 +794,26 @@ export default function AIInterviewPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
-                {scenarios.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setSelectedScenario(s)}
-                    className={`p-4 rounded-xl border text-left transition-all duration-200 ${
-                      selectedScenario.id === s.id
-                        ? 'bg-blue-50 border-blue-200 shadow-sm'
-                        : 'bg-white border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg">{s.icon}</span>
-                      <span className="font-medium text-gray-900 text-sm">{s.label}</span>
-                    </div>
-                    <div className="text-xs text-gray-400">AI plays: {s.role}</div>
-                  </button>
-                ))}
+                {scenarios.map((s) => {
+                  const ScenarioIcon = (scenarioIcons[s.id] || Briefcase) as typeof Briefcase
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => setSelectedScenario(s)}
+                      className={`p-4 rounded-xl border text-left transition-all duration-200 ${
+                        selectedScenario.id === s.id
+                          ? 'bg-blue-50 border-blue-200 shadow-sm'
+                          : 'bg-white border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <ScenarioIcon size={18} className={selectedScenario.id === s.id ? 'text-blue-800' : 'text-gray-400'} />
+                        <span className="font-medium text-gray-900 text-sm">{s.label}</span>
+                      </div>
+                      <div className="text-xs text-gray-400">AI plays: {s.role}</div>
+                    </button>
+                  )
+                })}
               </div>
 
               {/* Preview questions for selected scenario */}
@@ -873,7 +885,7 @@ export default function AIInterviewPage() {
             >
               <div className="lg:col-span-3 space-y-4">
                 <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-blue-50 border border-blue-100">
-                  <span className="text-lg">{selectedScenario.icon}</span>
+                  {(() => { const I = (scenarioIcons[selectedScenario.id] || Briefcase) as typeof Briefcase; return <I size={16} className="text-blue-800" /> })()}
                   <span className="text-sm font-medium text-blue-800">{selectedScenario.label}</span>
                   <span className="text-xs text-blue-600">AI role: {selectedScenario.role}</span>
                 </div>
