@@ -2,12 +2,9 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { lazy, Suspense } from 'react'
 import {
-  Mic, BookOpen, FileText, BarChart3, Zap,
+  Mic, BookOpen, FileText, BarChart3, Zap, TrendingUp, MessageSquare
 } from 'lucide-react'
-
-const HeroMesh = lazy(() => import('@/components/three/HeroMesh'))
 
 const features = [
   { icon: Mic, label: 'AI Interview' },
@@ -17,17 +14,162 @@ const features = [
   { icon: Zap, label: 'Quiz' },
 ]
 
-function MeshFallback() {
+/* ─── Floating UI Preview Cards ─── */
+
+function ConfidenceCard() {
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-100 to-indigo-50 animate-pulse" />
+    <motion.div
+      className="absolute top-6 right-0 w-52 bg-white rounded-xl border border-gray-200 shadow-lg p-4"
+      initial={{ opacity: 0, y: 20, x: 10 }}
+      animate={{ opacity: 1, y: 0, x: 0 }}
+      transition={{ delay: 0.6, duration: 0.5 }}
+    >
+      <div className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">Confidence Score</div>
+      <div className="flex items-end gap-2 mb-3">
+        <span className="text-3xl font-bold text-gray-900">78</span>
+        <span className="text-xs text-green-600 font-medium pb-1 flex items-center gap-0.5">
+          <TrendingUp size={10} /> +12
+        </span>
+      </div>
+      <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full rounded-full bg-blue-600"
+          initial={{ width: 0 }}
+          animate={{ width: '78%' }}
+          transition={{ delay: 1.2, duration: 1, ease: 'easeOut' }}
+        />
+      </div>
+    </motion.div>
+  )
+}
+
+function SkillBarsCard() {
+  const skills = [
+    { name: 'Communication', value: 82, color: '#1E40AF' },
+    { name: 'Leadership', value: 68, color: '#166534' },
+    { name: 'Negotiation', value: 45, color: '#92400E' },
+  ]
+  return (
+    <motion.div
+      className="absolute bottom-16 -left-4 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-4"
+      initial={{ opacity: 0, y: 20, x: -10 }}
+      animate={{ opacity: 1, y: 0, x: 0 }}
+      transition={{ delay: 0.8, duration: 0.5 }}
+    >
+      <div className="text-[10px] text-gray-400 uppercase tracking-wider mb-3">Skill Proficiency</div>
+      <div className="space-y-2.5">
+        {skills.map((s, i) => (
+          <div key={s.name}>
+            <div className="flex justify-between text-[11px] mb-1">
+              <span className="text-gray-600">{s.name}</span>
+              <span className="text-gray-400">{s.value}%</span>
+            </div>
+            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full rounded-full"
+                style={{ background: s.color }}
+                initial={{ width: 0 }}
+                animate={{ width: `${s.value}%` }}
+                transition={{ delay: 1.4 + i * 0.15, duration: 0.8, ease: 'easeOut' }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+function ChatPreviewCard() {
+  return (
+    <motion.div
+      className="absolute top-1/2 -translate-y-1/2 left-8 w-48 bg-white rounded-xl border border-gray-200 shadow-lg p-3"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 1, duration: 0.5 }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
+          <MessageSquare size={10} className="text-blue-700" />
+        </div>
+        <span className="text-[10px] text-gray-400">AI Career Coach</span>
+      </div>
+      <div className="space-y-1.5">
+        <div className="px-2.5 py-1.5 rounded-lg bg-gray-50 text-[10px] text-gray-600 leading-relaxed">
+          Your communication score improved by 15% this week
+        </div>
+        <div className="flex justify-end">
+          <div className="px-2.5 py-1.5 rounded-lg bg-blue-600 text-[10px] text-white">
+            Show roadmap
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function WaveformCard() {
+  return (
+    <motion.div
+      className="absolute bottom-4 right-8 w-44 bg-white rounded-xl border border-gray-200 shadow-lg p-3"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.2, duration: 0.5 }}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[10px] text-gray-400">Voice Analysis</span>
+        <motion.div
+          className="w-2 h-2 rounded-full bg-green-500"
+          animate={{ opacity: [1, 0.4, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        />
+      </div>
+      <div className="flex items-end gap-[2px] h-6">
+        {Array.from({ length: 18 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="w-[3px] rounded-full bg-blue-300"
+            animate={{ height: ['4px', `${6 + Math.random() * 16}px`, '4px'] }}
+            transition={{
+              duration: 0.7 + Math.random() * 0.4,
+              repeat: Infinity,
+              delay: i * 0.05,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+function HeroVisual() {
+  return (
+    <div className="relative w-full h-full">
+      {/* Central gradient orb */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          className="w-64 h-64 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(96,165,250,0.12) 0%, rgba(99,102,241,0.06) 50%, transparent 70%)',
+          }}
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
+
+      {/* Floating cards */}
+      <ConfidenceCard />
+      <SkillBarsCard />
+      <ChatPreviewCard />
+      <WaveformCard />
     </div>
   )
 }
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-white py-20 md:py-32 hero-mesh">
+    <section className="relative bg-white py-20 md:py-32 hero-mesh overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Column */}
@@ -108,26 +250,14 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* 3D Element Column — desktop only */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="hidden md:block h-[400px] lg:h-[450px] relative"
-          >
-            <Suspense fallback={<MeshFallback />}>
-              <HeroMesh />
-            </Suspense>
-          </motion.div>
-
-          {/* Mobile decorative element */}
+          {/* Floating Product Preview — desktop only */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="md:hidden flex justify-center py-4"
+            className="hidden md:block h-[420px] lg:h-[460px] relative"
           >
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 opacity-60" />
+            <HeroVisual />
           </motion.div>
         </div>
       </div>
