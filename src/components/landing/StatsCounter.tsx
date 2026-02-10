@@ -4,6 +4,7 @@ import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useEffect, useState } from 'react'
 import { Users, BookOpen, Award, Mic } from 'lucide-react'
+import DotGridPattern from '@/components/illustrations/decorative/DotGridPattern'
 
 const stats = [
   { label: 'Active Students', value: 50000, icon: Users, suffix: '+' },
@@ -70,6 +71,9 @@ export default function StatsCounter() {
 
   return (
     <section className="relative py-20 md:py-24 px-4 sm:px-6 bg-white">
+      {/* Subtle dot grid background texture */}
+      <DotGridPattern />
+
       <div className="max-w-6xl mx-auto" ref={ref}>
         <motion.div
           className="text-center mb-14"

@@ -8,6 +8,7 @@ import {
   Briefcase, BarChart3, Handshake, Scale, Users
 } from 'lucide-react'
 import AIAvatarScene from '@/components/features/AIAvatarScene'
+import InterviewStageScene from '@/components/illustrations/scenes/InterviewStageScene'
 
 /* ─── Types ─── */
 
@@ -783,7 +784,12 @@ export default function AIInterviewPage() {
               exit={{ opacity: 0, y: -20 }}
               className="max-w-3xl mx-auto py-12"
             >
-              <div className="text-center mb-10">
+              <div className="text-center mb-10 relative">
+                {/* Background scene illustration */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+                  <InterviewStageScene className="w-[400px] h-[300px]" />
+                </div>
+                <div className="relative z-10">
                 <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border border-gray-200">
                   <AIAvatarScene />
                 </div>
@@ -791,6 +797,7 @@ export default function AIInterviewPage() {
                 <p className="text-gray-500 max-w-lg mx-auto">
                   AI assumes a role and evaluates your speech patterns, confidence, clarity, and persuasiveness in real-time.
                 </p>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import ResumePreview from '@/components/features/ResumePreview'
+import ResumeDocSpot from '@/components/illustrations/spots/ResumeDocSpot'
 
 export default function ResumeBuilderPage() {
   return (
@@ -12,8 +13,15 @@ export default function ResumeBuilderPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Resume Builder</h1>
-          <p className="text-gray-500">Build ATS-optimized resumes with AI assistance</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Resume Builder</h1>
+              <p className="text-gray-500">Build ATS-optimized resumes with AI assistance</p>
+            </div>
+            <div className="hidden md:block w-36 h-28">
+              <ResumeDocSpot className="w-full h-full" />
+            </div>
+          </div>
         </motion.div>
 
         <motion.div

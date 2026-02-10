@@ -5,6 +5,8 @@ import Link from 'next/link'
 import {
   Mic, BookOpen, FileText, BarChart3, Zap, TrendingUp, MessageSquare
 } from 'lucide-react'
+import SkillConstellationHero from '@/components/illustrations/scenes/SkillConstellationHero'
+import FloatingShapes from '@/components/illustrations/decorative/FloatingShapes'
 
 const features = [
   { icon: Mic, label: 'AI Interview' },
@@ -146,19 +148,12 @@ function WaveformCard() {
 function HeroVisual() {
   return (
     <div className="relative w-full h-full">
-      {/* Central gradient orb */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          className="w-64 h-64 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(96,165,250,0.12) 0%, rgba(99,102,241,0.06) 50%, transparent 70%)',
-          }}
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        />
+      {/* Skill constellation illustration — background layer */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-25">
+        <SkillConstellationHero className="w-[340px] h-[340px] lg:w-[400px] lg:h-[400px]" />
       </div>
 
-      {/* Floating cards */}
+      {/* Floating cards — foreground layer */}
       <ConfidenceCard />
       <SkillBarsCard />
       <ChatPreviewCard />
@@ -170,6 +165,9 @@ function HeroVisual() {
 export default function HeroSection() {
   return (
     <section className="relative bg-white py-20 md:py-32 hero-mesh overflow-hidden">
+      {/* Background floating shapes */}
+      <FloatingShapes />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Column */}

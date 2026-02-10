@@ -7,6 +7,7 @@ import {
   MessageSquare, Handshake, Timer, Brain, TrendingUp, MonitorPlay,
   Star, Flame, Zap, Target
 } from 'lucide-react'
+import CertificateShowcase from '@/components/illustrations/scenes/CertificateShowcase'
 
 const certIcons: Record<string, React.ElementType> = {
   python: MessageSquare,
@@ -61,14 +62,19 @@ export default function CertificationsPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* Header */}
+        {/* Header with illustration */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-8 flex items-center gap-6"
         >
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Certifications & Badges</h1>
-          <p className="text-gray-500">Your achievement trophy room</p>
+          <div className="flex-1">
+            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Certifications & Badges</h1>
+            <p className="text-gray-500">Your achievement trophy room</p>
+          </div>
+          <div className="hidden md:block w-48 h-36">
+            <CertificateShowcase className="w-full h-full" />
+          </div>
         </motion.div>
 
         {/* Badge Showcase */}

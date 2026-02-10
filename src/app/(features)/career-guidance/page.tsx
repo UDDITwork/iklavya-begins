@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Send, User, Bot, Lightbulb } from 'lucide-react'
+import CareerPathScene from '@/components/illustrations/scenes/CareerPathScene'
 
 interface Message {
   id: number
@@ -121,12 +122,15 @@ export default function CareerGuidancePage() {
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="font-semibold text-gray-900">AI Career Coach</h1>
             <div className="flex items-center gap-1 text-xs text-green-600">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
               <span>Analyzing your profile...</span>
             </div>
+          </div>
+          <div className="hidden md:block w-32 h-20 opacity-40">
+            <CareerPathScene className="w-full h-full" />
           </div>
         </div>
       </div>

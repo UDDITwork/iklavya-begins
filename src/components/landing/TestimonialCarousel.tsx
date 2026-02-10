@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import GeometricAvatar from '@/components/illustrations/avatars/GeometricAvatars'
 
 const testimonials = [
   {
@@ -74,9 +75,7 @@ export default function TestimonialCarousel() {
               &ldquo;{testimonials[current].content}&rdquo;
             </p>
             <div className="flex items-center justify-center gap-4">
-              <div className="w-11 h-11 rounded-full bg-blue-50 flex items-center justify-center font-semibold text-blue-800 text-sm">
-                {testimonials[current].avatar}
-              </div>
+              <GeometricAvatar index={current} className="w-11 h-11" />
               <div className="text-left">
                 <div className="font-semibold text-gray-900 text-sm">
                   {testimonials[current].name}

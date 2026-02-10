@@ -5,6 +5,13 @@ import { useState } from 'react'
 import {
   Play, Pause, Clock, BookOpen, Award, Star, Users, MessageSquare, Handshake, Timer, TrendingUp, Mic, MonitorPlay, UserCheck
 } from 'lucide-react'
+import CommSkillSpot from '@/components/illustrations/spots/CommSkillSpot'
+import SalesSkillSpot from '@/components/illustrations/spots/SalesSkillSpot'
+import TimeSkillSpot from '@/components/illustrations/spots/TimeSkillSpot'
+import LeaderSkillSpot from '@/components/illustrations/spots/LeaderSkillSpot'
+import ConfidenceSkillSpot from '@/components/illustrations/spots/ConfidenceSkillSpot'
+import SpeakingSkillSpot from '@/components/illustrations/spots/SpeakingSkillSpot'
+import CourseLibraryScene from '@/components/illustrations/scenes/CourseLibraryScene'
 
 const courseIcons: Record<string, React.ElementType> = {
   comm: MessageSquare,
@@ -13,6 +20,15 @@ const courseIcons: Record<string, React.ElementType> = {
   leadership: TrendingUp,
   confidence: Mic,
   presentation: MonitorPlay,
+}
+
+const courseIllustrations: Record<string, React.ComponentType<{ className?: string }>> = {
+  comm: CommSkillSpot,
+  sales: SalesSkillSpot,
+  time: TimeSkillSpot,
+  leadership: LeaderSkillSpot,
+  confidence: ConfidenceSkillSpot,
+  presentation: SpeakingSkillSpot,
 }
 
 const courses = [
@@ -43,8 +59,15 @@ export default function AICoursesPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
-          <p className="text-gray-500">AI-powered soft skill courses with interactive simulations</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
+              <p className="text-gray-500">AI-powered soft skill courses with interactive simulations</p>
+            </div>
+            <div className="hidden md:block w-44 h-32">
+              <CourseLibraryScene className="w-full h-full" />
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -71,7 +94,7 @@ export default function AICoursesPage() {
         <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" layout>
           <AnimatePresence>
             {filteredCourses.map((course, index) => {
-              const IconComp = (courseIcons[course.iconKey] || MessageSquare) as typeof MessageSquare
+              const IllustrationComp = courseIllustrations[course.iconKey]
               return (
                 <motion.div
                   key={course.id}
@@ -83,8 +106,8 @@ export default function AICoursesPage() {
                   className="group rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm cursor-pointer hover:shadow-md hover:-translate-y-1 transition-all duration-200"
                   onClick={() => setSelectedCourse(course)}
                 >
-                  <div className="h-44 relative flex items-center justify-center bg-gray-50">
-                    <IconComp size={48} className="text-gray-300" />
+                  <div className="h-44 relative flex items-center justify-center bg-gray-50/50">
+                    {IllustrationComp ? <IllustrationComp className="w-40 h-36" /> : null}
 
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
                       <div className="w-14 h-14 rounded-full flex items-center justify-center bg-blue-800">
@@ -146,10 +169,10 @@ export default function AICoursesPage() {
                 exit={{ scale: 0.95, y: 20 }}
               >
                 {(() => {
-                  const IconComp = (courseIcons[selectedCourse.iconKey] || MessageSquare) as typeof MessageSquare
+                  const IllustrationComp = courseIllustrations[selectedCourse.iconKey]
                   return (
-                    <div className="h-64 md:h-80 relative flex items-center justify-center bg-gray-50">
-                      <IconComp size={80} className="text-gray-200" />
+                    <div className="h-64 md:h-80 relative flex items-center justify-center bg-gray-50/50">
+                      {IllustrationComp ? <IllustrationComp className="w-64 h-56" /> : null}
                       <button
                         className="absolute inset-0 flex items-center justify-center"
                         onClick={() => setIsPlaying(!isPlaying)}
