@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   Mic, FileText, Trophy, MessageSquare, CheckCircle,
   ArrowRight, Target, Zap, TrendingUp, BarChart3, Quote,
-  Cpu, Radio, Activity, Layers, Building2
+  Radio, Activity, Building2, Users, Award, Clock
 } from 'lucide-react'
 
 // --- Scroll reveal wrapper ---
@@ -91,22 +91,22 @@ const colleges = [
 // --- Testimonial data ---
 const testimonials = [
   {
-    quote: "I bombed every interview before Iklavya. After 3 weeks of AI mock interviews and the resume engine, I cracked Amazon SDE-1.",
+    quote: "I used to freeze in every interview. After 3 weeks of AI mock interviews focusing on confidence and body language, I landed my dream role at Deloitte.",
     name: "Arjun Mehta",
     college: "NIT Trichy",
-    result: "Placed at Amazon"
+    result: "Placed at Deloitte"
   },
   {
-    quote: "The live quiz arena pushed me to compete daily. My DSA speed went from 40th percentile to 95th. Got a direct-to-interview pass from Flipkart.",
+    quote: "The live quiz arena pushed me to practice communication daily. My public speaking score went from 40th percentile to 95th. Got a direct-to-interview pass.",
     name: "Priya Sharma",
     college: "BITS Pilani",
-    result: "Placed at Flipkart"
+    result: "Placed at EY"
   },
   {
-    quote: "The personalized roadmap knew exactly what I was missing. It shifted my entire learning path after one mock interview. Absolute game changer.",
+    quote: "The personalized roadmap spotted my weak negotiation and teamwork skills. It shifted my entire learning path after one mock interview. Absolute game changer.",
     name: "Siddharth Rao",
     college: "IIT Madras",
-    result: "Placed at Google"
+    result: "Placed at McKinsey"
   }
 ]
 
@@ -124,7 +124,7 @@ export default function NewLandingPage() {
     interview: {
       title: "Ultra-Low Latency Interview Engine",
       tag: "Real-time AI",
-      desc: "Experience 0.2s latency feedback. Our engine analyzes tone, sentiment, and technical accuracy as you speak.",
+      desc: "Experience 0.2s latency feedback. Our engine analyzes tone, confidence, body language, and communication clarity as you speak.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="flex justify-between items-center mb-6">
@@ -144,7 +144,7 @@ export default function NewLandingPage() {
             <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
               <p className="text-[11px] text-blue-600 font-mono mb-2">AI LIVE ANALYSIS:</p>
               <p className="text-xs text-slate-700 leading-relaxed">
-                &quot;Subject shows strong grasp of <span className="text-orange-500 font-bold">System Design</span>. Suggesting deeper dive into <span className="text-orange-500 font-bold">Consistency models</span>.&quot;
+                &quot;Subject shows strong <span className="text-orange-500 font-bold">Communication Clarity</span>. Suggesting deeper focus on <span className="text-orange-500 font-bold">Confident Body Language</span> and eye contact.&quot;
               </p>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function NewLandingPage() {
     guidance: {
       title: "Personalized Neural Roadmap",
       tag: "Career GPS",
-      desc: "Our AI maps your current skills against 4M+ job descriptions to create a unique path to your dream role.",
+      desc: "Our AI maps your current personality traits against industry expectations to create a unique growth path for your dream role.",
       visual: (
         <div className="bg-indigo-50 rounded-xl p-6 shadow-2xl border border-indigo-100 relative overflow-hidden">
           <div className="absolute inset-0">
@@ -196,21 +196,21 @@ export default function NewLandingPage() {
             <div className="flex gap-4">
               <div className="bg-white p-3 rounded-lg shadow-sm border border-indigo-100 flex-1">
                 <p className="text-[9px] font-black text-indigo-600 uppercase">Current Skill</p>
-                <p className="text-xs font-bold">Python Basics</p>
+                <p className="text-xs font-bold">Communication</p>
               </div>
               <div className="bg-indigo-900 p-3 rounded-lg shadow-sm flex-1">
                 <p className="text-[9px] font-black text-indigo-100 uppercase">Target Role</p>
-                <p className="text-xs font-bold text-white">Data Engineer</p>
+                <p className="text-xs font-bold text-white">Team Leader</p>
               </div>
             </div>
             <div className="space-y-2 pt-20">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-amber-400" />
-                <span className="text-[10px] font-bold">Next Module: Apache Kafka</span>
+                <span className="text-[10px] font-bold">Next Module: Negotiation Tactics</span>
               </div>
               <div className="flex items-center gap-2 opacity-50">
                 <div className="w-2 h-2 rounded-full bg-slate-300" />
-                <span className="text-[10px] font-bold">Upcoming: Cloud Architecture</span>
+                <span className="text-[10px] font-bold">Upcoming: Conflict Resolution</span>
               </div>
             </div>
           </div>
@@ -411,7 +411,7 @@ export default function NewLandingPage() {
                   <div className="flex justify-between items-center mb-10">
                     <div className="flex items-center gap-2">
                       <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-800">Live Arena: DSA Speed Quiz</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-800">Live Arena: Communication Challenge</span>
                     </div>
                     <div className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded text-[10px] font-bold border border-emerald-200">14,203 LIVE</div>
                   </div>
@@ -445,7 +445,7 @@ export default function NewLandingPage() {
                 <h2 className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">Live Competitions</h2>
                 <h3 className="text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h3>
                 <p className="text-lg text-slate-600 font-light leading-relaxed">
-                  Don&apos;t just claim skills. Win them. Compete in live quiz broadcasts, real-time coding battles, and communication face-offs. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our 500+ corporate partners.
+                  Don&apos;t just claim skills. Win them. Compete in live quiz broadcasts, real-time negotiation face-offs, and communication challenges. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our corporate partners.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -509,7 +509,7 @@ export default function NewLandingPage() {
                 <h2 className="text-sm font-black text-violet-600 uppercase tracking-[0.4em]">Personalized Learning</h2>
                 <h3 className="text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
                 <p className="text-lg text-slate-600 font-light">
-                  Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack tech depth, we suggest advanced labs.
+                  Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we suggest leadership and negotiation labs.
                 </p>
                 <div className="space-y-4">
                   {["Dynamic Course Shifting", "Live 24/7 Expert Support", "Project-Based Learning", "Industry-Mentor Reviews"].map((item, i) => (
@@ -526,10 +526,10 @@ export default function NewLandingPage() {
 
               <div className="flex-1 grid grid-cols-2 gap-6">
                 {[
-                  { label: "Data Science", icon: <Layers />, color: "bg-blue-500" },
-                  { label: "Soft Skills", icon: <MessageSquare />, color: "bg-orange-500" },
-                  { label: "System Design", icon: <Cpu />, color: "bg-indigo-500" },
-                  { label: "Core Eng", icon: <Building2 />, color: "bg-emerald-500" }
+                  { label: "Communication", icon: <MessageSquare />, color: "bg-blue-500" },
+                  { label: "Negotiation", icon: <Users />, color: "bg-orange-500" },
+                  { label: "Leadership", icon: <Award />, color: "bg-indigo-500" },
+                  { label: "Time Mgmt", icon: <Clock />, color: "bg-emerald-500" }
                 ].map((cat, i) => (
                   <motion.div
                     key={i}
