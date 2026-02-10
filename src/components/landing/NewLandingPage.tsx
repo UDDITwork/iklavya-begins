@@ -242,20 +242,20 @@ export default function NewLandingPage() {
                 </p>
               </div>
               <h1 className="text-8xl md:text-9xl font-serif font-bold text-slate-900 leading-[0.85] tracking-tight">
-                Master the <br /> <span className="text-indigo-900 italic">Unfair</span> Advantage.
+                Master the <br /> <span className="text-blue-600 italic">Unfair</span> Advantage.
               </h1>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
-                Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-indigo-900 font-bold italic">Iklavya.</span>{' '}
+                Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-blue-600 font-bold italic">Iklavya.</span>{' '}
                 Our real-time AI engine turns your potential into professional dominance.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/ai-interview">
-                  <button className="px-10 py-5 bg-indigo-900 text-white font-black uppercase text-xs tracking-widest rounded-sm flex items-center gap-3">
-                    Start Free Mock Interview <Zap className="w-4 h-4 text-amber-400" />
+                  <button className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-blue-200">
+                    Start Free Mock Interview <Zap className="w-4 h-4 text-amber-300" />
                   </button>
                 </Link>
                 <Link href="/live-quiz">
-                  <button className="px-10 py-5 border-2 border-slate-200 text-slate-900 font-black uppercase text-xs tracking-widest rounded-sm">
+                  <button className="px-10 py-5 border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50">
                     Watch Live Competition
                   </button>
                 </Link>
@@ -287,7 +287,7 @@ export default function NewLandingPage() {
                   ))}
                 </div>
                 <div className="mt-8 pt-8 border-t border-slate-100">
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase text-indigo-600">
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase text-blue-600">
                     <span>Global Archer Rank</span>
                     <span>#1,242 / 450k</span>
                   </div>
@@ -320,7 +320,7 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
+              <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
               <h3 className="text-6xl font-serif font-bold">Built for Zero Latency.</h3>
             </div>
 
@@ -330,14 +330,14 @@ export default function NewLandingPage() {
                   <button
                     key={key}
                     onClick={() => setActiveTab(key)}
-                    className={`w-full text-left p-6 rounded-xl transition-all border-2 ${activeTab === key ? 'bg-indigo-900 border-amber-400 shadow-xl translate-x-4' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
+                    className={`w-full text-left p-6 rounded-xl transition-all border-2 ${activeTab === key ? 'bg-blue-600 border-blue-400 shadow-xl shadow-blue-100 translate-x-4' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <span className={`text-[9px] font-black uppercase tracking-widest ${activeTab === key ? 'text-amber-400' : 'text-indigo-600'}`}>{value.tag}</span>
-                      {activeTab === key && <Zap className="w-4 h-4 text-amber-400" />}
+                      <span className={`text-[9px] font-black uppercase tracking-widest ${activeTab === key ? 'text-blue-100' : 'text-blue-600'}`}>{value.tag}</span>
+                      {activeTab === key && <Zap className="w-4 h-4 text-amber-300" />}
                     </div>
                     <h4 className={`text-lg font-bold mb-2 ${activeTab === key ? 'text-white' : 'text-slate-900'}`}>{value.title}</h4>
-                    <p className={`text-xs ${activeTab === key ? 'text-indigo-200' : 'text-slate-500'}`}>{value.desc}</p>
+                    <p className={`text-xs ${activeTab === key ? 'text-blue-100' : 'text-slate-500'}`}>{value.desc}</p>
                   </button>
                 ))}
               </div>
@@ -365,7 +365,7 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em] mb-4">The Process</h2>
+              <h2 className="text-sm font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">The Process</h2>
               <h3 className="text-5xl font-serif font-bold">How Iklavya Works</h3>
             </div>
 
@@ -402,18 +402,18 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 5. LIVE ARENA ===== */}
-      <section className="py-32 bg-indigo-950 text-white overflow-hidden">
+      <section className="py-32 bg-slate-50 overflow-hidden">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-24 items-center">
               <div className="relative">
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 relative overflow-hidden">
+                <div className="bg-slate-800 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 relative overflow-hidden shadow-2xl">
                   <div className="flex justify-between items-center mb-10">
                     <div className="flex items-center gap-2">
                       <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-[10px] font-black tracking-widest uppercase">Live Arena: DSA Speed Quiz</span>
+                      <span className="text-[10px] font-black tracking-widest uppercase text-white">Live Arena: DSA Speed Quiz</span>
                     </div>
-                    <div className="px-3 py-1 bg-white/10 rounded text-[10px]">14,203 LIVE</div>
+                    <div className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold">14,203 LIVE</div>
                   </div>
 
                   <div className="space-y-6">
@@ -422,12 +422,12 @@ export default function NewLandingPage() {
                       { name: "Priya M.", score: "2790 pts", rank: 2, color: "text-slate-300" },
                       { name: "Siddharth", score: "2650 pts", rank: 3, color: "text-orange-400" }
                     ].map((user, i) => (
-                      <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/5">
+                      <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
                         <div className="flex items-center gap-4">
                           <span className={`font-serif italic font-bold text-xl ${user.color}`}>#{user.rank}</span>
                           <div>
-                            <p className="font-bold text-sm">{user.name}</p>
-                            <p className="text-[10px] text-white/40 uppercase">NIT Trichy</p>
+                            <p className="font-bold text-sm text-white">{user.name}</p>
+                            <p className="text-[10px] text-slate-400 uppercase">NIT Trichy</p>
                           </div>
                         </div>
                         <span className="font-mono text-amber-400">{user.score}</span>
@@ -435,32 +435,32 @@ export default function NewLandingPage() {
                     ))}
                   </div>
 
-                  <div className="mt-10 p-4 bg-indigo-600 rounded-lg text-center font-black uppercase text-xs tracking-widest">
+                  <div className="mt-10 p-4 bg-blue-600 rounded-lg text-center font-black uppercase text-xs tracking-widest text-white">
                     Next Quiz Starts in 12:45
                   </div>
                 </div>
               </div>
 
               <div className="space-y-10">
-                <h2 className="text-sm font-black text-amber-400 uppercase tracking-[0.4em]">Live Competitions</h2>
-                <h3 className="text-5xl font-serif font-bold leading-tight">Prove Your Worth <br /> on the National Stage.</h3>
-                <p className="text-lg text-indigo-100 font-light leading-relaxed">
+                <h2 className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">Live Competitions</h2>
+                <h3 className="text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h3>
+                <p className="text-lg text-slate-600 font-light leading-relaxed">
                   Don&apos;t just claim skills. Win them. Compete in live quiz broadcasts, real-time coding battles, and communication face-offs. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our 500+ corporate partners.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <div className="w-10 h-10 bg-white/10 rounded flex items-center justify-center">
-                      <Trophy className="text-amber-400 w-5 h-5" />
+                    <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
+                      <Trophy className="text-orange-500 w-5 h-5" />
                     </div>
-                    <h5 className="font-bold">Live Broadcasts</h5>
-                    <p className="text-xs text-indigo-300">Interact with experts in real-time quiz formats.</p>
+                    <h5 className="font-bold text-slate-900">Live Broadcasts</h5>
+                    <p className="text-xs text-slate-500">Interact with experts in real-time quiz formats.</p>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-10 h-10 bg-white/10 rounded flex items-center justify-center">
-                      <Building2 className="text-amber-400 w-5 h-5" />
+                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                      <Building2 className="text-blue-500 w-5 h-5" />
                     </div>
-                    <h5 className="font-bold">Job Assistance</h5>
-                    <p className="text-xs text-indigo-300">Curated hiring pipelines for high-ranking archers.</p>
+                    <h5 className="font-bold text-slate-900">Job Assistance</h5>
+                    <p className="text-xs text-slate-500">Curated hiring pipelines for high-ranking archers.</p>
                   </div>
                 </div>
               </div>
@@ -470,14 +470,14 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 6. STATS COUNTER STRIP ===== */}
-      <section className="py-20 bg-indigo-900">
+      <section className="py-20 bg-white border-y border-slate-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { target: 520, suffix: '+', label: 'Students Trained' },
-              { target: 15, suffix: '+', label: 'Corporate Partners' },
-              { target: 3200, suffix: '+', label: 'Interviews Simulated' },
-              { target: 99.9, suffix: '%', label: 'Platform Uptime', isDecimal: true }
+              { target: 520, suffix: '+', label: 'Students Trained', color: 'text-blue-600' },
+              { target: 15, suffix: '+', label: 'Corporate Partners', color: 'text-emerald-600' },
+              { target: 3200, suffix: '+', label: 'Interviews Simulated', color: 'text-orange-500' },
+              { target: 99.9, suffix: '%', label: 'Platform Uptime', color: 'text-violet-600', isDecimal: true }
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -486,14 +486,14 @@ export default function NewLandingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <p className="text-4xl md:text-5xl font-bold text-white mb-2">
+                <p className={`text-4xl md:text-5xl font-bold mb-2 ${stat.color}`}>
                   {stat.isDecimal ? (
                     <span>99.9%</span>
                   ) : (
                     <AnimatedCounter target={stat.target} suffix={stat.suffix} />
                   )}
                 </p>
-                <p className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">{stat.label}</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -506,7 +506,7 @@ export default function NewLandingPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-20 items-center">
               <div className="flex-1 space-y-10">
-                <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em]">Personalized Learning</h2>
+                <h2 className="text-sm font-black text-violet-600 uppercase tracking-[0.4em]">Personalized Learning</h2>
                 <h3 className="text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
                 <p className="text-lg text-slate-600 font-light">
                   Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack tech depth, we suggest advanced labs.
@@ -519,7 +519,7 @@ export default function NewLandingPage() {
                     </div>
                   ))}
                 </div>
-                <Link href="/ai-courses" className="text-indigo-900 font-black uppercase text-xs tracking-widest flex items-center gap-2 group">
+                <Link href="/ai-courses" className="text-blue-600 font-black uppercase text-xs tracking-widest flex items-center gap-2 group">
                   Explore Our Module Catalog <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                 </Link>
               </div>
@@ -554,7 +554,7 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em] mb-4">Social Proof</h2>
+              <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Social Proof</h2>
               <h3 className="text-5xl font-serif font-bold">What Archers Say</h3>
             </div>
 
@@ -585,18 +585,18 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 9. CTA FINAL ===== */}
-      <section className="py-20 bg-indigo-900">
+      <section className="py-20 bg-blue-50">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center space-y-10">
-            <h3 className="text-5xl font-serif font-bold text-white">Your Career is Not a <br /> Coincidence.</h3>
-            <p className="text-indigo-200 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
+            <h3 className="text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
+            <p className="text-slate-500 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link href="/ai-interview">
-                <button className="bg-amber-400 text-indigo-950 px-12 py-5 font-black uppercase text-xs tracking-[0.2em] rounded-sm hover:scale-105 transition-transform">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-blue-200">
                   Get Started Now
                 </button>
               </Link>
-              <Link href="/support" className="text-white font-black uppercase text-xs tracking-[0.2em] underline decoration-amber-400 decoration-4 underline-offset-8">
+              <Link href="/support" className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-blue-400 decoration-4 underline-offset-8 hover:text-blue-600">
                 Speak with a Mentor
               </Link>
             </div>
@@ -605,48 +605,48 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 10. FOOTER ===== */}
-      <footer className="bg-slate-900 text-white py-20 border-t border-white/5">
+      <footer className="bg-slate-100 py-20 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-5 gap-12 mb-20">
             <div className="col-span-2 space-y-6">
               <div className="flex items-center gap-3">
-                <Target className="text-amber-400 w-8 h-8" />
-                <span className="text-3xl font-serif font-black">IKLAVYA</span>
+                <Target className="text-blue-600 w-8 h-8" />
+                <span className="text-3xl font-serif font-black text-slate-900">IKLAVYA</span>
               </div>
-              <p className="text-slate-400 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
+              <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
             </div>
             <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-amber-400">Platform</h5>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/ai-interview" className="hover:text-white transition-colors">AI Interview</Link></li>
-                <li><Link href="/ai-courses" className="hover:text-white transition-colors">Video Courses</Link></li>
-                <li><Link href="/resume-builder" className="hover:text-white transition-colors">Resume Builder</Link></li>
-                <li><Link href="/skill-assessment" className="hover:text-white transition-colors">Skill Assessment</Link></li>
-                <li><Link href="/live-quiz" className="hover:text-white transition-colors">Live Quiz</Link></li>
+              <h5 className="text-[10px] font-black uppercase tracking-widest text-blue-600">Platform</h5>
+              <ul className="space-y-2 text-sm text-slate-500">
+                <li><Link href="/ai-interview" className="hover:text-slate-900 transition-colors">AI Interview</Link></li>
+                <li><Link href="/ai-courses" className="hover:text-slate-900 transition-colors">Video Courses</Link></li>
+                <li><Link href="/resume-builder" className="hover:text-slate-900 transition-colors">Resume Builder</Link></li>
+                <li><Link href="/skill-assessment" className="hover:text-slate-900 transition-colors">Skill Assessment</Link></li>
+                <li><Link href="/live-quiz" className="hover:text-slate-900 transition-colors">Live Quiz</Link></li>
               </ul>
             </div>
             <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-amber-400">Resources</h5>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/career-guidance" className="hover:text-white transition-colors">Career Guidance</Link></li>
-                <li><Link href="/certifications" className="hover:text-white transition-colors">Certifications</Link></li>
-                <li><Link href="/support" className="hover:text-white transition-colors">Mentorship</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/support" className="hover:text-white transition-colors">FAQ</Link></li>
+              <h5 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Resources</h5>
+              <ul className="space-y-2 text-sm text-slate-500">
+                <li><Link href="/career-guidance" className="hover:text-slate-900 transition-colors">Career Guidance</Link></li>
+                <li><Link href="/certifications" className="hover:text-slate-900 transition-colors">Certifications</Link></li>
+                <li><Link href="/support" className="hover:text-slate-900 transition-colors">Mentorship</Link></li>
+                <li><Link href="/blog" className="hover:text-slate-900 transition-colors">Blog</Link></li>
+                <li><Link href="/support" className="hover:text-slate-900 transition-colors">FAQ</Link></li>
               </ul>
             </div>
             <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-amber-400">Company</h5>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="/team" className="hover:text-white transition-colors">Team</Link></li>
-                <li><Link href="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <h5 className="text-[10px] font-black uppercase tracking-widest text-orange-500">Company</h5>
+              <ul className="space-y-2 text-sm text-slate-500">
+                <li><Link href="/about" className="hover:text-slate-900 transition-colors">About Us</Link></li>
+                <li><Link href="/team" className="hover:text-slate-900 transition-colors">Team</Link></li>
+                <li><Link href="/careers" className="hover:text-slate-900 transition-colors">Careers</Link></li>
+                <li><Link href="/contact" className="hover:text-slate-900 transition-colors">Contact</Link></li>
+                <li><Link href="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/5 text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
+          <div className="pt-8 border-t border-slate-200 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
             &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. ALL ARCHERS WELCOME.
           </div>
         </div>
