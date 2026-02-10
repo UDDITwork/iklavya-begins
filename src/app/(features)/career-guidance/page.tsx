@@ -2,9 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Send, Sparkles, User, Bot, ChevronDown, Lightbulb } from 'lucide-react'
-import ParticleField from '@/components/animations/ParticleField'
-import GlowingOrb from '@/components/animations/GlowingOrb'
+import { Send, User, Bot, Lightbulb } from 'lucide-react'
 
 interface Message {
   id: number
@@ -37,7 +35,7 @@ function TypingIndicator() {
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-2 h-2 rounded-full bg-purple-400"
+          className="w-2 h-2 rounded-full bg-blue-400"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
         />
@@ -112,24 +110,21 @@ export default function CareerGuidancePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#030014] relative overflow-hidden flex flex-col">
-      <ParticleField particleCount={30} className="opacity-15" />
-      <GlowingOrb size={300} color="rgba(236,72,153,0.06)" x="85%" y="30%" />
-
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <div className="relative z-10 border-b border-white/5">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-4">
+      <div className="border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-4">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500
+            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100
               flex items-center justify-center">
-              <Bot size={20} className="text-white" />
+              <Bot size={20} className="text-blue-800" />
             </div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-400 border-2 border-[#030014]" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white" />
           </div>
           <div>
-            <h1 className="font-semibold text-white">AI Career Coach</h1>
-            <div className="flex items-center gap-1 text-xs text-green-400">
-              <Sparkles size={10} />
+            <h1 className="font-semibold text-gray-900">AI Career Coach</h1>
+            <div className="flex items-center gap-1 text-xs text-green-600">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
               <span>Analyzing your profile...</span>
             </div>
           </div>
@@ -137,8 +132,8 @@ export default function CareerGuidancePage() {
       </div>
 
       {/* Chat Area */}
-      <div className="relative z-10 flex-1 overflow-y-auto">
-        <div className="max-w-4xl mx-auto px-4 py-6 space-y-4">
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-4">
           <AnimatePresence initial={false}>
             {messages.map((msg) => (
               <motion.div
@@ -151,8 +146,8 @@ export default function CareerGuidancePage() {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                     msg.role === 'user'
-                      ? 'bg-blue-500/20 text-blue-400'
-                      : 'bg-purple-500/20 text-purple-400'
+                      ? 'bg-blue-50 text-blue-800'
+                      : 'bg-gray-100 text-gray-600'
                   }`}
                 >
                   {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
@@ -160,15 +155,15 @@ export default function CareerGuidancePage() {
                 <div
                   className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-blue-500/10 border border-blue-500/20 text-white/80'
-                      : 'bg-white/[0.03] border border-white/5 text-white/70'
+                      ? 'bg-blue-800 text-white'
+                      : 'bg-gray-50 border border-gray-200 text-gray-700'
                   }`}
                 >
                   <div className="whitespace-pre-wrap">
                     {msg.content}
                     {msg.isStreaming && (
                       <motion.span
-                        className="inline-block ml-0.5 text-purple-400"
+                        className="inline-block ml-0.5 text-blue-500"
                         animate={{ opacity: [1, 0, 1] }}
                         transition={{ duration: 0.8, repeat: Infinity }}
                       >
@@ -187,10 +182,10 @@ export default function CareerGuidancePage() {
               animate={{ opacity: 1, y: 0 }}
               className="flex items-start gap-3"
             >
-              <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
                 <Bot size={14} />
               </div>
-              <div className="bg-white/[0.03] border border-white/5 rounded-2xl">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl">
                 <TypingIndicator />
               </div>
             </motion.div>
@@ -201,45 +196,43 @@ export default function CareerGuidancePage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="relative z-10 border-t border-white/5">
-        <div className="max-w-4xl mx-auto px-4 pt-3">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="border-t border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-3">
+          <div className="flex gap-2 overflow-x-auto pb-2">
             {quickActions.map((action) => (
-              <motion.button
+              <button
                 key={action}
                 onClick={() => sendMessage(action)}
-                className="px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10
-                  text-xs text-white/40 whitespace-nowrap hover:text-white/70 hover:border-purple-500/30
+                className="px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200
+                  text-xs text-gray-500 whitespace-nowrap hover:text-gray-700 hover:border-gray-300
                   transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 <Lightbulb size={10} className="inline mr-1" />
                 {action}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
 
         {/* Input */}
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4 py-3">
+        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
           <div className="relative">
             <input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about your career path, skills, or interview prep..."
-              className="w-full px-5 py-3.5 pr-12 rounded-full bg-white/[0.03] border border-white/10
-                text-white placeholder:text-white/20 focus:outline-none focus:border-purple-500/40
-                focus:shadow-[0_0_15px_rgba(139,92,246,0.1)] transition-all"
+              className="w-full px-5 py-3.5 pr-12 rounded-full bg-gray-50 border border-gray-200
+                text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-blue-300
+                focus:ring-2 focus:ring-blue-100 transition-all"
             />
             <button
               type="submit"
               disabled={!input.trim()}
               className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full
-                bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center
+                bg-blue-800 flex items-center justify-center
                 text-white disabled:opacity-30 disabled:cursor-not-allowed
-                hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-all"
+                hover:bg-blue-900 transition-colors"
             >
               <Send size={14} />
             </button>

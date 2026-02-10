@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { FileText, Download, Sparkles, Check } from 'lucide-react'
+import { FileText, Download, Sparkles } from 'lucide-react'
 
 interface ResumeSection {
   title: string
@@ -10,10 +10,10 @@ interface ResumeSection {
 }
 
 const templates = [
-  { id: 'modern', name: 'Modern', color: '#3b82f6' },
-  { id: 'minimal', name: 'Minimal', color: '#8b5cf6' },
-  { id: 'creative', name: 'Creative', color: '#ec4899' },
-  { id: 'executive', name: 'Executive', color: '#f59e0b' },
+  { id: 'modern', name: 'Modern', color: '#1E40AF' },
+  { id: 'minimal', name: 'Minimal', color: '#374151' },
+  { id: 'creative', name: 'Creative', color: '#166534' },
+  { id: 'executive', name: 'Executive', color: '#92400E' },
 ]
 
 const sampleSections: ResumeSection[] = [
@@ -50,79 +50,69 @@ export default function ResumePreview() {
       {/* Left: Editor */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 mb-4">
-          <FileText size={20} className="text-purple-400" />
-          <h3 className="font-semibold text-lg">Resume Editor</h3>
+          <FileText size={20} className="text-blue-800" />
+          <h3 className="font-semibold text-lg text-gray-900">Resume Editor</h3>
         </div>
 
-        {/* Template Selector */}
         <div>
-          <label className="text-xs text-white/40 uppercase tracking-wider mb-2 block">Template</label>
+          <label className="text-xs text-gray-500 uppercase tracking-wider mb-2 block">Template</label>
           <div className="flex gap-2">
             {templates.map((t) => (
-              <motion.button
+              <button
                 key={t.id}
                 onClick={() => setActiveTemplate(t.id)}
-                className={`px-3 py-1.5 rounded-lg text-sm transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-sm transition-all duration-200 border ${
                   activeTemplate === t.id
-                    ? 'text-white'
-                    : 'text-white/40 hover:text-white/60'
+                    ? 'text-blue-800 bg-blue-50 border-blue-200'
+                    : 'text-gray-500 bg-white border-gray-200 hover:border-gray-300'
                 }`}
-                style={{
-                  background: activeTemplate === t.id ? `${t.color}20` : 'rgba(255,255,255,0.03)',
-                  border: `1px solid ${activeTemplate === t.id ? `${t.color}50` : 'rgba(255,255,255,0.05)'}`,
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 {t.name}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Form Fields */}
         {sampleSections.map((section) => (
           <div key={section.title}>
-            <label className="text-xs text-white/40 uppercase tracking-wider mb-1.5 block">
+            <label className="text-xs text-gray-500 uppercase tracking-wider mb-1.5 block">
               {section.title}
             </label>
             <textarea
               defaultValue={section.content}
               rows={3}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10
-                text-sm text-white/80 placeholder:text-white/20 resize-none
-                focus:outline-none focus:border-purple-500/50 focus:scale-[1.01]
-                transition-all duration-300"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-200
+                text-sm text-gray-700 placeholder:text-gray-400 resize-none
+                focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                transition-all duration-200"
             />
           </div>
         ))}
 
-        {/* AI Suggestion */}
-        <motion.button
+        <button
           onClick={triggerAISuggestion}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-500/10
-            border border-purple-500/20 text-purple-400 text-sm hover:bg-purple-500/15 transition-colors"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50
+            border border-blue-200 text-blue-800 text-sm hover:bg-blue-100 transition-colors duration-200"
         >
           <Sparkles size={16} />
           Get AI Suggestions
-        </motion.button>
+        </button>
 
         {showSuggestion && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10"
+            className="p-4 rounded-xl bg-blue-50 border border-blue-100"
           >
-            <div className="text-xs text-blue-400 mb-1 flex items-center gap-1">
+            <div className="text-xs text-blue-800 mb-1 flex items-center gap-1">
               <Sparkles size={12} /> AI Suggestion
             </div>
-            <p className="text-sm text-white/60">
+            <p className="text-sm text-gray-600">
               {aiSuggestion}
               <motion.span
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 1, repeat: Infinity }}
+                className="text-blue-800"
               >
                 |
               </motion.span>
@@ -134,17 +124,16 @@ export default function ResumePreview() {
       {/* Right: Preview */}
       <div className="space-y-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-lg">Live Preview</h3>
+          <h3 className="font-semibold text-lg text-gray-900">Live Preview</h3>
 
-          {/* ATS Score */}
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12">
               <svg className="w-12 h-12 -rotate-90" viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
+                <circle cx="24" cy="24" r="20" fill="none" stroke="#E5E7EB" strokeWidth="3" />
                 <motion.circle
                   cx="24" cy="24" r="20"
                   fill="none"
-                  stroke={atsScore >= 80 ? '#10b981' : atsScore >= 60 ? '#f59e0b' : '#ef4444'}
+                  stroke={atsScore >= 80 ? '#166534' : atsScore >= 60 ? '#92400E' : '#991B1B'}
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray={`${2 * Math.PI * 20}`}
@@ -152,21 +141,18 @@ export default function ResumePreview() {
                   transition={{ duration: 1, ease: 'easeOut' }}
                 />
               </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold">
+              <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-900">
                 {atsScore}
               </span>
             </div>
-            <span className="text-xs text-white/40">ATS Score</span>
+            <span className="text-xs text-gray-500">ATS Score</span>
           </div>
         </div>
 
-        {/* Resume Preview Card */}
-        <motion.div
-          className="rounded-xl bg-white p-6 text-gray-900 shadow-2xl min-h-[500px]"
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+        <div
+          className="rounded-xl bg-white p-6 border border-gray-200 shadow-sm min-h-[500px]"
           style={{
-            borderTop: `4px solid ${templates.find(t => t.id === activeTemplate)?.color || '#3b82f6'}`,
+            borderTop: `4px solid ${templates.find(t => t.id === activeTemplate)?.color || '#1E40AF'}`,
           }}
         >
           <div className="mb-4 pb-3 border-b border-gray-200">
@@ -182,7 +168,7 @@ export default function ResumePreview() {
               animate={{ opacity: 1 }}
               transition={{ delay: i * 0.1 }}
             >
-              <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider mb-1"
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-1"
                 style={{ color: templates.find(t => t.id === activeTemplate)?.color }}>
                 {section.title}
               </h3>
@@ -191,19 +177,15 @@ export default function ResumePreview() {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Export */}
-        <motion.button
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-            bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium
-            hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-shadow"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg
+            bg-blue-800 hover:bg-blue-900 text-white font-medium transition-colors duration-200"
         >
           <Download size={16} />
           Export as PDF
-        </motion.button>
+        </button>
       </div>
     </div>
   )

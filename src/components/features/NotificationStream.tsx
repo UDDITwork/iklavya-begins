@@ -22,12 +22,12 @@ const sampleNotifications: Omit<Notification, 'id'>[] = [
 ]
 
 const typeConfig = {
-  whatsapp: { icon: MessageCircle, color: '#25d366' },
-  email: { icon: Mail, color: '#3b82f6' },
-  achievement: { icon: Award, color: '#f59e0b' },
-  course: { icon: BookOpen, color: '#8b5cf6' },
-  quiz: { icon: Zap, color: '#ef4444' },
-  system: { icon: Bell, color: '#6b7280' },
+  whatsapp: { icon: MessageCircle, color: '#166534' },
+  email: { icon: Mail, color: '#1E40AF' },
+  achievement: { icon: Award, color: '#92400E' },
+  course: { icon: BookOpen, color: '#1E40AF' },
+  quiz: { icon: Zap, color: '#991B1B' },
+  system: { icon: Bell, color: '#6B7280' },
 }
 
 export default function NotificationStream() {
@@ -36,7 +36,6 @@ export default function NotificationStream() {
   )
   const [newCount, setNewCount] = useState(3)
 
-  // Simulate new notification arrival
   useEffect(() => {
     const interval = setInterval(() => {
       const sample = sampleNotifications[Math.floor(Math.random() * sampleNotifications.length)]
@@ -54,38 +53,27 @@ export default function NotificationStream() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <motion.div
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
-            >
-              <Bell size={20} className="text-white/60" />
-            </motion.div>
+            <Bell size={20} className="text-gray-500" />
             {newCount > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-red-500
-                  flex items-center justify-center text-[9px] font-bold text-white animate-pulse"
-              >
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-red-500
+                flex items-center justify-center text-[9px] font-bold text-white">
                 {newCount > 9 ? '9+' : newCount}
-              </motion.span>
+              </span>
             )}
           </div>
-          <h3 className="font-semibold">Notifications</h3>
+          <h3 className="font-semibold text-gray-900">Notifications</h3>
         </div>
         <button
           onClick={() => setNewCount(0)}
-          className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
+          className="text-xs text-blue-800 hover:text-blue-900 transition-colors"
         >
           Mark all read
         </button>
       </div>
 
-      {/* Notification List */}
       <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
         <AnimatePresence initial={false}>
           {notifications.map((notif) => {
@@ -98,23 +86,23 @@ export default function NotificationStream() {
                 animate={{ opacity: 1, x: 0, height: 'auto' }}
                 exit={{ opacity: 0, x: -30, height: 0 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5
-                  hover:bg-white/[0.04] hover:border-white/10 transition-colors cursor-pointer group"
+                className="flex items-start gap-3 p-3 rounded-xl bg-white border border-gray-200
+                  hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: `${config.color}15` }}
+                  style={{ background: `${config.color}10` }}
                 >
                   <config.icon size={16} style={{ color: config.color }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium text-white/80 truncate">
+                    <span className="text-sm font-medium text-gray-800 truncate">
                       {notif.title}
                     </span>
-                    <span className="text-[10px] text-white/20 shrink-0">{notif.time}</span>
+                    <span className="text-[10px] text-gray-400 shrink-0">{notif.time}</span>
                   </div>
-                  <p className="text-xs text-white/40 mt-0.5 truncate">
+                  <p className="text-xs text-gray-500 mt-0.5 truncate">
                     {notif.message}
                   </p>
                 </div>

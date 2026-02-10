@@ -74,7 +74,7 @@ export default function SkillRadarChart({
               key={level}
               d={gridPath}
               fill="none"
-              stroke="rgba(255,255,255,0.06)"
+              stroke="#E5E7EB"
               strokeWidth={1}
             />
           )
@@ -90,7 +90,7 @@ export default function SkillRadarChart({
               y1={center}
               x2={center + radius * Math.cos(angle)}
               y2={center + radius * Math.sin(angle)}
-              stroke="rgba(255,255,255,0.06)"
+              stroke="#E5E7EB"
               strokeWidth={1}
             />
           )
@@ -100,8 +100,8 @@ export default function SkillRadarChart({
         {showComparison && comparisonPath && (
           <motion.path
             d={comparisonPath}
-            fill="rgba(239, 68, 68, 0.08)"
-            stroke="rgba(239, 68, 68, 0.4)"
+            fill="rgba(239, 68, 68, 0.06)"
+            stroke="#EF4444"
             strokeWidth={1.5}
             strokeDasharray="4 4"
             initial={{ opacity: 0 }}
@@ -113,25 +113,13 @@ export default function SkillRadarChart({
         {/* Main skill area */}
         <motion.path
           d={mainPath}
-          fill="url(#skillGradient)"
-          stroke="url(#strokeGradient)"
+          fill="rgba(30, 64, 175, 0.08)"
+          stroke="#1E40AF"
           strokeWidth={2}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={inView ? { pathLength: 1, opacity: 1 } : {}}
           transition={{ duration: 1.5, ease: 'easeOut' }}
         />
-
-        {/* Gradient definitions */}
-        <defs>
-          <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(59, 130, 246, 0.15)" />
-            <stop offset="100%" stopColor="rgba(139, 92, 246, 0.15)" />
-          </linearGradient>
-          <linearGradient id="strokeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#8b5cf6" />
-          </linearGradient>
-        </defs>
 
         {/* Data points */}
         {skills.map((skill, i) => {
@@ -142,7 +130,7 @@ export default function SkillRadarChart({
               cx={p.x}
               cy={p.y}
               r={4}
-              fill="#8b5cf6"
+              fill="#1E40AF"
               stroke="#fff"
               strokeWidth={2}
               initial={{ scale: 0, opacity: 0 }}
@@ -165,7 +153,7 @@ export default function SkillRadarChart({
               y={y}
               textAnchor="middle"
               dominantBaseline="middle"
-              className="text-[11px] fill-white/50"
+              className="text-[11px] fill-gray-500"
             >
               {skill.label}
             </text>
