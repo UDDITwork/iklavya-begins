@@ -2,11 +2,30 @@
 
 import { Github, Twitter, Linkedin, Instagram, Send } from 'lucide-react'
 import { useState } from 'react'
+import Link from 'next/link'
 
 const footerLinks = {
-  Platform: ['AI Interview', 'Video Courses', 'Resume Builder', 'Skill Assessment', 'Live Quiz'],
-  Resources: ['Career Guidance', 'Certifications', 'Mentorship', 'Blog', 'FAQ'],
-  Company: ['About Us', 'Team', 'Careers', 'Contact', 'Privacy Policy'],
+  Platform: [
+    { label: 'AI Interview', href: '/ai-interview' },
+    { label: 'Video Courses', href: '/ai-courses' },
+    { label: 'Resume Builder', href: '/resume-builder' },
+    { label: 'Skill Assessment', href: '/skill-assessment' },
+    { label: 'Live Quiz', href: '/live-quiz' },
+  ],
+  Resources: [
+    { label: 'Career Guidance', href: '/career-guidance' },
+    { label: 'Certifications', href: '/certifications' },
+    { label: 'Mentorship', href: '/support' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'FAQ', href: '/support' },
+  ],
+  Company: [
+    { label: 'About Us', href: '/about' },
+    { label: 'Team', href: '/team' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Privacy Policy', href: '/privacy' },
+  ],
 }
 
 const socialIcons = [
@@ -72,13 +91,13 @@ export default function CinematicFooter() {
               </h4>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
                       className="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
