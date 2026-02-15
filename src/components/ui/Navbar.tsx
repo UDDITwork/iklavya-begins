@@ -44,7 +44,7 @@ export default function Navbar() {
                     <div
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200 ${
                         isActive
-                          ? 'bg-blue-50 text-blue-800'
+                          ? 'bg-green-50/40 text-green-800'
                           : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
@@ -58,8 +58,8 @@ export default function Navbar() {
 
             <div className="flex items-center gap-3">
               <Link href="/ai-interview">
-                <button className="hidden sm:block px-5 py-2 rounded-lg bg-blue-800 hover:bg-blue-900
-                  text-white text-xs font-medium transition-colors duration-200">
+                <button className="hidden sm:block px-5 py-2 rounded-lg border-2 border-green-800 hover:bg-green-50
+                  text-green-800 text-xs font-medium transition-colors duration-200">
                   Start Interview
                 </button>
               </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
                     <div
                       className={`flex flex-col items-center gap-1.5 p-3 rounded-xl text-center transition-colors duration-200 ${
                         isActive
-                          ? 'bg-blue-50 text-blue-800'
+                          ? 'bg-green-50/40 text-green-800'
                           : 'text-gray-500 hover:bg-gray-50'
                       }`}
                     >

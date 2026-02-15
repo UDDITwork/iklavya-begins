@@ -36,7 +36,7 @@ const templates = [
   {
     id: 'modern',
     name: 'Modern',
-    color: '#1E40AF',
+    color: '#166534',
     layout: 'two-col',
     desc: 'Photo left, two-column, colored header',
   },
@@ -178,8 +178,8 @@ function TemplateMiniature({ template, active }: { template: typeof templates[0]
         </div>
       )}
       {active && (
-        <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center">
-          <Check size={10} className="text-white" />
+        <div className="absolute top-1 right-1 w-4 h-4 rounded-full border-2 border-green-800 bg-white flex items-center justify-center">
+          <Check size={10} className="text-green-800" />
         </div>
       )}
     </div>
@@ -203,8 +203,8 @@ function PhotoUpload({ photo, onPhotoChange }: { photo: string | null; onPhotoCh
     <div className="flex items-center gap-4">
       <button
         onClick={() => fileRef.current?.click()}
-        className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-blue-400
-          flex items-center justify-center bg-gray-50 hover:bg-blue-50/50 transition-all group overflow-hidden shrink-0"
+        className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-green-600
+          flex items-center justify-center bg-gray-50 hover:bg-green-50/40 transition-all group overflow-hidden shrink-0"
       >
         {photo ? (
           <>
@@ -356,7 +356,7 @@ function SkillTagInput({ skills, onChange }: { skills: string[]; onChange: (s: s
     <div>
       <div
         className="min-h-[48px] p-2 rounded-xl bg-white border border-gray-200 flex flex-wrap gap-1.5
-          focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text"
+          focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green-600 transition-all cursor-text"
         onClick={() => inputRef.current?.focus()}
       >
         {skills.map(skill => (
@@ -383,8 +383,8 @@ function SkillTagInput({ skills, onChange }: { skills: string[]; onChange: (s: s
           <span className="text-[10px] text-gray-400 self-center mr-1">Suggested:</span>
           {filteredSuggestions.slice(0, 5).map(s => (
             <button key={s} onClick={() => addSkill(s)}
-              className="px-2.5 py-1 rounded-full bg-blue-50 text-[10px] text-blue-700
-                border border-blue-100 hover:bg-blue-100 transition-colors">
+              className="px-2.5 py-1 rounded-full bg-green-50/40 text-[10px] text-green-700
+                border border-green-200 hover:bg-green-50 transition-colors">
               + {s}
             </button>
           ))}
@@ -411,8 +411,8 @@ function SectionCard({
         onClick={() => setCollapsed(!collapsed)}
         className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50/50 transition-colors"
       >
-        <div className="w-1 h-8 rounded-full bg-blue-600 shrink-0" />
-        <Icon size={16} className="text-blue-800 shrink-0" />
+        <div className="w-1 h-8 rounded-full border-l-2 border-green-800 shrink-0" />
+        <Icon size={16} className="text-green-800 shrink-0" />
         <span className="text-sm font-semibold text-gray-900 flex-1 text-left">{title}</span>
         {complete && (
           <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
@@ -445,15 +445,15 @@ function AISuggestion({ text, onUse }: { text: string; onUse: () => void }) {
     <motion.div
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-3 rounded-lg bg-blue-50/80 border border-blue-100 mt-2"
+      className="p-3 rounded-lg bg-green-50/40 border border-green-200 mt-2"
     >
-      <div className="text-[10px] text-blue-700 font-medium mb-1 flex items-center gap-1">
+      <div className="text-[10px] text-green-700 font-medium mb-1 flex items-center gap-1">
         <Sparkles size={10} /> AI Suggestion
       </div>
       <p className="text-xs text-gray-600 leading-relaxed mb-2">{text}</p>
       <div className="flex gap-2">
         <button onClick={onUse}
-          className="px-3 py-1 rounded-md bg-blue-600 text-white text-[10px] font-medium hover:bg-blue-700 transition-colors">
+          className="px-3 py-1 rounded-md border-2 border-green-800 bg-white text-green-800 text-[10px] font-medium hover:bg-green-50 transition-colors">
           Use This
         </button>
         <button className="px-3 py-1 rounded-md bg-white border border-gray-200 text-gray-500 text-[10px] hover:bg-gray-50 transition-colors flex items-center gap-1">
@@ -650,13 +650,13 @@ export default function ResumePreview() {
               className={`shrink-0 w-[110px] h-[150px] rounded-xl border-2 bg-white shadow-sm
                 hover:shadow-md hover:scale-[1.02] transition-all duration-200 overflow-hidden ${
                 activeTemplate === t.id
-                  ? 'border-blue-500 shadow-blue-100'
+                  ? 'border-green-600 shadow-green-200/30'
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
               <TemplateMiniature template={t} active={activeTemplate === t.id} />
               <div className={`text-[10px] pb-1.5 font-medium text-center ${
-                activeTemplate === t.id ? 'text-blue-600' : 'text-gray-500'
+                activeTemplate === t.id ? 'text-green-800' : 'text-gray-500'
               }`}>
                 {t.name}
               </div>
@@ -700,7 +700,7 @@ export default function ResumePreview() {
                   value={data.fullName}
                   onChange={e => updateField('fullName', e.target.value)}
                   className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
-                    focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                    focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -710,7 +710,7 @@ export default function ResumePreview() {
                     value={data.email}
                     onChange={e => updateField('email', e.target.value)}
                     className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
-                      focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                      focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                   />
                 </div>
                 <div>
@@ -719,7 +719,7 @@ export default function ResumePreview() {
                     value={data.phone}
                     onChange={e => updateField('phone', e.target.value)}
                     className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
-                      focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                      focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                   />
                 </div>
               </div>
@@ -729,7 +729,7 @@ export default function ResumePreview() {
                   value={data.location}
                   onChange={e => updateField('location', e.target.value)}
                   className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
-                    focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                    focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                 />
               </div>
             </div>
@@ -745,14 +745,14 @@ export default function ResumePreview() {
                 placeholder="A brief professional overview highlighting your key strengths..."
                 className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
               <div className="flex items-center justify-between mt-1">
                 <span className="text-[10px] text-gray-400">{data.summary.split(' ').filter(Boolean).length} words</span>
                 <button
                   onClick={() => triggerAISuggestion('summary')}
-                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-blue-700
-                    bg-blue-50 hover:bg-blue-100 transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-green-700
+                    bg-green-50/40 hover:bg-green-50 transition-colors"
                 >
                   <Sparkles size={10} /> AI Improve
                 </button>
@@ -776,7 +776,7 @@ export default function ResumePreview() {
                 placeholder="Job Title at Company&#10;• Key achievement with quantifiable results&#10;• Another impactful bullet point"
                 className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
               <div className="flex items-center justify-between mt-1">
                 <p className="text-[10px] text-gray-400 flex items-center gap-1">
@@ -784,8 +784,8 @@ export default function ResumePreview() {
                 </p>
                 <button
                   onClick={() => triggerAISuggestion('experience')}
-                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-blue-700
-                    bg-blue-50 hover:bg-blue-100 transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-green-700
+                    bg-green-50/40 hover:bg-green-50 transition-colors"
                 >
                   <Sparkles size={10} /> AI Improve
                 </button>
@@ -808,7 +808,7 @@ export default function ResumePreview() {
               placeholder="Degree, Institution&#10;CGPA/Percentage | Year"
               className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                 placeholder:text-gray-400 resize-none
-                focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
             />
           </SectionCard>
 
@@ -827,13 +827,13 @@ export default function ResumePreview() {
                 placeholder="Awards, recognitions, certifications..."
                 className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
-                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
               <div className="flex justify-end mt-1">
                 <button
                   onClick={() => triggerAISuggestion('achievements')}
-                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-blue-700
-                    bg-blue-50 hover:bg-blue-100 transition-colors"
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-green-700
+                    bg-green-50/40 hover:bg-green-50 transition-colors"
                 >
                   <Sparkles size={10} /> AI Improve
                 </button>

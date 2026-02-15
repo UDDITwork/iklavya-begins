@@ -44,7 +44,7 @@ export default function CinematicFooter() {
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
         style={{
-          background: 'linear-gradient(90deg, transparent 5%, #60a5fa 30%, #818cf8 50%, #60a5fa 70%, transparent 95%)',
+          background: 'linear-gradient(90deg, transparent 5%, #4ADE80 30%, #166534 50%, #4ADE80 70%, transparent 95%)',
         }}
       />
 
@@ -63,11 +63,11 @@ export default function CinematicFooter() {
               placeholder="Enter your email"
               className="w-full px-4 py-3 pr-14 rounded-lg bg-white border border-gray-300
                 text-gray-900 placeholder:text-gray-400 focus:outline-none
-                focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                focus:border-green-400 focus:ring-1 focus:ring-green-100
                 transition-all duration-200 text-sm"
             />
             <button className="absolute right-1.5 top-1.5 bottom-1.5 px-4 rounded-md
-              bg-blue-800 hover:bg-blue-900 text-white transition-colors duration-200">
+              border-2 border-green-800 bg-white text-green-800 hover:bg-green-50 transition-colors duration-200">
               <Send size={14} />
             </button>
           </div>

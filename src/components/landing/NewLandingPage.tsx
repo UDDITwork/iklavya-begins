@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Mic, FileText, Trophy, MessageSquare, CheckCircle,
   ArrowRight, Target, Zap, TrendingUp, BarChart3, Quote,
@@ -47,7 +48,7 @@ const Waveform = () => (
     {[...Array(20)].map((_, i) => (
       <motion.div
         key={i}
-        className="w-1 bg-blue-500 rounded-full"
+        className="w-1 bg-green-800/20 rounded-full"
         animate={{
           height: [10, Math.random() * 40 + 10, 10],
           opacity: [0.3, 1, 0.3]
@@ -62,6 +63,15 @@ const Waveform = () => (
   </div>
 )
 
+// --- Hero images for carousel ---
+const heroImages = ['/v1.png', '/v2.png', '/v3.png', '/v4.png', '/v5.png']
+const heroLabels = [
+  'Starting the Journey',
+  'Discovering Potential',
+  'Building Skills',
+  'Growing Rapidly',
+  'Career Success'
+]
 
 // --- Logo data for marquee ---
 const colleges = [
@@ -95,11 +105,19 @@ const testimonials = [
 export default function NewLandingPage() {
   const [activeTab, setActiveTab] = useState('interview')
   const [scrolled, setScrolled] = useState(false)
+  const [currentHero, setCurrentHero] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHero(prev => (prev + 1) % heroImages.length)
+    }, 4000)
+    return () => clearInterval(interval)
   }, [])
 
   const productFeatures: Record<string, { title: string; tag: string; desc: string; visual: React.ReactNode }> = {
@@ -117,14 +135,14 @@ export default function NewLandingPage() {
             <div className="text-[10px] text-emerald-600 font-mono font-bold">STABILITY: 99.9%</div>
           </div>
           <div className="space-y-4">
-            <div className="flex gap-4 items-center bg-blue-50 p-3 rounded-lg border border-blue-100">
-              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                <Mic className="text-white w-5 h-5" />
+            <div className="flex gap-4 items-center bg-green-50/40 p-3 rounded-lg border border-green-200">
+              <div className="w-10 h-10 rounded-full border-2 border-green-800 flex items-center justify-center">
+                <Mic className="text-green-800 w-5 h-5" />
               </div>
               <Waveform />
             </div>
             <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-              <p className="text-[11px] text-blue-600 font-mono mb-2">AI LIVE ANALYSIS:</p>
+              <p className="text-[11px] text-green-800 font-mono mb-2">AI LIVE ANALYSIS:</p>
               <p className="text-xs text-slate-700 leading-relaxed">
                 &quot;Subject shows strong <span className="text-orange-500 font-bold">Communication Clarity</span>. Suggesting deeper focus on <span className="text-orange-500 font-bold">Confident Body Language</span> and eye contact.&quot;
               </p>
@@ -173,37 +191,37 @@ export default function NewLandingPage() {
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           {/* Header */}
           <div className="flex justify-between items-center mb-5">
-            <span className="text-[10px] font-black text-violet-600 uppercase tracking-widest">Your Roadmap</span>
+            <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">Your Roadmap</span>
             <span className="text-[10px] font-mono text-emerald-600 font-bold">78% Complete</span>
           </div>
           {/* Progress bar */}
           <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden mb-6">
-            <motion.div initial={{ width: "0%" }} animate={{ width: "78%" }} transition={{ duration: 1.2, ease: "easeOut" }} className="h-full bg-gradient-to-r from-violet-500 via-blue-500 to-emerald-500 rounded-full" />
+            <motion.div initial={{ width: "0%" }} animate={{ width: "78%" }} transition={{ duration: 1.2, ease: "easeOut" }} className="h-full bg-gradient-to-r from-amber-500 via-green-500 to-emerald-500 rounded-full" />
           </div>
           {/* Milestone steps */}
           <div className="space-y-3">
             {[
               { step: "Communication Basics", status: "done", color: "bg-emerald-500" },
               { step: "Active Listening", status: "done", color: "bg-emerald-500" },
-              { step: "Negotiation Tactics", status: "current", color: "bg-blue-500" },
+              { step: "Negotiation Tactics", status: "current", color: "border-2 border-green-800" },
               { step: "Conflict Resolution", status: "upcoming", color: "bg-slate-200" },
               { step: "Team Leadership", status: "upcoming", color: "bg-slate-200" }
             ].map((m, i) => (
               <div key={i} className="flex items-center gap-3">
-                <div className={`w-3 h-3 rounded-full ${m.color} ${m.status === 'current' ? 'ring-4 ring-blue-100' : ''} flex-shrink-0`} />
-                <div className={`flex-1 text-xs font-bold ${m.status === 'done' ? 'text-slate-400 line-through' : m.status === 'current' ? 'text-blue-700' : 'text-slate-300'}`}>{m.step}</div>
+                <div className={`w-3 h-3 rounded-full ${m.color} ${m.status === 'current' ? 'ring-4 ring-green-100' : ''} flex-shrink-0`} />
+                <div className={`flex-1 text-xs font-bold ${m.status === 'done' ? 'text-slate-400 line-through' : m.status === 'current' ? 'text-green-800' : 'text-slate-300'}`}>{m.step}</div>
                 {m.status === 'done' && <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />}
-                {m.status === 'current' && <span className="text-[9px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded">IN PROGRESS</span>}
+                {m.status === 'current' && <span className="text-[9px] font-black text-green-800 bg-green-50/40 px-2 py-0.5 rounded">IN PROGRESS</span>}
               </div>
             ))}
           </div>
           {/* Target */}
-          <div className="mt-5 p-3 bg-violet-50 rounded-lg border border-violet-100 flex items-center justify-between">
+          <div className="mt-5 p-3 bg-amber-50/50 rounded-lg border border-amber-200 flex items-center justify-between">
             <div>
-              <p className="text-[9px] font-black text-violet-600 uppercase">Target Role</p>
+              <p className="text-[9px] font-black text-amber-800 uppercase">Target Role</p>
               <p className="text-sm font-bold text-slate-800">Team Leader</p>
             </div>
-            <Target className="w-5 h-5 text-violet-500" />
+            <Target className="w-5 h-5 text-amber-700" />
           </div>
         </div>
       )
@@ -211,7 +229,7 @@ export default function NewLandingPage() {
   }
 
   return (
-    <div className="bg-[#FDFCF6] font-sans text-slate-900 selection:bg-indigo-100">
+    <div className="bg-[#FDFCF6] font-sans text-slate-900 selection:bg-green-100">
 
       {/* Marquee CSS */}
       <style jsx>{`
@@ -223,30 +241,30 @@ export default function NewLandingPage() {
 
       {/* ===== 1. HERO ===== */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-[120%] bg-indigo-50/50 -skew-x-12 translate-x-32 -z-10" />
+        <div className="absolute top-0 right-0 w-1/2 h-[120%] bg-stone-50/50 -skew-x-12 translate-x-32 -z-10" />
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-7 space-y-10">
-              <div className="inline-block px-4 py-2 bg-indigo-100 rounded-full">
-                <p className="text-[10px] font-black text-indigo-700 uppercase tracking-widest flex items-center gap-2">
+              <div className="inline-block px-4 py-2 bg-stone-100 rounded-full">
+                <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest flex items-center gap-2">
                   <Activity className="w-3 h-3" /> Live Competition Starts in 04:12:00
                 </p>
               </div>
               <h1 className="text-8xl md:text-9xl font-serif font-bold text-slate-900 leading-[0.85] tracking-tight">
-                Master the <br /> <span className="text-blue-600 italic">Unfair</span> Advantage.
+                Master the <br /> <span className="text-green-800 italic">Unfair</span> Advantage.
               </h1>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
-                Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-blue-600 font-bold italic">Iklavya.</span>{' '}
+                Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-green-800 font-bold italic">Iklavya.</span>{' '}
                 Our real-time AI engine turns your potential into professional dominance.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/ai-interview">
-                  <button className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-blue-200">
-                    Start Free Mock Interview <Zap className="w-4 h-4 text-amber-300" />
+                  <button className="px-10 py-5 border-2 border-green-800 text-green-800 hover:bg-green-50/50 font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-green-200/30 transition-all">
+                    Start Free Mock Interview <Zap className="w-4 h-4 text-amber-500" />
                   </button>
                 </Link>
                 <Link href="/live-quiz">
-                  <button className="px-10 py-5 border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50">
+                  <button className="px-10 py-5 border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50 transition-all">
                     Watch Live Competition
                   </button>
                 </Link>
@@ -255,35 +273,42 @@ export default function NewLandingPage() {
 
             <div className="lg:col-span-5 relative">
               <div className="absolute -inset-10 bg-amber-400/10 rounded-full blur-3xl" />
-              <motion.div
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 relative z-10"
-              >
-                <div className="flex items-center justify-between mb-8">
-                  <h4 className="text-xs font-black uppercase text-slate-400">Skill Radar v4</h4>
-                  <TrendingUp className="text-indigo-600 w-5 h-5" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: "Vocal Clarity", val: "92%" },
-                    { label: "Tech Accuracy", val: "88%" },
-                    { label: "Confidence", val: "95%" },
-                    { label: "ATS Readiness", val: "91%" }
-                  ].map((s, i) => (
-                    <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                      <p className="text-[9px] font-black text-slate-400 uppercase">{s.label}</p>
-                      <p className="text-xl font-bold text-slate-900">{s.val}</p>
-                    </div>
+              <div className="relative z-10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentHero}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="relative"
+                  >
+                    <Image
+                      src={heroImages[currentHero]}
+                      alt={heroLabels[currentHero]}
+                      width={500}
+                      height={500}
+                      className="w-full h-auto rounded-2xl"
+                      priority={currentHero === 0}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                {/* Progress dots */}
+                <div className="flex justify-center gap-2 mt-6">
+                  {heroImages.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentHero(i)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        i === currentHero ? 'bg-green-800 w-6' : 'bg-stone-300 hover:bg-stone-400'
+                      }`}
+                    />
                   ))}
                 </div>
-                <div className="mt-8 pt-8 border-t border-slate-100">
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase text-blue-600">
-                    <span>Global Archer Rank</span>
-                    <span>#1,242 / 450k</span>
-                  </div>
-                </div>
-              </motion.div>
+                <p className="text-center text-[10px] font-black text-stone-500 uppercase tracking-widest mt-3">
+                  {heroLabels[currentHero]}
+                </p>
+              </div>
             </div>
           </div>
         </RevealSection>
@@ -298,7 +323,7 @@ export default function NewLandingPage() {
           <div className="flex whitespace-nowrap" style={{ animation: 'marquee 40s linear infinite' }}>
             {[...colleges, ...colleges].map((name, i) => (
               <div key={i} className="inline-flex items-center mx-8 shrink-0">
-                <div className="w-2 h-2 rounded-full bg-indigo-400 mr-3" />
+                <div className="w-2 h-2 rounded-full bg-stone-400 mr-3" />
                 <span className="text-sm font-bold text-slate-500 tracking-wide">{name}</span>
               </div>
             ))}
@@ -311,7 +336,7 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
+              <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
               <h3 className="text-6xl font-serif font-bold">Built for Zero Latency.</h3>
             </div>
 
@@ -321,14 +346,14 @@ export default function NewLandingPage() {
                   <button
                     key={key}
                     onClick={() => setActiveTab(key)}
-                    className={`w-full text-left p-6 rounded-xl transition-all border-2 ${activeTab === key ? 'bg-blue-600 border-blue-400 shadow-xl shadow-blue-100 translate-x-4' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
+                    className={`w-full text-left p-6 rounded-xl transition-all border-2 ${activeTab === key ? 'bg-white border-green-800 shadow-xl shadow-green-100/50 translate-x-4' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
                   >
                     <div className="flex justify-between items-center mb-2">
-                      <span className={`text-[9px] font-black uppercase tracking-widest ${activeTab === key ? 'text-blue-100' : 'text-blue-600'}`}>{value.tag}</span>
-                      {activeTab === key && <Zap className="w-4 h-4 text-amber-300" />}
+                      <span className={`text-[9px] font-black uppercase tracking-widest ${activeTab === key ? 'text-green-800' : 'text-green-800'}`}>{value.tag}</span>
+                      {activeTab === key && <Zap className="w-4 h-4 text-amber-500" />}
                     </div>
-                    <h4 className={`text-lg font-bold mb-2 ${activeTab === key ? 'text-white' : 'text-slate-900'}`}>{value.title}</h4>
-                    <p className={`text-xs ${activeTab === key ? 'text-blue-100' : 'text-slate-500'}`}>{value.desc}</p>
+                    <h4 className={`text-lg font-bold mb-2 ${activeTab === key ? 'text-slate-900' : 'text-slate-900'}`}>{value.title}</h4>
+                    <p className={`text-xs ${activeTab === key ? 'text-slate-600' : 'text-slate-500'}`}>{value.desc}</p>
                   </button>
                 ))}
               </div>
@@ -362,12 +387,12 @@ export default function NewLandingPage() {
 
             <div className="grid md:grid-cols-3 gap-8 relative">
               {/* Connecting line */}
-              <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-indigo-300 via-amber-300 to-emerald-300" />
+              <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-stone-400 via-amber-300 to-emerald-300" />
 
               {[
-                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Take AI Interview", desc: "Our engine simulates real interviews with live feedback on tone, accuracy, and confidence.", color: "bg-indigo-600", delay: 0 },
-                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Analysis", desc: "Receive a detailed breakdown of your strengths, gaps, and where you rank against peers.", color: "bg-amber-500", delay: 0.15 },
-                { step: 3, icon: <Target className="w-6 h-6" />, title: "Follow Your Roadmap", desc: "A personalized learning path adapts in real-time based on your performance.", color: "bg-emerald-600", delay: 0.3 }
+                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Take AI Interview", desc: "Our engine simulates real interviews with live feedback on tone, accuracy, and confidence.", color: "border-2 border-green-800", textColor: "text-green-800", delay: 0 },
+                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Analysis", desc: "Receive a detailed breakdown of your strengths, gaps, and where you rank against peers.", color: "border-2 border-amber-700", textColor: "text-amber-700", delay: 0.15 },
+                { step: 3, icon: <Target className="w-6 h-6" />, title: "Follow Your Roadmap", desc: "A personalized learning path adapts in real-time based on your performance.", color: "border-2 border-emerald-700", textColor: "text-emerald-700", delay: 0.3 }
               ].map((s) => (
                 <motion.div
                   key={s.step}
@@ -378,7 +403,7 @@ export default function NewLandingPage() {
                   className="relative text-center"
                 >
                   <div className="flex flex-col items-center space-y-5">
-                    <div className={`${s.color} w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg relative z-10`}>
+                    <div className={`${s.color} bg-white w-14 h-14 rounded-2xl flex items-center justify-center ${s.textColor} shadow-lg relative z-10`}>
                       {s.icon}
                     </div>
                     <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Step {s.step}</span>
@@ -426,7 +451,7 @@ export default function NewLandingPage() {
                     ))}
                   </div>
 
-                  <div className="mt-10 p-4 bg-blue-600 rounded-lg text-center font-black uppercase text-xs tracking-widest text-white">
+                  <div className="mt-10 p-4 border-2 border-green-800 rounded-lg text-center font-black uppercase text-xs tracking-widest text-green-800">
                     Next Quiz Starts in 12:45
                   </div>
                 </div>
@@ -447,8 +472,8 @@ export default function NewLandingPage() {
                     <p className="text-xs text-slate-500">Interact with experts in real-time quiz formats.</p>
                   </div>
                   <div className="space-y-2">
-                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                      <Building2 className="text-blue-500 w-5 h-5" />
+                    <div className="w-10 h-10 bg-green-50/40 rounded-lg flex items-center justify-center">
+                      <Building2 className="text-green-800 w-5 h-5" />
                     </div>
                     <h5 className="font-bold text-slate-900">Job Assistance</h5>
                     <p className="text-xs text-slate-500">Curated hiring pipelines for high-ranking archers.</p>
@@ -465,10 +490,10 @@ export default function NewLandingPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { target: 520, suffix: '+', label: 'Students Trained', color: 'text-blue-600' },
+              { target: 520, suffix: '+', label: 'Students Trained', color: 'text-green-800' },
               { target: 15, suffix: '+', label: 'Corporate Partners', color: 'text-emerald-600' },
               { target: 3200, suffix: '+', label: 'Interviews Simulated', color: 'text-orange-500' },
-              { target: 99.9, suffix: '%', label: 'Platform Uptime', color: 'text-violet-600', isDecimal: true }
+              { target: 99.9, suffix: '%', label: 'Platform Uptime', color: 'text-amber-800', isDecimal: true }
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -497,7 +522,7 @@ export default function NewLandingPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-20 items-center">
               <div className="flex-1 space-y-10">
-                <h2 className="text-sm font-black text-violet-600 uppercase tracking-[0.4em]">Personalized Learning</h2>
+                <h2 className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">Personalized Learning</h2>
                 <h3 className="text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
                 <p className="text-lg text-slate-600 font-light">
                   Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we suggest leadership and negotiation labs.
@@ -510,24 +535,24 @@ export default function NewLandingPage() {
                     </div>
                   ))}
                 </div>
-                <Link href="/ai-courses" className="text-blue-600 font-black uppercase text-xs tracking-widest flex items-center gap-2 group">
+                <Link href="/ai-courses" className="text-green-800 font-black uppercase text-xs tracking-widest flex items-center gap-2 group">
                   Explore Our Module Catalog <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                 </Link>
               </div>
 
               <div className="flex-1 grid grid-cols-2 gap-6">
                 {[
-                  { label: "Communication", icon: <MessageSquare />, color: "bg-blue-500" },
-                  { label: "Negotiation", icon: <Users />, color: "bg-orange-500" },
-                  { label: "Leadership", icon: <Award />, color: "bg-indigo-500" },
-                  { label: "Time Mgmt", icon: <Clock />, color: "bg-emerald-500" }
+                  { label: "Communication", icon: <MessageSquare />, color: "border-2 border-green-800", textColor: "text-green-800" },
+                  { label: "Negotiation", icon: <Users />, color: "border-2 border-orange-600", textColor: "text-orange-600" },
+                  { label: "Leadership", icon: <Award />, color: "border-2 border-stone-600", textColor: "text-stone-600" },
+                  { label: "Time Mgmt", icon: <Clock />, color: "border-2 border-emerald-700", textColor: "text-emerald-700" }
                 ].map((cat, i) => (
                   <motion.div
                     key={i}
                     whileHover={{ y: -10 }}
                     className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-4"
                   >
-                    <div className={`${cat.color} w-12 h-12 rounded-xl flex items-center justify-center text-white`}>
+                    <div className={`${cat.color} bg-white w-12 h-12 rounded-xl flex items-center justify-center ${cat.textColor}`}>
                       {cat.icon}
                     </div>
                     <h5 className="font-black uppercase text-[10px] tracking-widest text-slate-400">{cat.label}</h5>
@@ -545,7 +570,7 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Social Proof</h2>
+              <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">Social Proof</h2>
               <h3 className="text-5xl font-serif font-bold">What Archers Say</h3>
             </div>
 
@@ -559,7 +584,7 @@ export default function NewLandingPage() {
                   transition={{ duration: 0.5, delay: i * 0.15 }}
                   className="bg-white p-8 rounded-2xl border border-slate-100 shadow-lg relative"
                 >
-                  <Quote className="text-indigo-200 w-8 h-8 mb-4" />
+                  <Quote className="text-stone-300 w-8 h-8 mb-4" />
                   <p className="text-sm text-slate-600 leading-relaxed mb-6">&quot;{t.quote}&quot;</p>
                   <div className="border-t border-slate-100 pt-4">
                     <p className="font-bold text-sm text-slate-900">{t.name}</p>
@@ -576,18 +601,27 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 9. CTA FINAL ===== */}
-      <section className="py-20 bg-blue-50">
+      <section className="py-20 bg-green-50/30">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center space-y-10">
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/ChatGPT Image Feb 10, 2026, 10_16_51 PM.png"
+                alt="Your journey from student to professional"
+                width={600}
+                height={200}
+                className="rounded-xl object-contain"
+              />
+            </div>
             <h3 className="text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
             <p className="text-slate-500 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link href="/ai-interview">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-blue-200">
+                <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-12 py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
                   Get Started Now
                 </button>
               </Link>
-              <Link href="/support" className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-blue-400 decoration-4 underline-offset-8 hover:text-blue-600">
+              <Link href="/support" className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-green-700 decoration-4 underline-offset-8 hover:text-green-800">
                 Speak with a Mentor
               </Link>
             </div>
@@ -601,13 +635,13 @@ export default function NewLandingPage() {
           <div className="grid md:grid-cols-5 gap-12 mb-20">
             <div className="col-span-2 space-y-6">
               <div className="flex items-center gap-3">
-                <Target className="text-blue-600 w-8 h-8" />
+                <Target className="text-green-800 w-8 h-8" />
                 <span className="text-3xl font-serif font-black text-slate-900">IKLAVYA</span>
               </div>
               <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
             </div>
             <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-blue-600">Platform</h5>
+              <h5 className="text-[10px] font-black uppercase tracking-widest text-green-800">Platform</h5>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li><Link href="/ai-interview" className="hover:text-slate-900 transition-colors">AI Interview</Link></li>
                 <li><Link href="/ai-courses" className="hover:text-slate-900 transition-colors">Video Courses</Link></li>

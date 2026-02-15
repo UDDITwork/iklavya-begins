@@ -19,12 +19,12 @@ export default function SkillConstellationHero({ className }: { className?: stri
     <svg viewBox="0 0 400 400" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="constGlow">
-          <stop offset="0%" stopColor="#60A5FA" stopOpacity={0.12} />
-          <stop offset="100%" stopColor="#60A5FA" stopOpacity={0} />
+          <stop offset="0%" stopColor="#4ADE80" stopOpacity={0.12} />
+          <stop offset="100%" stopColor="#4ADE80" stopOpacity={0} />
         </radialGradient>
         <linearGradient id="constNodeFill" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#DBEAFE" stopOpacity={0.7} />
-          <stop offset="100%" stopColor="#BFDBFE" stopOpacity={0.3} />
+          <stop offset="0%" stopColor="#DCFCE7" stopOpacity={0.7} />
+          <stop offset="100%" stopColor="#BBF7D0" stopOpacity={0.3} />
         </linearGradient>
       </defs>
 
@@ -34,7 +34,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
       {/* Secondary ring */}
       <motion.circle
         cx={cx} cy={cy} r={100}
-        fill="none" stroke="#1E40AF" strokeWidth={0.5} strokeOpacity={0.06}
+        fill="none" stroke="#166534" strokeWidth={0.5} strokeOpacity={0.06}
         strokeDasharray="4 6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -47,7 +47,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
           key={`line-${i}`}
           x1={cx} y1={cy}
           x2={node.x} y2={node.y}
-          stroke="#1E40AF"
+          stroke="#166534"
           strokeWidth={1}
           strokeOpacity={0.08}
           strokeDasharray="2 4"
@@ -65,7 +65,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
             key={`cross-${i}`}
             x1={node.x} y1={node.y}
             x2={next.x} y2={next.y}
-            stroke="#60A5FA"
+            stroke="#4ADE80"
             strokeWidth={0.5}
             strokeOpacity={0.06}
             initial={{ pathLength: 0 }}
@@ -80,7 +80,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
         cx={cx} cy={cy - 22}
         r={20}
         fill="url(#constNodeFill)"
-        stroke="#1E40AF"
+        stroke="#166534"
         strokeWidth={1.5}
         strokeOpacity={0.15}
         initial={{ scale: 0, opacity: 0 }}
@@ -91,7 +91,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
       {/* Central figure — shoulders */}
       <motion.path
         d={`M ${cx - 28} ${cy + 12} Q ${cx} ${cy - 2} ${cx + 28} ${cy + 12}`}
-        stroke="#1E40AF"
+        stroke="#166534"
         strokeWidth={1.5}
         strokeOpacity={0.12}
         fill="url(#constNodeFill)"
@@ -107,7 +107,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
           <motion.circle
             cx={node.x} cy={node.y} r={14}
             fill="url(#constNodeFill)"
-            stroke="#1E40AF"
+            stroke="#166534"
             strokeWidth={1}
             strokeOpacity={0.12}
             initial={{ scale: 0, opacity: 0 }}
@@ -118,7 +118,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
           {/* Pulse ring */}
           <motion.circle
             cx={node.x} cy={node.y} r={18}
-            fill="none" stroke="#60A5FA" strokeWidth={0.8}
+            fill="none" stroke="#4ADE80" strokeWidth={0.8}
             animate={{ opacity: [0.08, 0, 0.08] }}
             transition={{ duration: 3, repeat: Infinity, delay: i * 0.4 }}
           />
@@ -126,7 +126,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
           {/* Inner dot */}
           <motion.circle
             cx={node.x} cy={node.y} r={3}
-            fill="#1E40AF" fillOpacity={0.25}
+            fill="#166534" fillOpacity={0.25}
             initial={{ scale: 0 }}
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity, delay: node.delay }}
@@ -142,7 +142,7 @@ export default function SkillConstellationHero({ className }: { className?: stri
           <motion.circle
             key={`mid-${i}`}
             cx={mx} cy={my} r={1.5}
-            fill="#60A5FA" fillOpacity={0.15}
+            fill="#4ADE80" fillOpacity={0.15}
             animate={{ opacity: [0.08, 0.2, 0.08] }}
             transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
           />

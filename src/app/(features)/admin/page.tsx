@@ -9,8 +9,8 @@ import {
 import HeatmapVisualization from '@/components/features/HeatmapVisualization'
 
 const metrics = [
-  { label: 'Total Students', value: 52847, change: +12.5, icon: Users, color: '#1E40AF' },
-  { label: 'Courses Completed', value: 128439, change: +8.3, icon: BookOpen, color: '#1E40AF' },
+  { label: 'Total Students', value: 52847, change: +12.5, icon: Users, color: '#166534' },
+  { label: 'Courses Completed', value: 128439, change: +8.3, icon: BookOpen, color: '#166534' },
   { label: 'Certifications', value: 34201, change: +15.2, icon: Award, color: '#92400E' },
   { label: 'Active Sessions', value: 1847, change: -3.1, icon: Activity, color: '#166534' },
 ]
@@ -35,11 +35,11 @@ const feedIcons: Record<string, React.ElementType> = {
 }
 
 const activityFeed = [
-  { user: 'Priya S.', action: 'completed Communication Skills quiz', time: '2m ago', iconKey: 'quiz', color: '#1E40AF' },
+  { user: 'Priya S.', action: 'completed Communication Skills quiz', time: '2m ago', iconKey: 'quiz', color: '#166534' },
   { user: 'Rahul V.', action: 'earned Sales & Persuasion certification', time: '5m ago', iconKey: 'certification', color: '#92400E' },
-  { user: 'Ananya D.', action: 'started Leadership Fundamentals course', time: '8m ago', iconKey: 'course', color: '#1E40AF' },
+  { user: 'Ananya D.', action: 'started Leadership Fundamentals course', time: '8m ago', iconKey: 'course', color: '#166534' },
   { user: 'Vikram P.', action: 'booked mentor session', time: '12m ago', iconKey: 'mentor', color: '#166534' },
-  { user: 'Sneha I.', action: 'completed mock interview', time: '15m ago', iconKey: 'interview', color: '#1E40AF' },
+  { user: 'Sneha I.', action: 'completed mock interview', time: '15m ago', iconKey: 'interview', color: '#166534' },
   { user: 'Arjun M.', action: 'updated resume (ATS: 92)', time: '18m ago', iconKey: 'resume', color: '#6B7280' },
   { user: 'Deepika R.', action: 'joined live quiz broadcast', time: '20m ago', iconKey: 'broadcast', color: '#92400E' },
   { user: 'Kiran T.', action: 'achieved 7-day streak', time: '25m ago', iconKey: 'streak', color: '#991B1B' },
@@ -106,8 +106,8 @@ export default function AdminPage() {
               hover:bg-gray-50 transition-colors flex items-center gap-2">
               <Filter size={14} /> Filters
             </button>
-            <button className="px-4 py-2 rounded-lg bg-blue-800 hover:bg-blue-900
-              text-white text-sm font-medium flex items-center gap-2 transition-colors">
+            <button className="px-4 py-2 rounded-lg border-2 border-green-800 bg-white hover:bg-green-50
+              text-green-800 text-sm font-medium flex items-center gap-2 transition-colors">
               <Download size={14} /> Export
             </button>
           </div>
@@ -181,7 +181,7 @@ export default function AdminPage() {
                       </div>
                       <div className="h-6 bg-gray-50 rounded-lg overflow-hidden">
                         <motion.div
-                          className="h-full rounded-lg bg-blue-100"
+                          className="h-full rounded-lg bg-green-100"
                           initial={{ width: 0 }}
                           animate={{ width: `${stage.width}%` }}
                           transition={{ duration: 1, delay: 0.5 + i * 0.15, ease: 'easeOut' }}

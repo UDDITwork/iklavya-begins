@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Send, User, Bot, Lightbulb } from 'lucide-react'
+import Image from 'next/image'
 import CareerPathScene from '@/components/illustrations/scenes/CareerPathScene'
 
 interface Message {
@@ -36,7 +37,7 @@ function TypingIndicator() {
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-2 h-2 rounded-full bg-blue-400"
+          className="w-2 h-2 rounded-full bg-green-700"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
         />
@@ -116,9 +117,9 @@ export default function CareerGuidancePage() {
       <div className="border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-4">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100
+            <div className="w-10 h-10 rounded-full bg-green-50/40 border border-green-200
               flex items-center justify-center">
-              <Bot size={20} className="text-blue-800" />
+              <Bot size={20} className="text-green-800" />
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white" />
           </div>
@@ -129,8 +130,8 @@ export default function CareerGuidancePage() {
               <span>Analyzing your profile...</span>
             </div>
           </div>
-          <div className="hidden md:block w-32 h-20 opacity-40">
-            <CareerPathScene className="w-full h-full" />
+          <div className="hidden md:block w-48 h-40">
+            <Image src="/career_guidance.png" alt="Career Guidance" width={200} height={160} className="object-contain w-full h-full" />
           </div>
         </div>
       </div>
@@ -150,7 +151,7 @@ export default function CareerGuidancePage() {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                     msg.role === 'user'
-                      ? 'bg-blue-50 text-blue-800'
+                      ? 'bg-green-50/40 text-green-800'
                       : 'bg-gray-100 text-gray-600'
                   }`}
                 >
@@ -159,7 +160,7 @@ export default function CareerGuidancePage() {
                 <div
                   className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-blue-800 text-white'
+                      ? 'border-2 border-green-800 text-green-800 bg-white'
                       : 'bg-gray-50 border border-gray-200 text-gray-700'
                   }`}
                 >
@@ -167,7 +168,7 @@ export default function CareerGuidancePage() {
                     {msg.content}
                     {msg.isStreaming && (
                       <motion.span
-                        className="inline-block ml-0.5 text-blue-500"
+                        className="inline-block ml-0.5 text-green-700"
                         animate={{ opacity: [1, 0, 1] }}
                         transition={{ duration: 0.8, repeat: Infinity }}
                       >
@@ -227,16 +228,16 @@ export default function CareerGuidancePage() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about your career path, skills, or interview prep..."
               className="w-full px-5 py-3.5 pr-12 rounded-full bg-gray-50 border border-gray-200
-                text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-blue-300
-                focus:ring-2 focus:ring-blue-100 transition-all"
+                text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400
+                focus:ring-2 focus:ring-green-100 transition-all"
             />
             <button
               type="submit"
               disabled={!input.trim()}
               className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full
-                bg-blue-800 flex items-center justify-center
-                text-white disabled:opacity-30 disabled:cursor-not-allowed
-                hover:bg-blue-900 transition-colors"
+                border-2 border-green-800 bg-white flex items-center justify-center
+                text-green-800 disabled:opacity-30 disabled:cursor-not-allowed
+                hover:bg-green-50 transition-colors"
             >
               <Send size={14} />
             </button>

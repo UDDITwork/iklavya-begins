@@ -7,6 +7,7 @@ import {
   Bot, TrendingUp, Award, AlertCircle, Lightbulb, Activity,
   Briefcase, BarChart3, Handshake, Scale, Users
 } from 'lucide-react'
+import Image from 'next/image'
 import AIAvatarScene from '@/components/features/AIAvatarScene'
 import InterviewStageScene from '@/components/illustrations/scenes/InterviewStageScene'
 
@@ -100,7 +101,7 @@ const averageScores = {
 
 const voiceMetrics = [
   { label: 'Pace', value: 'Moderate', detail: '142 wpm — ideal range', color: '#166534' },
-  { label: 'Tone', value: 'Assertive', detail: 'Steady pitch, good projection', color: '#1E40AF' },
+  { label: 'Tone', value: 'Assertive', detail: 'Steady pitch, good projection', color: '#166534' },
   { label: 'Volume', value: 'Consistent', detail: 'Minor dips during transitions', color: '#166534' },
   { label: 'Pauses', value: '3 long pauses', detail: 'Work on smoother transitions', color: '#92400E' },
   { label: 'Filler Words', value: '12 detected', detail: '"um" (7), "like" (3), "you know" (2)', color: '#991B1B' },
@@ -403,7 +404,7 @@ function RadarChart({ data }: { data: { label: string; value: number; avg: numbe
       {/* Data polygon fill */}
       <motion.polygon
         points={poly(data.map(d => d.value))}
-        fill="rgba(30,64,175,0.08)"
+        fill="rgba(22,101,52,0.08)"
         stroke="none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -414,7 +415,7 @@ function RadarChart({ data }: { data: { label: string; value: number; avg: numbe
       <motion.polygon
         points={poly(data.map(d => d.value))}
         fill="none"
-        stroke="#1E40AF"
+        stroke="#166534"
         strokeWidth={2}
         strokeLinejoin="round"
         initial={{ opacity: 0 }}
@@ -429,7 +430,7 @@ function RadarChart({ data }: { data: { label: string; value: number; avg: numbe
           <motion.circle
             key={i}
             cx={px} cy={py} r={3.5}
-            fill="white" stroke="#1E40AF" strokeWidth={2}
+            fill="white" stroke="#166534" strokeWidth={2}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1.5 + i * 0.08 }}
@@ -458,7 +459,7 @@ function RadarChart({ data }: { data: { label: string; value: number; avg: numbe
             x={px} y={py - 10}
             textAnchor="middle"
             style={{ fontSize: '9px' }}
-            className="fill-blue-800 font-semibold"
+            className="fill-green-800 font-semibold"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2 + i * 0.05 }}
@@ -470,7 +471,7 @@ function RadarChart({ data }: { data: { label: string; value: number; avg: numbe
 
       {/* Legend */}
       <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }}>
-        <rect x={8} y={size - 28} width={8} height={8} rx={1.5} fill="#1E40AF" opacity={0.15} stroke="#1E40AF" strokeWidth={1} />
+        <rect x={8} y={size - 28} width={8} height={8} rx={1.5} fill="#166534" opacity={0.15} stroke="#166534" strokeWidth={1} />
         <text x={20} y={size - 21} style={{ fontSize: '9px' }} className="fill-gray-500">You</text>
         <rect x={50} y={size - 28} width={8} height={8} rx={1.5} fill="#D1D5DB" opacity={0.3} stroke="#D1D5DB" strokeWidth={1} strokeDasharray="2 1" />
         <text x={62} y={size - 21} style={{ fontSize: '9px' }} className="fill-gray-400">Average</text>
@@ -577,7 +578,7 @@ function WordCloud({ data }: { data: typeof wordFrequency }) {
             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-medium ${
               item.filler
                 ? 'bg-red-50 text-red-500 border border-red-200'
-                : 'bg-blue-50 text-blue-700 border border-blue-100'
+                : 'bg-green-50/40 text-green-800 border border-green-200'
             }`}
             style={{ fontSize: `${scale}rem` }}
           >
@@ -602,7 +603,7 @@ function AnnotatedTranscript({ data }: { data: TranscriptEntry[] }) {
           className="flex gap-2.5"
         >
           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-            entry.speaker === 'ai' ? 'bg-gray-100 text-gray-500' : 'bg-blue-50 text-blue-800'
+            entry.speaker === 'ai' ? 'bg-gray-100 text-gray-500' : 'bg-green-50/40 text-green-800'
           }`}>
             {entry.speaker === 'ai' ? <Bot size={11} /> : <User size={11} />}
           </div>
@@ -760,9 +761,14 @@ export default function AIInterviewPage() {
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-between mb-8"
         >
-          <div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">AI Interview Simulation</h1>
-            <p className="text-sm text-gray-500">Interactive role-play scenarios with real-time voice & confidence analysis</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">AI Interview Simulation</h1>
+              <p className="text-sm text-gray-500">Interactive role-play scenarios with real-time voice & confidence analysis</p>
+            </div>
+            <div className="hidden md:block w-48 h-40">
+              <Image src="/ai interviewer.png" alt="AI Interview Simulation" width={200} height={160} className="object-contain w-full h-full" />
+            </div>
           </div>
           {phase === 'interview' && (
             <div className="flex items-center gap-4">
@@ -809,12 +815,12 @@ export default function AIInterviewPage() {
                       onClick={() => setSelectedScenario(s)}
                       className={`p-4 rounded-xl border text-left transition-all duration-200 ${
                         selectedScenario.id === s.id
-                          ? 'bg-blue-50 border-blue-200 shadow-sm'
+                          ? 'bg-green-50/40 border-green-200 shadow-sm'
                           : 'bg-white border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <ScenarioIcon size={18} className={selectedScenario.id === s.id ? 'text-blue-800' : 'text-gray-400'} />
+                        <ScenarioIcon size={18} className={selectedScenario.id === s.id ? 'text-green-800' : 'text-gray-400'} />
                         <span className="font-medium text-gray-900 text-sm">{s.label}</span>
                       </div>
                       <div className="text-xs text-gray-400">AI plays: {s.role}</div>
@@ -862,7 +868,7 @@ export default function AIInterviewPage() {
                     'Persuasiveness Score',
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-xs text-gray-600">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-700" />
                       {item}
                     </div>
                   ))}
@@ -872,7 +878,7 @@ export default function AIInterviewPage() {
               <div className="text-center">
                 <button
                   onClick={startInterview}
-                  className="px-8 py-3 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-medium transition-colors duration-200"
+                  className="px-8 py-3 rounded-lg border-2 border-green-800 text-green-800 bg-white hover:bg-green-50 font-medium transition-colors duration-200"
                 >
                   Start {selectedScenario.label}
                 </button>
@@ -891,10 +897,10 @@ export default function AIInterviewPage() {
               className="grid grid-cols-1 lg:grid-cols-4 gap-6"
             >
               <div className="lg:col-span-3 space-y-4">
-                <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-blue-50 border border-blue-100">
-                  {(() => { const I = (scenarioIcons[selectedScenario.id] || Briefcase) as typeof Briefcase; return <I size={16} className="text-blue-800" /> })()}
-                  <span className="text-sm font-medium text-blue-800">{selectedScenario.label}</span>
-                  <span className="text-xs text-blue-600">AI role: {selectedScenario.role}</span>
+                <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-green-50/40 border border-green-200">
+                  {(() => { const I = (scenarioIcons[selectedScenario.id] || Briefcase) as typeof Briefcase; return <I size={16} className="text-green-800" /> })()}
+                  <span className="text-sm font-medium text-green-800">{selectedScenario.label}</span>
+                  <span className="text-xs text-green-700">AI role: {selectedScenario.role}</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[400px]">
@@ -908,8 +914,8 @@ export default function AIInterviewPage() {
 
                   {/* User video */}
                   <div className="rounded-2xl border border-gray-200 bg-gray-50 flex items-center justify-center relative">
-                    <div className="w-24 h-24 rounded-full bg-blue-50 flex items-center justify-center">
-                      <User size={32} className="text-blue-800" />
+                    <div className="w-24 h-24 rounded-full bg-green-50/40 flex items-center justify-center">
+                      <User size={32} className="text-green-800" />
                     </div>
                     <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-white/90 border border-gray-200 text-xs text-gray-600">
                       You {speaking ? '(speaking)' : ''}
@@ -951,7 +957,7 @@ export default function AIInterviewPage() {
                   className="p-5 rounded-xl bg-white border border-gray-200 shadow-sm"
                 >
                   <div className="flex items-start gap-3">
-                    <MessageSquare size={18} className="text-blue-800 mt-0.5 shrink-0" />
+                    <MessageSquare size={18} className="text-green-800 mt-0.5 shrink-0" />
                     <div>
                       <div className="text-xs text-gray-400 mb-1">Current Prompt</div>
                       <p className="text-gray-800 font-medium">{questions[currentQuestion]}</p>
@@ -979,7 +985,7 @@ export default function AIInterviewPage() {
                   </button>
                   <button
                     onClick={nextQuestion}
-                    className="px-6 h-11 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-medium text-sm transition-colors duration-200"
+                    className="px-6 h-11 rounded-lg border-2 border-green-800 text-green-800 bg-white hover:bg-green-50 font-medium text-sm transition-colors duration-200"
                   >
                     {currentQuestion < questions.length - 1 ? 'Next Question' : 'End Session'}
                   </button>
@@ -1035,7 +1041,7 @@ export default function AIInterviewPage() {
                         <span className="text-[10px] text-gray-500">{m}</span>
                         <div className="h-1.5 w-16 bg-gray-100 rounded-full overflow-hidden">
                           <motion.div
-                            className="h-full rounded-full bg-blue-400"
+                            className="h-full rounded-full bg-green-700"
                             animate={{ width: speaking ? `${55 + Math.random() * 35}%` : '40%' }}
                             transition={{ duration: 0.8 }}
                           />
@@ -1053,7 +1059,7 @@ export default function AIInterviewPage() {
                       <p key={i} className="text-xs text-gray-500">{t}</p>
                     ))}
                     {speaking && (
-                      <span className="text-xs text-blue-800">
+                      <span className="text-xs text-green-800">
                         Transcribing
                         <motion.span
                           animate={{ opacity: [1, 0, 1] }}
@@ -1108,7 +1114,7 @@ export default function AIInterviewPage() {
                   className="rounded-2xl bg-white border border-gray-200 shadow-sm p-6"
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <Activity size={16} className="text-blue-800" />
+                    <Activity size={16} className="text-green-800" />
                     <h3 className="font-semibold text-gray-900">Skills Radar</h3>
                   </div>
                   <RadarChart data={radarData} />
@@ -1172,7 +1178,7 @@ export default function AIInterviewPage() {
                 className="rounded-2xl bg-white border border-gray-200 shadow-sm p-6 mb-8"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Activity size={16} className="text-blue-800" />
+                  <Activity size={16} className="text-green-800" />
                   <h3 className="font-semibold text-gray-900">Question-by-Question Timeline</h3>
                 </div>
                 <QuestionTimeline data={questionPerformance} />
@@ -1186,7 +1192,7 @@ export default function AIInterviewPage() {
                 className="rounded-2xl bg-white border border-gray-200 shadow-sm p-6 mb-6"
               >
                 <div className="flex items-center gap-2 mb-5">
-                  <Volume2 size={16} className="text-blue-800" />
+                  <Volume2 size={16} className="text-green-800" />
                   <h3 className="font-semibold text-gray-900">Voice Analysis Breakdown</h3>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -1285,8 +1291,8 @@ export default function AIInterviewPage() {
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-semibold text-gray-900">Word Frequency</h3>
                     <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-1 text-[9px] text-blue-600">
-                        <span className="w-2 h-2 rounded bg-blue-100 border border-blue-200" /> Keywords
+                      <span className="flex items-center gap-1 text-[9px] text-green-700">
+                        <span className="w-2 h-2 rounded bg-green-100 border border-green-200" /> Keywords
                       </span>
                       <span className="flex items-center gap-1 text-[9px] text-red-500">
                         <span className="w-2 h-2 rounded bg-red-50 border border-red-200" /> Fillers
@@ -1319,11 +1325,11 @@ export default function AIInterviewPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
-                className="rounded-2xl bg-blue-50 border border-blue-100 p-6 mb-8"
+                className="rounded-2xl bg-green-50/40 border border-green-200 p-6 mb-8"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Lightbulb size={16} className="text-blue-800" />
-                  <h3 className="font-semibold text-blue-900">AI Improvement Suggestions</h3>
+                  <Lightbulb size={16} className="text-green-800" />
+                  <h3 className="font-semibold text-green-900">AI Improvement Suggestions</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {[
@@ -1349,10 +1355,10 @@ export default function AIInterviewPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1.3 + i * 0.1 }}
-                      className="p-4 rounded-xl bg-white/60 border border-blue-100"
+                      className="p-4 rounded-xl bg-white/60 border border-green-200"
                     >
-                      <div className="text-sm font-semibold text-blue-900 mb-1">{suggestion.title}</div>
-                      <p className="text-xs text-blue-700 leading-relaxed">{suggestion.tip}</p>
+                      <div className="text-sm font-semibold text-green-900 mb-1">{suggestion.title}</div>
+                      <p className="text-xs text-green-700 leading-relaxed">{suggestion.tip}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -1373,7 +1379,7 @@ export default function AIInterviewPage() {
                     setTranscript([])
                     setFillerToasts([])
                   }}
-                  className="px-6 py-3 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-medium transition-colors duration-200"
+                  className="px-6 py-3 rounded-lg border-2 border-green-800 text-green-800 bg-white hover:bg-green-50 font-medium transition-colors duration-200"
                 >
                   Practice Again
                 </button>

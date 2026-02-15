@@ -107,7 +107,7 @@ export default function LiveQuizArena() {
             <Flame size={16} />
             <span className="font-bold">{streak}</span>
           </div>
-          <div className="flex items-center gap-1 text-blue-800">
+          <div className="flex items-center gap-1 text-green-800">
             <Zap size={16} />
             <span className="font-bold">{score}</span>
           </div>
@@ -187,7 +187,7 @@ export default function LiveQuizArena() {
                             : isSelected
                             ? 'border-red-500 bg-red-50 text-red-800'
                             : 'border-gray-200 bg-gray-50 text-gray-400'
-                          : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                          : 'border-gray-200 bg-white text-gray-700 hover:border-green-400 hover:bg-green-50'
                       }`}
                     >
                       <span className="text-sm font-medium">{String.fromCharCode(65 + i)}.</span>{' '}
@@ -218,7 +218,7 @@ export default function LiveQuizArena() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.1 }}
                     className={`flex items-center justify-between p-3 rounded-xl ${
-                      entry.name === 'You' ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50'
+                      entry.name === 'You' ? 'bg-green-50/40 border border-green-200' : 'bg-gray-50'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -230,7 +230,7 @@ export default function LiveQuizArena() {
                       }`}>
                         {entry.rank}
                       </span>
-                      <span className={entry.name === 'You' ? 'text-blue-800 font-semibold' : 'text-gray-600'}>
+                      <span className={entry.name === 'You' ? 'text-green-800 font-semibold' : 'text-gray-600'}>
                         {entry.name}
                       </span>
                     </div>
@@ -241,7 +241,7 @@ export default function LiveQuizArena() {
 
               <button
                 onClick={restart}
-                className="px-6 py-3 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-medium transition-colors duration-200"
+                className="px-6 py-3 rounded-lg border-2 border-green-800 bg-white text-green-800 font-medium hover:bg-green-50 transition-colors duration-200"
               >
                 Play Again
               </button>

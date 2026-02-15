@@ -24,7 +24,7 @@ function CelebrationDots({ trigger }: { trigger: boolean }) {
         return (
           <motion.div
             key={i}
-            className="absolute w-1.5 h-1.5 rounded-full bg-blue-300"
+            className="absolute w-1.5 h-1.5 rounded-full bg-green-300"
             style={{ left: '50%', top: '50%' }}
             initial={{ x: 0, y: 0, opacity: 0.7, scale: 1 }}
             animate={{
@@ -99,8 +99,8 @@ export default function StatsCounter() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.4 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mx-auto mb-4">
-                <stat.icon size={24} className="text-blue-800" />
+              <div className="w-12 h-12 rounded-xl bg-green-50/40 flex items-center justify-center mx-auto mb-4">
+                <stat.icon size={24} className="text-green-800" />
               </div>
               <div className="relative text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                 <AnimatedCounter

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { TrendingUp, Award, Target, Zap } from 'lucide-react'
+import Image from 'next/image'
 import SkillRadarChart from '@/components/features/SkillRadarChart'
 
 const skills = [
@@ -24,8 +25,8 @@ const peerAverage = [
 ]
 
 const skillBars = [
-  { name: 'Communication', score: 82, tier: 'Advanced', color: '#1E40AF' },
-  { name: 'Confidence', score: 75, tier: 'Advanced', color: '#1E40AF' },
+  { name: 'Communication', score: 82, tier: 'Advanced', color: '#166534' },
+  { name: 'Confidence', score: 75, tier: 'Advanced', color: '#166534' },
   { name: 'Presentation', score: 72, tier: 'Intermediate', color: '#166534' },
   { name: 'Leadership', score: 68, tier: 'Intermediate', color: '#166534' },
   { name: 'Time Management', score: 55, tier: 'Intermediate', color: '#92400E' },
@@ -35,7 +36,7 @@ const skillBars = [
 const roadmapCards = [
   { title: 'Confidence Building', desc: 'Complete 10 mock scenarios to reach Advanced tier', module: 'Skill Assessment', color: '#92400E', progress: 35 },
   { title: 'Negotiation Course', desc: 'Start the persuasion fundamentals course', module: 'AI Courses', color: '#991B1B', progress: 0 },
-  { title: 'Mock Interviews', desc: '5 more sessions to unlock certification', module: 'AI Interview', color: '#1E40AF', progress: 60 },
+  { title: 'Mock Interviews', desc: '5 more sessions to unlock certification', module: 'AI Interview', color: '#166534', progress: 60 },
   { title: 'Public Speaking', desc: 'Presentation delivery and body language practice', module: 'Courses', color: '#166534', progress: 20 },
 ]
 
@@ -43,7 +44,7 @@ function getTierColor(tier: string) {
   switch (tier) {
     case 'Beginner': return '#991B1B'
     case 'Intermediate': return '#92400E'
-    case 'Advanced': return '#1E40AF'
+    case 'Advanced': return '#166534'
     case 'Expert': return '#166534'
     default: return '#6B7280'
   }
@@ -61,8 +62,20 @@ export default function SkillAssessmentPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Skill Assessment</h1>
-          <p className="text-gray-500">Track your soft skills, discover gaps, and follow your AI-powered improvement roadmap</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Skill Assessment</h1>
+              <p className="text-gray-500">Track your soft skills, discover gaps, and follow your AI-powered improvement roadmap</p>
+            </div>
+            <div className="hidden md:flex items-center gap-3">
+              <div className="w-36 h-28">
+                <Image src="/analytics.png" alt="Analytics" width={144} height={112} className="object-contain w-full h-full" />
+              </div>
+              <div className="w-36 h-28">
+                <Image src="/man reading radar chart.png" alt="Skill Radar" width={144} height={112} className="object-contain w-full h-full" />
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -95,7 +108,7 @@ export default function SkillAssessmentPage() {
             {showComparison && (
               <div className="flex gap-4 mt-4 text-xs text-gray-500">
                 <span className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-full bg-blue-800/30" /> You
+                  <div className="w-3 h-3 rounded-full bg-green-800/30" /> You
                 </span>
                 <span className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full border border-red-400 border-dashed" /> Avg Peer
@@ -153,7 +166,7 @@ export default function SkillAssessmentPage() {
           className="mt-8"
         >
           <div className="flex items-center gap-2 mb-6">
-            <Target size={20} className="text-blue-800" />
+            <Target size={20} className="text-green-800" />
             <h3 className="text-xl font-semibold text-gray-900">AI Learning Roadmap</h3>
           </div>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import LiveQuizArena from '@/components/features/LiveQuizArena'
 import QuizTrophySpot from '@/components/illustrations/spots/QuizTrophySpot'
 
@@ -18,8 +19,8 @@ export default function LiveQuizPage() {
               <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Live Quiz Arena</h1>
               <p className="text-gray-500">Compete in real-time with thousands of students</p>
             </div>
-            <div className="hidden md:block w-36 h-28">
-              <QuizTrophySpot className="w-full h-full" />
+            <div className="hidden md:block w-48 h-40">
+              <Image src="/gamifed quiz competition.png" alt="Live Quiz Arena" width={200} height={160} className="object-contain w-full h-full" />
             </div>
           </div>
         </motion.div>

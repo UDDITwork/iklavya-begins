@@ -53,7 +53,7 @@ export default function TestimonialCarousel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-sm font-medium text-blue-800 tracking-widest uppercase mb-4 block">
+          <span className="text-sm font-medium text-green-800 tracking-widest uppercase mb-4 block">
             Success Stories
           </span>
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
@@ -101,7 +101,7 @@ export default function TestimonialCarousel() {
                   onClick={() => setCurrent(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === current
-                      ? 'bg-blue-800 w-6'
+                      ? 'bg-green-800 w-6'
                       : 'bg-gray-300 w-2 hover:bg-gray-400'
                   }`}
                 />

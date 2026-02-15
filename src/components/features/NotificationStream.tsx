@@ -23,9 +23,9 @@ const sampleNotifications: Omit<Notification, 'id'>[] = [
 
 const typeConfig = {
   whatsapp: { icon: MessageCircle, color: '#166534' },
-  email: { icon: Mail, color: '#1E40AF' },
+  email: { icon: Mail, color: '#166534' },
   achievement: { icon: Award, color: '#92400E' },
-  course: { icon: BookOpen, color: '#1E40AF' },
+  course: { icon: BookOpen, color: '#166534' },
   quiz: { icon: Zap, color: '#991B1B' },
   system: { icon: Bell, color: '#6B7280' },
 }
@@ -68,7 +68,7 @@ export default function NotificationStream() {
         </div>
         <button
           onClick={() => setNewCount(0)}
-          className="text-xs text-blue-800 hover:text-blue-900 transition-colors"
+          className="text-xs text-green-800 hover:text-green-900 transition-colors"
         >
           Mark all read
         </button>

@@ -11,6 +11,7 @@ import TimeSkillSpot from '@/components/illustrations/spots/TimeSkillSpot'
 import LeaderSkillSpot from '@/components/illustrations/spots/LeaderSkillSpot'
 import ConfidenceSkillSpot from '@/components/illustrations/spots/ConfidenceSkillSpot'
 import SpeakingSkillSpot from '@/components/illustrations/spots/SpeakingSkillSpot'
+import Image from 'next/image'
 import CourseLibraryScene from '@/components/illustrations/scenes/CourseLibraryScene'
 
 const courseIcons: Record<string, React.ElementType> = {
@@ -32,13 +33,20 @@ const courseIllustrations: Record<string, React.ComponentType<{ className?: stri
 }
 
 const courses = [
-  { id: 1, title: 'Communication Mastery', category: 'Communication', duration: '10h', lessons: 42, rating: 4.8, students: 14200, progress: 65, color: '#1E40AF', iconKey: 'comm' },
-  { id: 2, title: 'Sales & Persuasion', category: 'Sales', duration: '12h', lessons: 52, rating: 4.9, students: 9800, progress: 30, color: '#1E40AF', iconKey: 'sales' },
+  { id: 1, title: 'Communication Mastery', category: 'Communication', duration: '10h', lessons: 42, rating: 4.8, students: 14200, progress: 65, color: '#166534', iconKey: 'comm' },
+  { id: 2, title: 'Sales & Persuasion', category: 'Sales', duration: '12h', lessons: 52, rating: 4.9, students: 9800, progress: 30, color: '#166534', iconKey: 'sales' },
   { id: 3, title: 'Time Management Pro', category: 'Productivity', duration: '6h', lessons: 28, rating: 4.7, students: 16400, progress: 0, color: '#166534', iconKey: 'time' },
   { id: 4, title: 'Leadership Fundamentals', category: 'Leadership', duration: '14h', lessons: 56, rating: 4.6, students: 11200, progress: 100, color: '#92400E', iconKey: 'leadership' },
   { id: 5, title: 'Confidence Building', category: 'Interview Prep', duration: '8h', lessons: 36, rating: 4.9, students: 18500, progress: 15, color: '#991B1B', iconKey: 'confidence' },
   { id: 6, title: 'Public Speaking & Presentation', category: 'Communication', duration: '9h', lessons: 38, rating: 4.5, students: 7600, progress: 0, color: '#374151', iconKey: 'presentation' },
 ]
+
+const courseImages: Record<string, string> = {
+  comm: '/communication.png',
+  sales: '/ART OF NEGOTIATION.png',
+  leadership: '/leadership.png',
+  time: '/stopwatch.png',
+}
 
 const categories = ['All', 'Communication', 'Sales', 'Productivity', 'Leadership', 'Interview Prep']
 
@@ -82,7 +90,7 @@ export default function AICoursesPage() {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap transition-all duration-200 border ${
                 activeCategory === cat
-                  ? 'bg-blue-50 text-blue-800 border-blue-200'
+                  ? 'bg-green-50/40 text-green-800 border-green-200'
                   : 'bg-white text-gray-500 border-gray-200 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -95,6 +103,7 @@ export default function AICoursesPage() {
           <AnimatePresence>
             {filteredCourses.map((course, index) => {
               const IllustrationComp = courseIllustrations[course.iconKey]
+              const courseImage = courseImages[course.iconKey]
               return (
                 <motion.div
                   key={course.id}
@@ -107,17 +116,17 @@ export default function AICoursesPage() {
                   onClick={() => setSelectedCourse(course)}
                 >
                   <div className="h-44 relative flex items-center justify-center bg-gray-50/50">
-                    {IllustrationComp ? <IllustrationComp className="w-40 h-36" /> : null}
+                    {courseImage ? <Image src={courseImage} alt={course.title} width={160} height={144} className="w-40 h-36 object-contain" /> : IllustrationComp ? <IllustrationComp className="w-40 h-36" /> : null}
 
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-14 h-14 rounded-full flex items-center justify-center bg-blue-800">
-                        <Play size={20} fill="white" className="text-white ml-0.5" />
+                      <div className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-green-800 bg-white">
+                        <Play size={20} fill="currentColor" className="text-green-800 ml-0.5" />
                       </div>
                     </div>
 
                     {course.progress > 0 && (
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
-                        <div className="h-full rounded-r bg-blue-800" style={{ width: `${course.progress}%` }} />
+                        <div className="h-full rounded-r bg-green-800" style={{ width: `${course.progress}%` }} />
                       </div>
                     )}
 
@@ -130,7 +139,7 @@ export default function AICoursesPage() {
 
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-100">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-50/40 text-green-800 border border-green-200">
                         {course.category}
                       </span>
                       <div className="flex items-center gap-1 text-[10px] text-amber-600">
@@ -138,7 +147,7 @@ export default function AICoursesPage() {
                         {course.rating}
                       </div>
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-blue-800 transition-colors">
+                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-green-800 transition-colors">
                       {course.title}
                     </h3>
                     <div className="flex items-center gap-4 text-xs text-gray-400">
@@ -177,11 +186,11 @@ export default function AICoursesPage() {
                         className="absolute inset-0 flex items-center justify-center"
                         onClick={() => setIsPlaying(!isPlaying)}
                       >
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-blue-800 hover:bg-blue-900 transition-colors">
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 border-green-800 bg-white hover:bg-green-50 transition-colors">
                           {isPlaying ? (
-                            <Pause size={24} fill="white" className="text-white" />
+                            <Pause size={24} fill="currentColor" className="text-green-800" />
                           ) : (
-                            <Play size={24} fill="white" className="text-white ml-1" />
+                            <Play size={24} fill="currentColor" className="text-green-800 ml-1" />
                           )}
                         </div>
                       </button>
@@ -212,7 +221,7 @@ export default function AICoursesPage() {
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                       <motion.div
-                        className="h-full rounded-full bg-blue-800"
+                        className="h-full rounded-full bg-green-800"
                         initial={{ width: 0 }}
                         animate={{ width: `${selectedCourse.progress}%` }}
                         transition={{ duration: 1 }}
@@ -220,7 +229,7 @@ export default function AICoursesPage() {
                     </div>
                   </div>
 
-                  <button className="w-full py-3 rounded-lg text-white font-medium bg-blue-800 hover:bg-blue-900 transition-colors duration-200">
+                  <button className="w-full py-3 rounded-lg text-green-800 font-medium border-2 border-green-800 bg-white hover:bg-green-50 transition-colors duration-200">
                     {selectedCourse.progress > 0 ? 'Continue Learning' : 'Start Course'}
                   </button>
                 </div>

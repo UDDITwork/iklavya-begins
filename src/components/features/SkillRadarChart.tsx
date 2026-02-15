@@ -113,8 +113,8 @@ export default function SkillRadarChart({
         {/* Main skill area */}
         <motion.path
           d={mainPath}
-          fill="rgba(30, 64, 175, 0.08)"
-          stroke="#1E40AF"
+          fill="rgba(22, 101, 52, 0.08)"
+          stroke="#166534"
           strokeWidth={2}
           initial={{ pathLength: 0, opacity: 0 }}
           animate={inView ? { pathLength: 1, opacity: 1 } : {}}
@@ -130,7 +130,7 @@ export default function SkillRadarChart({
               cx={p.x}
               cy={p.y}
               r={4}
-              fill="#1E40AF"
+              fill="#166534"
               stroke="#fff"
               strokeWidth={2}
               initial={{ scale: 0, opacity: 0 }}

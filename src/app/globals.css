@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #111827;
-  --accent: #1E40AF;
-  --accent-hover: #1E3A8A;
+  --accent: #166534;
+  --accent-hover: #14532D;
   --border: #E5E7EB;
   --muted: #6B7280;
   --bg-alt: #F9FAFB;
@@ -61,14 +61,14 @@ body {
 .hero-mesh::before {
   width: 500px;
   height: 500px;
-  background: rgba(96, 165, 250, 0.07);
+  background: rgba(74, 222, 128, 0.07);
   top: -100px;
   right: 5%;
 }
 .hero-mesh::after {
   width: 400px;
   height: 400px;
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(120, 113, 108, 0.05);
   bottom: -80px;
   left: 15%;
   animation-delay: -10s;
@@ -87,7 +87,7 @@ body {
   transition: opacity 0.4s ease;
   background: radial-gradient(
     600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(30, 64, 175, 0.04),
+    rgba(22, 101, 52, 0.04),
     transparent 40%
   );
   pointer-events: none;
@@ -107,7 +107,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(96,165,250,0.3), rgba(99,102,241,0.1), transparent 50%);
+  background: linear-gradient(135deg, rgba(74,222,128,0.3), rgba(120,113,108,0.1), transparent 50%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

@@ -42,7 +42,7 @@ function WaveformDemo() {
       {Array.from({ length: 14 }).map((_, i) => (
         <motion.div
           key={i}
-          className="w-[3px] rounded-full bg-blue-400"
+          className="w-[3px] rounded-full bg-green-800/20"
           animate={{ height: ['8px', `${12 + Math.random() * 24}px`, '8px'] }}
           transition={{
             duration: 0.8 + Math.random() * 0.4,
@@ -71,7 +71,7 @@ function ProgressRingDemo() {
       <svg width="64" height="64" viewBox="0 0 60 60">
         <circle cx="30" cy="30" r="25" fill="none" stroke="#E5E7EB" strokeWidth="4" />
         <motion.circle
-          cx="30" cy="30" r="25" fill="none" stroke="#1E40AF" strokeWidth="4"
+          cx="30" cy="30" r="25" fill="none" stroke="#166534" strokeWidth="4"
           strokeLinecap="round" strokeDasharray="0 157"
           style={{ strokeDasharray: strokeDash }}
           transform="rotate(-90 30 30)"
@@ -95,7 +95,7 @@ function ResumeDemo() {
           animate={{ width: `${w}%` }}
           transition={{ duration: 0.6, delay: 0.8 + i * 0.2, ease: 'easeOut' }}
         >
-          <motion.div className="h-full rounded-full bg-blue-200" style={{ width: '100%' }} />
+          <motion.div className="h-full rounded-full bg-green-200" style={{ width: '100%' }} />
         </motion.div>
       ))}
       <motion.div
@@ -140,7 +140,7 @@ function RadarDemo() {
         />
         <motion.path
           d={pathD}
-          fill="rgba(30,64,175,0.1)" stroke="#1E40AF" strokeWidth="1.5"
+          fill="rgba(22,101,52,0.1)" stroke="#166534" strokeWidth="1.5"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
@@ -175,7 +175,7 @@ function QuizDemo() {
             i === active
               ? i === 1 && checked
                 ? 'bg-green-50 border-green-300 text-green-700'
-                : 'bg-blue-50 border-blue-200 text-blue-700'
+                : 'bg-green-50/40 border-green-200 text-green-700'
               : 'bg-gray-50 border-gray-200 text-gray-400'
           }`}
           animate={i === active ? { scale: [1, 1.02, 1] } : {}}
@@ -204,7 +204,7 @@ function ChatDemo() {
   return (
     <div className="mt-3 space-y-1.5">
       <div className="flex justify-end">
-        <div className="px-2 py-1 rounded-lg bg-blue-100 text-[9px] text-blue-800">
+        <div className="px-2 py-1 rounded-lg bg-green-50/60 text-[9px] text-green-800">
           Career advice?
         </div>
       </div>
@@ -264,7 +264,7 @@ function BarChartDemo() {
       {heights.map((h, i) => (
         <motion.div
           key={i}
-          className="w-3 rounded-t-sm bg-blue-300"
+          className="w-3 rounded-t-sm bg-green-300"
           initial={{ height: 0 }}
           animate={inView ? { height: `${h}%` } : {}}
           transition={{ duration: 0.6, delay: 0.2 + i * 0.12, ease: 'easeOut' }}
@@ -292,12 +292,12 @@ function CalendarDemo() {
         <line x1="2" y1="10" x2="26" y2="10" stroke="#E5E7EB" strokeWidth="1" />
         <motion.line
           x1="14" y1="14" x2="14" y2="20"
-          stroke="#1E40AF" strokeWidth="1.5" strokeLinecap="round"
+          stroke="#166534" strokeWidth="1.5" strokeLinecap="round"
           style={{ transformOrigin: '14px 14px' }}
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
         />
-        <circle cx="14" cy="14" r="1" fill="#1E40AF" />
+        <circle cx="14" cy="14" r="1" fill="#166534" />
       </svg>
       {booked && (
         <motion.span
@@ -410,7 +410,7 @@ export default function FeatureGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
         >
-          <span className="text-sm font-medium text-blue-800 tracking-widest uppercase mb-4 block">
+          <span className="text-sm font-medium text-green-800 tracking-widest uppercase mb-4 block">
             Platform Features
           </span>
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">

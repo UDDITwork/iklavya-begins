@@ -6,6 +6,7 @@ import {
   Search, MessageCircle, Send, ChevronRight,
   Calendar, Clock, User, CheckCircle, Circle, X
 } from 'lucide-react'
+import Image from 'next/image'
 
 const faqs = [
   { q: 'How do I reset my password?', a: 'Go to Settings > Account > Reset Password. You will receive an email with reset instructions.' },
@@ -16,8 +17,8 @@ const faqs = [
 ]
 
 const mentors = [
-  { name: 'Dr. Priya Sharma', role: 'Communication Coach', rating: 4.9, slots: ['10:00 AM', '2:00 PM', '4:30 PM'], color: '#1E40AF' },
-  { name: 'Rahul Verma', role: 'Leadership Mentor', rating: 4.8, slots: ['9:00 AM', '11:30 AM', '3:00 PM'], color: '#1E40AF' },
+  { name: 'Dr. Priya Sharma', role: 'Communication Coach', rating: 4.9, slots: ['10:00 AM', '2:00 PM', '4:30 PM'], color: '#166534' },
+  { name: 'Rahul Verma', role: 'Leadership Mentor', rating: 4.8, slots: ['9:00 AM', '11:30 AM', '3:00 PM'], color: '#166534' },
   { name: 'Dr. Ananya Desai', role: 'Career Counselor', rating: 4.9, slots: ['10:30 AM', '1:00 PM'], color: '#166534' },
 ]
 
@@ -28,7 +29,7 @@ const tickets = [
 ]
 
 const statusConfig: Record<string, { color: string; label: string }> = {
-  submitted: { color: '#1E40AF', label: 'Submitted' },
+  submitted: { color: '#166534', label: 'Submitted' },
   'in-review': { color: '#92400E', label: 'In Review' },
   resolved: { color: '#166534', label: 'Resolved' },
 }
@@ -74,8 +75,15 @@ export default function SupportPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Support & Mentorship</h1>
-          <p className="text-gray-500">Get help and book mentor sessions</p>
+          <div className="flex items-center gap-6">
+            <div className="flex-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Support & Mentorship</h1>
+              <p className="text-gray-500">Get help and book mentor sessions</p>
+            </div>
+            <div className="hidden md:block w-48 h-40">
+              <Image src="/mentorship and collaboration.png" alt="Support & Mentorship" width={200} height={160} className="object-contain w-full h-full" />
+            </div>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -93,8 +101,8 @@ export default function SupportPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search FAQs..."
                 className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200
-                  text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-blue-300
-                  focus:ring-2 focus:ring-blue-100 transition-all"
+                  text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400
+                  focus:ring-2 focus:ring-green-100 transition-all"
               />
             </motion.div>
 
@@ -221,7 +229,7 @@ export default function SupportPage() {
               className="rounded-xl bg-white border border-gray-200 shadow-sm p-5"
             >
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Calendar size={16} className="text-blue-800" />
+                <Calendar size={16} className="text-green-800" />
                 Book a Mentor
               </h3>
               <div className="space-y-4">
@@ -250,7 +258,7 @@ export default function SupportPage() {
                         <button
                           key={slot}
                           className="px-2.5 py-1 rounded-lg text-[11px] bg-white border border-gray-200
-                            text-gray-500 hover:text-blue-800 hover:border-blue-200 transition-all"
+                            text-gray-500 hover:text-green-800 hover:border-green-200 transition-all"
                         >
                           <Clock size={10} className="inline mr-1" />
                           {slot}
@@ -278,8 +286,8 @@ export default function SupportPage() {
             >
               <div className="p-4 border-b border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
-                    <MessageCircle size={14} className="text-blue-800" />
+                  <div className="w-8 h-8 rounded-full bg-green-50/40 flex items-center justify-center">
+                    <MessageCircle size={14} className="text-green-800" />
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-gray-900">Support Chat</h4>
@@ -301,7 +309,7 @@ export default function SupportPage() {
                   >
                     <div className={`max-w-[80%] px-3 py-2 rounded-xl text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-blue-800 text-white'
+                        ? 'border-2 border-green-800 text-green-800 bg-white'
                         : 'bg-gray-50 border border-gray-200 text-gray-600'
                     }`}>
                       {msg.text}
@@ -319,12 +327,12 @@ export default function SupportPage() {
                     placeholder="Type a message..."
                     className="flex-1 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200
                       text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none
-                      focus:border-blue-300 transition-all"
+                      focus:border-green-400 transition-all"
                   />
                   <button
                     onClick={sendChat}
-                    className="w-8 h-8 rounded-lg bg-blue-800 flex items-center justify-center text-white
-                      hover:bg-blue-900 transition-colors"
+                    className="w-8 h-8 rounded-lg border-2 border-green-800 bg-white flex items-center justify-center text-green-800
+                      hover:bg-green-50 transition-colors"
                   >
                     <Send size={12} />
                   </button>
@@ -336,8 +344,8 @@ export default function SupportPage() {
 
         <motion.button
           onClick={() => setChatOpen(!chatOpen)}
-          className="w-14 h-14 rounded-full bg-blue-800 hover:bg-blue-900
-            flex items-center justify-center text-white shadow-lg transition-colors relative"
+          className="w-14 h-14 rounded-full border-2 border-green-800 bg-white hover:bg-green-50
+            flex items-center justify-center text-green-800 shadow-lg transition-colors relative"
         >
           <MessageCircle size={22} />
           {!chatOpen && (

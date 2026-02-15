@@ -35,7 +35,7 @@ function ConfidenceCard() {
       </div>
       <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
         <motion.div
-          className="h-full rounded-full bg-blue-600"
+          className="h-full rounded-full border-l-2 border-green-800"
           initial={{ width: 0 }}
           animate={{ width: '78%' }}
           transition={{ delay: 1.2, duration: 1, ease: 'easeOut' }}
@@ -47,7 +47,7 @@ function ConfidenceCard() {
 
 function SkillBarsCard() {
   const skills = [
-    { name: 'Communication', value: 82, color: '#1E40AF' },
+    { name: 'Communication', value: 82, color: '#166534' },
     { name: 'Leadership', value: 68, color: '#166534' },
     { name: 'Negotiation', value: 45, color: '#92400E' },
   ]
@@ -91,8 +91,8 @@ function ChatPreviewCard() {
       transition={{ delay: 1, duration: 0.5 }}
     >
       <div className="flex items-center gap-2 mb-2">
-        <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
-          <MessageSquare size={10} className="text-blue-700" />
+        <div className="w-5 h-5 rounded-full bg-green-50/40 flex items-center justify-center">
+          <MessageSquare size={10} className="text-green-700" />
         </div>
         <span className="text-[10px] text-gray-400">AI Career Coach</span>
       </div>
@@ -101,7 +101,7 @@ function ChatPreviewCard() {
           Your communication score improved by 15% this week
         </div>
         <div className="flex justify-end">
-          <div className="px-2.5 py-1.5 rounded-lg bg-blue-600 text-[10px] text-white">
+          <div className="px-2.5 py-1.5 rounded-lg border border-green-800 bg-white text-[10px] text-green-800">
             Show roadmap
           </div>
         </div>
@@ -130,7 +130,7 @@ function WaveformCard() {
         {Array.from({ length: 18 }).map((_, i) => (
           <motion.div
             key={i}
-            className="w-[3px] rounded-full bg-blue-300"
+            className="w-[3px] rounded-full bg-green-300"
             animate={{ height: ['4px', `${6 + Math.random() * 16}px`, '4px'] }}
             transition={{
               duration: 0.7 + Math.random() * 0.4,
@@ -179,7 +179,7 @@ export default function HeroSection() {
               className="mb-6"
             >
               <span className="inline-block px-3 py-1 rounded-full text-sm font-medium
-                bg-blue-50 text-blue-800 border border-blue-100">
+                bg-green-50/40 text-green-800 border border-green-200">
                 AI-Powered Career Platform
               </span>
             </motion.div>
@@ -219,7 +219,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-3"
             >
               <Link href="/ai-interview">
-                <button className="px-6 py-3 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-medium transition-colors duration-200">
+                <button className="px-6 py-3 rounded-lg border-2 border-green-800 bg-white text-green-800 font-medium hover:bg-green-50 transition-colors duration-200">
                   Explore Features
                 </button>
               </Link>
@@ -241,7 +241,7 @@ export default function HeroSection() {
                   key={f.label}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 border border-gray-100 text-sm text-gray-600"
                 >
-                  <f.icon size={16} className="text-blue-800" />
+                  <f.icon size={16} className="text-green-800" />
                   {f.label}
                 </div>
               ))}

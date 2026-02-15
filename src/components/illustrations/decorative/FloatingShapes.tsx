@@ -40,29 +40,29 @@ export default function FloatingShapes({ className }: { className?: string }) {
             {s.type === 'hexagon' && (
               <path
                 d={hexPath(s.size, s.size, s.size * 0.8)}
-                stroke="#1E40AF" strokeWidth={1} strokeOpacity={0.05}
-                fill="#DBEAFE" fillOpacity={0.03}
+                stroke="#166534" strokeWidth={1} strokeOpacity={0.05}
+                fill="#DCFCE7" fillOpacity={0.03}
               />
             )}
             {s.type === 'triangle' && (
               <path
                 d={`M${s.size},${s.size * 0.3} L${s.size * 1.6},${s.size * 1.5} L${s.size * 0.4},${s.size * 1.5}Z`}
-                stroke="#60A5FA" strokeWidth={1} strokeOpacity={0.04}
-                fill="#EFF6FF" fillOpacity={0.03}
+                stroke="#4ADE80" strokeWidth={1} strokeOpacity={0.04}
+                fill="#F0FDF4" fillOpacity={0.03}
               />
             )}
             {s.type === 'circle' && (
               <circle
                 cx={s.size} cy={s.size} r={s.size * 0.7}
-                stroke="#1E40AF" strokeWidth={1} strokeOpacity={0.04}
-                fill="#DBEAFE" fillOpacity={0.02}
+                stroke="#166534" strokeWidth={1} strokeOpacity={0.04}
+                fill="#DCFCE7" fillOpacity={0.02}
               />
             )}
             {s.type === 'diamond' && (
               <path
                 d={`M${s.size},${s.size * 0.3} L${s.size * 1.5},${s.size} L${s.size},${s.size * 1.7} L${s.size * 0.5},${s.size}Z`}
-                stroke="#60A5FA" strokeWidth={1} strokeOpacity={0.05}
-                fill="#EFF6FF" fillOpacity={0.02}
+                stroke="#4ADE80" strokeWidth={1} strokeOpacity={0.05}
+                fill="#F0FDF4" fillOpacity={0.02}
               />
             )}
           </svg>

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Download, Eye, Link2, Sparkles } from 'lucide-react'
+import Image from 'next/image'
 import ResumePreview from '@/components/features/ResumePreview'
 
 export default function ResumeBuilderPage() {
@@ -14,13 +15,18 @@ export default function ResumeBuilderPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
         >
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">AI Resume Builder</h1>
-            <p className="text-gray-500 text-sm">Build ATS-optimized resumes with AI assistance</p>
-            <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-xs font-medium
-              bg-blue-50 text-blue-700 border border-blue-100">
-              <Sparkles size={12} /> AI-Powered
-            </span>
+          <div className="flex items-center gap-6">
+            <div className="hidden md:block w-48 h-40">
+              <Image src="/man filling resume.png" alt="AI Resume Builder" width={200} height={160} className="object-contain w-full h-full" />
+            </div>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">AI Resume Builder</h1>
+              <p className="text-gray-500 text-sm">Build ATS-optimized resumes with AI assistance</p>
+              <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-xs font-medium
+                bg-green-50/40 text-green-800 border border-green-200">
+                <Sparkles size={12} /> AI-Powered
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -28,8 +34,8 @@ export default function ResumeBuilderPage() {
               bg-white border border-gray-200 hover:bg-gray-50 hover:shadow-sm transition-all">
               <Eye size={16} /> Preview PDF
             </button>
-            <button className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-medium text-white
-              bg-blue-800 hover:bg-blue-900 hover:shadow-md transition-all">
+            <button className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-medium text-green-800
+              border-2 border-green-800 bg-white hover:bg-green-50 hover:shadow-md transition-all">
               <Download size={16} /> Download PDF
             </button>
             <button className="hidden sm:flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm text-gray-500

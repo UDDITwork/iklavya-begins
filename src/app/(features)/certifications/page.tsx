@@ -7,6 +7,7 @@ import {
   MessageSquare, Handshake, Timer, Brain, TrendingUp, MonitorPlay,
   Star, Flame, Zap, Target
 } from 'lucide-react'
+import Image from 'next/image'
 import CertificateShowcase from '@/components/illustrations/scenes/CertificateShowcase'
 
 const certIcons: Record<string, React.ElementType> = {
@@ -19,8 +20,8 @@ const certIcons: Record<string, React.ElementType> = {
 }
 
 const certificates = [
-  { id: 1, title: 'Communication Mastery', issueDate: '2025-01-15', status: 'earned', grade: 'A', color: '#1E40AF', iconKey: 'python' },
-  { id: 2, title: 'Sales & Persuasion', issueDate: '2025-02-01', status: 'earned', grade: 'A+', color: '#1E40AF', iconKey: 'react' },
+  { id: 1, title: 'Communication Mastery', issueDate: '2025-01-15', status: 'earned', grade: 'A', color: '#166534', iconKey: 'python' },
+  { id: 2, title: 'Sales & Persuasion', issueDate: '2025-02-01', status: 'earned', grade: 'A+', color: '#166534', iconKey: 'react' },
   { id: 3, title: 'Time Management', issueDate: '2024-12-20', status: 'earned', grade: 'B+', color: '#92400E', iconKey: 'sql' },
   { id: 4, title: 'Leadership Skills', issueDate: '', status: 'in-progress', grade: '', color: '#166534', iconKey: 'ml', progress: 45 },
   { id: 5, title: 'Negotiation Expert', issueDate: '', status: 'locked', grade: '', color: '#991B1B', iconKey: 'system', progress: 0 },
@@ -37,16 +38,16 @@ const badgeIcons: Record<string, React.ElementType> = {
 
 const badges = [
   { name: 'Early Adopter', iconKey: 'earlyAdopter', rarity: 'rare', color: '#92400E' },
-  { name: 'Quiz Master', iconKey: 'quizMaster', rarity: 'epic', color: '#1E40AF' },
+  { name: 'Quiz Master', iconKey: 'quizMaster', rarity: 'epic', color: '#166534' },
   { name: '5-Day Streak', iconKey: 'streak', rarity: 'common', color: '#991B1B' },
-  { name: 'Fast Learner', iconKey: 'fastLearner', rarity: 'rare', color: '#1E40AF' },
+  { name: 'Fast Learner', iconKey: 'fastLearner', rarity: 'rare', color: '#166534' },
   { name: 'Interview Ready', iconKey: 'interviewReady', rarity: 'legendary', color: '#166534' },
 ]
 
 const rarityBorder: Record<string, string> = {
   common: 'border-gray-300',
-  rare: 'border-blue-300',
-  epic: 'border-blue-400',
+  rare: 'border-green-300',
+  epic: 'border-green-400',
   legendary: 'border-amber-400',
 }
 
@@ -72,8 +73,8 @@ export default function CertificationsPage() {
             <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Certifications & Badges</h1>
             <p className="text-gray-500">Your achievement trophy room</p>
           </div>
-          <div className="hidden md:block w-48 h-36">
-            <CertificateShowcase className="w-full h-full" />
+          <div className="hidden md:block w-48 h-40">
+            <Image src="/certificates and achievement.png" alt="Certifications & Badges" width={200} height={160} className="object-contain w-full h-full" />
           </div>
         </motion.div>
 
@@ -231,8 +232,8 @@ export default function CertificationsPage() {
 
                 {/* Actions */}
                 <div className="p-4 flex gap-2 border-t border-gray-100">
-                  <button className="flex-1 py-2.5 rounded-xl bg-blue-800 hover:bg-blue-900
-                    text-white font-medium text-sm flex items-center justify-center gap-2 transition-colors">
+                  <button className="flex-1 py-2.5 rounded-xl border-2 border-green-800 bg-white hover:bg-green-50
+                    text-green-800 font-medium text-sm flex items-center justify-center gap-2 transition-colors">
                     <Download size={14} /> Download
                   </button>
                   <button className="flex-1 py-2.5 rounded-xl bg-white border border-gray-300 hover:bg-gray-50
