@@ -75,9 +75,9 @@ export default function SupportPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Support & Mentorship</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Support & Mentorship</h1>
               <p className="text-gray-500">Get help and book mentor sessions</p>
             </div>
             <div className="hidden md:block w-48 h-40">
@@ -86,9 +86,9 @@ export default function SupportPage() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {/* Left: FAQ + Tickets */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-3 sm:space-y-4 md:space-y-6">
             {/* Search */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -125,7 +125,7 @@ export default function SupportPage() {
                   >
                     <button
                       onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                      className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-100 transition-colors"
+                      className="w-full flex items-center justify-between p-3 sm:p-4 min-h-[48px] text-left hover:bg-gray-100 transition-colors"
                     >
                       <span className="text-sm text-gray-700">{faq.q}</span>
                       <motion.div
@@ -257,7 +257,7 @@ export default function SupportPage() {
                       {mentor.slots.map((slot) => (
                         <button
                           key={slot}
-                          className="px-2.5 py-1 rounded-lg text-[11px] bg-white border border-gray-200
+                          className="px-2 sm:px-2.5 py-1.5 min-h-[36px] rounded-lg text-[11px] bg-white border border-gray-200
                             text-gray-500 hover:text-green-800 hover:border-green-200 transition-all"
                         >
                           <Clock size={10} className="inline mr-1" />
@@ -299,7 +299,7 @@ export default function SupportPage() {
                 </button>
               </div>
 
-              <div className="h-60 overflow-y-auto p-4 space-y-3">
+              <div className="h-48 sm:h-60 overflow-y-auto p-4 space-y-3">
                 {chatMessages.map((msg, i) => (
                   <motion.div
                     key={i}

@@ -240,31 +240,31 @@ export default function NewLandingPage() {
       `}</style>
 
       {/* ===== 1. HERO ===== */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
+      <section className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-[120%] bg-stone-50/50 -skew-x-12 translate-x-32 -z-10" />
         <RevealSection>
-          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-16 items-center">
             <div className="lg:col-span-7 space-y-10">
               <div className="inline-block px-4 py-2 bg-stone-100 rounded-full">
                 <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest flex items-center gap-2">
                   <Activity className="w-3 h-3" /> Live Competition Starts in 04:12:00
                 </p>
               </div>
-              <h1 className="text-8xl md:text-9xl font-serif font-bold text-slate-900 leading-[0.85] tracking-tight">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold text-slate-900 leading-tight sm:leading-[0.85] tracking-tight">
                 Master the <br /> <span className="text-green-800 italic">Unfair</span> Advantage.
               </h1>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
                 Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-green-800 font-bold italic">Iklavya.</span>{' '}
                 Our real-time AI engine turns your potential into professional dominance.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <Link href="/ai-interview">
-                  <button className="px-10 py-5 border-2 border-green-800 text-green-800 hover:bg-green-50/50 font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-green-200/30 transition-all">
+                  <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-green-800 text-green-800 hover:bg-green-50/50 font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-green-200/30 transition-all">
                     Start Free Mock Interview <Zap className="w-4 h-4 text-amber-500" />
                   </button>
                 </Link>
                 <Link href="/live-quiz">
-                  <button className="px-10 py-5 border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50 transition-all">
+                  <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50 transition-all">
                     Watch Live Competition
                   </button>
                 </Link>
@@ -322,7 +322,7 @@ export default function NewLandingPage() {
         <div className="relative">
           <div className="flex whitespace-nowrap" style={{ animation: 'marquee 40s linear infinite' }}>
             {[...colleges, ...colleges].map((name, i) => (
-              <div key={i} className="inline-flex items-center mx-8 shrink-0">
+              <div key={i} className="inline-flex items-center mx-4 sm:mx-8 shrink-0">
                 <div className="w-2 h-2 rounded-full bg-stone-400 mr-3" />
                 <span className="text-sm font-bold text-slate-500 tracking-wide">{name}</span>
               </div>
@@ -332,15 +332,15 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 3. CORE ENGINE SHOWDOWN ===== */}
-      <section className="py-32 bg-white relative">
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white relative">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
               <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
-              <h3 className="text-6xl font-serif font-bold">Built for Zero Latency.</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold">Built for Zero Latency.</h3>
             </div>
 
-            <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-start">
               <div className="lg:col-span-4 space-y-4">
                 {Object.entries(productFeatures).map(([key, value]) => (
                   <button
@@ -377,15 +377,15 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 4. HOW IT WORKS ===== */}
-      <section className="py-28 bg-[#FDFCF6]">
+      <section className="py-14 sm:py-20 md:py-28 bg-[#FDFCF6]">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-sm font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">The Process</h2>
-              <h3 className="text-5xl font-serif font-bold">How Iklavya Works</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold">How Iklavya Works</h3>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 relative">
+            <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 relative">
               {/* Connecting line */}
               <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-stone-400 via-amber-300 to-emerald-300" />
 
@@ -418,10 +418,10 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 5. LIVE ARENA ===== */}
-      <section className="py-32 bg-slate-50 overflow-hidden">
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-slate-50 overflow-hidden">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-center">
               <div className="relative">
                 <div className="bg-white border border-slate-200 rounded-2xl p-8 relative overflow-hidden shadow-lg">
                   <div className="flex justify-between items-center mb-10">
@@ -459,7 +459,7 @@ export default function NewLandingPage() {
 
               <div className="space-y-10">
                 <h2 className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">Live Competitions</h2>
-                <h3 className="text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h3>
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h3>
                 <p className="text-lg text-slate-600 font-light leading-relaxed">
                   Don&apos;t just claim skills. Win them. Compete in live quiz broadcasts, real-time negotiation face-offs, and communication challenges. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our corporate partners.
                 </p>
@@ -486,9 +486,9 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 6. STATS COUNTER STRIP ===== */}
-      <section className="py-20 bg-white border-y border-slate-100">
+      <section className="py-12 sm:py-16 md:py-20 bg-white border-y border-slate-100">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
             {[
               { target: 520, suffix: '+', label: 'Students Trained', color: 'text-green-800' },
               { target: 15, suffix: '+', label: 'Corporate Partners', color: 'text-emerald-600' },
@@ -502,7 +502,7 @@ export default function NewLandingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <p className={`text-4xl md:text-5xl font-bold mb-2 ${stat.color}`}>
+                <p className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 ${stat.color}`}>
                   {stat.isDecimal ? (
                     <span>99.9%</span>
                   ) : (
@@ -517,13 +517,13 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 7. PERSONALIZED LEARNING ===== */}
-      <section className="py-32 bg-[#FDFCF6]">
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#FDFCF6]">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-20 items-center">
               <div className="flex-1 space-y-10">
                 <h2 className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">Personalized Learning</h2>
-                <h3 className="text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
                 <p className="text-lg text-slate-600 font-light">
                   Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we suggest leadership and negotiation labs.
                 </p>
@@ -540,7 +540,7 @@ export default function NewLandingPage() {
                 </Link>
               </div>
 
-              <div className="flex-1 grid grid-cols-2 gap-6">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                 {[
                   { label: "Communication", icon: <MessageSquare />, color: "border-2 border-green-800", textColor: "text-green-800" },
                   { label: "Negotiation", icon: <Users />, color: "border-2 border-orange-600", textColor: "text-orange-600" },
@@ -550,7 +550,7 @@ export default function NewLandingPage() {
                   <motion.div
                     key={i}
                     whileHover={{ y: -10 }}
-                    className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-4"
+                    className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-4"
                   >
                     <div className={`${cat.color} bg-white w-12 h-12 rounded-xl flex items-center justify-center ${cat.textColor}`}>
                       {cat.icon}
@@ -566,15 +566,15 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 8. TESTIMONIALS ===== */}
-      <section className="py-28 bg-white">
+      <section className="py-14 sm:py-20 md:py-28 bg-white">
         <RevealSection>
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">Social Proof</h2>
-              <h3 className="text-5xl font-serif font-bold">What Archers Say</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold">What Archers Say</h3>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {testimonials.map((t, i) => (
                 <motion.div
                   key={i}
@@ -582,7 +582,7 @@ export default function NewLandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 }}
-                  className="bg-white p-8 rounded-2xl border border-slate-100 shadow-lg relative"
+                  className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl border border-slate-100 shadow-lg relative"
                 >
                   <Quote className="text-stone-300 w-8 h-8 mb-4" />
                   <p className="text-sm text-slate-600 leading-relaxed mb-6">&quot;{t.quote}&quot;</p>
@@ -601,7 +601,7 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 9. CTA FINAL ===== */}
-      <section className="py-20 bg-green-50/30">
+      <section className="py-12 sm:py-16 md:py-20 bg-green-50/30">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center space-y-10">
             <div className="flex justify-center mb-6">
@@ -613,11 +613,11 @@ export default function NewLandingPage() {
                 className="rounded-xl object-contain"
               />
             </div>
-            <h3 className="text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
             <p className="text-slate-500 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link href="/ai-interview">
-                <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-12 py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
+                <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 w-full sm:w-auto text-center font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
                   Get Started Now
                 </button>
               </Link>
@@ -630,9 +630,9 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 10. FOOTER ===== */}
-      <footer className="bg-slate-100 py-20 border-t border-slate-200">
+      <footer className="bg-slate-100 py-12 sm:py-16 md:py-20 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-5 gap-12 mb-20">
+          <div className="grid md:grid-cols-5 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-20">
             <div className="col-span-2 space-y-6">
               <div className="flex items-center gap-3">
                 <Target className="text-green-800 w-8 h-8" />

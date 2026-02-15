@@ -115,7 +115,7 @@ export default function CareerGuidancePage() {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <div className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3 sm:gap-4">
           <div className="relative">
             <div className="w-10 h-10 rounded-full bg-green-50/40 border border-green-200
               flex items-center justify-center">
@@ -124,7 +124,7 @@ export default function CareerGuidancePage() {
             <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white" />
           </div>
           <div className="flex-1">
-            <h1 className="font-semibold text-gray-900">AI Career Coach</h1>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900">AI Career Coach</h1>
             <div className="flex items-center gap-1 text-xs text-green-600">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
               <span>Analyzing your profile...</span>
@@ -158,7 +158,7 @@ export default function CareerGuidancePage() {
                   {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
                 </div>
                 <div
-                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                  className={`max-w-[90%] sm:max-w-[80%] px-3 sm:px-4 py-2 sm:py-3 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'border-2 border-green-800 text-green-800 bg-white'
                       : 'bg-gray-50 border border-gray-200 text-gray-700'
@@ -208,7 +208,7 @@ export default function CareerGuidancePage() {
               <button
                 key={action}
                 onClick={() => sendMessage(action)}
-                className="px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200
+                className="px-3 py-2 min-h-[40px] rounded-full bg-gray-50 border border-gray-200
                   text-xs text-gray-500 whitespace-nowrap hover:text-gray-700 hover:border-gray-300
                   transition-all"
               >
@@ -227,7 +227,7 @@ export default function CareerGuidancePage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about your career path, skills, or interview prep..."
-              className="w-full px-5 py-3.5 pr-12 rounded-full bg-gray-50 border border-gray-200
+              className="w-full px-4 sm:px-5 py-3 sm:py-3.5 min-h-[44px] pr-12 rounded-full bg-gray-50 border border-gray-200
                 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400
                 focus:ring-2 focus:ring-green-100 transition-all"
             />

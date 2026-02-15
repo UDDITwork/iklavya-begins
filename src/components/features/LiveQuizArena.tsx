@@ -97,8 +97,8 @@ export default function LiveQuizArena() {
   return (
     <div className="min-h-[600px] relative rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
       {/* Top Bar */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-100">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-100">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
           <Users size={14} />
           <span>{participants.toLocaleString()} solving now</span>
         </div>
@@ -166,7 +166,7 @@ export default function LiveQuizArena() {
                 {sampleQuestions[currentQ].question}
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                 {sampleQuestions[currentQ].options.map((option, i) => {
                   const correct = sampleQuestions[currentQ].correct
                   const isSelected = selected === i
@@ -180,7 +180,7 @@ export default function LiveQuizArena() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
                       onClick={() => handleAnswer(i)}
-                      className={`p-4 rounded-xl text-left transition-all duration-200 border ${
+                      className={`p-3 sm:p-4 min-h-[48px] rounded-xl text-left transition-all duration-200 border ${
                         showResult
                           ? isCorrect
                             ? 'border-green-500 bg-green-50 text-green-800'
@@ -210,7 +210,7 @@ export default function LiveQuizArena() {
               <h3 className="text-3xl font-bold text-gray-900 mb-2">Quiz Complete!</h3>
               <p className="text-gray-500 mb-6">Your Score: {score} points</p>
 
-              <div className="max-w-sm mx-auto space-y-2 mb-8">
+              <div className="max-w-xs sm:max-w-sm mx-auto space-y-1.5 sm:space-y-2 mb-4 sm:mb-8">
                 {leaderboard.map((entry, i) => (
                   <motion.div
                     key={entry.name}
@@ -241,7 +241,7 @@ export default function LiveQuizArena() {
 
               <button
                 onClick={restart}
-                className="px-6 py-3 rounded-lg border-2 border-green-800 bg-white text-green-800 font-medium hover:bg-green-50 transition-colors duration-200"
+                className="px-6 py-3 rounded-lg border-2 border-green-800 bg-white text-green-800 font-medium hover:bg-green-50 transition-colors duration-200 min-h-[44px] w-full sm:w-auto"
               >
                 Play Again
               </button>

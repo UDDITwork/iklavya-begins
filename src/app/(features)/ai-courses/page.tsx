@@ -67,9 +67,9 @@ export default function AICoursesPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
               <p className="text-gray-500">AI-powered soft skill courses with interactive simulations</p>
             </div>
             <div className="hidden md:block w-44 h-32">
@@ -88,7 +88,7 @@ export default function AICoursesPage() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap transition-all duration-200 border ${
+              className={`px-3 sm:px-4 py-2 min-h-[40px] rounded-lg text-sm whitespace-nowrap transition-all duration-200 border ${
                 activeCategory === cat
                   ? 'bg-green-50/40 text-green-800 border-green-200'
                   : 'bg-white text-gray-500 border-gray-200 hover:text-gray-700 hover:border-gray-300'
@@ -99,7 +99,7 @@ export default function AICoursesPage() {
           ))}
         </motion.div>
 
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" layout>
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5" layout>
           <AnimatePresence>
             {filteredCourses.map((course, index) => {
               const IllustrationComp = courseIllustrations[course.iconKey]
@@ -115,7 +115,7 @@ export default function AICoursesPage() {
                   className="group rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm cursor-pointer hover:shadow-md hover:-translate-y-1 transition-all duration-200"
                   onClick={() => setSelectedCourse(course)}
                 >
-                  <div className="h-44 relative flex items-center justify-center bg-gray-50/50">
+                  <div className="h-32 sm:h-36 md:h-44 relative flex items-center justify-center bg-gray-50/50">
                     {courseImage ? <Image src={courseImage} alt={course.title} width={160} height={144} className="w-40 h-36 object-contain" /> : IllustrationComp ? <IllustrationComp className="w-40 h-36" /> : null}
 
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -180,7 +180,7 @@ export default function AICoursesPage() {
                 {(() => {
                   const IllustrationComp = courseIllustrations[selectedCourse.iconKey]
                   return (
-                    <div className="h-64 md:h-80 relative flex items-center justify-center bg-gray-50/50">
+                    <div className="h-40 sm:h-48 md:h-64 lg:h-80 relative flex items-center justify-center bg-gray-50/50">
                       {IllustrationComp ? <IllustrationComp className="w-64 h-56" /> : null}
                       <button
                         className="absolute inset-0 flex items-center justify-center"
@@ -198,10 +198,10 @@ export default function AICoursesPage() {
                   )
                 })()}
 
-                <div className="p-6">
+                <div className="p-4 sm:p-5 md:p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-900 mb-1">{selectedCourse.title}</h2>
+                      <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">{selectedCourse.title}</h2>
                       <div className="flex items-center gap-3 text-sm text-gray-500">
                         <span>{selectedCourse.lessons} lessons</span>
                         <span>{selectedCourse.duration}</span>

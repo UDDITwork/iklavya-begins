@@ -67,7 +67,7 @@ export default function CertificationsPage() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 flex items-center gap-6"
+          className="mb-8 flex items-center gap-3 sm:gap-6"
         >
           <div className="flex-1">
             <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Certifications & Badges</h1>
@@ -86,7 +86,7 @@ export default function CertificationsPage() {
           className="mb-10"
         >
           <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">Micro-Credentials</h3>
-          <div className="flex gap-4 overflow-x-auto pb-2">
+          <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-2">
             {badges.map((badge, i) => {
               const BadgeIcon = (badgeIcons[badge.iconKey] || Star) as typeof Star
               return (
@@ -95,7 +95,7 @@ export default function CertificationsPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + i * 0.05 }}
-                  className={`shrink-0 w-28 p-4 rounded-xl bg-white border shadow-sm text-center cursor-pointer
+                  className={`shrink-0 w-24 sm:w-28 p-4 rounded-xl bg-white border shadow-sm text-center cursor-pointer
                     hover:shadow-md hover:-translate-y-1 transition-all duration-200 ${rarityBorder[badge.rarity]}`}
                 >
                   <div
@@ -116,7 +116,7 @@ export default function CertificationsPage() {
         </motion.div>
 
         {/* Certificate Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {certificates.map((cert, i) => {
             const CertIcon = (certIcons[cert.iconKey] || MessageSquare) as typeof MessageSquare
             return (
@@ -205,10 +205,10 @@ export default function CertificationsPage() {
             >
               <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden">
                 {/* Certificate */}
-                <div className="bg-white p-8 text-center">
-                  <div className="border-2 border-gray-200 p-6 rounded-lg">
+                <div className="bg-white p-4 sm:p-6 md:p-8 text-center">
+                  <div className="border-2 border-gray-200 p-3 sm:p-4 md:p-6 rounded-lg">
                     <p className="text-xs text-gray-400 uppercase tracking-[0.3em] mb-2">Certificate of Completion</p>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-1">{selectedCert.title}</h2>
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1">{selectedCert.title}</h2>
                     <p className="text-sm text-gray-500 mb-4">Awarded to <strong>Arjun Mehta</strong></p>
                     <p className="text-xs text-gray-400 mb-4">{selectedCert.issueDate}</p>
                     <div className="flex items-center justify-center gap-2">
@@ -231,12 +231,12 @@ export default function CertificationsPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="p-4 flex gap-2 border-t border-gray-100">
-                  <button className="flex-1 py-2.5 rounded-xl border-2 border-green-800 bg-white hover:bg-green-50
+                <div className="p-4 flex flex-col sm:flex-row gap-2 border-t border-gray-100">
+                  <button className="flex-1 py-2.5 min-h-[44px] rounded-xl border-2 border-green-800 bg-white hover:bg-green-50
                     text-green-800 font-medium text-sm flex items-center justify-center gap-2 transition-colors">
                     <Download size={14} /> Download
                   </button>
-                  <button className="flex-1 py-2.5 rounded-xl bg-white border border-gray-300 hover:bg-gray-50
+                  <button className="flex-1 py-2.5 min-h-[44px] rounded-xl bg-white border border-gray-300 hover:bg-gray-50
                     text-gray-700 font-medium text-sm flex items-center justify-center gap-2 transition-colors">
                     <Share2 size={14} /> Share to LinkedIn
                   </button>

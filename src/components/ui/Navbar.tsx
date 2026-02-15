@@ -42,7 +42,7 @@ export default function Navbar() {
                 return (
                   <Link key={link.href} href={link.href}>
                     <div
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200 ${
+                      className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 min-h-[40px] rounded-lg text-xs font-medium transition-colors duration-200 ${
                         isActive
                           ? 'bg-green-50/40 text-green-800'
                           : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
@@ -58,7 +58,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-3">
               <Link href="/ai-interview">
-                <button className="hidden sm:block px-5 py-2 rounded-lg border-2 border-green-800 hover:bg-green-50
+                <button className="hidden sm:block px-4 sm:px-5 py-2 sm:py-2.5 min-h-[44px] rounded-lg border-2 border-green-800 hover:bg-green-50
                   text-green-800 text-xs font-medium transition-colors duration-200">
                   Start Interview
                 </button>
@@ -84,7 +84,7 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="fixed top-16 inset-x-0 z-40 bg-white border-b border-gray-200 lg:hidden shadow-sm"
           >
-            <div className="p-4 grid grid-cols-3 gap-2">
+            <div className="p-3 grid grid-cols-3 gap-1.5">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href
                 return (
@@ -94,7 +94,7 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <div
-                      className={`flex flex-col items-center gap-1.5 p-3 rounded-xl text-center transition-colors duration-200 ${
+                      className={`flex flex-col items-center gap-1.5 p-2.5 sm:p-3 min-h-[60px] rounded-xl text-center transition-colors duration-200 ${
                         isActive
                           ? 'bg-green-50/40 text-green-800'
                           : 'text-gray-500 hover:bg-gray-50'

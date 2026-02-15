@@ -63,7 +63,7 @@ function AnimatedMetric({ value, change }: { value: number; change: number }) {
 
   return (
     <div>
-      <div className="text-2xl md:text-3xl font-bold text-gray-900">
+      <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
         {displayed.toLocaleString()}
       </div>
       <div className={`flex items-center gap-1 text-xs mt-1 ${change >= 0 ? 'text-green-700' : 'text-red-700'}`}>
@@ -95,7 +95,7 @@ export default function AdminPage() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4"
+          className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-3 sm:gap-4"
         >
           <div>
             <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Admin Dashboard</h1>
@@ -114,7 +114,7 @@ export default function AdminPage() {
         </motion.div>
 
         {/* Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-8">
           {metrics.map((metric, i) => (
             <motion.div
               key={metric.label}
@@ -138,9 +138,9 @@ export default function AdminPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {/* Heatmap + Funnel */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-6">
             {/* Heatmap */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,9 @@ export default function AdminPage() {
               transition={{ delay: 0.3 }}
               className="rounded-xl bg-white border border-gray-200 shadow-sm p-5"
             >
-              <HeatmapVisualization title="Platform Activity (Sessions by Day & Hour)" />
+              <div className="overflow-x-auto">
+                <HeatmapVisualization title="Platform Activity (Sessions by Day & Hour)" />
+              </div>
             </motion.div>
 
             {/* Conversion Funnel */}
@@ -226,7 +228,7 @@ export default function AdminPage() {
                         <span className="font-medium text-gray-900">{item.user}</span>{' '}
                         {item.action}
                       </p>
-                      <span className="text-[10px] text-gray-400">{item.time}</span>
+                      <span className="text-[11px] sm:text-xs text-gray-400">{item.time}</span>
                     </div>
                   </motion.div>
                 )

@@ -203,7 +203,7 @@ function PhotoUpload({ photo, onPhotoChange }: { photo: string | null; onPhotoCh
     <div className="flex items-center gap-4">
       <button
         onClick={() => fileRef.current?.click()}
-        className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-green-600
+        className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-green-600
           flex items-center justify-center bg-gray-50 hover:bg-green-50/40 transition-all group overflow-hidden shrink-0"
       >
         {photo ? (
@@ -409,7 +409,7 @@ function SectionCard({
     <div className="rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden">
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50/50 transition-colors"
+        className="w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 hover:bg-gray-50/50 transition-colors"
       >
         <div className="w-1 h-8 rounded-full border-l-2 border-green-800 shrink-0" />
         <Icon size={16} className="text-green-800 shrink-0" />
@@ -453,10 +453,10 @@ function AISuggestion({ text, onUse }: { text: string; onUse: () => void }) {
       <p className="text-xs text-gray-600 leading-relaxed mb-2">{text}</p>
       <div className="flex gap-2">
         <button onClick={onUse}
-          className="px-3 py-1 rounded-md border-2 border-green-800 bg-white text-green-800 text-[10px] font-medium hover:bg-green-50 transition-colors">
+          className="px-3 py-1 rounded-md border-2 border-green-800 bg-white text-green-800 text-[10px] font-medium hover:bg-green-50 transition-colors min-h-[44px]">
           Use This
         </button>
-        <button className="px-3 py-1 rounded-md bg-white border border-gray-200 text-gray-500 text-[10px] hover:bg-gray-50 transition-colors flex items-center gap-1">
+        <button className="px-3 py-1 rounded-md bg-white border border-gray-200 text-gray-500 text-[10px] hover:bg-gray-50 transition-colors flex items-center gap-1 min-h-[44px]">
           <RefreshCw size={8} /> Regenerate
         </button>
       </div>
@@ -493,7 +493,7 @@ function ResumeDocument({
         {/* Template-colored header bar */}
         <div className="h-2" style={{ background: c }} />
 
-        <div className="p-5 md:p-7 text-left h-full">
+        <div className="p-2 sm:p-3 md:p-5 lg:p-7 text-left h-full">
           {/* Header with photo */}
           <div className="flex items-start gap-4 mb-4 pb-3 border-b" style={{ borderColor: `${c}20` }}>
             {data.photo ? (
@@ -642,12 +642,12 @@ export default function ResumePreview() {
         <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3 block">
           Choose Template
         </label>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+        <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2">
           {templates.map(t => (
             <button
               key={t.id}
               onClick={() => setActiveTemplate(t.id)}
-              className={`shrink-0 w-[110px] h-[150px] rounded-xl border-2 bg-white shadow-sm
+              className={`shrink-0 w-[90px] sm:w-[100px] md:w-[110px] h-[120px] sm:h-[135px] md:h-[150px] rounded-xl border-2 bg-white shadow-sm
                 hover:shadow-md hover:scale-[1.02] transition-all duration-200 overflow-hidden ${
                 activeTemplate === t.id
                   ? 'border-green-600 shadow-green-200/30'
@@ -699,11 +699,11 @@ export default function ResumePreview() {
                 <input
                   value={data.fullName}
                   onChange={e => updateField('fullName', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
+                  className="w-full px-3 py-2 sm:py-2.5 min-h-[44px] rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                     focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 <div>
                   <label className="text-[10px] text-gray-500 mb-1 block">Email</label>
                   <input
@@ -728,7 +728,7 @@ export default function ResumePreview() {
                 <input
                   value={data.location}
                   onChange={e => updateField('location', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
+                  className="w-full px-3 py-2 sm:py-2.5 min-h-[44px] rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                     focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
                 />
               </div>
@@ -743,7 +743,7 @@ export default function ResumePreview() {
                 onChange={e => updateField('summary', e.target.value)}
                 rows={3}
                 placeholder="A brief professional overview highlighting your key strengths..."
-                className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
+                className="w-full px-3 py-2 sm:py-2.5 min-h-[44px] rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
                   focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
@@ -774,7 +774,7 @@ export default function ResumePreview() {
                 onChange={e => updateField('experience', e.target.value)}
                 rows={5}
                 placeholder="Job Title at Company&#10;• Key achievement with quantifiable results&#10;• Another impactful bullet point"
-                className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
+                className="w-full px-3 py-2 sm:py-2.5 min-h-[44px] rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
                   focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
@@ -825,7 +825,7 @@ export default function ResumePreview() {
                 onChange={e => updateField('achievements', e.target.value)}
                 rows={3}
                 placeholder="Awards, recognitions, certifications..."
-                className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-sm text-gray-700
+                className="w-full px-3 py-2 sm:py-2.5 min-h-[44px] rounded-lg bg-white border border-gray-200 text-sm text-gray-700
                   placeholder:text-gray-400 resize-none
                   focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all"
               />
@@ -849,7 +849,7 @@ export default function ResumePreview() {
         </div>
 
         {/* Right: Preview (sticky) */}
-        <div className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+        <div className="space-y-2 sm:space-y-3 md:space-y-4 md:sticky md:top-20 lg:top-24 lg:self-start">
           {/* ATS Score */}
           <ATSGauge
             score={Math.min(atsScore, 100)}

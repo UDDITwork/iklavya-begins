@@ -39,7 +39,7 @@ export default function CinematicFooter() {
   const [email, setEmail] = useState('')
 
   return (
-    <footer className="relative bg-gray-50 border-t border-gray-200 pt-16 pb-8 px-4 sm:px-6">
+    <footer className="relative bg-gray-50 border-t border-gray-200 pt-10 sm:pt-12 md:pt-16 pb-8 px-4 sm:px-6">
       {/* Gradient accent line */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
@@ -61,7 +61,7 @@ export default function CinematicFooter() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 pr-14 rounded-lg bg-white border border-gray-300
+              className="w-full px-4 py-3 min-h-[44px] pr-14 rounded-lg bg-white border border-gray-300
                 text-gray-900 placeholder:text-gray-400 focus:outline-none
                 focus:border-green-400 focus:ring-1 focus:ring-green-100
                 transition-all duration-200 text-sm"
@@ -74,7 +74,7 @@ export default function CinematicFooter() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-14">
           <div>
             <h2 className="text-lg font-bold text-gray-900 mb-3">
               IKLAVYA
@@ -116,7 +116,7 @@ export default function CinematicFooter() {
               <a
                 key={social.label}
                 href={social.href}
-                className="w-9 h-9 rounded-lg border border-gray-200 flex items-center justify-center
+                className="w-10 h-10 sm:w-9 sm:h-9 min-h-[44px] min-w-[44px] rounded-lg border border-gray-200 flex items-center justify-center
                   text-gray-400 hover:text-gray-700 hover:border-gray-300 transition-colors duration-200"
                 aria-label={social.label}
               >

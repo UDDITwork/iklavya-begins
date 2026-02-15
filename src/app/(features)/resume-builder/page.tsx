@@ -15,7 +15,7 @@ export default function ResumeBuilderPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
         >
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <div className="hidden md:block w-48 h-40">
               <Image src="/man filling resume.png" alt="AI Resume Builder" width={200} height={160} className="object-contain w-full h-full" />
             </div>
@@ -30,15 +30,15 @@ export default function ResumeBuilderPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="hidden sm:flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm text-gray-600
+            <button className="hidden sm:flex items-center gap-1.5 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-sm text-gray-600
               bg-white border border-gray-200 hover:bg-gray-50 hover:shadow-sm transition-all">
               <Eye size={16} /> Preview PDF
             </button>
-            <button className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-medium text-green-800
+            <button className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-sm font-medium text-green-800
               border-2 border-green-800 bg-white hover:bg-green-50 hover:shadow-md transition-all">
               <Download size={16} /> Download PDF
             </button>
-            <button className="hidden sm:flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm text-gray-500
+            <button className="hidden sm:flex items-center gap-1.5 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-lg text-sm text-gray-500
               hover:text-gray-700 hover:bg-gray-100 transition-all">
               <Link2 size={16} /> Share
             </button>

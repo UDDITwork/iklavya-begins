@@ -67,18 +67,18 @@ export default function SkillAssessmentPage() {
               <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Skill Assessment</h1>
               <p className="text-gray-500">Track your soft skills, discover gaps, and follow your AI-powered improvement roadmap</p>
             </div>
-            <div className="hidden md:flex items-center gap-3">
-              <div className="w-36 h-28">
+            <div className="hidden md:flex items-center gap-1 lg:gap-3">
+              <div className="w-28 lg:w-36 h-20 lg:h-28">
                 <Image src="/analytics.png" alt="Analytics" width={144} height={112} className="object-contain w-full h-full" />
               </div>
-              <div className="w-36 h-28">
+              <div className="w-28 lg:w-36 h-20 lg:h-28">
                 <Image src="/man reading radar chart.png" alt="Skill Radar" width={144} height={112} className="object-contain w-full h-full" />
               </div>
             </div>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {/* Radar Chart */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -129,7 +129,7 @@ export default function SkillAssessmentPage() {
               {skillBars.map((skill, i) => (
                 <div key={skill.name}>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm text-gray-700">{skill.name}</span>
+                    <span className="text-xs sm:text-sm text-gray-700">{skill.name}</span>
                     <div className="flex items-center gap-2">
                       <span
                         className="text-[10px] px-2 py-0.5 rounded-full font-medium"
@@ -189,7 +189,7 @@ export default function SkillAssessmentPage() {
                   <span className="text-[10px] text-gray-400">{card.module}</span>
                 </div>
 
-                <h4 className="font-medium text-gray-900 text-sm mb-1">{card.title}</h4>
+                <h4 className="font-medium text-gray-900 text-xs sm:text-sm mb-1">{card.title}</h4>
                 <p className="text-xs text-gray-400 mb-3">{card.desc}</p>
 
                 <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
