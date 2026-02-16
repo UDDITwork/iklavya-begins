@@ -50,8 +50,6 @@ const topFeatures = [
     description: 'Our AI interviewer conducts real-time voice analysis with 0.2-second latency feedback. It tracks confidence scoring, detects filler words, evaluates tone and assertiveness, and runs five distinct scenario types -- from sales pitches to conflict resolution.',
     bullets: ['Real-time voice & tone analysis', 'Filler word detection', 'Confidence scoring', '5 scenario types'],
     image: '/about graphics/ai interviewers.png',
-    imageBg: 'bg-green-50/60',
-    glowColor: 'bg-green-400/10',
     link: '/ai-interview',
     linkLabel: 'Try AI Interview',
   },
@@ -62,8 +60,6 @@ const topFeatures = [
     description: 'Static courses waste time. Our AI-powered video curriculum adapts in real-time based on your interview performance. Struggle with confidence? Communication modules inject automatically. Weak in negotiation? Leadership labs appear in your queue.',
     bullets: ['Communication Mastery', 'Public Speaking', 'Sales & Persuasion', 'Leadership Skills'],
     image: '/about graphics/bfc814d1-afe3-4552-9414-d77306eabc52.png',
-    imageBg: 'bg-amber-50/60',
-    glowColor: 'bg-amber-400/10',
     link: '/ai-courses',
     linkLabel: 'Browse Courses',
   },
@@ -74,8 +70,6 @@ const topFeatures = [
     description: 'Watch our AI rewrite your bullet points in real-time to match industry-leading standards. Every resume is ATS-optimized, keyword-targeted, and formatted to pass automated screening systems that reject 75% of applicants.',
     bullets: ['AI rewriting engine', 'ATS optimization', 'Keyword targeting', 'Industry-standard formatting'],
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_33_19 PM.png',
-    imageBg: 'bg-emerald-50/60',
-    glowColor: 'bg-emerald-400/10',
     link: '/resume-builder',
     linkLabel: 'Build Your Resume',
   },
@@ -88,7 +82,6 @@ const gridFeatures = [
     title: 'Know Exactly Where You Stand.',
     shortDescription: 'Track your soft skills through visual radar charts and performance reports. See how you rank against peers nationwide and turn weaknesses into measurable growth.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_54_03 PM.png',
-    imageBg: 'bg-orange-50/60',
     link: '/skill-assessment',
   },
   {
@@ -97,7 +90,6 @@ const gridFeatures = [
     title: 'Prove Your Worth on the National Stage.',
     shortDescription: 'Compete in real-time quiz competitions with thousands of students. Climb leaderboards, maintain streaks, and earn corporate partner passes.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_36_04 PM.png',
-    imageBg: 'bg-stone-100/60',
     link: '/live-quiz',
   },
   {
@@ -106,7 +98,6 @@ const gridFeatures = [
     title: 'A Personal AI Coach That Knows Your Path.',
     shortDescription: 'Our AI Career Coach analyzes your personality and assessment scores to build step-by-step growth roadmaps toward your target role.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_54_58 PM.png',
-    imageBg: 'bg-green-50/40',
     link: '/career-guidance',
   },
   {
@@ -115,7 +106,6 @@ const gridFeatures = [
     title: 'Credentials That Recruiters Verify.',
     shortDescription: 'Earn verifiable digital certificates with QR codes and micro-badges. Share directly to LinkedIn with tamper-proof verification.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_42_56 PM.png',
-    imageBg: 'bg-amber-50/40',
     link: '/certifications',
   },
   {
@@ -124,7 +114,6 @@ const gridFeatures = [
     title: 'Expert Humans Behind the AI Engine.',
     shortDescription: 'Behind every AI recommendation stands a team of expert coaches available for live sessions, resume reviews, and career guidance.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 07_00_30 PM.png',
-    imageBg: 'bg-stone-50/60',
     link: '/support',
   },
 ]
@@ -329,14 +318,13 @@ export default function AboutPage() {
                     transition={{ duration: 0.6, ease: 'easeOut' }}
                     className={`relative ${!isOdd ? 'lg:order-2' : ''}`}
                   >
-                    <div className={`relative rounded-2xl overflow-hidden ${feature.imageBg} p-6 sm:p-8 md:p-10`}>
-                      <div className={`absolute -inset-10 ${feature.glowColor} rounded-full blur-3xl`} />
+                    <div className="p-6 sm:p-8 md:p-10">
                       <Image
                         src={feature.image}
                         alt={feature.tag}
                         width={480}
                         height={480}
-                        className="relative z-10 w-full h-auto max-h-[400px] object-contain"
+                        className="w-full h-auto max-h-[400px] object-contain"
                         priority={i === 0}
                       />
                     </div>
@@ -389,9 +377,9 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -8 }}
-                  className="bg-white rounded-2xl border border-slate-100 shadow-lg overflow-hidden group cursor-pointer transition-shadow hover:shadow-xl"
+                  className="rounded-2xl overflow-hidden group cursor-pointer"
                 >
-                  <div className={`h-48 sm:h-56 ${feature.imageBg} flex items-center justify-center p-6 overflow-hidden`}>
+                  <div className="h-48 sm:h-56 flex items-center justify-center p-6 overflow-hidden">
                     <Image
                       src={feature.image}
                       alt={feature.tag}
@@ -425,9 +413,9 @@ export default function AboutPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   whileHover={{ y: -8 }}
-                  className="bg-white rounded-2xl border border-slate-100 shadow-lg overflow-hidden group cursor-pointer transition-shadow hover:shadow-xl"
+                  className="rounded-2xl overflow-hidden group cursor-pointer"
                 >
-                  <div className={`h-48 sm:h-56 ${feature.imageBg} flex items-center justify-center p-6 overflow-hidden`}>
+                  <div className="h-48 sm:h-56 flex items-center justify-center p-6 overflow-hidden">
                     <Image
                       src={feature.image}
                       alt={feature.tag}
