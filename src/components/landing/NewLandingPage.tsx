@@ -258,14 +258,14 @@ export default function NewLandingPage() {
                 Our real-time AI engine turns your potential into professional dominance.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
-                <Link href="/ai-interview">
+                <Link href="/register">
                   <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-green-800 text-green-800 hover:bg-green-50/50 font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-green-200/30 transition-all">
-                    Start Free Mock Interview <Zap className="w-4 h-4 text-amber-500" />
+                    Get Started Free <Zap className="w-4 h-4 text-amber-500" />
                   </button>
                 </Link>
-                <Link href="/live-quiz">
+                <Link href="/login">
                   <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50 transition-all">
-                    Watch Live Competition
+                    Sign In
                   </button>
                 </Link>
               </div>
@@ -615,13 +615,13 @@ export default function NewLandingPage() {
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
             <p className="text-slate-500 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link href="/ai-interview">
+              <Link href="/register">
                 <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 w-full sm:w-auto text-center font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
-                  Get Started Now
+                  Create Free Account
                 </button>
               </Link>
-              <Link href="/support" className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-green-700 decoration-4 underline-offset-8 hover:text-green-800">
-                Speak with a Mentor
+              <Link href="/login" className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-green-700 decoration-4 underline-offset-8 hover:text-green-800">
+                Already have an account? Sign In
               </Link>
             </div>
           </div>

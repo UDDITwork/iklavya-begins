@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Toaster } from 'react-hot-toast'
 import Navbar from '@/components/ui/Navbar'
+import AuthProvider from '@/components/providers/AuthProvider'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -32,8 +34,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased bg-white text-gray-900`}
       >
-        <Navbar />
-        <main className="pt-16">{children}</main>
+        <AuthProvider>
+          <Navbar />
+          <main className="pt-16">{children}</main>
+          <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+        </AuthProvider>
       </body>
     </html>
   )

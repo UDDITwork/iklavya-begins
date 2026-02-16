@@ -218,14 +218,14 @@ export default function HeroSection() {
               transition={{ duration: 0.4, delay: 0.25 }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <Link href="/ai-interview">
+              <Link href="/register">
                 <button className="px-6 py-3 rounded-lg border-2 border-green-800 bg-white text-green-800 font-medium hover:bg-green-50 transition-colors duration-200">
-                  Explore Features
+                  Get Started Free
                 </button>
               </Link>
-              <Link href="/ai-courses">
+              <Link href="/login">
                 <button className="px-6 py-3 rounded-lg bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200">
-                  Browse Courses
+                  Sign In
                 </button>
               </Link>
             </motion.div>
