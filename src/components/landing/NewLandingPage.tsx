@@ -241,7 +241,7 @@ export default function NewLandingPage() {
 
       {/* ===== 1. HERO ===== */}
       <section className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-[120%] bg-stone-50/50 -skew-x-12 translate-x-32 -z-10" />
+        <div className="absolute top-0 right-0 w-1/2 h-[120%] -skew-x-12 translate-x-32 -z-10" />
         <RevealSection>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-16 items-center">
             <div className="lg:col-span-7 space-y-10">
@@ -272,8 +272,7 @@ export default function NewLandingPage() {
             </div>
 
             <div className="lg:col-span-5 relative">
-              <div className="absolute -inset-10 bg-amber-400/10 rounded-full blur-3xl" />
-              <div className="relative z-10">
+              <div className="relative">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHero}
@@ -288,7 +287,7 @@ export default function NewLandingPage() {
                       alt={heroLabels[currentHero]}
                       width={500}
                       height={500}
-                      className="w-full h-auto rounded-2xl"
+                      className="w-full h-auto"
                       priority={currentHero === 0}
                     />
                   </motion.div>
@@ -610,7 +609,7 @@ export default function NewLandingPage() {
                 alt="Your journey from student to professional"
                 width={600}
                 height={200}
-                className="rounded-xl object-contain"
+                className="object-contain"
               />
             </div>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
