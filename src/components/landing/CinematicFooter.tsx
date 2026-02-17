@@ -3,6 +3,7 @@
 import { Github, Twitter, Linkedin, Instagram, Send } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const footerLinks = {
   Platform: [
@@ -76,9 +77,15 @@ export default function CinematicFooter() {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-14">
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-3">
-              IKLAVYA
-            </h2>
+            <Link href="/" className="inline-block mb-3">
+              <Image
+                src="/iklavya logo.png"
+                alt="iKlavya"
+                width={160}
+                height={80}
+                className="h-16 w-auto object-contain"
+              />
+            </Link>
             <p className="text-gray-500 text-sm leading-relaxed">
               AI-powered student career readiness platform. Build skills, ace interviews, launch careers.
             </p>

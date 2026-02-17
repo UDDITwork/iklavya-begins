@@ -221,6 +221,15 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <RevealSection>
             <div className="max-w-4xl">
+              <Image
+                src="/iklavya logo.png"
+                alt="iKlavya"
+                width={180}
+                height={90}
+                className="h-20 w-auto object-contain mb-8"
+                priority
+              />
+
               <div className="inline-block px-4 py-2 bg-stone-100 rounded-full mb-8">
                 <span className="text-sm font-black text-green-800 uppercase tracking-[0.4em]">
                   About iKlavya
@@ -616,6 +625,14 @@ export default function AboutPage() {
       <section className="bg-[#FDFCF6] py-14 sm:py-20 md:py-28">
         <RevealSection>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <Image
+              src="/iklavya logo.png"
+              alt="iKlavya"
+              width={120}
+              height={60}
+              className="h-14 w-auto object-contain mx-auto mb-6"
+            />
+
             <span className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
               From Local Classrooms to National Careers
             </span>

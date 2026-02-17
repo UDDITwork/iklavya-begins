@@ -636,10 +636,15 @@ export default function NewLandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-5 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-20">
             <div className="col-span-2 space-y-6">
-              <div className="flex items-center gap-3">
-                <Target className="text-green-800 w-8 h-8" />
-                <span className="text-3xl font-serif font-black text-slate-900">IKLAVYA</span>
-              </div>
+              <Link href="/" className="inline-block">
+                <Image
+                  src="/iklavya logo.png"
+                  alt="iKlavya"
+                  width={200}
+                  height={100}
+                  className="h-20 w-auto object-contain"
+                />
+              </Link>
               <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
             </div>
             <div className="space-y-4">
