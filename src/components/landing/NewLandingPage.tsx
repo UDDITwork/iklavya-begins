@@ -253,8 +253,11 @@ export default function NewLandingPage() {
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold text-slate-900 leading-tight sm:leading-[0.85] tracking-tight">
                 Master the <br /> <span className="text-green-800 italic">Unfair</span> Advantage.
               </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-slate-700 font-bold max-w-xl leading-snug">
+                Empowering India&apos;s <span className="text-green-800">Education</span> &amp; <span className="text-green-800">Skilling</span> Ecosystem with <span className="text-green-800 italic">AI</span>.
+              </p>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
-                Degree? Common. <br />Skill? Rare. <br />Presence? <span className="text-green-800 font-bold italic">Iklavya.</span>{' '}
+                Degree? Common. Skill? Rare. Presence? <span className="text-green-800 font-bold italic">iKlavya.</span>{' '}
                 Our real-time AI engine turns your potential into professional dominance.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   CheckCircle, ArrowRight, Target, Zap, Trophy, Users,
+  Phone, Mail, Globe, MapPin,
 } from 'lucide-react'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 
@@ -44,53 +45,53 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
 // --- Feature data for the showcase section ---
 const topFeatures = [
   {
-    tag: 'AI Interview Simulation',
+    tag: 'AI-Proctored Smart Classroom',
     tagColor: 'text-green-800',
-    title: 'Practice Under Pressure. Perform Under Spotlight.',
-    description: 'Our AI interviewer conducts real-time voice analysis with 0.2-second latency feedback. It tracks confidence scoring, detects filler words, evaluates tone and assertiveness, and runs five distinct scenario types -- from sales pitches to conflict resolution.',
+    title: 'Real-Time Attention Tracking. Outcome-Driven Learning.',
+    description: 'Real-time computer vision and behavioral AI track attention, engagement, and participation to ensure high-quality, outcome-driven learning across every classroom session.',
     bullets: ['Real-time voice & tone analysis', 'Filler word detection', 'Confidence scoring', '5 scenario types'],
     image: '/about graphics/ai interviewers.png',
     link: '/ai-interview',
     linkLabel: 'Try AI Interview',
   },
   {
-    tag: 'AI Video Courses',
+    tag: 'AI Tutor',
     tagColor: 'text-amber-800',
-    title: 'Courses That Shift Based on Your Weaknesses.',
-    description: 'Static courses waste time. Our AI-powered video curriculum adapts in real-time based on your interview performance. Struggle with confidence? Communication modules inject automatically. Weak in negotiation? Leadership labs appear in your queue.',
-    bullets: ['Communication Mastery', 'Public Speaking', 'Sales & Persuasion', 'Leadership Skills'],
+    title: 'An Adaptive Tutor That Learns How You Learn.',
+    description: 'An adaptive AI tutor that customizes explanations, pace, and practice based on each learner\'s strengths, gaps, and learning style. No two students get the same path.',
+    bullets: ['Personalized explanations', 'Adaptive pacing', 'Strength-based learning', 'Gap identification'],
     image: '/about graphics/bfc814d1-afe3-4552-9414-d77306eabc52.png',
     link: '/ai-courses',
     linkLabel: 'Browse Courses',
   },
   {
-    tag: 'Resume Builder',
+    tag: 'AI Assessments',
     tagColor: 'text-emerald-600',
-    title: 'Your Resume, Rewritten by AI for the Top 1%.',
-    description: 'Watch our AI rewrite your bullet points in real-time to match industry-leading standards. Every resume is ATS-optimized, keyword-targeted, and formatted to pass automated screening systems that reject 75% of applicants.',
-    bullets: ['AI rewriting engine', 'ATS optimization', 'Keyword targeting', 'Industry-standard formatting'],
+    title: 'Holistic Learner Profiling. Beyond Exams.',
+    description: 'Automated textual, audio, and video-based assessments combined with psychometric and course-specific evaluation for holistic learner profiling that goes far beyond traditional testing.',
+    bullets: ['Textual assessments', 'Audio & video evaluation', 'Psychometric profiling', 'Course-specific analysis'],
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_33_19 PM.png',
-    link: '/resume-builder',
-    linkLabel: 'Build Your Resume',
+    link: '/skill-assessment',
+    linkLabel: 'Assess Your Skills',
   },
 ]
 
 const gridFeatures = [
   {
-    tag: 'Skill Assessment',
+    tag: 'AI Job Readiness Suite',
     tagColor: 'text-orange-500',
-    title: 'Know Exactly Where You Stand.',
-    shortDescription: 'Track your soft skills through visual radar charts and performance reports. See how you rank against peers nationwide and turn weaknesses into measurable growth.',
+    title: 'Interview-Ready. Resume-Perfect.',
+    shortDescription: 'An integrated toolset including AI Resume Builder, AI Interviews and AI Career Mapping to prepare learners for real-world hiring.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_54_03 PM.png',
-    link: '/skill-assessment',
+    link: '/ai-interview',
   },
   {
-    tag: 'Live Quiz Arena',
+    tag: 'AI Skill-to-Job Matchmaking',
     tagColor: 'text-orange-600',
-    title: 'Prove Your Worth on the National Stage.',
-    shortDescription: 'Compete in real-time quiz competitions with thousands of students. Climb leaderboards, maintain streaks, and earn corporate partner passes.',
+    title: 'The Right Candidate. The Right Role.',
+    shortDescription: 'Intelligent matching of candidates and employers based on verified skills, aptitude, and organizational fit.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_36_04 PM.png',
-    link: '/live-quiz',
+    link: '/career-guidance',
   },
   {
     tag: 'Career Guidance',
@@ -109,20 +110,43 @@ const gridFeatures = [
     link: '/certifications',
   },
   {
-    tag: 'Support & Mentorship',
+    tag: 'From Skill to Salary',
     tagColor: 'text-emerald-600',
-    title: 'Expert Humans Behind the AI Engine.',
-    shortDescription: 'Behind every AI recommendation stands a team of expert coaches available for live sessions, resume reviews, and career guidance.',
+    title: 'The Outcome That Matters.',
+    shortDescription: 'iKlavya doesn\'t just train. We ensure learners become job-ready, employable, and placed at scale.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 07_00_30 PM.png',
     link: '/support',
   },
 ]
 
 const stats = [
-  { target: 520, suffix: '+', label: 'Students Trained', color: 'text-green-800' },
-  { target: 8, suffix: '', label: 'Core Skill Pillars', color: 'text-emerald-600' },
+  { target: 1, suffix: 'M+', label: 'Target Learners', color: 'text-green-800' },
+  { target: 8, suffix: '', label: 'Core AI Modules', color: 'text-emerald-600' },
   { target: 3200, suffix: '+', label: 'AI Interviews Completed', color: 'text-orange-500' },
-  { target: 45, suffix: '%', label: 'Avg. ATS Score Boost', color: 'text-amber-800' },
+  { target: 520, suffix: '+', label: 'Students Trained', color: 'text-amber-800' },
+]
+
+const builtForBharat = [
+  {
+    icon: CheckCircle,
+    iconColor: 'text-emerald-500',
+    text: 'Multilingual Interface & Voice Support',
+  },
+  {
+    icon: CheckCircle,
+    iconColor: 'text-emerald-500',
+    text: 'Optimized for low-bandwidth environments',
+  },
+  {
+    icon: CheckCircle,
+    iconColor: 'text-emerald-500',
+    text: 'Accessible on Mobile-First Infrastructure',
+  },
+  {
+    icon: CheckCircle,
+    iconColor: 'text-emerald-500',
+    text: 'Scalable Across Colleges, ITIs, & Training Centers',
+  },
 ]
 
 const differentiators = [
@@ -130,56 +154,63 @@ const differentiators = [
     icon: Zap,
     iconColor: 'text-amber-500',
     iconBg: 'bg-amber-50',
-    title: 'AI-First Architecture',
-    description: 'Every feature is powered by purpose-built AI models. From 0.2-second interview feedback to adaptive course pathways, intelligence is the foundation.',
+    title: 'Learning & Assessment Intelligence',
+    description: 'AI-Proctored Smart Classrooms, adaptive AI Tutors, and automated textual, audio, and video-based assessments for holistic learner profiling.',
   },
   {
     icon: Target,
     iconColor: 'text-green-800',
     iconBg: 'bg-green-50/40',
-    title: 'Personalized to the Individual',
-    description: 'No two students follow the same path. Our engine builds custom learning trajectories based on personality profiles, performance data, and career targets.',
+    title: 'Career & Employability Intelligence',
+    description: 'AI Job Readiness Suite, AI Skill-to-Job Matchmaking, and end-to-end career mapping that takes learners from skill mastery to salary.',
   },
   {
     icon: Trophy,
     iconColor: 'text-orange-500',
     iconBg: 'bg-orange-50',
-    title: 'Competition-Driven Growth',
-    description: 'Passive learning fails. Live quiz arenas, peer leaderboards, and national rankings inject urgency and accountability into every student journey.',
+    title: 'From Local Classrooms to National Careers',
+    description: 'iKlavya ensures that students from smaller cities are not just trained -- they are empowered, employable, and economically independent.',
   },
   {
     icon: Users,
     iconColor: 'text-emerald-600',
     iconBg: 'bg-emerald-50',
-    title: 'Human + AI Mentorship',
-    description: 'AI handles scale. Humans handle nuance. Every student has access to expert career coaches for the moments that demand genuine human insight.',
+    title: 'Built for Bharat. Powered by AI.',
+    description: 'Multilingual, mobile-first, low-bandwidth optimized, and scalable across colleges, ITIs, and training centers across Tier 2 and Tier 3 India.',
   },
 ]
 
 const journeySteps = [
-  { step: 1, title: 'Assess', desc: 'Take AI interviews and skill assessments', borderColor: 'border-green-800', textColor: 'text-green-800' },
+  { step: 1, title: 'Assess', desc: 'AI-powered skill and psychometric assessments', borderColor: 'border-green-800', textColor: 'text-green-800' },
   { step: 2, title: 'Identify', desc: 'Discover strengths, gaps, and career direction', borderColor: 'border-amber-700', textColor: 'text-amber-700' },
-  { step: 3, title: 'Learn', desc: 'Follow your adaptive course pathway', borderColor: 'border-emerald-700', textColor: 'text-emerald-700' },
-  { step: 4, title: 'Compete', desc: 'Prove skills in live arena competitions', borderColor: 'border-orange-600', textColor: 'text-orange-600' },
-  { step: 5, title: 'Certify', desc: 'Earn verifiable credentials and launch', borderColor: 'border-green-800', textColor: 'text-green-800' },
+  { step: 3, title: 'Learn', desc: 'Adaptive AI tutor and smart classroom learning', borderColor: 'border-emerald-700', textColor: 'text-emerald-700' },
+  { step: 4, title: 'Prepare', desc: 'AI interviews, resume building, career mapping', borderColor: 'border-orange-600', textColor: 'text-orange-600' },
+  { step: 5, title: 'Place', desc: 'Skill-to-job matchmaking and placement', borderColor: 'border-green-800', textColor: 'text-green-800' },
 ]
 
 const problems = [
   {
     number: '01',
-    problem: 'Students graduate without workplace skills',
-    solution: 'iKlavya simulates real workplace scenarios with AI-powered interview practice, negotiation drills, and team communication exercises.',
+    problem: 'Learners lack workplace readiness',
+    solution: 'iKlavya simulates real workplace scenarios with AI-powered interview practice, proctored classrooms, and adaptive skill-building exercises.',
   },
   {
     number: '02',
-    problem: 'Resumes fail automated screening',
-    solution: 'Our AI Resume Builder rewrites bullet points to match the top 1% of industry standards, boosting ATS scores by up to 45%.',
+    problem: 'No personalized learning paths',
+    solution: 'Our AI Tutor customizes explanations, pace, and practice based on each learner\'s strengths, gaps, and learning style.',
   },
   {
     number: '03',
-    problem: 'No personalized career direction',
-    solution: 'Our AI Career Coach builds step-by-step growth roadmaps based on personality assessment, communication style, and skill gaps.',
+    problem: 'Tier 2 & 3 students lack equal opportunity',
+    solution: 'iKlavya ensures students from smaller cities are empowered, employable, and economically independent through mobile-first, multilingual AI skilling.',
   },
+]
+
+const contactInfo = [
+  { icon: Phone, label: '+91 95991 71744', href: 'tel:+919599171744' },
+  { icon: Mail, label: 'contact@iklavya.in', href: 'mailto:contact@iklavya.in' },
+  { icon: Globe, label: 'www.iklavya.in', href: 'https://www.iklavya.in' },
+  { icon: MapPin, label: 'Gaur City, Greater Noida West, Uttar Pradesh', href: null },
 ]
 
 export default function AboutPage() {
@@ -197,18 +228,18 @@ export default function AboutPage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold text-slate-900 leading-[1.1] tracking-tight mb-8">
-                The Career Readiness
+                Empowering India&apos;s
                 <br />
-                Platform That{' '}
-                <span className="text-green-800 italic">Refuses</span>
+                <span className="text-green-800">Education</span> &amp; Skilling
                 <br />
-                to Be Ordinary.
+                Ecosystem with <span className="text-green-800 italic">AI</span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-slate-600 font-light max-w-xl leading-relaxed mb-10">
-                iKlavya is an AI-powered student career readiness platform that transforms raw
-                potential into professional dominance. We do not teach theory. We simulate reality --
-                real interviews, real competition, real results.
+              <p className="text-lg sm:text-xl text-slate-600 font-light max-w-2xl leading-relaxed mb-10">
+                iKlavya is building a unified AI-powered infrastructure that transforms how learners
+                are trained, assessed, and placed into meaningful employment. Our solutions enable
+                institutions, training partners, and employers to deliver measurable learning outcomes
+                and guaranteed job readiness.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -228,64 +259,99 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== SECTION 2: Mission Statement ===== */}
+      {/* ===== SECTION 2: Mission & Vision ===== */}
       <section className="bg-white border-y border-slate-100 py-12 sm:py-16 md:py-20">
-        <RevealSection>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
-              Our Mission
-            </span>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* Mission */}
+            <RevealSection>
+              <div>
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                  Our Mission
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 leading-snug mt-4">
+                  To deliver affordable, multilingual AI skilling and career intelligence to{' '}
+                  <span className="text-green-800">1 million underserved learners</span>,
+                  enabling skill mastery, job readiness, and income-generating opportunities
+                  across Tier 2 and Tier 3 India.
+                </h2>
+              </div>
+            </RevealSection>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-snug mt-6">
-              Every student deserves a real shot at their dream career --
-              not just a degree, but the confidence, communication, and
-              readiness to win it.
-            </h2>
-
-            <p className="text-lg text-slate-500 font-light max-w-2xl mx-auto leading-relaxed mt-6">
-              Traditional education prepares students for exams. iKlavya prepares them for the
-              room -- the interview room, the boardroom, the conference room. We bridge the gap
-              between academic achievement and workplace dominance through AI-driven simulation
-              and personalized skill development.
-            </p>
+            {/* Vision */}
+            <RevealSection>
+              <div>
+                <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">
+                  Our Vision
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 leading-snug mt-4">
+                  To create a future where careers across <span className="text-green-800">India</span> are
+                  built and accelerated through <span className="text-green-800">AI</span>.
+                </h2>
+                <p className="text-lg text-slate-500 font-light leading-relaxed mt-4">
+                  We envision an ecosystem where technology bridges opportunity gaps, empowers
+                  learners with in-demand skills, and enables individuals from all backgrounds
+                  to participate meaningfully in the evolving digital economy.
+                </p>
+              </div>
+            </RevealSection>
           </div>
-        </RevealSection>
+        </div>
       </section>
 
-      {/* ===== SECTION 3: The Gap ===== */}
+      {/* ===== SECTION 3: Built for Bharat ===== */}
       <section className="bg-[#FDFCF6] py-16 sm:py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <RevealSection>
-            <div className="text-center mb-14 sm:mb-20">
-              <span className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">
-                The Gap
+            <div className="text-center mb-14 sm:mb-16">
+              <span className="text-sm font-black text-green-800 uppercase tracking-[0.4em]">
+                Built for Bharat
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-4">
-                Degrees Are Common. Readiness Is Rare.
+                Built for Bharat. Powered by AI.
               </h2>
             </div>
           </RevealSection>
 
-          <div className="relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute top-8 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-stone-300 via-amber-300 to-emerald-300" />
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <RevealSection>
+              <div className="space-y-5">
+                {builtForBharat.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                    className="flex items-start gap-4"
+                  >
+                    <item.icon className={`${item.iconColor} w-6 h-6 flex-shrink-0 mt-0.5`} />
+                    <span className="text-lg font-bold text-slate-700">{item.text}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </RevealSection>
 
-            <div className="grid md:grid-cols-3 gap-8 sm:gap-12">
-              {problems.map((item, i) => (
-                <motion.div
-                  key={item.number}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
-                  className="text-center space-y-4 relative"
-                >
-                  <span className="text-6xl font-bold text-stone-200">{item.number}</span>
-                  <h3 className="text-lg font-bold text-slate-900">{item.problem}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{item.solution}</p>
-                </motion.div>
-              ))}
-            </div>
+            <RevealSection>
+              <div className="relative">
+                <div className="grid md:grid-cols-3 gap-8 sm:gap-12">
+                  {problems.map((item, i) => (
+                    <motion.div
+                      key={item.number}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.15 }}
+                      className="text-center space-y-3"
+                    >
+                      <span className="text-5xl font-bold text-stone-200">{item.number}</span>
+                      <h3 className="text-sm font-bold text-slate-900">{item.problem}</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">{item.solution}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </RevealSection>
           </div>
         </div>
       </section>
@@ -299,7 +365,7 @@ export default function AboutPage() {
                 What We Offer
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4">
-                Eight Pillars of Career Dominance.
+                A Unified AI-Powered Infrastructure.
               </h2>
             </div>
           </RevealSection>
@@ -462,7 +528,7 @@ export default function AboutPage() {
         </RevealSection>
       </section>
 
-      {/* ===== SECTION 6: Why iKlavya ===== */}
+      {/* ===== SECTION 6: Two Intelligence Pillars ===== */}
       <section id="platform" className="bg-[#FDFCF6] py-16 sm:py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <RevealSection>
@@ -471,7 +537,7 @@ export default function AboutPage() {
                 Why iKlavya
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-4">
-                Built Different. Built for Results.
+                Two Pillars of Intelligence. One Platform.
               </h2>
             </div>
           </RevealSection>
@@ -510,7 +576,7 @@ export default function AboutPage() {
                 Your Journey
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-4">
-                From Student to Professional in Five Steps.
+                From Classroom to Career in Five Steps.
               </h2>
             </div>
           </RevealSection>
@@ -546,53 +612,92 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== SECTION 8: Belief Statement ===== */}
+      {/* ===== SECTION 8: Vision Statement ===== */}
       <section className="bg-[#FDFCF6] py-14 sm:py-20 md:py-28">
         <RevealSection>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
             <span className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
-              Our Belief
+              From Local Classrooms to National Careers
             </span>
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-snug italic mt-8">
-              &ldquo;We believe that career success is not a lottery.
-              It is an engineered outcome -- built through
-              deliberate practice, intelligent feedback,
-              and relentless self-improvement.&rdquo;
+              &ldquo;iKlavya ensures that students from smaller cities are not just
+              trained -- they are empowered, employable, and economically independent.&rdquo;
             </h2>
 
-            <p className="text-sm font-black text-green-800 uppercase tracking-widest mt-8">
-              -- The iKlavya Team
+            <p className="text-lg text-slate-500 font-light mt-6">
+              Built for Bharat. Powered by AI.
             </p>
           </div>
         </RevealSection>
       </section>
 
-      {/* ===== SECTION 9: Final CTA ===== */}
+      {/* ===== SECTION 9: Contact & CTA ===== */}
       <section className="bg-green-50/30 py-12 sm:py-16 md:py-20">
         <RevealSection>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">
-              Your Career Starts Here.
-            </h2>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Contact Info */}
+              <div className="space-y-8">
+                <div>
+                  <span className="text-[10px] font-black text-green-800 uppercase tracking-widest">
+                    Get in Touch
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-3">
+                    Our Contact
+                  </h3>
+                </div>
 
-            <p className="text-slate-500 text-lg font-light max-w-xl mx-auto">
-              Join the growing community of students transforming their potential into
-              professional readiness with iKlavya.
-            </p>
+                <div className="space-y-5">
+                  {contactInfo.map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.1 }}
+                      className="flex items-center gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="text-white w-5 h-5" />
+                      </div>
+                      {item.href ? (
+                        <a href={item.href} className="text-slate-700 font-bold hover:text-green-800 transition-colors">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="text-slate-700 font-bold">{item.label}</span>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link href="/ai-interview">
-                <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
-                  Start Your Journey
-                </button>
-              </Link>
-              <Link
-                href="/support"
-                className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-green-700 decoration-4 underline-offset-8 hover:text-green-800 transition-colors"
-              >
-                Speak with a Mentor
-              </Link>
+              {/* CTA */}
+              <div className="text-center md:text-left space-y-8">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">
+                  Your Career Starts Here.
+                </h2>
+
+                <p className="text-slate-500 text-lg font-light max-w-md">
+                  Join the growing community of learners transforming their potential into
+                  professional readiness with iKlavya.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center md:items-start gap-6">
+                  <Link href="/register">
+                    <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
+                      Get Started Free
+                    </button>
+                  </Link>
+                  <Link
+                    href="/support"
+                    className="text-slate-700 font-black uppercase text-xs tracking-[0.2em] underline decoration-green-700 decoration-4 underline-offset-8 hover:text-green-800 transition-colors"
+                  >
+                    Speak with a Mentor
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </RevealSection>
