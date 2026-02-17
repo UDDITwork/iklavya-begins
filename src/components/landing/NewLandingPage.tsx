@@ -251,11 +251,8 @@ export default function NewLandingPage() {
                 </p>
               </div>
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold text-slate-900 leading-tight sm:leading-[0.85] tracking-tight">
-                Master the <br /> <span className="text-green-800 italic">Unfair</span> Advantage.
+                Empowering India&apos;s <br /> <span className="text-green-800 italic">Education</span> &amp; Skilling <br /> Ecosystem with <span className="text-green-800 italic">AI</span>.
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-slate-700 font-bold max-w-xl leading-snug">
-                Empowering India&apos;s <span className="text-green-800">Education</span> &amp; <span className="text-green-800">Skilling</span> Ecosystem with <span className="text-green-800 italic">AI</span>.
-              </p>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
                 Degree? Common. Skill? Rare. Presence? <span className="text-green-800 font-bold italic">iKlavya.</span>{' '}
                 Our real-time AI engine turns your potential into professional dominance.
@@ -640,9 +637,9 @@ export default function NewLandingPage() {
                 <Image
                   src="/iklavya logo.png"
                   alt="iKlavya"
-                  width={200}
-                  height={100}
-                  className="h-20 w-auto object-contain"
+                  width={280}
+                  height={140}
+                  className="h-28 w-auto object-contain"
                 />
               </Link>
               <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
