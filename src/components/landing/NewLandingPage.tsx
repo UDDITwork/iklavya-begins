@@ -628,6 +628,136 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
+      {/* ===== 9.5 INDIA MAP — BUILT FOR BHARAT ===== */}
+      <section className="bg-[#FDFCF6] py-16 sm:py-20 md:py-28 overflow-hidden">
+        <RevealSection>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <span className="text-[10px] font-black text-green-800 uppercase tracking-widest">
+              Built for Bharat
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4 leading-tight">
+              From Every Corner of India. <br className="hidden sm:block" />
+              For <span className="text-green-800 italic">Every Dream</span> That Deserves a Chance.
+            </h2>
+
+            {/* India Map */}
+            <div className="relative mx-auto mt-12 sm:mt-16 md:mt-20 max-w-md sm:max-w-lg">
+              {/* Subtle glow behind map */}
+              <div className="absolute inset-0 bg-green-200/20 blur-3xl rounded-full scale-75" />
+
+              <svg
+                viewBox="0 0 600 700"
+                className="w-full h-auto relative z-10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* India outline path — simplified */}
+                <path
+                  d="M265 30 L280 28 L295 32 L310 25 L320 30 L335 28 L345 35 L355 32 L365 38
+                     L375 35 L390 42 L400 38 L405 45 L415 50 L425 48 L430 55 L440 60 L445 65
+                     L450 72 L455 78 L458 85 L462 95 L465 105 L470 115 L475 125 L478 135
+                     L482 145 L485 155 L488 165 L490 175 L492 185 L490 195 L488 205
+                     L485 215 L480 225 L475 235 L470 240 L465 248 L460 255 L455 265
+                     L450 275 L445 285 L440 295 L435 305 L430 315 L425 325 L420 335
+                     L415 340 L410 348 L405 355 L398 362 L390 370 L382 378 L375 385
+                     L368 392 L360 400 L352 408 L345 415 L338 422 L330 430 L322 438
+                     L315 445 L308 452 L300 460 L295 468 L290 475 L285 485 L280 495
+                     L278 505 L276 515 L275 525 L274 535 L275 545 L278 555 L282 565
+                     L288 572 L295 580 L302 588 L310 595 L318 600 L325 608 L330 615
+                     L328 620 L322 625 L315 628 L308 625 L300 620 L292 615 L285 610
+                     L278 605 L270 598 L262 590 L255 582 L248 575 L242 568 L235 560
+                     L228 550 L222 540 L218 530 L215 520 L212 510 L210 500 L208 490
+                     L205 480 L200 470 L195 462 L190 455 L185 448 L178 440 L170 432
+                     L162 425 L155 420 L148 415 L140 408 L132 400 L125 392 L120 385
+                     L115 378 L110 370 L108 362 L106 355 L105 348 L108 340 L112 332
+                     L118 325 L125 318 L130 310 L132 302 L128 295 L122 288 L115 282
+                     L108 275 L102 268 L98 260 L95 252 L92 245 L90 238 L88 230
+                     L87 222 L88 215 L90 208 L93 200 L98 192 L105 185 L112 178
+                     L118 170 L122 162 L125 155 L128 148 L130 140 L132 132 L135 125
+                     L140 118 L145 112 L152 105 L158 98 L165 92 L172 88 L180 85
+                     L188 82 L195 80 L202 78 L210 75 L218 72 L225 68 L232 62
+                     L240 55 L248 48 L255 40 L260 35 Z"
+                  stroke="#166534"
+                  strokeWidth="2.5"
+                  strokeLinejoin="round"
+                  className="opacity-80"
+                />
+
+                {/* Kashmir region detail */}
+                <path
+                  d="M215 72 L205 60 L200 50 L198 42 L202 35 L210 30 L220 28 L230 25
+                     L240 22 L250 20 L258 22 L265 28 L265 30"
+                  stroke="#166534"
+                  strokeWidth="2.5"
+                  strokeLinejoin="round"
+                  className="opacity-80"
+                />
+
+                {/* Sri Lanka outline (small) */}
+                <path
+                  d="M318 630 L325 635 L330 645 L328 655 L322 660 L315 655 L312 645 L315 635 Z"
+                  stroke="#166534"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                  className="opacity-40"
+                />
+
+                {/* Pulsing city dots */}
+                {[
+                  { cx: 268, cy: 162, label: 'Delhi NCR', r: 5 },
+                  { cx: 278, cy: 180, label: 'Greater Noida', r: 7 },
+                  { cx: 250, cy: 188, label: 'Jaipur', r: 4.5 },
+                  { cx: 308, cy: 200, label: 'Lucknow', r: 4.5 },
+                  { cx: 385, cy: 228, label: 'Patna', r: 4.5 },
+                  { cx: 260, cy: 290, label: 'Bhopal', r: 4.5 },
+                  { cx: 150, cy: 380, label: 'Mumbai', r: 5 },
+                  { cx: 280, cy: 500, label: 'Bengaluru', r: 5 },
+                ].map((city, i) => (
+                  <g key={city.label}>
+                    {/* Static dot */}
+                    <circle cx={city.cx} cy={city.cy} r={city.r} fill="#166534" className="opacity-90" />
+                    {/* Pulsing ring */}
+                    <motion.circle
+                      cx={city.cx}
+                      cy={city.cy}
+                      r={city.r}
+                      fill="none"
+                      stroke="#166534"
+                      strokeWidth="1.5"
+                      animate={{
+                        r: [city.r, city.r * 3, city.r * 3],
+                        opacity: [0.6, 0, 0],
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                        ease: 'easeOut',
+                      }}
+                    />
+                    {/* City label */}
+                    <text
+                      x={city.cx + city.r + 8}
+                      y={city.cy + 4}
+                      className="text-[10px] fill-slate-500 font-medium"
+                      style={{ fontSize: '10px' }}
+                    >
+                      {city.label}
+                    </text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+
+            <p className="text-lg sm:text-xl text-slate-600 font-light mt-10 sm:mt-14 max-w-2xl mx-auto leading-relaxed">
+              Reaching <span className="text-green-800 font-bold">1 million learners</span> across
+              Tier 2 and Tier 3 India with affordable, multilingual,
+              AI-powered education and career intelligence.
+            </p>
+          </div>
+        </RevealSection>
+      </section>
+
       {/* ===== 10. FOOTER ===== */}
       <footer className="bg-slate-100 py-12 sm:py-16 md:py-20 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
