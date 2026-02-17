@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
-from app.config import SQLALCHEMY_DATABASE_URL
+from app.config import SQLALCHEMY_DATABASE_URL, TURSO_AUTH_TOKEN
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False},
+    connect_args={"auth_token": TURSO_AUTH_TOKEN},
     echo=False,
 )
 

@@ -1,47 +1,82 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, UserPlus, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
-import { fadeInUp, fadeInUpTransition } from '@/lib/animations'
+import { registerStep1Schema, registerStep2Schema, registerStep3Schema } from '@/lib/validators'
+import StepIndicator from '@/components/registration/StepIndicator'
+import StepOne from '@/components/registration/StepOne'
+import StepTwo from '@/components/registration/StepTwo'
+import StepThree from '@/components/registration/StepThree'
+
+const STEPS = ['Account', 'Education', 'About You']
 
 export default function RegisterPage() {
   const router = useRouter()
   const { setUser } = useAuthStore()
-  const [showPassword, setShowPassword] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [form, setForm] = useState({
+  const [accountCreated, setAccountCreated] = useState(false)
+
+  const [step1, setStep1] = useState({
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
+    phone: '',
     college: '',
   })
 
-  function validate() {
-    const errs: Record<string, string> = {}
-    if (form.name.trim().length < 2) errs.name = 'Name must be at least 2 characters'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'Invalid email address'
-    if (form.password.length < 8) errs.password = 'Password must be at least 8 characters'
-    if (form.college.trim().length < 2) errs.college = 'College name is required'
-    setErrors(errs)
-    return Object.keys(errs).length === 0
-  }
+  const [step2, setStep2] = useState({
+    education_level: '',
+    class_or_year: '',
+    institution: '',
+    board: '',
+    stream: '',
+    cgpa: '',
+  })
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!validate()) return
+  const [step3, setStep3] = useState({
+    parent_occupation: '',
+    siblings: '',
+    income_range: '',
+    hobbies: [] as string[],
+    interests: [] as string[],
+    strengths: [] as string[],
+    weaknesses: [] as string[],
+    languages: [] as string[],
+    career_aspiration_raw: '',
+  })
 
+  async function handleStep1Submit() {
+    const result = registerStep1Schema.safeParse(step1)
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {}
+      result.error.issues.forEach((e) => {
+        const field = e.path[0] as string
+        fieldErrors[field] = e.message
+      })
+      setErrors(fieldErrors)
+      return
+    }
+    setErrors({})
     setIsSubmitting(true)
+
     try {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: step1.name,
+          email: step1.email,
+          password: step1.password,
+          phone: step1.phone || undefined,
+          college: step1.college,
+        }),
       })
 
       const data = await res.json()
@@ -52,7 +87,87 @@ export default function RegisterPage() {
       }
 
       setUser(data.user)
-      toast.success('Account created successfully!')
+      setAccountCreated(true)
+      toast.success('Account created! Complete your profile.')
+      setCurrentStep(2)
+    } catch {
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  async function handleStep2Next() {
+    const result = registerStep2Schema.safeParse(step2)
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {}
+      result.error.issues.forEach((e) => {
+        const field = e.path[0] as string
+        fieldErrors[field] = e.message
+      })
+      setErrors(fieldErrors)
+      return
+    }
+    setErrors({})
+    setIsSubmitting(true)
+
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(step2),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        toast.error(data.error || 'Failed to save education details')
+        return
+      }
+
+      setCurrentStep(3)
+    } catch {
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  async function handleStep3Submit() {
+    const result = registerStep3Schema.safeParse(step3)
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {}
+      result.error.issues.forEach((e) => {
+        const field = e.path[0] as string
+        fieldErrors[field] = e.message
+      })
+      setErrors(fieldErrors)
+      return
+    }
+    setErrors({})
+    setIsSubmitting(true)
+
+    try {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(step3),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        toast.error(data.error || 'Failed to save profile')
+        return
+      }
+
+      const meRes = await fetch('/api/auth/me')
+      if (meRes.ok) {
+        const meData = await meRes.json()
+        setUser(meData.user)
+      }
+
+      toast.success('Profile complete! Welcome to IKLAVYA.')
       router.push('/dashboard')
     } catch {
       toast.error('Something went wrong. Please try again.')
@@ -62,117 +177,75 @@ export default function RegisterPage() {
   }
 
   return (
-    <motion.div
-      variants={fadeInUp}
-      initial="initial"
-      animate="animate"
-      transition={fadeInUpTransition}
-      className="w-full max-w-md"
-    >
+    <div className="w-full max-w-lg">
       <div className="rounded-xl bg-white border border-gray-200 shadow-sm p-8">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <Link href="/" className="text-2xl font-bold text-gray-900 tracking-tight">
             IKLAVYA
           </Link>
-          <h1 className="mt-4 text-xl font-semibold text-gray-900">
-            Create your account
+          <h1 className="mt-3 text-lg font-semibold text-gray-900">
+            {currentStep === 1 && 'Create your account'}
+            {currentStep === 2 && 'Education Details'}
+            {currentStep === 3 && 'Tell us about yourself'}
           </h1>
           <p className="mt-1 text-sm text-gray-500">
-            Start your career readiness journey
+            {currentStep === 1 && 'Start your career readiness journey'}
+            {currentStep === 2 && 'Help us understand your academic background'}
+            {currentStep === 3 && 'This helps our AI give better career guidance'}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-1.5">
-              Full Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Enter your full name"
-              className="w-full px-4 py-3 min-h-[44px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all duration-200 text-sm"
-            />
-            {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
-          </div>
+        <StepIndicator currentStep={currentStep} steps={STEPS} />
 
-          <div>
-            <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1.5">
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              placeholder="you@example.com"
-              className="w-full px-4 py-3 min-h-[44px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all duration-200 text-sm"
-            />
-            {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-1.5">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                placeholder="Minimum 8 characters"
-                className="w-full px-4 py-3 pr-11 min-h-[44px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all duration-200 text-sm"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-              </button>
-            </div>
-            {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="college" className="block text-xs font-medium text-gray-700 mb-1.5">
-              College / University
-            </label>
-            <input
-              id="college"
-              type="text"
-              value={form.college}
-              onChange={(e) => setForm({ ...form, college: e.target.value })}
-              placeholder="Enter your college name"
-              className="w-full px-4 py-3 min-h-[44px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all duration-200 text-sm"
-            />
-            {errors.college && <p className="mt-1 text-xs text-red-500">{errors.college}</p>}
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-lg border-2 border-green-800 bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.2 }}
           >
-            {isSubmitting ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <UserPlus size={16} />
+            {currentStep === 1 && (
+              <StepOne
+                form={step1}
+                onChange={(updates) => setStep1((prev) => ({ ...prev, ...updates }))}
+                onSubmit={handleStep1Submit}
+                isSubmitting={isSubmitting}
+                errors={errors}
+              />
             )}
-            {isSubmitting ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
+            {currentStep === 2 && (
+              <StepTwo
+                form={step2}
+                onChange={(updates) => setStep2((prev) => ({ ...prev, ...updates }))}
+                onNext={handleStep2Next}
+                onBack={accountCreated ? undefined : () => setCurrentStep(1)}
+                isSubmitting={isSubmitting}
+                errors={errors}
+              />
+            )}
+            {currentStep === 3 && (
+              <StepThree
+                form={step3}
+                onChange={(updates) => setStep3((prev) => ({ ...prev, ...updates }))}
+                onSubmit={handleStep3Submit}
+                onBack={() => setCurrentStep(2)}
+                isSubmitting={isSubmitting}
+                errors={errors}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
-          Already have an account?{' '}
-          <Link href="/login" className="text-green-800 font-medium hover:underline">
-            Sign in
-          </Link>
-        </p>
+        {currentStep === 1 && (
+          <p className="mt-6 text-center text-sm text-gray-500">
+            Already have an account?{' '}
+            <Link href="/login" className="text-green-800 font-medium hover:underline">
+              Sign in
+            </Link>
+          </p>
+        )}
       </div>
-    </motion.div>
+    </div>
   )
 }

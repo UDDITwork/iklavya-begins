@@ -6,8 +6,10 @@ export interface User {
   id: string
   name: string
   email: string
+  phone?: string
   college: string
   role: 'student' | 'admin'
+  profile_completed: number
   created_at: string
 }
 

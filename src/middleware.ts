@@ -4,7 +4,7 @@ import { jwtVerify } from 'jose'
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
 const COOKIE_NAME = 'iklavya-token'
 
-const protectedPaths = ['/dashboard', '/admin']
+const protectedPaths = ['/dashboard', '/admin', '/session', '/sessions', '/profile']
 const authPaths = ['/login', '/register']
 
 export async function middleware(request: NextRequest) {
@@ -40,5 +40,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*', '/login', '/register'],
+  matcher: ['/dashboard/:path*', '/admin/:path*', '/session/:path*', '/sessions/:path*', '/profile/:path*', '/login', '/register'],
 }

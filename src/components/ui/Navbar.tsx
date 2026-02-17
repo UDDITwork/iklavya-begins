@@ -31,7 +31,8 @@ export default function Navbar() {
   const { user, isLoading, logout } = useAuthStore()
 
   const isAuthPage = pathname === '/login' || pathname === '/register'
-  if (isAuthPage) return null
+  const isSessionPage = pathname.startsWith('/session/')
+  if (isAuthPage || isSessionPage) return null
 
   async function handleLogout() {
     try {
