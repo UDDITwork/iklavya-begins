@@ -664,14 +664,14 @@ export default function NewLandingPage() {
 
                 {/* Pulsing city dots */}
                 {[
-                  { cx: 310, cy: 115, label: 'Delhi NCR', r: 5 },
-                  { cx: 325, cy: 130, label: 'Greater Noida', r: 7 },
-                  { cx: 255, cy: 145, label: 'Jaipur', r: 5 },
-                  { cx: 370, cy: 130, label: 'Lucknow', r: 5 },
-                  { cx: 430, cy: 145, label: 'Patna', r: 5 },
-                  { cx: 315, cy: 270, label: 'Bhopal', r: 5 },
-                  { cx: 165, cy: 355, label: 'Mumbai', r: 5 },
-                  { cx: 310, cy: 545, label: 'Bengaluru', r: 5 },
+                  { cx: 213, cy: 219, label: 'Delhi NCR', r: 5 },
+                  { cx: 219, cy: 222, label: 'Greater Noida', r: 7 },
+                  { cx: 183, cy: 261, label: 'Jaipur', r: 5 },
+                  { cx: 291, cy: 263, label: 'Lucknow', r: 5 },
+                  { cx: 379, cy: 294, label: 'Patna', r: 5 },
+                  { cx: 217, cy: 354, label: 'Bhopal', r: 5 },
+                  { cx: 130, cy: 460, label: 'Mumbai', r: 5 },
+                  { cx: 221, cy: 615, label: 'Bengaluru', r: 5 },
                 ].map((city, i) => (
                   <g key={city.label}>
                     {/* Static dot */}
@@ -727,9 +727,9 @@ export default function NewLandingPage() {
                 <Image
                   src="/iklavya logo.png"
                   alt="iKlavya"
-                  width={280}
-                  height={140}
-                  className="h-28 w-auto object-contain"
+                  width={360}
+                  height={180}
+                  className="h-36 sm:h-44 w-auto object-contain"
                 />
               </Link>
               <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
