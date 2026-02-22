@@ -24,6 +24,7 @@ class UserResponse(BaseModel):
     phone: Optional[str] = None
     college: str
     role: str
+    profile_image: Optional[str] = None
     profile_completed: int = 0
     created_at: str
 

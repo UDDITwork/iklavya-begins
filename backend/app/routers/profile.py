@@ -1,10 +1,15 @@
 import json
+import hashlib
+import time
+import httpx
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import User, UserProfile
+from app.config import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+
 from app.schemas import (
     ProfileCreateRequest,
     ProfileUpdateRequest,
@@ -12,6 +17,9 @@ from app.schemas import (
     ErrorResponse,
 )
 from app.auth import get_current_user
+
+MAX_FILE_SIZE = 2 * 1024 * 1024  # 2MB
+ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
 
 router = APIRouter(prefix="/profile", tags=["profile"])
 
@@ -127,3 +135,69 @@ def update_profile(
     db.refresh(profile)
 
     return ProfileResponse(**_from_db(profile))
+
+
+# ─── Profile Image ──────────────────────────────────────────
+
+
+def _cloudinary_signature(timestamp: int, folder: str) -> str:
+    """Generate Cloudinary signed upload signature."""
+    params = f"folder={folder}&timestamp={timestamp}{CLOUDINARY_API_SECRET}"
+    return hashlib.sha1(params.encode()).hexdigest()
+
+
+@router.put(
+    "/image",
+    responses={400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}},
+)
+async def update_profile_image(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Validate content type
+    if file.content_type not in ALLOWED_CONTENT_TYPES:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only JPEG, PNG, and WebP images are allowed",
+        )
+
+    # Read and validate file size
+    contents = await file.read()
+    if len(contents) > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File size must be less than 2MB",
+        )
+
+    # Upload to Cloudinary
+    timestamp = int(time.time())
+    folder = "iklavya/profiles"
+    signature = _cloudinary_signature(timestamp, folder)
+
+    async with httpx.AsyncClient(timeout=30) as client:
+        resp = await client.post(
+            f"https://api.cloudinary.com/v1_1/{CLOUDINARY_CLOUD_NAME}/image/upload",
+            data={
+                "api_key": CLOUDINARY_API_KEY,
+                "timestamp": str(timestamp),
+                "signature": signature,
+                "folder": folder,
+                "transformation": "c_fill,w_400,h_400,g_face,q_auto,f_auto",
+            },
+            files={"file": (file.filename or "profile.jpg", contents, file.content_type)},
+        )
+
+    if resp.status_code != 200:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to upload image to cloud storage",
+        )
+
+    image_url = resp.json().get("secure_url", "")
+
+    # Save to DB
+    current_user.profile_image = image_url
+    db.commit()
+    db.refresh(current_user)
+    return {"profile_image": current_user.profile_image}

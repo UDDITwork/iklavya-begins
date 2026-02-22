@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Loader2, Save, User, GraduationCap, Heart, Mail, Phone, School } from 'lucide-react'
+import { Loader2, Save, User, GraduationCap, Heart, Mail, Phone, School, Camera, ImagePlus } from 'lucide-react'
+import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
 import TagInput from '@/components/ui/TagInput'
@@ -27,11 +28,61 @@ interface Profile {
   career_aspiration_raw?: string
 }
 
+const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
+
 export default function ProfilePage() {
-  const { user } = useAuthStore()
+  const { user, setUser } = useAuthStore()
   const [profile, setProfile] = useState<Profile>({})
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error('Image must be less than 2MB')
+      return
+    }
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('Only JPEG, PNG, and WebP images are allowed')
+      return
+    }
+
+    playPop()
+    setUploadingImage(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await fetch('/api/profile/image', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        toast.error(data.error || 'Failed to upload image')
+        return
+      }
+
+      // Update user in auth store with new image
+      if (user) {
+        setUser({ ...user, profile_image: data.profile_image })
+      }
+      playSuccess()
+      toast.success('Profile photo updated!')
+    } catch {
+      toast.error('Something went wrong uploading image')
+    } finally {
+      setUploadingImage(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
 
   useEffect(() => {
     async function load() {
@@ -107,9 +158,44 @@ export default function ProfilePage() {
       >
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-            {/* Avatar */}
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center text-white text-2xl font-bold shrink-0 shadow-md">
-              {user.name.charAt(0).toUpperCase()}
+            {/* Avatar with upload */}
+            <div className="relative group shrink-0">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              {user.profile_image ? (
+                <Image
+                  src={user.profile_image}
+                  alt={user.name}
+                  width={80}
+                  height={80}
+                  className="w-20 h-20 rounded-full object-cover shadow-md border-2 border-white"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center text-white text-3xl font-bold shadow-md">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingImage}
+                className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200 cursor-pointer"
+              >
+                {uploadingImage ? (
+                  <Loader2 size={20} className="text-white animate-spin" />
+                ) : (
+                  <Camera size={20} className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                )}
+              </button>
+              {!user.profile_image && (
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center">
+                  <ImagePlus size={12} className="text-white" />
+                </div>
+              )}
             </div>
 
             <div className="flex-1 min-w-0">
@@ -152,6 +238,34 @@ export default function ProfilePage() {
           </div>
         </div>
       </motion.div>
+
+      {/* Upload prompt if no image */}
+      {!user.profile_image && (
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          transition={{ ...fadeInUpTransition, delay: 0.05 }}
+          className="mb-6"
+        >
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+              <Camera size={18} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-amber-800">Upload your profile photo</p>
+              <p className="text-xs text-amber-600 mt-0.5">Add a photo to personalize your profile. Max 2MB (JPEG, PNG, WebP)</p>
+            </div>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingImage}
+              className="px-4 py-2 rounded-lg bg-amber-600 text-white text-xs font-medium hover:bg-amber-700 transition-colors shrink-0"
+            >
+              Upload
+            </button>
+          </div>
+        </motion.div>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-20">

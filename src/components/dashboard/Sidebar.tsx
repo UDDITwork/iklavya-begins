@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import Image from 'next/image'
 import {
   LayoutDashboard, MessageSquare, User, LogOut, Menu, X, FileText,
   ChevronDown, Plus, Loader2
@@ -107,9 +108,19 @@ export default function Sidebar() {
       {/* User info */}
       <div className="p-5 border-b border-gray-100 bg-gradient-to-b from-green-50/40 to-transparent">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center text-white font-semibold text-sm shrink-0 shadow-sm">
-            {user?.name.charAt(0).toUpperCase()}
-          </div>
+          {user?.profile_image ? (
+            <Image
+              src={user.profile_image}
+              alt={user.name}
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-full object-cover shrink-0 shadow-sm border border-gray-200"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center text-white font-semibold text-sm shrink-0 shadow-sm">
+              {user?.name.charAt(0).toUpperCase()}
+            </div>
+          )}
           <div className="min-w-0">
             <p className="text-sm font-semibold text-gray-900 truncate">{user?.name}</p>
             <p className="text-xs text-gray-400 truncate">{user?.email}</p>

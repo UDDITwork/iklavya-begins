@@ -31,6 +31,7 @@ class User(Base):
     role: Mapped[str] = mapped_column(
         String(20), nullable=False, default="student"
     )
+    profile_image: Mapped[str] = mapped_column(String(500), nullable=True)
     profile_completed: Mapped[int] = mapped_column(
         Integer, nullable=False, default=0
     )

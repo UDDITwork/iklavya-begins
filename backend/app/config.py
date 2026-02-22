@@ -9,5 +9,10 @@ JWT_EXPIRE_DAYS = 7
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 
+# Cloudinary
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "")
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")
+
 # Turso docs: sqlite+{TURSO_DATABASE_URL}?secure=true
 SQLALCHEMY_DATABASE_URL = f"sqlite+{TURSO_DATABASE_URL}?secure=true"

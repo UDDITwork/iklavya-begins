@@ -4,9 +4,10 @@ import { useEffect, useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Plus, Loader2, MessageSquare, FileText, Clock,
-  BarChart3, Calendar, Flame, ArrowRight, Activity,
+  BarChart3, Calendar, Flame, ArrowRight, Activity, Camera,
   type LucideIcon,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -544,6 +545,35 @@ export default function DashboardPage() {
           </button>
         </div>
       </motion.div>
+
+      {/* Profile Image Reminder */}
+      {!user?.profile_image && (
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          transition={{ ...fadeInUpTransition, delay: 0.05 }}
+          className="mb-5"
+        >
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+              <Camera size={22} className="text-amber-600" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-amber-900">Complete your profile with a photo</p>
+              <p className="text-xs text-amber-700 mt-0.5">
+                Students with profile photos get 3x more engagement. Upload yours today!
+              </p>
+            </div>
+            <Link
+              href="/dashboard/profile"
+              className="px-4 py-2.5 rounded-lg bg-amber-600 text-white text-xs font-medium hover:bg-amber-700 transition-colors shrink-0 shadow-sm"
+            >
+              Upload Photo
+            </Link>
+          </div>
+        </motion.div>
+      )}
 
       {/* Row 2: Stat Cards */}
       <motion.div

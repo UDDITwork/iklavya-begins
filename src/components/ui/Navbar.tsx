@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import Image from 'next/image'
 import {
   Mic, BookOpen, FileText, BarChart3, Zap,
   MessageCircle, Award, Shield, Users, Menu, X,
@@ -86,9 +87,19 @@ export default function Navbar() {
               ) : user ? (
                 <div className="hidden sm:flex items-center gap-2">
                   <Link href="/dashboard">
-                    <div className="w-9 h-9 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-sm">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
+                    {user.profile_image ? (
+                      <Image
+                        src={user.profile_image}
+                        alt={user.name}
+                        width={36}
+                        height={36}
+                        className="w-9 h-9 rounded-full object-cover border border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-9 h-9 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-sm">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -161,9 +172,19 @@ export default function Navbar() {
               {user ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-xs">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
+                    {user.profile_image ? (
+                      <Image
+                        src={user.profile_image}
+                        alt={user.name}
+                        width={32}
+                        height={32}
+                        className="w-8 h-8 rounded-full object-cover border border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-xs">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <span className="text-xs font-medium text-gray-900">{user.name}</span>
                   </div>
                   <button

@@ -9,6 +9,7 @@ export interface User {
   phone?: string
   college: string
   role: 'student' | 'admin'
+  profile_image?: string | null
   profile_completed: number
   created_at: string
 }
