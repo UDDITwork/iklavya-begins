@@ -34,36 +34,23 @@ export default function LoginPage() {
 
     setIsSubmitting(true)
     try {
-      console.log('[LOGIN] Step 1: Sending login request...')
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
-        credentials: 'same-origin',
       })
 
-      console.log('[LOGIN] Step 2: Response status:', res.status)
-
       const data = await res.json()
-      console.log('[LOGIN] Step 3: Response body keys:', Object.keys(data))
 
       if (!res.ok) {
-        console.log('[LOGIN] FAIL: Response not ok, error:', data.error)
         toast.error(data.error || 'Invalid credentials')
         return
       }
 
-      console.log('[LOGIN] Step 4: Setting user in store:', data.user?.email)
       setUser(data.user)
-
-      console.log('[LOGIN] Step 5: Cookie check (httpOnly not visible):', document.cookie || '(none visible)')
-
       toast.success('Welcome back!')
-      console.log('[LOGIN] Step 6: Calling router.push(/dashboard)...')
       router.push('/dashboard')
-      console.log('[LOGIN] Step 7: router.push called successfully')
-    } catch (err) {
-      console.error('[LOGIN] ERROR:', err)
+    } catch {
       toast.error('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
