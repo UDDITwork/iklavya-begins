@@ -81,9 +81,9 @@ export default function CinematicFooter() {
               <Image
                 src="/iklavya logo.png"
                 alt="iKlavya"
-                width={160}
-                height={80}
-                className="h-16 w-auto object-contain"
+                width={1600}
+                height={800}
+                className="h-[640px] w-auto object-contain"
               />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed">
