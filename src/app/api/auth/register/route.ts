@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { setAuthCookie } from '@/lib/auth'
+import { COOKIE_NAME } from '@/lib/auth'
 
 const API_URL = process.env.API_URL!
 
@@ -22,9 +22,16 @@ export async function POST(request: Request) {
       )
     }
 
-    await setAuthCookie(data.token)
+    const response = NextResponse.json({ user: data.user }, { status: 201 })
+    response.cookies.set(COOKIE_NAME, data.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    })
 
-    return NextResponse.json({ user: data.user }, { status: 201 })
+    return response
   } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
