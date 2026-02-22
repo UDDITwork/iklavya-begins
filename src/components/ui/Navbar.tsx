@@ -15,10 +15,10 @@ import { useAuthStore } from '@/store/auth-store'
 const navLinks = [
   { href: '/ai-interview', label: 'Interview', icon: Mic },
   { href: '/ai-courses', label: 'Courses', icon: BookOpen },
-  { href: '/resume-builder', label: 'Resume', icon: FileText },
+  { href: '/dashboard/resume-builder', label: 'Resume', icon: FileText },
   { href: '/skill-assessment', label: 'Skills', icon: BarChart3 },
   { href: '/live-quiz', label: 'Quiz', icon: Zap },
-  { href: '/career-guidance', label: 'Career', icon: MessageCircle },
+  { href: '/dashboard/career-guidance', label: 'Career', icon: MessageCircle },
   { href: '/certifications', label: 'Certs', icon: Award },
   { href: '/support', label: 'Support', icon: Users },
   { href: '/admin', label: 'Admin', icon: Shield },
@@ -31,7 +31,7 @@ export default function Navbar() {
   const { user, isLoading, logout } = useAuthStore()
 
   const isAuthPage = pathname === '/login' || pathname === '/register'
-  const isSessionPage = pathname.startsWith('/session/')
+  const isSessionPage = pathname.startsWith('/session/') || pathname.startsWith('/resume-session/')
   if (isAuthPage || isSessionPage) return null
 
   async function handleLogout() {

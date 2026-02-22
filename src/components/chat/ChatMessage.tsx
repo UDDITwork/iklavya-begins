@@ -11,11 +11,12 @@ interface ChatMessageProps {
 export default function ChatMessage({ role, content }: ChatMessageProps) {
   const isUser = role === 'user'
 
-  // Strip analysis tags from displayed content
+  // Strip analysis and resume tags from displayed content
   const displayContent = content
     .replace(/<analysis_json>[\s\S]*?<\/analysis_json>/g, '')
     .replace(/<analysis_markdown>[\s\S]*?<\/analysis_markdown>/g, '')
     .replace(/<roadmap_json>[\s\S]*?<\/roadmap_json>/g, '')
+    .replace(/<resume_json>[\s\S]*?<\/resume_json>/g, '')
     .trim()
 
   if (!displayContent) return null

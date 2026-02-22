@@ -1,18 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
-  LayoutDashboard, MessageSquare, User, LogOut, Menu, X
+  LayoutDashboard, MessageSquare, User, LogOut, Menu, X, FileText,
+  ChevronDown, Plus, Loader2
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
 
+interface SessionItem {
+  id: string
+  title: string
+  status: string
+}
+
 const sidebarLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/sessions', label: 'My Sessions', icon: MessageSquare },
-  { href: '/profile', label: 'Profile', icon: User },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+  { href: '/dashboard/career-guidance', label: 'Career Guidance', icon: MessageSquare, expandable: true },
+  { href: '/dashboard/resume-builder', label: 'Resume Builder', icon: FileText },
+  { href: '/dashboard/profile', label: 'Profile', icon: User },
 ]
 
 export default function Sidebar() {
@@ -20,6 +28,66 @@ export default function Sidebar() {
   const router = useRouter()
   const { user, logout } = useAuthStore()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [sessionsExpanded, setSessionsExpanded] = useState(false)
+  const [sessions, setSessions] = useState<SessionItem[]>([])
+  const [sessionsLoaded, setSessionsLoaded] = useState(false)
+  const [creatingSession, setCreatingSession] = useState(false)
+
+  const isCareerGuidanceActive =
+    pathname === '/dashboard/career-guidance' ||
+    pathname.startsWith('/dashboard/career-guidance/') ||
+    pathname.startsWith('/session/')
+
+  // Auto-expand when on career guidance or session page
+  useEffect(() => {
+    if (isCareerGuidanceActive) {
+      setSessionsExpanded(true)
+    }
+  }, [isCareerGuidanceActive])
+
+  // Fetch sessions when expanded
+  useEffect(() => {
+    if (sessionsExpanded && !sessionsLoaded) {
+      fetchSessions()
+    }
+  }, [sessionsExpanded, sessionsLoaded])
+
+  async function fetchSessions() {
+    try {
+      const res = await fetch('/api/sessions')
+      if (res.ok) {
+        const data = await res.json()
+        setSessions((data.sessions || []).slice(0, 8))
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setSessionsLoaded(true)
+    }
+  }
+
+  async function handleNewSession() {
+    setCreatingSession(true)
+    try {
+      const res = await fetch('/api/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'Career Guidance Session' }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        toast.error(data.error || 'Failed to create session')
+        return
+      }
+      setSessions((prev) => [{ id: data.id, title: 'Career Guidance Session', status: 'active' }, ...prev])
+      setMobileOpen(false)
+      router.push(`/session/${data.id}`)
+    } catch {
+      toast.error('Something went wrong')
+    } finally {
+      setCreatingSession(false)
+    }
+  }
 
   async function handleLogout() {
     try {
@@ -48,9 +116,94 @@ export default function Sidebar() {
       </div>
 
       {/* Nav links */}
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {sidebarLinks.map((link) => {
-          const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+          const isActive = link.exact
+            ? pathname === link.href
+            : pathname === link.href || pathname.startsWith(link.href + '/')
+
+          // Special handling for Career Guidance (expandable with nested sessions)
+          if (link.expandable) {
+            return (
+              <div key={link.href}>
+                <div className="flex items-center">
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1"
+                  >
+                    <div
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                        isCareerGuidanceActive
+                          ? 'bg-green-50/40 text-green-800'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      }`}
+                    >
+                      <link.icon size={18} />
+                      {link.label}
+                    </div>
+                  </Link>
+                  <button
+                    onClick={() => setSessionsExpanded(!sessionsExpanded)}
+                    className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${sessionsExpanded ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                </div>
+
+                {/* Nested sessions */}
+                {sessionsExpanded && (
+                  <div className="ml-3 mt-1 pl-3 border-l-2 border-gray-100 space-y-0.5">
+                    <button
+                      onClick={handleNewSession}
+                      disabled={creatingSession}
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-green-800 hover:bg-green-50/40 transition-colors disabled:opacity-50"
+                    >
+                      {creatingSession ? (
+                        <Loader2 size={12} className="animate-spin" />
+                      ) : (
+                        <Plus size={12} />
+                      )}
+                      New Session
+                    </button>
+
+                    {sessions.map((session) => {
+                      const isSessionActive = pathname === `/session/${session.id}`
+                      return (
+                        <Link
+                          key={session.id}
+                          href={`/session/${session.id}`}
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          <div
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors duration-200 ${
+                              isSessionActive
+                                ? 'bg-green-50/60 text-green-800 font-medium'
+                                : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                            }`}
+                          >
+                            <MessageSquare size={12} className="shrink-0" />
+                            <span className="truncate">{session.title}</span>
+                            {session.status === 'active' && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0 ml-auto" />
+                            )}
+                          </div>
+                        </Link>
+                      )
+                    })}
+
+                    {sessionsLoaded && sessions.length === 0 && (
+                      <p className="px-3 py-2 text-xs text-gray-300">No sessions yet</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )
+          }
+
           return (
             <Link
               key={link.href}

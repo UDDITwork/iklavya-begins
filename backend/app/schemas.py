@@ -156,3 +156,66 @@ class AnalysisResponse(BaseModel):
     created_at: str
 
     model_config = {"from_attributes": True}
+
+
+# ─── Resume Builder ─────────────────────────────────────────
+
+class ResumeSessionCreateRequest(BaseModel):
+    title: Optional[str] = Field(default="New Resume", max_length=200)
+
+
+class ResumeSessionResponse(BaseModel):
+    id: str
+    user_id: str
+    title: str
+    started_at: str
+    ended_at: Optional[str] = None
+    status: str
+    message_count: int
+
+    model_config = {"from_attributes": True}
+
+
+class ResumeSessionListResponse(BaseModel):
+    sessions: list[ResumeSessionResponse]
+
+
+class ResumeMessageSendRequest(BaseModel):
+    content: str = Field(min_length=1, max_length=5000)
+
+
+class ResumeMessageResponse(BaseModel):
+    id: str
+    session_id: str
+    user_id: str
+    role: str
+    content: str
+    message_order: int
+    created_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class ResumeSessionDetailResponse(BaseModel):
+    session: ResumeSessionResponse
+    messages: list[ResumeMessageResponse]
+
+
+class ResumeResponse(BaseModel):
+    id: str
+    session_id: str
+    user_id: str
+    resume_json: str
+    template: str
+    created_at: str
+    updated_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class ResumeTemplateUpdateRequest(BaseModel):
+    template: str = Field(pattern=r"^(professional|modern|simple)$")
+
+
+class ResumeListResponse(BaseModel):
+    resumes: list[ResumeResponse]

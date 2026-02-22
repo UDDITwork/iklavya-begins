@@ -160,3 +160,74 @@ class ContextSummary(Base):
     last_updated_at: Mapped[str] = mapped_column(
         String(50), nullable=False, default=utc_now
     )
+
+
+# ─── Resume Builder ────────────────────────────────────────
+
+
+class ResumeSession(Base):
+    __tablename__ = "resume_sessions"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    title: Mapped[str] = mapped_column(String(200), nullable=False, default="New Resume")
+    started_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+    ended_at: Mapped[str] = mapped_column(String(50), nullable=True)
+    status: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="active"
+    )  # active, completed
+    message_count: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )
+
+
+class ResumeMessage(Base):
+    __tablename__ = "resume_messages"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    session_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("resume_sessions.id"), nullable=False, index=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    role: Mapped[str] = mapped_column(
+        String(20), nullable=False
+    )  # user, assistant
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    message_order: Mapped[int] = mapped_column(Integer, nullable=False)
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
+class Resume(Base):
+    __tablename__ = "resumes"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    session_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("resume_sessions.id"), nullable=False, unique=True, index=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    resume_json: Mapped[str] = mapped_column(Text, nullable=False)
+    template: Mapped[str] = mapped_column(
+        String(30), nullable=False, default="professional"
+    )
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+    updated_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now, onupdate=utc_now
+    )
