@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
+import { playPop } from '@/lib/sounds'
 
 interface SessionItem {
   id: string
@@ -67,6 +68,7 @@ export default function Sidebar() {
   }
 
   async function handleNewSession() {
+    playPop()
     setCreatingSession(true)
     try {
       const res = await fetch('/api/sessions', {
@@ -103,9 +105,9 @@ export default function Sidebar() {
   const navContent = (
     <>
       {/* User info */}
-      <div className="p-5 border-b border-gray-100">
+      <div className="p-5 border-b border-gray-100 bg-gradient-to-b from-green-50/40 to-transparent">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-sm shrink-0">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center text-white font-semibold text-sm shrink-0 shadow-sm">
             {user?.name.charAt(0).toUpperCase()}
           </div>
           <div className="min-w-0">
@@ -133,9 +135,9 @@ export default function Sidebar() {
                     className="flex-1"
                   >
                     <div
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                         isCareerGuidanceActive
-                          ? 'bg-green-50/40 text-green-800'
+                          ? 'bg-green-50/60 text-green-800 border-l-[3px] border-green-700 ml-0 pl-[9px]'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
@@ -211,9 +213,9 @@ export default function Sidebar() {
               onClick={() => setMobileOpen(false)}
             >
               <div
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-green-50/40 text-green-800'
+                    ? 'bg-green-50/60 text-green-800 border-l-[3px] border-green-700 ml-0 pl-[9px]'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >

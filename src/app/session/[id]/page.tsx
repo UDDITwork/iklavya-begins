@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Send, Loader2, StopCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { playSend } from '@/lib/sounds'
 import ChatMessage from '@/components/chat/ChatMessage'
 import TypingIndicator from '@/components/chat/TypingIndicator'
 import AnalysisCard from '@/components/chat/AnalysisCard'
@@ -120,6 +121,7 @@ export default function SessionPage() {
     const text = input.trim()
     if (!text || isStreaming || sessionStatus !== 'active') return
 
+    playSend()
     setInput('')
     const userMsg: Message = {
       id: `user-${++msgCounter}`,

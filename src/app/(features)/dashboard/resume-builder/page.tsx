@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Loader2, Plus, FileText, Sparkles } from 'lucide-react'
+import { Loader2, Plus, FileText, Sparkles, Download, Palette } from 'lucide-react'
 import toast from 'react-hot-toast'
 import ResumeCard from '@/components/resume/ResumeCard'
-import { staggerContainer, staggerItem } from '@/lib/animations'
+import { playPop } from '@/lib/sounds'
+import { fadeInUp, fadeInUpTransition, staggerContainer, staggerItem } from '@/lib/animations'
 
 interface ResumeSession {
   id: string
@@ -41,6 +42,7 @@ export default function ResumeBuilderPage() {
   }
 
   async function handleCreate() {
+    playPop()
     setCreating(true)
     try {
       const res = await fetch('/api/resume/sessions', {
@@ -48,13 +50,11 @@ export default function ResumeBuilderPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: 'New Resume' }),
       })
-
       if (!res.ok) {
         const data = await res.json()
         toast.error(data.error || 'Failed to create resume session')
         return
       }
-
       const data = await res.json()
       router.push(`/resume-session/${data.id}`)
     } catch {
@@ -66,59 +66,101 @@ export default function ResumeBuilderPage() {
 
   return (
     <div className="p-6 sm:p-8 max-w-5xl">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-green-50/60 flex items-center justify-center text-green-800">
-            <FileText size={20} />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">AI Resume Builder</h1>
-            <p className="text-sm text-gray-500 flex items-center gap-1">
-              <Sparkles size={12} /> Build ATS-optimized resumes with AI
-            </p>
+      {/* Header Card */}
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
+        transition={fadeInUpTransition}
+        className="mb-6"
+      >
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-800">
+                <FileText size={22} />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">AI Resume Builder</h1>
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  <Sparkles size={12} /> Build ATS-optimized resumes with AI
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={handleCreate}
+              disabled={creating}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors shadow-sm disabled:opacity-50"
+            >
+              {creating ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+              Naya Resume Banao
+            </button>
           </div>
         </div>
+      </motion.div>
 
-        <button
-          onClick={handleCreate}
-          disabled={creating}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-green-800 text-green-800 text-sm font-medium hover:bg-green-50 transition-colors disabled:opacity-50"
-        >
-          {creating ? (
-            <Loader2 size={16} className="animate-spin" />
-          ) : (
-            <Plus size={16} />
-          )}
-          Naya Resume Banao
-        </button>
-      </div>
-
-      {/* Sessions grid */}
+      {/* Content */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
           <Loader2 size={24} className="animate-spin text-gray-400" />
         </div>
       ) : sessions.length === 0 ? (
-        <div className="text-center py-20 rounded-xl border border-dashed border-gray-200">
-          <FileText size={32} className="mx-auto text-gray-300 mb-3" />
-          <p className="text-gray-400 mb-1">No resumes yet</p>
-          <p className="text-gray-300 text-xs">
-            Click &quot;Naya Resume Banao&quot; to start building your first resume with AI
-          </p>
-        </div>
-      ) : (
         <motion.div
-          variants={staggerContainer}
+          variants={fadeInUp}
           initial="initial"
           animate="animate"
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          transition={{ ...fadeInUpTransition, delay: 0.1 }}
         >
-          {sessions.map((session) => (
-            <motion.div key={session.id} variants={staggerItem}>
-              <ResumeCard session={session} />
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="w-16 h-16 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-300">
+                <FileText size={30} />
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-300 -ml-4 mt-4">
+                <Download size={22} />
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-violet-300 -ml-3 mt-1">
+                <Palette size={18} />
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 mb-3">Build Your First Resume</h2>
+            <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+              Chat with our AI to create a professional, ATS-friendly resume.
+              Choose from multiple templates and download as PDF.
+            </p>
+            <button
+              onClick={handleCreate}
+              disabled={creating}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors shadow-sm disabled:opacity-50"
+            >
+              {creating ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+              Naya Resume Banao
+            </button>
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          transition={{ ...fadeInUpTransition, delay: 0.1 }}
+        >
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+            <h2 className="text-base font-semibold text-gray-900 mb-4">Your Resumes</h2>
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
+              {sessions.map((session) => (
+                <motion.div key={session.id} variants={staggerItem}>
+                  <ResumeCard session={session} />
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
+          </div>
         </motion.div>
       )}
     </div>
