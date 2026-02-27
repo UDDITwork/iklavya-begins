@@ -210,7 +210,7 @@ export default function TemplateSelector({
   }
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
       {templates.map((t) => {
         const isActive = currentTemplate === t.id
         return (
@@ -218,7 +218,7 @@ export default function TemplateSelector({
             key={t.id}
             onClick={() => handleSelect(t.id)}
             disabled={updating}
-            className={`relative w-[100px] rounded-xl border-2 overflow-hidden transition-all duration-200 ${
+            className={`relative rounded-xl border-2 overflow-hidden transition-all duration-200 ${
               isActive
                 ? 'border-green-600 shadow-md'
                 : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'

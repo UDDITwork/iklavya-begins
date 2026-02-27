@@ -542,7 +542,7 @@ def _generate_rendercv(data: dict) -> bytes:
     skills = data.get("skills", {})
     if any(skills.get(k) for k in ["technical", "soft", "languages", "tools"]):
         add_section("Skills")
-        for cat, key in [("Core AI & LLM Engineering", "technical"), ("Languages & Fundamentals", "languages"), ("Backend & APIs", "tools"), ("Soft Skills", "soft")]:
+        for cat, key in [("Technical Skills", "technical"), ("Languages", "languages"), ("Tools & Frameworks", "tools"), ("Soft Skills", "soft")]:
             if skills.get(key):
                 elements.append(Paragraph(f"<b>{cat}:</b> {', '.join(skills[key])}", s_skills))
                 elements.append(Spacer(1, 1 * mm))
@@ -867,18 +867,18 @@ def _generate_jake(data: dict) -> bytes:
     name = pi.get("name", "")
     elements.append(Paragraph(name.upper(), s_name))
 
-    # ── Contact line with unicode icons
+    # ── Contact line (plain text, no unicode icons — Helvetica safe)
     contact_parts = []
     if pi.get("phone"):
-        contact_parts.append(f"\u260e {pi['phone']}")
+        contact_parts.append(pi["phone"])
     if pi.get("email"):
-        contact_parts.append(f"\u2709 {pi['email']}")
+        contact_parts.append(pi["email"])
     if pi.get("linkedin"):
         contact_parts.append(pi["linkedin"])
     if pi.get("github") or pi.get("portfolio"):
         contact_parts.append(pi.get("github") or pi.get("portfolio"))
     if contact_parts:
-        elements.append(Paragraph("  ~  ".join(contact_parts), s_contact))
+        elements.append(Paragraph("  |  ".join(contact_parts), s_contact))
 
     # ── Objective / Summary
     obj = data.get("objective", "")
