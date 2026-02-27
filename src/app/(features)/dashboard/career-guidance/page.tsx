@@ -86,7 +86,7 @@ export default function CareerGuidancePage() {
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">AI Career Guidance</h1>
                 <p className="text-sm text-gray-500 flex items-center gap-1">
-                  <Sparkles size={12} /> Get personalized career advice from AI
+                  <Sparkles size={12} /> AI analyzes your skills, strengths &amp; market demand to suggest practical career paths
                 </p>
               </div>
             </div>

@@ -81,7 +81,7 @@ const gridFeatures = [
     tag: 'AI Job Readiness Suite',
     tagColor: 'text-orange-500',
     title: 'Interview-Ready. Resume-Perfect.',
-    shortDescription: 'An integrated toolset including AI Resume Builder, AI Interviews and AI Career Mapping to prepare learners for real-world hiring.',
+    shortDescription: 'ATS-verified resume creation, AI-powered cover letters, personal interview preparation through text, voice and video, and group discussion training \u2014 all trained on Indian hiring data.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_54_03 PM.png',
     link: '/ai-interview',
   },
@@ -89,7 +89,7 @@ const gridFeatures = [
     tag: 'AI Skill-to-Job Matchmaking',
     tagColor: 'text-orange-600',
     title: 'The Right Candidate. The Right Role.',
-    shortDescription: 'Intelligent matching of candidates and employers based on verified skills, aptitude, and organizational fit.',
+    shortDescription: 'Our AI evaluates your skills vs active job requirements \u2014 showing strengths, gaps, best-fit roles, and selection probability. Matching you with the right opportunity.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_36_04 PM.png',
     link: '/career-guidance',
   },
@@ -97,7 +97,7 @@ const gridFeatures = [
     tag: 'Career Guidance',
     tagColor: 'text-green-800',
     title: 'A Personal AI Coach That Knows Your Path.',
-    shortDescription: 'Our AI Career Coach analyzes your personality and assessment scores to build step-by-step growth roadmaps toward your target role.',
+    shortDescription: 'Our AI analyzes your skills, strengths, and market demand trends to suggest practical career paths \u2014 step-by-step growth roadmaps toward your target role.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 06_54_58 PM.png',
     link: '/career-guidance',
   },
@@ -112,8 +112,8 @@ const gridFeatures = [
   {
     tag: 'From Skill to Salary',
     tagColor: 'text-emerald-600',
-    title: 'The Outcome That Matters.',
-    shortDescription: 'iKlavya doesn\'t just train. We ensure learners become job-ready, employable, and placed at scale.',
+    title: 'IKLAVYA Verified Student Advantage.',
+    shortDescription: 'Earned. Evaluated. Employer-Ready. Assessment completion, ATS-approved resume, interview validation, skill scoring, and priority visibility to 150+ companies.',
     image: '/about graphics/ChatGPT Image Feb 15, 2026, 07_00_30 PM.png',
     link: '/support',
   },
@@ -154,29 +154,29 @@ const differentiators = [
     icon: Zap,
     iconColor: 'text-amber-500',
     iconBg: 'bg-amber-50',
-    title: 'Learning & Assessment Intelligence',
-    description: 'AI-Proctored Smart Classrooms, adaptive AI Tutors, and automated textual, audio, and video-based assessments for holistic learner profiling.',
+    title: 'We Optimize Your Resume',
+    description: 'ATS-verified resume creation and AI-generated cover letters tailored per job description \u2014 so your application gets seen, not filtered out.',
   },
   {
     icon: Target,
     iconColor: 'text-green-800',
     iconBg: 'bg-green-50/40',
-    title: 'Career & Employability Intelligence',
-    description: 'AI Job Readiness Suite, AI Skill-to-Job Matchmaking, and end-to-end career mapping that takes learners from skill mastery to salary.',
+    title: 'We Strengthen Your Interviews',
+    description: 'Personal interview preparation through text, voice, and video. HR, technical, behavioral, and salary negotiation practice with structured feedback on Indian formats.',
   },
   {
     icon: Trophy,
     iconColor: 'text-orange-500',
     iconBg: 'bg-orange-50',
-    title: 'From Local Classrooms to National Careers',
-    description: 'iKlavya ensures that students from smaller cities are not just trained -- they are empowered, employable, and economically independent.',
+    title: 'We Close Skill Gaps & Guide Career Direction',
+    description: 'Our AI analyzes your skills, strengths, and market demand trends to suggest practical career paths. We close gaps in communication, negotiation, and workplace readiness.',
   },
   {
     icon: Users,
     iconColor: 'text-emerald-600',
     iconBg: 'bg-emerald-50',
-    title: 'Built for Bharat. Powered by AI.',
-    description: 'Multilingual, mobile-first, low-bandwidth optimized, and scalable across colleges, ITIs, and training centers across Tier 2 and Tier 3 India.',
+    title: 'We Match & Connect You to Employers',
+    description: 'IKLAVYA Verified Students get matched and connected with 150+ employers. You are verified, refined, and then introduced. Not the other way around.',
   },
 ]
 
@@ -185,24 +185,24 @@ const journeySteps = [
   { step: 2, title: 'Identify', desc: 'Discover strengths, gaps, and career direction', borderColor: 'border-amber-700', textColor: 'text-amber-700' },
   { step: 3, title: 'Learn', desc: 'Adaptive AI tutor and smart classroom learning', borderColor: 'border-emerald-700', textColor: 'text-emerald-700' },
   { step: 4, title: 'Prepare', desc: 'AI interviews, resume building, career mapping', borderColor: 'border-orange-600', textColor: 'text-orange-600' },
-  { step: 5, title: 'Place', desc: 'Skill-to-job matchmaking and placement', borderColor: 'border-green-800', textColor: 'text-green-800' },
+  { step: 5, title: 'Place', desc: 'Verified access to 150+ MNCs through assured placement pathway', borderColor: 'border-green-800', textColor: 'text-green-800' },
 ]
 
 const problems = [
   {
     number: '01',
-    problem: 'Learners lack workplace readiness',
-    solution: 'iKlavya simulates real workplace scenarios with AI-powered interview practice, proctored classrooms, and adaptive skill-building exercises.',
+    problem: 'Resumes fail before recruiters see them',
+    solution: 'Our AI aligns your resume with the right keywords, skills, and achievements \u2014 tailored per job description. ATS filters no longer reject you silently.',
   },
   {
     number: '02',
-    problem: 'No personalized learning paths',
-    solution: 'Our AI Tutor customizes explanations, pace, and practice based on each learner\'s strengths, gaps, and learning style.',
+    problem: 'No preparation aligned to real hiring expectations',
+    solution: 'Our AI is trained on Indian interview formats \u2014 HR, technical, behavioral, salary negotiation \u2014 with practice through text, voice, and video and structured feedback.',
   },
   {
     number: '03',
-    problem: 'Tier 2 & 3 students lack equal opportunity',
-    solution: 'iKlavya ensures students from smaller cities are empowered, employable, and economically independent through mobile-first, multilingual AI skilling.',
+    problem: 'Skill mismatch and no employer access',
+    solution: 'iKlavya Verified Students get access to 150+ MNCs. We prepare first \u2014 resume, interviews, communication, skill matching \u2014 then introduce you to employers.',
   },
 ]
 
@@ -237,18 +237,18 @@ export default function AboutPage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold text-slate-900 leading-[1.1] tracking-tight mb-8">
-                Empowering India&apos;s
+                From Educated to
                 <br />
-                <span className="text-green-800">Education</span> &amp; Skilling
+                <span className="text-green-800">Employed</span> &mdash; India&apos;s Own
                 <br />
-                Ecosystem with <span className="text-green-800 italic">AI</span>
+                AI <span className="text-green-800 italic">Career System</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-600 font-light max-w-2xl leading-relaxed mb-10">
-                iKlavya is building a unified AI-powered infrastructure that transforms how learners
-                are trained, assessed, and placed into meaningful employment. Our solutions enable
-                institutions, training partners, and employers to deliver measurable learning outcomes
-                and guaranteed job readiness.
+                Every year, millions graduate &mdash; but only a small percentage feel truly confident
+                for interviews. The problem is not intelligence, it&apos;s preparation aligned to real
+                hiring expectations. Most tools are built for global markets. iKlavya is different &mdash;
+                our own AI model, purpose-built for Indian youth and Indian employers.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -279,10 +279,10 @@ export default function AboutPage() {
                   Our Mission
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 leading-snug mt-4">
-                  To deliver affordable, multilingual AI skilling and career intelligence to{' '}
-                  <span className="text-green-800">1 million underserved learners</span>,
-                  enabling skill mastery, job readiness, and income-generating opportunities
-                  across Tier 2 and Tier 3 India.
+                  We take you from being an educated person to becoming a{' '}
+                  <span className="text-green-800">job-ready, employable professional</span>.
+                  Affordable, multilingual AI skilling and career intelligence for
+                  1 million learners across Tier 2 and Tier 3 India.
                 </h2>
               </div>
             </RevealSection>
@@ -371,10 +371,10 @@ export default function AboutPage() {
           <RevealSection>
             <div className="text-center mb-16 sm:mb-20">
               <span className="text-sm font-black text-green-800 uppercase tracking-[0.4em]">
-                What We Offer
+                Our Own AI Job Readiness Suite
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4">
-                A Unified AI-Powered Infrastructure.
+                Everything Powered by In-House AI, Trained on Indian Hiring Data.
               </h2>
             </div>
           </RevealSection>
@@ -543,10 +543,10 @@ export default function AboutPage() {
           <RevealSection>
             <div className="text-center mb-14 sm:mb-20">
               <span className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">
-                Why iKlavya
+                Why iKlavya Is Different
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 mt-4">
-                Two Pillars of Intelligence. One Platform.
+                What We Actually Do for You.
               </h2>
             </div>
           </RevealSection>
@@ -634,16 +634,16 @@ export default function AboutPage() {
             />
 
             <span className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
-              From Local Classrooms to National Careers
+              The Outcome
             </span>
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-snug italic mt-8">
-              &ldquo;iKlavya ensures that students from smaller cities are not just
-              trained -- they are empowered, employable, and economically independent.&rdquo;
+              &ldquo;Your degree shows you studied. iKlavya proves you are ready.
+              Built in India. Built for Indian youth. Built for Indian employers.&rdquo;
             </h2>
 
             <p className="text-lg text-slate-500 font-light mt-6">
-              Built for Bharat. Powered by AI.
+              From educated graduate &rarr; verified candidate &rarr; confident professional &rarr; real hiring opportunities.
             </p>
           </div>
         </RevealSection>
@@ -693,12 +693,13 @@ export default function AboutPage() {
               {/* CTA */}
               <div className="text-center md:text-left space-y-8">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">
-                  Your Career Starts Here.
+                  Your Career is Not a Coincidence.
                 </h2>
 
                 <p className="text-slate-500 text-lg font-light max-w-md">
-                  Join the growing community of learners transforming their potential into
-                  professional readiness with iKlavya.
+                  We optimize your resume, strengthen your communication, improve your interviews,
+                  close skill gaps, guide career direction, match you to opportunities, and connect
+                  you with 150+ employers.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center md:items-start gap-6">

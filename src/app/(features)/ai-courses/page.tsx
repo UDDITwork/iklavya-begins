@@ -69,8 +69,8 @@ export default function AICoursesPage() {
         >
           <div className="flex items-center gap-3 sm:gap-6">
             <div className="flex-1">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Video Courses</h1>
-              <p className="text-gray-500">AI-powered soft skill courses with interactive simulations</p>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-2">Demand-Based Skilling Courses</h1>
+              <p className="text-gray-500">Courses focused on in-demand technologies, practical workplace competencies &amp; industry-relevant tools</p>
             </div>
             <div className="hidden md:block w-44 h-32">
               <CourseLibraryScene className="w-full h-full" />

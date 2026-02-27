@@ -122,9 +122,9 @@ export default function NewLandingPage() {
 
   const productFeatures: Record<string, { title: string; tag: string; desc: string; visual: React.ReactNode }> = {
     interview: {
-      title: "Ultra-Low Latency Interview Engine",
+      title: "Personal Interview Preparation (Text, Voice & Video)",
       tag: "Real-time AI",
-      desc: "Experience 0.2s latency feedback. Our engine analyzes tone, confidence, body language, and communication clarity as you speak.",
+      desc: "Interviews are about communication, structure, and confidence. Our AI is trained on Indian interview formats \u2014 HR, technical, behavioral, and salary negotiation. Practice through text, voice, and video with structured feedback.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="flex justify-between items-center mb-6">
@@ -152,9 +152,9 @@ export default function NewLandingPage() {
       )
     },
     resume: {
-      title: "AI Resume Pulse-Checker",
+      title: "ATS-Verified Resume Creation",
       tag: "ATS Domination",
-      desc: "Watch our AI rewrite your bullet points in real-time to match the top 1% of industry standards.",
+      desc: "Most resumes fail before a recruiter ever sees them. ATS filters reject candidates silently. Our AI aligns your resume with the right keywords, skills, and achievements \u2014 tailored per job description.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="space-y-4">
@@ -186,7 +186,7 @@ export default function NewLandingPage() {
     guidance: {
       title: "Personalized Growth Roadmap",
       tag: "Career GPS",
-      desc: "Our AI assesses your personality, communication style, and workplace readiness to build a step-by-step growth path toward your dream role.",
+      desc: "Our AI analyzes your skills, strengths, and market demand trends to suggest practical career paths. A step-by-step growth roadmap toward your target role, aligned with what employers actually need.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           {/* Header */}
@@ -251,11 +251,10 @@ export default function NewLandingPage() {
                 </p>
               </div>
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold text-slate-900 leading-tight sm:leading-[0.85] tracking-tight">
-                Empowering India&apos;s <br /> <span className="text-green-800 italic">Education</span> &amp; Skilling <br /> Ecosystem with <span className="text-green-800 italic">AI</span>.
+                From Educated to <br /> <span className="text-green-800 italic">Employed</span> &mdash; India&apos;s Own <br /> AI <span className="text-green-800 italic">Career System</span>.
               </h1>
               <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
-                Degree? Common. Skill? Rare. Presence? <span className="text-green-800 font-bold italic">iKlavya.</span>{' '}
-                Our real-time AI engine turns your potential into professional dominance.
+                Built for Indian Students. Designed for Indian Employers. Every year, millions graduate &mdash; but only a small percentage feel truly ready for interviews. The problem isn&apos;t intelligence, it&apos;s preparation aligned to real hiring expectations. <span className="text-green-800 font-bold italic">iKlavya</span> is different &mdash; our own AI model, built for Indian youth and Indian employers.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <Link href="/register">
@@ -335,8 +334,8 @@ export default function NewLandingPage() {
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">The Real Features</h2>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold">Built for Zero Latency.</h3>
+              <h2 className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">Our Own AI Job Readiness Suite</h2>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold">Everything Powered by In-House AI, Trained on Indian Hiring Data.</h3>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-start">
@@ -389,9 +388,9 @@ export default function NewLandingPage() {
               <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-stone-400 via-amber-300 to-emerald-300" />
 
               {[
-                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Take AI Interview", desc: "Our engine simulates real interviews with live feedback on tone, accuracy, and confidence.", color: "border-2 border-green-800", textColor: "text-green-800", delay: 0 },
-                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Analysis", desc: "Receive a detailed breakdown of your strengths, gaps, and where you rank against peers.", color: "border-2 border-amber-700", textColor: "text-amber-700", delay: 0.15 },
-                { step: 3, icon: <Target className="w-6 h-6" />, title: "Follow Your Roadmap", desc: "A personalized learning path adapts in real-time based on your performance.", color: "border-2 border-emerald-700", textColor: "text-emerald-700", delay: 0.3 }
+                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Take AI Interview", desc: "Practice through text, voice, and video interviews trained on Indian hiring formats \u2014 HR, technical, behavioral, and salary negotiation.", color: "border-2 border-green-800", textColor: "text-green-800", delay: 0 },
+                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Analysis", desc: "Our AI evaluates your skills vs active job requirements \u2014 showing strengths, gaps, best-fit roles, and selection probability.", color: "border-2 border-amber-700", textColor: "text-amber-700", delay: 0.15 },
+                { step: 3, icon: <Target className="w-6 h-6" />, title: "Get Placed", desc: "IKLAVYA Verified Students get access to 150+ MNCs. We prepare you first \u2014 resume, interviews, communication, skill matching \u2014 then introduce you.", color: "border-2 border-emerald-700", textColor: "text-emerald-700", delay: 0.3 }
               ].map((s) => (
                 <motion.div
                   key={s.step}
@@ -460,7 +459,7 @@ export default function NewLandingPage() {
                 <h2 className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">Live Competitions</h2>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h3>
                 <p className="text-lg text-slate-600 font-light leading-relaxed">
-                  Don&apos;t just claim skills. Win them. Compete in live quiz broadcasts, real-time negotiation face-offs, and communication challenges. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our corporate partners.
+                  Don&apos;t just claim skills. Prove them. Compete in live quiz broadcasts, group discussion practice, and communication challenges. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our 150+ employer partners.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -475,7 +474,7 @@ export default function NewLandingPage() {
                       <Building2 className="text-green-800 w-5 h-5" />
                     </div>
                     <h5 className="font-bold text-slate-900">Job Assistance</h5>
-                    <p className="text-xs text-slate-500">Curated hiring pipelines for high-ranking archers.</p>
+                    <p className="text-xs text-slate-500">Curated hiring pipelines connecting top performers to 150+ MNCs.</p>
                   </div>
                 </div>
               </div>
@@ -490,7 +489,7 @@ export default function NewLandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
             {[
               { target: 520, suffix: '+', label: 'Students Trained', color: 'text-green-800' },
-              { target: 15, suffix: '+', label: 'Corporate Partners', color: 'text-emerald-600' },
+              { target: 150, suffix: '+', label: 'Employer Partners', color: 'text-emerald-600' },
               { target: 3200, suffix: '+', label: 'Interviews Simulated', color: 'text-orange-500' },
               { target: 99.9, suffix: '%', label: 'Platform Uptime', color: 'text-amber-800', isDecimal: true }
             ].map((stat, i) => (
@@ -522,9 +521,9 @@ export default function NewLandingPage() {
             <div className="flex flex-col lg:flex-row gap-20 items-center">
               <div className="flex-1 space-y-10">
                 <h2 className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">Personalized Learning</h2>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight">Courses That <br /> Adapt to You.</h3>
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight">Demand-Based <br /> Skilling Courses.</h3>
                 <p className="text-lg text-slate-600 font-light">
-                  Traditional courses are static. Ours are dynamic. Every lesson, quiz, and project shifts based on your performance in the AI Interviews. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we suggest leadership and negotiation labs.
+                  Our courses focus on in-demand technologies, practical workplace competencies, and industry-relevant tools &mdash; not outdated syllabus content. Every lesson adapts based on your assessment performance. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we build leadership and negotiation labs into your path.
                 </p>
                 <div className="space-y-4">
                   {["Dynamic Course Shifting", "Live 24/7 Expert Support", "Project-Based Learning", "Industry-Mentor Reviews"].map((item, i) => (
@@ -612,8 +611,8 @@ export default function NewLandingPage() {
                 className="object-contain"
               />
             </div>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">Your Career is Not a <br /> Coincidence.</h3>
-            <p className="text-slate-500 text-lg font-light">Join the elite rank of students mastering their professional future with Iklavya AI.</p>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900">Your Degree Shows You Studied. <br /> iKlavya Proves You Are Ready.</h3>
+            <p className="text-slate-500 text-lg font-light">From educated graduate to verified candidate to confident professional to real hiring opportunities. Built in India. Built for Indian youth. Built for Indian employers.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link href="/register">
                 <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 w-full sm:w-auto text-center font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
@@ -636,8 +635,8 @@ export default function NewLandingPage() {
               Built for Bharat
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4 leading-tight">
-              From Every Corner of India. <br className="hidden sm:block" />
-              For <span className="text-green-800 italic">Every Dream</span> That Deserves a Chance.
+              We Understand the Pressure. <br className="hidden sm:block" />
+              From <span className="text-green-800 italic">Campus Placements</span> to Career Success.
             </h2>
 
             {/* India Map */}
@@ -710,9 +709,7 @@ export default function NewLandingPage() {
             </div>
 
             <p className="text-lg sm:text-xl text-slate-600 font-light mt-10 sm:mt-14 max-w-2xl mx-auto leading-relaxed">
-              Reaching <span className="text-green-800 font-bold">1 million learners</span> across
-              Tier 2 and Tier 3 India with affordable, multilingual,
-              AI-powered education and career intelligence.
+              We understand campus placement pressure, Tier 2 and Tier 3 challenges, communication gaps, skill mismatch, and competitive realities. iKlavya brings <span className="text-green-800 font-bold">structured employability engineering</span> to every corner of India &mdash; affordable, multilingual, and AI-powered.
             </p>
           </div>
         </RevealSection>
@@ -732,7 +729,7 @@ export default function NewLandingPage() {
                   className="h-36 sm:h-44 w-auto object-contain"
                 />
               </Link>
-              <p className="text-slate-500 max-w-sm font-light">The AI-Mastery platform for the next generation of global professionals. Building high-integrity careers through assessment and simulation.</p>
+              <p className="text-slate-500 max-w-sm font-light">India&apos;s own AI career system. We take you from being an educated person to becoming a job-ready, employable professional.</p>
             </div>
             <div className="space-y-4">
               <h5 className="text-[10px] font-black uppercase tracking-widest text-green-800">Platform</h5>
@@ -766,7 +763,7 @@ export default function NewLandingPage() {
             </div>
           </div>
           <div className="pt-8 border-t border-slate-200 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
-            &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. ALL ARCHERS WELCOME.
+            &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. BUILT FOR BHARAT.
           </div>
         </div>
       </footer>

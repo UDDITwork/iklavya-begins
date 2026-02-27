@@ -763,8 +763,8 @@ export default function AIInterviewPage() {
         >
           <div className="flex items-center gap-3 sm:gap-6">
             <div className="flex-1">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900">AI Interview Simulation</h1>
-              <p className="text-sm text-gray-500">Interactive role-play scenarios with real-time voice & confidence analysis</p>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900">Personal Interview Preparation</h1>
+              <p className="text-sm text-gray-500">AI trained on Indian interview formats &mdash; HR, technical, behavioral &amp; salary negotiation through text, voice &amp; video</p>
             </div>
             <div className="hidden md:block w-48 h-40">
               <Image src="/ai interviewer.png" alt="AI Interview Simulation" width={200} height={160} className="object-contain w-full h-full" />

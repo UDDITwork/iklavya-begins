@@ -92,7 +92,7 @@ export default function ResumeBuilderPage() {
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">AI Resume Builder</h1>
                 <p className="text-sm text-gray-500 flex items-center gap-1">
-                  <Sparkles size={12} /> Build ATS-optimized resumes with AI
+                  <Sparkles size={12} /> ATS-verified resume creation &mdash; aligned with the right keywords, skills &amp; achievements per job
                 </p>
               </div>
             </div>

@@ -65,7 +65,7 @@ export default function SkillAssessmentPage() {
           <div className="flex items-center gap-6">
             <div className="flex-1">
               <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-2">AI Skill Assessment</h1>
-              <p className="text-gray-500">Track your soft skills, discover gaps, and follow your AI-powered improvement roadmap</p>
+              <p className="text-gray-500">AI evaluates your skills vs active job requirements &mdash; showing strengths, gaps, best-fit roles &amp; selection probability</p>
             </div>
             <div className="hidden md:flex items-center gap-1 lg:gap-3">
               <div className="w-28 lg:w-36 h-20 lg:h-28">
