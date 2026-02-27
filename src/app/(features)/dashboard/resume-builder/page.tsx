@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { Loader2, Plus, FileText, Sparkles, Download, Palette } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Loader2, Plus, FileText, Sparkles, Download, Palette, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import ResumeCard from '@/components/resume/ResumeCard'
+import TemplateSelector from '@/components/resume/TemplateSelector'
 import { playPop } from '@/lib/sounds'
 import { fadeInUp, fadeInUpTransition, staggerContainer, staggerItem } from '@/lib/animations'
 
@@ -22,6 +23,8 @@ export default function ResumeBuilderPage() {
   const [sessions, setSessions] = useState<ResumeSession[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
+  const [showTemplateModal, setShowTemplateModal] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState('professional')
 
   useEffect(() => {
     loadSessions()
@@ -41,14 +44,19 @@ export default function ResumeBuilderPage() {
     }
   }
 
-  async function handleCreate() {
+  function handleCreate() {
     playPop()
+    setSelectedTemplate('professional')
+    setShowTemplateModal(true)
+  }
+
+  async function handleConfirmTemplate() {
     setCreating(true)
     try {
       const res = await fetch('/api/resume/sessions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: 'New Resume' }),
+        body: JSON.stringify({ title: 'New Resume', template: selectedTemplate }),
       })
       if (!res.ok) {
         const data = await res.json()
@@ -61,6 +69,7 @@ export default function ResumeBuilderPage() {
       toast.error('Something went wrong')
     } finally {
       setCreating(false)
+      setShowTemplateModal(false)
     }
   }
 
@@ -163,6 +172,63 @@ export default function ResumeBuilderPage() {
           </div>
         </motion.div>
       )}
+
+      {/* Template Selection Modal */}
+      <AnimatePresence>
+        {showTemplateModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+            onClick={() => setShowTemplateModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-lg font-bold text-gray-900">Choose a Template</h2>
+                <button
+                  onClick={() => setShowTemplateModal(false)}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              <p className="text-sm text-gray-500 mb-5">
+                Select a resume design. You can change it later after generation.
+              </p>
+
+              <TemplateSelector
+                currentTemplate={selectedTemplate}
+                onTemplateChange={setSelectedTemplate}
+                mode="select"
+              />
+
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
+                <button
+                  onClick={() => setShowTemplateModal(false)}
+                  className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmTemplate}
+                  disabled={creating}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors disabled:opacity-50"
+                >
+                  {creating ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+                  Start Building
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

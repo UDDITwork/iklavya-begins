@@ -163,6 +163,10 @@ class AnalysisResponse(BaseModel):
 
 class ResumeSessionCreateRequest(BaseModel):
     title: Optional[str] = Field(default="New Resume", max_length=200)
+    template: Optional[str] = Field(
+        default="professional",
+        pattern=r"^(professional|modern|simple|rendercv|sidebar)$",
+    )
 
 
 class ResumeSessionResponse(BaseModel):
@@ -173,6 +177,7 @@ class ResumeSessionResponse(BaseModel):
     ended_at: Optional[str] = None
     status: str
     message_count: int
+    template: str = "professional"
 
     model_config = {"from_attributes": True}
 
@@ -215,7 +220,7 @@ class ResumeResponse(BaseModel):
 
 
 class ResumeTemplateUpdateRequest(BaseModel):
-    template: str = Field(pattern=r"^(professional|modern|simple)$")
+    template: str = Field(pattern=r"^(professional|modern|simple|rendercv|sidebar)$")
 
 
 class ResumeListResponse(BaseModel):

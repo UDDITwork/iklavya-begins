@@ -110,6 +110,7 @@ def create_resume_session(
     session = ResumeSession(
         user_id=current_user.id,
         title=data.title or "New Resume",
+        template=data.template or "professional",
     )
     db.add(session)
     db.commit()
@@ -222,10 +223,17 @@ async def send_resume_message(
             resume_json_str = _extract_resume_json(complete_text)
 
             if resume_json_str:
+                # Use pre-selected template from the session
+                session_for_template = db.query(ResumeSession).filter(
+                    ResumeSession.id == session_id
+                ).first()
+                selected_template = session_for_template.template if session_for_template else "professional"
+
                 resume = Resume(
                     session_id=session_id,
                     user_id=user_id,
                     resume_json=resume_json_str,
+                    template=selected_template,
                 )
                 db.add(resume)
 
@@ -350,7 +358,11 @@ def download_resume(
             detail="Resume not found",
         )
 
-    pdf_bytes = generate_resume_pdf(resume.resume_json, resume.template)
+    pdf_bytes = generate_resume_pdf(
+        resume.resume_json,
+        resume.template,
+        profile_image_url=current_user.profile_image,
+    )
 
     return Response(
         content=pdf_bytes,

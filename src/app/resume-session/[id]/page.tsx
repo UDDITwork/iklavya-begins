@@ -31,6 +31,7 @@ export default function ResumeSessionPage() {
   const [isStreaming, setIsStreaming] = useState(false)
   const [sessionTitle, setSessionTitle] = useState('AI Resume Builder')
   const [sessionStatus, setSessionStatus] = useState('active')
+  const [sessionTemplate, setSessionTemplate] = useState('professional')
   const [resumeData, setResumeData] = useState<ResumeData | null>(null)
   const [loading, setLoading] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -63,6 +64,7 @@ export default function ResumeSessionPage() {
       const data = await res.json()
       setSessionTitle(data.session.title)
       setSessionStatus(data.session.status)
+      setSessionTemplate(data.session.template || 'professional')
       setMessages(
         data.messages.map((m: { id: string; role: string; content: string }) => ({
           id: m.id,
@@ -124,7 +126,7 @@ export default function ResumeSessionPage() {
           setResumeData({
             resume_id: data.resume_id,
             resume_json: data.resume_json,
-            template: 'professional',
+            template: sessionTemplate,
           })
           setSessionStatus('completed')
         } else if (eventType === 'error') {
@@ -132,7 +134,7 @@ export default function ResumeSessionPage() {
         }
       } catch { /* skip malformed JSON */ }
     },
-    []
+    [sessionTemplate]
   )
 
   async function sendMessage() {

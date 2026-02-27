@@ -186,6 +186,9 @@ class ResumeSession(Base):
     message_count: Mapped[int] = mapped_column(
         Integer, nullable=False, default=0
     )
+    template: Mapped[str] = mapped_column(
+        String(30), nullable=False, default="professional"
+    )
 
 
 class ResumeMessage(Base):
