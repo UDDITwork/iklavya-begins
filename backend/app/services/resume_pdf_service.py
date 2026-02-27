@@ -39,6 +39,8 @@ def generate_resume_pdf(
         return _generate_rendercv(data)
     elif template == "sidebar":
         return _generate_sidebar(data, profile_image_url)
+    elif template == "jake":
+        return _generate_jake(data)
     return _generate_professional(data)
 
 
@@ -782,5 +784,217 @@ def _generate_sidebar(data: dict, profile_image_url: str | None = None) -> bytes
     ]))
 
     doc.build([t])
+    buffer.seek(0)
+    return buffer.read()
+
+
+# ─── Template 6: Jake (ATS Classic, Black & White) ─────────
+
+JAKE_BLACK = HexColor("#000000")
+JAKE_DARK = HexColor("#1A1A1A")
+JAKE_GRAY = HexColor("#555555")
+
+
+def _generate_jake(data: dict) -> bytes:
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buffer, pagesize=A4,
+        topMargin=10 * mm, bottomMargin=10 * mm,
+        leftMargin=12 * mm, rightMargin=12 * mm,
+    )
+    styles = getSampleStyleSheet()
+    page_w = A4[0] - 24 * mm
+
+    s_name = ParagraphStyle(
+        "JKName", parent=styles["Title"], fontSize=24,
+        textColor=JAKE_BLACK, spaceAfter=1 * mm,
+        alignment=TA_CENTER, fontName="Helvetica-Bold",
+    )
+    s_contact = ParagraphStyle(
+        "JKContact", parent=styles["Normal"], fontSize=9,
+        textColor=JAKE_DARK, spaceAfter=4 * mm,
+        alignment=TA_CENTER, leading=14,
+    )
+    s_section = ParagraphStyle(
+        "JKSection", parent=styles["Heading2"], fontSize=12,
+        textColor=JAKE_BLACK, spaceBefore=4 * mm, spaceAfter=0.5 * mm,
+        fontName="Helvetica-Bold",
+    )
+    s_entry_bold = ParagraphStyle(
+        "JKEntryBold", parent=styles["Normal"], fontSize=10,
+        textColor=JAKE_BLACK, leading=13, fontName="Helvetica-Bold",
+    )
+    s_entry_right = ParagraphStyle(
+        "JKEntryRight", parent=styles["Normal"], fontSize=10,
+        textColor=JAKE_BLACK, leading=13, fontName="Helvetica-Bold",
+        alignment=TA_RIGHT,
+    )
+    s_entry_italic = ParagraphStyle(
+        "JKEntryItalic", parent=styles["Normal"], fontSize=9,
+        textColor=JAKE_GRAY, leading=12, fontName="Helvetica-Oblique",
+    )
+    s_entry_italic_r = ParagraphStyle(
+        "JKEntryItalicR", parent=styles["Normal"], fontSize=9,
+        textColor=JAKE_GRAY, leading=12, fontName="Helvetica-Oblique",
+        alignment=TA_RIGHT,
+    )
+    s_bullet = ParagraphStyle(
+        "JKBullet", parent=styles["Normal"], fontSize=9.5,
+        textColor=JAKE_DARK, leading=12.5,
+        leftIndent=12, bulletIndent=4, bulletFontSize=6,
+    )
+    s_body = ParagraphStyle(
+        "JKBody", parent=styles["Normal"], fontSize=9.5,
+        textColor=JAKE_DARK, leading=13,
+    )
+    s_footer = ParagraphStyle(
+        "JKFooter", parent=styles["Normal"], fontSize=7,
+        textColor=GRAY_400, alignment=TA_CENTER,
+    )
+
+    entry_style = TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+    ])
+
+    elements = []
+    pi = data.get("personal_info", {})
+
+    # ── Name (large, centered, uppercase for small-caps effect)
+    name = pi.get("name", "")
+    elements.append(Paragraph(name.upper(), s_name))
+
+    # ── Contact line with unicode icons
+    contact_parts = []
+    if pi.get("phone"):
+        contact_parts.append(f"\u260e {pi['phone']}")
+    if pi.get("email"):
+        contact_parts.append(f"\u2709 {pi['email']}")
+    if pi.get("linkedin"):
+        contact_parts.append(pi["linkedin"])
+    if pi.get("github") or pi.get("portfolio"):
+        contact_parts.append(pi.get("github") or pi.get("portfolio"))
+    if contact_parts:
+        elements.append(Paragraph("  ~  ".join(contact_parts), s_contact))
+
+    # ── Objective / Summary
+    obj = data.get("objective", "")
+    if obj:
+        elements.append(Paragraph("Summary", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        elements.append(Paragraph(obj, s_body))
+
+    # ── Education
+    edu_list = data.get("education", [])
+    if edu_list:
+        elements.append(Paragraph("Education", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for e in edu_list:
+            row1 = Table(
+                [[Paragraph(f"<b>{e.get('institution', '')}</b>", s_entry_bold),
+                  Paragraph(f"<b>{e.get('year', '')}</b>", s_entry_right)]],
+                colWidths=[page_w * 0.65, page_w * 0.35],
+            )
+            row1.setStyle(entry_style)
+            elements.append(row1)
+            sub_left = e.get("degree", "")
+            if e.get("stream"):
+                sub_left += f", {e['stream']}"
+            sub_right = e.get("grade", "")
+            if sub_left or sub_right:
+                row2 = Table(
+                    [[Paragraph(sub_left, s_entry_italic),
+                      Paragraph(sub_right, s_entry_italic_r)]],
+                    colWidths=[page_w * 0.65, page_w * 0.35],
+                )
+                row2.setStyle(entry_style)
+                elements.append(row2)
+            elements.append(Spacer(1, 2 * mm))
+
+    # ── Achievements
+    achievements = data.get("achievements", [])
+    if achievements:
+        elements.append(Paragraph("Achievements", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for a in achievements:
+            elements.append(Paragraph(a, s_bullet, bulletText="\u2022"))
+
+    # ── Experience
+    exp_list = data.get("experience", [])
+    if exp_list:
+        elements.append(Paragraph("Experience", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for exp in exp_list:
+            row1 = Table(
+                [[Paragraph(f"<b>{exp.get('company', '')}</b>", s_entry_bold),
+                  Paragraph(f"<b>{exp.get('duration', '')}</b>", s_entry_right)]],
+                colWidths=[page_w * 0.65, page_w * 0.35],
+            )
+            row1.setStyle(entry_style)
+            elements.append(row1)
+            location = exp.get("location", "")
+            row2 = Table(
+                [[Paragraph(exp.get("title", ""), s_entry_italic),
+                  Paragraph(location, s_entry_italic_r)]],
+                colWidths=[page_w * 0.65, page_w * 0.35],
+            )
+            row2.setStyle(entry_style)
+            elements.append(row2)
+            for b in exp.get("bullets", []):
+                elements.append(Paragraph(b, s_bullet, bulletText="\u2022"))
+            elements.append(Spacer(1, 2 * mm))
+
+    # ── Projects
+    proj_list = data.get("projects", [])
+    if proj_list:
+        elements.append(Paragraph("Projects", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for p in proj_list:
+            ts = p.get("tech_stack", [])
+            title_left = f"<b>{p.get('name', '')}</b>"
+            if ts:
+                title_left += f"  |  <i>{', '.join(ts)}</i>"
+            row1 = Table(
+                [[Paragraph(title_left, s_entry_bold),
+                  Paragraph("", s_entry_right)]],
+                colWidths=[page_w * 0.75, page_w * 0.25],
+            )
+            row1.setStyle(entry_style)
+            elements.append(row1)
+            for b in p.get("bullets", []):
+                elements.append(Paragraph(b, s_bullet, bulletText="\u2022"))
+            elements.append(Spacer(1, 2 * mm))
+
+    # ── Skills
+    skills = data.get("skills", {})
+    if any(skills.get(k) for k in ["technical", "soft", "languages", "tools"]):
+        elements.append(Paragraph("Technical Skills", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for label, key in [("Languages", "languages"), ("Technologies/Frameworks", "technical"), ("Developer Tools", "tools"), ("Soft Skills", "soft")]:
+            if skills.get(key):
+                elements.append(Paragraph(f"<b>{label}:</b> {', '.join(skills[key])}", s_body))
+                elements.append(Spacer(1, 1 * mm))
+
+    # ── Certifications
+    certs = data.get("certifications", [])
+    if certs:
+        elements.append(Paragraph("Certifications", s_section))
+        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=2 * mm))
+        for c in certs:
+            line = f"<b>{c.get('name', '')}</b>"
+            parts = [p for p in [c.get("issuer"), c.get("year")] if p]
+            if parts:
+                line += f" -- {', '.join(parts)}"
+            elements.append(Paragraph(line, s_body))
+
+    # Footer
+    elements.append(Spacer(1, 5 * mm))
+    elements.append(HRFlowable(width="100%", thickness=0.5, color=GRAY_200, spaceAfter=2 * mm))
+    elements.append(Paragraph("Generated by IKLAVYA AI Resume Builder", s_footer))
+
+    doc.build(elements)
     buffer.seek(0)
     return buffer.read()

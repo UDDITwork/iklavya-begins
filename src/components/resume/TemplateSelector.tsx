@@ -133,6 +133,40 @@ const templates = [
       </div>
     ),
   },
+  {
+    id: 'jake',
+    name: 'Jake Classic',
+    description: 'ATS classic, black & white',
+    preview: (
+      <div className="w-full h-full p-2 flex flex-col gap-1.5">
+        <div className="h-3 w-20 bg-gray-900 rounded-sm mx-auto" />
+        <div className="h-1 w-16 bg-gray-400 rounded-sm mx-auto" />
+        <div className="mt-1">
+          <div className="h-1.5 w-10 bg-gray-900 rounded-sm" />
+          <div className="h-px w-full bg-gray-900 mt-0.5" />
+        </div>
+        <div className="space-y-0.5">
+          <div className="flex justify-between">
+            <div className="h-1 w-14 bg-gray-800 rounded-sm" />
+            <div className="h-1 w-8 bg-gray-800 rounded-sm" />
+          </div>
+          <div className="flex justify-between">
+            <div className="h-1 w-10 bg-gray-300 rounded-sm" />
+            <div className="h-1 w-6 bg-gray-300 rounded-sm" />
+          </div>
+          <div className="h-1 w-3/4 bg-gray-200 rounded-sm ml-2" />
+        </div>
+        <div className="mt-0.5">
+          <div className="h-1.5 w-8 bg-gray-900 rounded-sm" />
+          <div className="h-px w-full bg-gray-900 mt-0.5" />
+        </div>
+        <div className="space-y-0.5">
+          <div className="h-1 w-full bg-gray-200 rounded-sm ml-2" />
+          <div className="h-1 w-5/6 bg-gray-200 rounded-sm ml-2" />
+        </div>
+      </div>
+    ),
+  },
 ]
 
 export default function TemplateSelector({

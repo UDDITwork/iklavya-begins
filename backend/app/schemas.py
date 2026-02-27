@@ -165,7 +165,7 @@ class ResumeSessionCreateRequest(BaseModel):
     title: Optional[str] = Field(default="New Resume", max_length=200)
     template: Optional[str] = Field(
         default="professional",
-        pattern=r"^(professional|modern|simple|rendercv|sidebar)$",
+        pattern=r"^(professional|modern|simple|rendercv|sidebar|jake)$",
     )
 
 
@@ -220,7 +220,7 @@ class ResumeResponse(BaseModel):
 
 
 class ResumeTemplateUpdateRequest(BaseModel):
-    template: str = Field(pattern=r"^(professional|modern|simple|rendercv|sidebar)$")
+    template: str = Field(pattern=r"^(professional|modern|simple|rendercv|sidebar|jake)$")
 
 
 class ResumeListResponse(BaseModel):
