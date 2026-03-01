@@ -241,73 +241,124 @@ export default function NewLandingPage() {
       `}</style>
 
       {/* ===== 1. HERO ===== */}
-      <section className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-[120%] -skew-x-12 translate-x-32 -z-10" />
+      <section className="pt-16 sm:pt-20 md:pt-24 pb-10 sm:pb-14 md:pb-16 relative overflow-hidden">
+        {/* Subtle background accents */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green-50/40 rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-amber-50/30 rounded-full blur-3xl -z-10 -translate-x-1/4 translate-y-1/4" />
+
         <RevealSection>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-16 items-center">
-            <div className="lg:col-span-7 space-y-10">
-              <div className="inline-block px-4 py-2 bg-stone-100 rounded-full">
-                <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest flex items-center gap-2">
-                  <Activity className="w-3 h-3" /> Live Competition Starts in 04:12:00
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left content */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-100 rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <p className="text-[10px] font-black text-green-800 uppercase tracking-widest">
+                  Live Competition Starts in 04:12:00
                 </p>
               </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold text-slate-900 leading-tight sm:leading-[0.85] tracking-tight">
-                From Educated to <br /> <span className="text-green-800 italic">Employed</span> &mdash; India&apos;s Own <br /> AI <span className="text-green-800 italic">Career System</span>.
-              </h1>
-              <p className="text-xl text-slate-600 font-light max-w-xl leading-relaxed">
-                Built for Indian Students. Designed for Indian Employers. Every year, millions graduate &mdash; but only a small percentage feel truly ready for interviews. The problem isn&apos;t intelligence, it&apos;s preparation aligned to real hiring expectations. <span className="text-green-800 font-bold italic">iKlavya</span> is different &mdash; our own AI model, built for Indian youth and Indian employers.
-              </p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+
+              <div>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-serif font-bold text-slate-900 leading-[1.15] tracking-tight">
+                  From Educated to{' '}
+                  <span className="text-green-800 italic">Employed</span>
+                  <span className="text-slate-400"> &mdash; </span>
+                  India&apos;s Own AI{' '}
+                  <span className="text-green-800 italic">Career System</span>.
+                </h1>
+                <p className="mt-4 text-base sm:text-lg text-slate-500 font-light max-w-lg leading-relaxed">
+                  Built for Indian students. Designed for Indian employers. AI-powered interview prep, resume building, and career guidance &mdash; all in one platform.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <Link href="/register">
-                  <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-green-800 text-green-800 hover:bg-green-50/50 font-black uppercase text-xs tracking-widest rounded-lg flex items-center gap-3 shadow-lg shadow-green-200/30 transition-all">
-                    Get Started Free <Zap className="w-4 h-4 text-amber-500" />
+                  <button className="px-7 py-3.5 w-full sm:w-auto text-center justify-center bg-green-800 text-white font-bold uppercase text-xs tracking-widest rounded-lg flex items-center gap-2.5 hover:bg-green-900 shadow-lg shadow-green-800/20 transition-all">
+                    Get Started Free <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
                 <Link href="/login">
-                  <button className="px-6 sm:px-10 py-4 sm:py-5 w-full sm:w-auto text-center justify-center border-2 border-slate-200 text-slate-700 font-black uppercase text-xs tracking-widest rounded-lg hover:bg-slate-50 transition-all">
+                  <button className="px-7 py-3.5 w-full sm:w-auto text-center justify-center border border-slate-200 bg-white text-slate-700 font-bold uppercase text-xs tracking-widest rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-all">
                     Sign In
                   </button>
                 </Link>
               </div>
+
+              {/* Quick stats row */}
+              <div className="flex flex-wrap gap-6 pt-2 border-t border-slate-100">
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">50K+</p>
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Students Trained</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">200+</p>
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Hiring Partners</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">92%</p>
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Placement Rate</p>
+                </div>
+              </div>
             </div>
 
-            <div className="lg:col-span-5 relative">
-              <div className="relative">
+            {/* Right visual */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-3 sm:p-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentHero}
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.97 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.05 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="relative"
+                    exit={{ opacity: 0, scale: 1.03 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    className="relative rounded-xl overflow-hidden"
                   >
                     <Image
                       src={heroImages[currentHero]}
                       alt={heroLabels[currentHero]}
-                      width={500}
-                      height={500}
-                      className="w-full h-auto"
+                      width={600}
+                      height={450}
+                      className="w-full h-auto rounded-xl"
                       priority={currentHero === 0}
                     />
                   </motion.div>
                 </AnimatePresence>
-                {/* Progress dots */}
-                <div className="flex justify-center gap-2 mt-6">
-                  {heroImages.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentHero(i)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        i === currentHero ? 'bg-green-800 w-6' : 'bg-stone-300 hover:bg-stone-400'
-                      }`}
-                    />
-                  ))}
+                {/* Bottom bar with dots and label */}
+                <div className="flex items-center justify-between mt-3 px-1">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    {heroLabels[currentHero]}
+                  </p>
+                  <div className="flex gap-1.5">
+                    {heroImages.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentHero(i)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i === currentHero ? 'bg-green-800 w-5' : 'bg-stone-200 w-1.5 hover:bg-stone-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <p className="text-center text-[10px] font-black text-stone-500 uppercase tracking-widest mt-3">
-                  {heroLabels[currentHero]}
-                </p>
               </div>
+
+              {/* Floating accent card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden lg:flex items-center gap-3"
+              >
+                <div className="w-9 h-9 rounded-full bg-green-50 flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-green-700" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-800">Interview Score</p>
+                  <p className="text-[10px] text-green-700 font-semibold">+34% avg improvement</p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </RevealSection>
@@ -997,56 +1048,72 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 10. FOOTER ===== */}
-      <footer className="bg-slate-100 py-12 sm:py-16 md:py-20 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-5 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-20">
-            <div className="col-span-2 space-y-6">
-              <Link href="/" className="inline-block">
+      <footer className="bg-slate-900 text-white pt-12 sm:pt-16 pb-8 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Top: Brand + Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-slate-700/50">
+            {/* Brand column */}
+            <div className="col-span-2">
+              <Link href="/" className="inline-block mb-4">
                 <Image
                   src="/iklavya logo.png"
                   alt="iKlavya"
-                  width={360}
-                  height={180}
-                  className="h-36 sm:h-44 w-auto object-contain"
+                  width={160}
+                  height={80}
+                  className="h-12 w-auto object-contain brightness-0 invert"
                 />
               </Link>
-              <p className="text-slate-500 max-w-sm font-light">India&apos;s own AI career system. We take you from being an educated person to becoming a job-ready, employable professional.</p>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+                India&apos;s own AI career system. From educated to employed &mdash; AI-powered interview prep, resume building, and career guidance.
+              </p>
             </div>
-            <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-green-800">Platform</h5>
-              <ul className="space-y-2 text-sm text-slate-500">
-                <li><Link href="/ai-interview" className="hover:text-slate-900 transition-colors">AI Interview</Link></li>
-                <li><Link href="/ai-courses" className="hover:text-slate-900 transition-colors">Video Courses</Link></li>
-                <li><Link href="/resume-builder" className="hover:text-slate-900 transition-colors">Resume Builder</Link></li>
-                <li><Link href="/skill-assessment" className="hover:text-slate-900 transition-colors">Skill Assessment</Link></li>
-                <li><Link href="/live-quiz" className="hover:text-slate-900 transition-colors">Live Quiz</Link></li>
+            {/* Platform */}
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Platform</h5>
+              <ul className="space-y-2.5 text-sm text-slate-400">
+                <li><Link href="/ai-interview" className="hover:text-white transition-colors">AI Interview</Link></li>
+                <li><Link href="/ai-courses" className="hover:text-white transition-colors">Video Courses</Link></li>
+                <li><Link href="/resume-builder" className="hover:text-white transition-colors">Resume Builder</Link></li>
+                <li><Link href="/skill-assessment" className="hover:text-white transition-colors">Skill Assessment</Link></li>
+                <li><Link href="/live-quiz" className="hover:text-white transition-colors">Live Quiz</Link></li>
               </ul>
             </div>
-            <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Resources</h5>
-              <ul className="space-y-2 text-sm text-slate-500">
-                <li><Link href="/career-guidance" className="hover:text-slate-900 transition-colors">Career Guidance</Link></li>
-                <li><Link href="/certifications" className="hover:text-slate-900 transition-colors">Certifications</Link></li>
-                <li><Link href="/support" className="hover:text-slate-900 transition-colors">Mentorship</Link></li>
-                <li><Link href="/blog" className="hover:text-slate-900 transition-colors">Blog</Link></li>
-                <li><Link href="/support" className="hover:text-slate-900 transition-colors">FAQ</Link></li>
+            {/* Resources */}
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h5>
+              <ul className="space-y-2.5 text-sm text-slate-400">
+                <li><Link href="/career-guidance" className="hover:text-white transition-colors">Career Guidance</Link></li>
+                <li><Link href="/certifications" className="hover:text-white transition-colors">Certifications</Link></li>
+                <li><Link href="/support" className="hover:text-white transition-colors">Mentorship</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/support" className="hover:text-white transition-colors">FAQ</Link></li>
               </ul>
             </div>
-            <div className="space-y-4">
-              <h5 className="text-[10px] font-black uppercase tracking-widest text-orange-500">Company</h5>
-              <ul className="space-y-2 text-sm text-slate-500">
-                <li><Link href="/about" className="hover:text-slate-900 transition-colors">About Us</Link></li>
-                <li><Link href="/about#institutions" className="hover:text-slate-900 transition-colors">For Institutions</Link></li>
-                <li><Link href="/for-employers" className="hover:text-slate-900 transition-colors">For Employers</Link></li>
-                <li><Link href="/team" className="hover:text-slate-900 transition-colors">Team</Link></li>
-                <li><Link href="/careers" className="hover:text-slate-900 transition-colors">Careers</Link></li>
-                <li><Link href="/contact" className="hover:text-slate-900 transition-colors">Contact</Link></li>
-                <li><Link href="/privacy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link></li>
+            {/* Company */}
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Company</h5>
+              <ul className="space-y-2.5 text-sm text-slate-400">
+                <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                <li><Link href="/about#institutions" className="hover:text-white transition-colors">For Institutions</Link></li>
+                <li><Link href="/for-employers" className="hover:text-white transition-colors">For Employers</Link></li>
+                <li><Link href="/team" className="hover:text-white transition-colors">Team</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-slate-200 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
-            &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. BUILT FOR BHARAT.
+          {/* Bottom bar */}
+          <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-slate-500">
+              &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. Built for Bharat.
+            </p>
+            <div className="flex items-center gap-4 text-xs text-slate-500">
+              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
+              <span className="text-slate-700">|</span>
+              <Link href="/support" className="hover:text-slate-300 transition-colors">Terms</Link>
+              <span className="text-slate-700">|</span>
+              <span>support@iklavya.in</span>
+            </div>
           </div>
         </div>
       </footer>

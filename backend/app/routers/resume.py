@@ -24,6 +24,7 @@ from app.auth import get_current_user
 from app.prompts import build_resume_system_prompt
 from app.services.claude_service import stream_chat_response
 from app.services.resume_pdf_service import generate_resume_pdf
+from app.services.ats_scoring_service import compute_ats_score
 
 router = APIRouter(prefix="/resume", tags=["resume"])
 
@@ -359,6 +360,29 @@ def update_resume_template(
     db.refresh(resume)
 
     return ResumeResponse.model_validate(resume)
+
+
+@router.post(
+    "/{resume_id}/ats-score",
+    responses={404: {"model": ErrorResponse}},
+)
+async def get_ats_score(
+    resume_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    resume = db.query(Resume).filter(
+        Resume.id == resume_id,
+        Resume.user_id == current_user.id,
+    ).first()
+    if not resume:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume not found",
+        )
+
+    result = await compute_ats_score(resume.resume_json)
+    return result
 
 
 @router.get(

@@ -22,3 +22,17 @@ async def stream_chat_response(system_prompt: str, messages: list[dict]):
     ) as stream:
         async for text in stream.text_stream:
             yield text
+
+
+async def get_chat_response(system_prompt: str, messages: list[dict]) -> str:
+    """Get a complete (non-streaming) response from Claude.
+
+    Used for structured JSON responses like ATS scoring.
+    """
+    response = await client.messages.create(
+        model=MODEL,
+        max_tokens=MAX_TOKENS,
+        system=system_prompt,
+        messages=messages,
+    )
+    return response.content[0].text

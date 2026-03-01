@@ -780,7 +780,7 @@ def _generate_sidebar(data: dict, profile_image_url: str | None = None) -> bytes
         ("LEFTPADDING", (0, 0), (0, 0), 12 * mm),
         ("RIGHTPADDING", (0, 0), (0, 0), 8 * mm),
         ("LEFTPADDING", (1, 0), (1, 0), 8 * mm),
-        ("RIGHTPADDING", (1, 0), (1, 0), 10 * mm),
+        ("RIGHTPADDING", (1, 0), (1, 0), 12 * mm),
     ]))
 
     doc.build([t])
@@ -799,11 +799,11 @@ def _generate_jake(data: dict) -> bytes:
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
         buffer, pagesize=A4,
-        topMargin=10 * mm, bottomMargin=10 * mm,
-        leftMargin=12 * mm, rightMargin=12 * mm,
+        topMargin=12 * mm, bottomMargin=12 * mm,
+        leftMargin=14 * mm, rightMargin=14 * mm,
     )
     styles = getSampleStyleSheet()
-    page_w = A4[0] - 24 * mm
+    page_w = A4[0] - 28 * mm
 
     s_name = ParagraphStyle(
         "JKName", parent=styles["Title"], fontSize=24,

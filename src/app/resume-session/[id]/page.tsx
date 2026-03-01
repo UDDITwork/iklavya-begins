@@ -8,6 +8,7 @@ import { playSend } from '@/lib/sounds'
 import ChatMessage from '@/components/chat/ChatMessage'
 import TypingIndicator from '@/components/chat/TypingIndicator'
 import ResumePreviewCard from '@/components/resume/ResumePreviewCard'
+import ATSScoreCard from '@/components/resume/ATSScoreCard'
 
 interface Message {
   id: string
@@ -280,14 +281,17 @@ export default function ResumeSessionPage() {
           )}
 
           {resumeData && (
-            <ResumePreviewCard
-              resumeId={resumeData.resume_id}
-              resumeJson={resumeData.resume_json}
-              template={resumeData.template}
-              onTemplateChange={(t) =>
-                setResumeData((prev) => (prev ? { ...prev, template: t } : null))
-              }
-            />
+            <>
+              <ResumePreviewCard
+                resumeId={resumeData.resume_id}
+                resumeJson={resumeData.resume_json}
+                template={resumeData.template}
+                onTemplateChange={(t) =>
+                  setResumeData((prev) => (prev ? { ...prev, template: t } : null))
+                }
+              />
+              <ATSScoreCard resumeId={resumeData.resume_id} />
+            </>
           )}
 
           <div ref={messagesEndRef} />
