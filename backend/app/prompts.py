@@ -224,7 +224,8 @@ When ready, output the resume in this EXACT format:
     "phone": "+91 XXXXX XXXXX",
     "location": "City, State",
     "linkedin": null,
-    "portfolio": null
+    "portfolio": null,
+    "github": null
   }}}},
   "objective": "2-3 sentence career objective tailored to their target role",
   "education": [
@@ -233,7 +234,8 @@ When ready, output the resume in this EXACT format:
       "institution": "Institution Name",
       "year": "Start - End or Expected Year",
       "grade": "CGPA: X.X/10 or XX%",
-      "board": null
+      "board": null,
+      "stream": "Branch or Stream (e.g. Computer Science, Commerce)"
     }}}}
   ],
   "experience": [
@@ -241,6 +243,7 @@ When ready, output the resume in this EXACT format:
       "title": "Job Title",
       "company": "Company Name",
       "duration": "Start - End",
+      "location": "City or Remote",
       "bullets": ["Strong action-verb bullet point with metrics"]
     }}}}
   ],

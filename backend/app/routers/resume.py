@@ -289,6 +289,28 @@ async def send_resume_message(
 
 
 @router.get(
+    "/by-session/{session_id}",
+    response_model=ResumeResponse,
+    responses={404: {"model": ErrorResponse}},
+)
+def get_resume_by_session(
+    session_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    resume = db.query(Resume).filter(
+        Resume.session_id == session_id,
+        Resume.user_id == current_user.id,
+    ).first()
+    if not resume:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume not found for this session",
+        )
+    return ResumeResponse.model_validate(resume)
+
+
+@router.get(
     "/{resume_id}",
     response_model=ResumeResponse,
     responses={404: {"model": ErrorResponse}},

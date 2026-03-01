@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft, Send, Loader2 } from 'lucide-react'
+import { ArrowLeft, Send, Loader2, FileText, MessageSquare } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { playSend } from '@/lib/sounds'
 import ChatMessage from '@/components/chat/ChatMessage'
@@ -73,34 +73,19 @@ export default function ResumeSessionPage() {
         }))
       )
 
-      // Check if resume already exists for this session
+      // Load resume if session is completed
       if (data.session.status === 'completed') {
         try {
-          // Try fetching resumes to find one for this session
-          const resumeListRes = await fetch('/api/resume/sessions')
-          if (resumeListRes.ok) {
-            const listData = await resumeListRes.json()
-            const thisSession = listData.sessions?.find(
-              (s: { id: string }) => s.id === id
-            )
-            if (thisSession) {
-              // Session is completed, try to load the resume
-              // We'll need to find the resume ID from the messages
-              const lastAssistantMsg = data.messages
-                .filter((m: { role: string }) => m.role === 'assistant')
-                .pop()
-              if (lastAssistantMsg) {
-                const match = lastAssistantMsg.content.match(
-                  /<resume_json>([\s\S]*?)<\/resume_json>/
-                )
-                if (match) {
-                  // Resume JSON is in the message, we just need the resume ID
-                  // For now, set a placeholder — the resume_ready event would have set it
-                }
-              }
-            }
+          const resumeRes = await fetch(`/api/resume/by-session/${id}`)
+          if (resumeRes.ok) {
+            const resume = await resumeRes.json()
+            setResumeData({
+              resume_id: resume.id,
+              resume_json: resume.resume_json,
+              template: resume.template,
+            })
           }
-        } catch { /* ignore */ }
+        } catch { /* resume might not exist yet */ }
       }
     } catch {
       toast.error('Failed to load session')
@@ -239,14 +224,14 @@ export default function ResumeSessionPage() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center min-h-screen bg-gray-50">
         <Loader2 size={24} className="animate-spin text-gray-400" />
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 sm:px-6 h-14 border-b border-gray-200 bg-white shrink-0">
         <div className="flex items-center gap-3">
@@ -269,43 +254,50 @@ export default function ResumeSessionPage() {
         </div>
       </div>
 
-      {/* Messages area */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-4">
-        {messages.length === 0 && !isStreaming && (
-          <div className="text-center py-20">
-            <p className="text-gray-400 text-sm mb-2">Start building your resume</p>
-            <p className="text-gray-300 text-xs">
-              Tell the AI about yourself — it will ask questions one by one to build your resume
-            </p>
-          </div>
-        )}
+      {/* Messages area — centered, constrained width */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-4">
+          {messages.length === 0 && !isStreaming && (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center mb-4">
+                <MessageSquare size={24} className="text-green-700" />
+              </div>
+              <h3 className="text-sm font-semibold text-gray-800 mb-1">
+                Let&apos;s build your resume
+              </h3>
+              <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
+                Say hi to start. The AI will ask you questions one by one — name, education, skills, projects — and craft an ATS-ready resume for you.
+              </p>
+            </div>
+          )}
 
-        {messages.map((msg) => (
-          <ChatMessage key={msg.id} role={msg.role} content={msg.content} />
-        ))}
+          {messages.map((msg) => (
+            <ChatMessage key={msg.id} role={msg.role} content={msg.content} />
+          ))}
 
-        {isStreaming && messages[messages.length - 1]?.content === '' && (
-          <TypingIndicator />
-        )}
+          {isStreaming && messages[messages.length - 1]?.content === '' && (
+            <TypingIndicator />
+          )}
 
-        {resumeData && (
-          <ResumePreviewCard
-            resumeId={resumeData.resume_id}
-            resumeJson={resumeData.resume_json}
-            template={resumeData.template}
-            onTemplateChange={(t) =>
-              setResumeData((prev) => (prev ? { ...prev, template: t } : null))
-            }
-          />
-        )}
+          {resumeData && (
+            <ResumePreviewCard
+              resumeId={resumeData.resume_id}
+              resumeJson={resumeData.resume_json}
+              template={resumeData.template}
+              onTemplateChange={(t) =>
+                setResumeData((prev) => (prev ? { ...prev, template: t } : null))
+              }
+            />
+          )}
 
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
       {/* Input area */}
       {sessionStatus === 'active' && (
         <div className="shrink-0 border-t border-gray-200 bg-white px-4 sm:px-6 py-3">
-          <div className="flex items-center gap-3 max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 max-w-2xl mx-auto">
             <input
               ref={inputRef}
               type="text"
@@ -314,12 +306,12 @@ export default function ResumeSessionPage() {
               onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               disabled={isStreaming}
-              className="flex-1 px-4 py-3 min-h-[44px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 transition-all duration-200 text-sm disabled:opacity-50"
+              className="flex-1 px-4 py-3 min-h-[44px] rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-100 focus:bg-white transition-all duration-200 text-sm disabled:opacity-50"
             />
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isStreaming}
-              className="w-11 h-11 rounded-lg bg-green-800 text-white flex items-center justify-center hover:bg-green-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+              className="w-11 h-11 rounded-xl bg-green-800 text-white flex items-center justify-center hover:bg-green-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
             >
               {isStreaming ? (
                 <Loader2 size={16} className="animate-spin" />
@@ -327,6 +319,16 @@ export default function ResumeSessionPage() {
                 <Send size={16} />
               )}
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Completed state — show info if no resumeData */}
+      {sessionStatus !== 'active' && !resumeData && (
+        <div className="shrink-0 border-t border-gray-200 bg-white px-4 sm:px-6 py-4">
+          <div className="flex items-center gap-3 max-w-2xl mx-auto">
+            <FileText size={16} className="text-gray-400" />
+            <p className="text-sm text-gray-500">This resume session is complete. Scroll up to view the conversation.</p>
           </div>
         </div>
       )}
