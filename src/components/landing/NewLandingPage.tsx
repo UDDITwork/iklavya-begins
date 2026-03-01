@@ -7,7 +7,8 @@ import Image from 'next/image'
 import {
   Mic, FileText, Trophy, MessageSquare, CheckCircle,
   ArrowRight, Target, Zap, TrendingUp, BarChart3, Quote,
-  Radio, Activity, Building2, Users, Award, Clock
+  Radio, Activity, Building2, Users, Award, Clock,
+  GraduationCap, Briefcase, ShieldCheck, BookOpen, Handshake
 } from 'lucide-react'
 
 // --- Scroll reveal wrapper ---
@@ -598,6 +599,286 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
+      {/* ===== 8.5. FOR INSTITUTIONS ===== */}
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#FDFCF6] border-t border-slate-100 relative overflow-hidden">
+        {/* Subtle decorative gradient orbs */}
+        <div className="absolute top-20 -left-40 w-80 h-80 bg-green-200/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-20 -right-40 w-80 h-80 bg-amber-200/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <RevealSection>
+            <div className="text-center mb-16 sm:mb-20">
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="inline-block text-sm font-black text-green-800 uppercase tracking-[0.4em] px-5 py-2.5 bg-green-50/60 border border-green-200/50 rounded-full"
+              >
+                For Institutions
+              </motion.span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-6 leading-tight">
+                India&apos;s AI-Powered Placement Infrastructure <br className="hidden sm:block" />
+                for <span className="text-green-800 italic">Forward-Thinking</span> Institutions.
+              </h2>
+              <p className="text-lg sm:text-xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed mt-6">
+                Partner with us to strengthen placements, reputation &amp; employer trust. Today, institutions are judged not only by academic results &mdash; but by placement success, employer relationships, and student outcomes.
+              </p>
+            </div>
+          </RevealSection>
+
+          {/* Stakeholder needs — elevated card design */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
+            {[
+              { icon: <GraduationCap className="w-7 h-7" />, label: 'Students want jobs', color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-white', glow: 'shadow-green-100/60' },
+              { icon: <ShieldCheck className="w-7 h-7" />, label: 'Parents want assurance', color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-white', glow: 'shadow-amber-100/60' },
+              { icon: <BookOpen className="w-7 h-7" />, label: 'Accreditation bodies want measurable data', color: 'border-emerald-700', textColor: 'text-emerald-700', bg: 'bg-white', glow: 'shadow-emerald-100/60' },
+              { icon: <Briefcase className="w-7 h-7" />, label: 'Employers want job-ready candidates', color: 'border-orange-600', textColor: 'text-orange-600', bg: 'bg-white', glow: 'shadow-orange-100/60' },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: 'easeOut' }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className={`${item.bg} border-2 ${item.color} rounded-2xl p-6 sm:p-8 text-center space-y-4 shadow-xl ${item.glow} transition-all duration-300 cursor-default`}
+              >
+                <div className={`${item.textColor} mx-auto w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-white to-slate-50 shadow-sm border border-slate-100`}>
+                  {item.icon}
+                </div>
+                <p className="text-sm font-bold text-slate-800 leading-snug">{item.label}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <RevealSection>
+            <div className="text-center mb-16 sm:mb-20">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-green-800 italic"
+              >
+                IKLAVYA partners with institutions to deliver all four.
+              </motion.p>
+              <p className="text-base sm:text-lg text-slate-600 font-light mt-4 max-w-2xl mx-auto leading-relaxed">
+                We work with colleges to directly onboard students into our AI-powered Career Readiness System &mdash; ensuring they graduate not just with degrees, but with employability proof.
+              </p>
+            </div>
+          </RevealSection>
+
+          {/* Partnership benefits — two-column layout */}
+          <div className="grid md:grid-cols-2 gap-10 sm:gap-16 items-start">
+            <RevealSection>
+              <div className="space-y-8">
+                <div>
+                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">A Strategic Partnership</span>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-tight mt-3">
+                    This Is Not Competition. <br />
+                    This Is <span className="text-green-800">Infrastructure Support</span>.
+                  </h3>
+                </div>
+                <p className="text-base text-slate-600 font-light leading-relaxed">
+                  When institutions collaborate with IKLAVYA, your placement ecosystem gains technology-backed structure, employer confidence, and measurable outcomes.
+                </p>
+                <div className="space-y-5">
+                  {[
+                    'Your students get structured placement preparation',
+                    'Your placement rates improve',
+                    'Your employer network strengthens',
+                    'Your institutional brand gains credibility',
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.12, ease: 'easeOut' }}
+                      className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/60 transition-colors duration-200"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="text-emerald-500 w-5 h-5" />
+                      </div>
+                      <span className="text-sm font-bold text-slate-700">{item}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </RevealSection>
+
+            <div className="space-y-4">
+              {[
+                { icon: <Target className="w-5 h-5" />, title: 'Improved Placement Rates', desc: 'AI-evaluated communication readiness, interview performance, skill-to-job alignment, and resume quality lead to higher shortlisting and better offer conversion.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40', borderAccent: 'border-l-green-800' },
+                { icon: <Handshake className="w-5 h-5" />, title: 'Reputed Employers on Campus', desc: 'Through our verified student model, employers gain confidence in candidate quality \u2014 improving employer visits, campus hiring drives, and long-term corporate relationships.', iconColor: 'text-orange-500', iconBg: 'bg-orange-50', borderAccent: 'border-l-orange-500' },
+                { icon: <BarChart3 className="w-5 h-5" />, title: 'NAAC & Accreditation Support', desc: 'Organized placement databases, employer engagement records, skill development documentation, and structured reporting data for institutional audits.', iconColor: 'text-amber-700', iconBg: 'bg-amber-50', borderAccent: 'border-l-amber-700' },
+                { icon: <Zap className="w-5 h-5" />, title: 'AI-Based Infrastructure', desc: 'AI-proctored assessment classrooms, student performance evaluation, AI tutoring support, and structured placement data management.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50', borderAccent: 'border-l-emerald-600' },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.12, ease: 'easeOut' }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className={`bg-white p-6 rounded-2xl shadow-lg border border-slate-100 border-l-4 ${card.borderAccent} flex gap-5 transition-all duration-300 hover:shadow-xl`}
+                >
+                  <div className={`${card.iconBg} w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                    <span className={card.iconColor}>{card.icon}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900 mb-1">{card.title}</h4>
+                    <p className="text-xs text-slate-500 leading-relaxed">{card.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA — premium treatment */}
+          <RevealSection>
+            <div className="text-center mt-16 sm:mt-24">
+              <div className="inline-block bg-white rounded-3xl shadow-2xl shadow-green-100/40 border border-slate-100 px-8 sm:px-16 py-10 sm:py-14">
+                <p className="text-lg sm:text-xl text-slate-600 font-light mb-8 max-w-2xl mx-auto leading-relaxed">
+                  Built for Indian colleges. Built for Indian employers. IKLAVYA becomes your placement technology partner &mdash; working alongside you to deliver stronger results.
+                </p>
+                <Link href="/about#institutions">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg transition-all shadow-lg shadow-green-200/30"
+                  >
+                    Learn About Institutional Partnerships
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
+          </RevealSection>
+        </div>
+      </section>
+
+      {/* ===== 8.7. FOR EMPLOYERS ===== */}
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white border-t border-slate-100">
+        <RevealSection>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-16 sm:mb-20">
+              <span className="text-sm font-black text-green-800 uppercase tracking-[0.4em]">For Employers</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4 leading-tight">
+                Hire Job-Ready Talent. <br className="hidden sm:block" />
+                <span className="text-green-800 italic">Reduce Training Time.</span> Lower Attrition.
+              </h2>
+              <p className="text-lg sm:text-xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed mt-6">
+                India&apos;s AI-Verified Talent Pipeline &mdash; Built for Faster, Smarter Hiring.
+                We deliver pre-evaluated, job-ready, AI-verified candidates who are prepared
+                before they enter your organization.
+              </p>
+            </div>
+
+            {/* Key value cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
+              {[
+                { icon: <Clock className="w-6 h-6" />, label: 'Training: 60 days to 2 weeks', color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/40' },
+                { icon: <TrendingUp className="w-6 h-6" />, label: 'Reduce attrition by up to 60%', color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-amber-50/40' },
+                { icon: <ShieldCheck className="w-6 h-6" />, label: '90-day replacement guarantee', color: 'border-emerald-700', textColor: 'text-emerald-700', bg: 'bg-emerald-50/40' },
+                { icon: <Users className="w-6 h-6" />, label: '1,00,000+ verified candidates', color: 'border-orange-600', textColor: 'text-orange-600', bg: 'bg-orange-50/40' },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`${item.bg} border-2 ${item.color} rounded-2xl p-6 text-center space-y-3`}
+                >
+                  <div className={`${item.textColor} mx-auto w-12 h-12 rounded-xl flex items-center justify-center bg-white shadow-sm`}>
+                    {item.icon}
+                  </div>
+                  <p className="text-sm font-bold text-slate-700">{item.label}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Two-column: AI verification + Hiring advantage */}
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-start">
+              <div className="space-y-6">
+                <div>
+                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">AI-Verified Pipeline</span>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-tight mt-3">
+                    Candidates Verified <br />
+                    Before They Reach <span className="text-green-800">Your Desk</span>.
+                  </h3>
+                </div>
+                <p className="text-base text-slate-600 font-light leading-relaxed">
+                  Our candidates go through AI-based resume validation, role-specific skill matching,
+                  structured interview simulations (text, voice &amp; video), communication readiness
+                  evaluation, and market alignment scoring.
+                </p>
+                <div className="space-y-4">
+                  {[
+                    'AI-based resume validation & skill matching',
+                    'Structured interview simulations (text, voice & video)',
+                    'Communication readiness evaluation',
+                    'Campus, entry-level & bulk hiring support PAN India',
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.1 }}
+                      className="flex items-center gap-3"
+                    >
+                      <CheckCircle className="text-emerald-500 w-5 h-5 flex-shrink-0" />
+                      <span className="text-sm font-bold text-slate-700">{item}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  { icon: <Briefcase className="w-5 h-5" />, title: 'Job-Ready from Day One', desc: 'IKLAVYA candidates understand workplace communication, structured reporting, interview culture, and job-role clarity. Your teams become productive faster.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40' },
+                  { icon: <Handshake className="w-5 h-5" />, title: 'Lowest Industry Cost Per Hire', desc: 'Optimized, industry-competitive hiring models designed to lower your cost per hire while maintaining candidate quality. Reduce recruitment, re-hiring, and training overhead.', iconColor: 'text-orange-500', iconBg: 'bg-orange-50' },
+                  { icon: <Target className="w-5 h-5" />, title: 'AI Skill-to-Job Matchmaking', desc: 'Role alignment before hiring ensures candidates understand job expectations clearly before joining. Better alignment leads to better retention.', iconColor: 'text-amber-700', iconBg: 'bg-amber-50' },
+                  { icon: <ShieldCheck className="w-5 h-5" />, title: 'Built for Indian Employers', desc: 'Our AI is built specifically for Indian hiring standards — fresher hiring challenges, corporate onboarding realities, skill-demand gaps, and attrition pressures.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50' },
+                ].map((card, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    whileHover={{ y: -4 }}
+                    className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 flex gap-4 transition-shadow hover:shadow-xl"
+                  >
+                    <div className={`${card.iconBg} w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0`}>
+                      <span className={card.iconColor}>{card.icon}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900">{card.title}</h4>
+                      <p className="text-xs text-slate-500 leading-relaxed mt-1">{card.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-16 sm:mt-20">
+              <p className="text-xl sm:text-2xl font-serif font-bold text-green-800 italic mb-6">
+                Hire smarter. Hire prepared. Hire IKLAVYA Verified.
+              </p>
+              <Link href="/for-employers">
+                <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
+                  Explore Employer Solutions
+                </button>
+              </Link>
+            </div>
+          </div>
+        </RevealSection>
+      </section>
+
       {/* ===== 9. CTA FINAL ===== */}
       <section className="py-12 sm:py-16 md:py-20 bg-green-50/30">
         <RevealSection>
@@ -755,6 +1036,8 @@ export default function NewLandingPage() {
               <h5 className="text-[10px] font-black uppercase tracking-widest text-orange-500">Company</h5>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li><Link href="/about" className="hover:text-slate-900 transition-colors">About Us</Link></li>
+                <li><Link href="/about#institutions" className="hover:text-slate-900 transition-colors">For Institutions</Link></li>
+                <li><Link href="/for-employers" className="hover:text-slate-900 transition-colors">For Employers</Link></li>
                 <li><Link href="/team" className="hover:text-slate-900 transition-colors">Team</Link></li>
                 <li><Link href="/careers" className="hover:text-slate-900 transition-colors">Careers</Link></li>
                 <li><Link href="/contact" className="hover:text-slate-900 transition-colors">Contact</Link></li>

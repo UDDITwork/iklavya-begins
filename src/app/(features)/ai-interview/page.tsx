@@ -1391,6 +1391,30 @@ export default function AIInterviewPage() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Institutional Partnership Banner */}
+      <div className="mt-12 border-t border-slate-100 pt-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-gradient-to-br from-green-50/40 to-emerald-50/20 rounded-2xl p-6 sm:p-8 md:p-10 border border-green-100/50 shadow-lg shadow-green-100/20"
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className="flex-1 space-y-3">
+              <span className="inline-block text-[10px] font-black text-green-800 uppercase tracking-widest px-3 py-1.5 bg-white/80 rounded-full border border-green-200/50">For Institutions</span>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">Employer-Aligned Interview Training at Scale</h3>
+              <p className="text-sm text-slate-600 font-light leading-relaxed">
+                We train students according to real employer expectations in India. Our AI conducts mock interviews, simulates group discussions, and improves professional communication &mdash; so your students enter placement season prepared, not panicked.
+              </p>
+            </div>
+            <a href="/about#institutions" className="shrink-0 px-6 py-3.5 border-2 border-green-800 text-green-800 hover:bg-green-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
+              Partner With Us
+            </a>
+          </div>
+        </motion.div>
+      </div>
     </div>
   )
 }

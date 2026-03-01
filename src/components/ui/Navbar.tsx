@@ -8,7 +8,7 @@ import Image from 'next/image'
 import {
   Mic, BookOpen, FileText, BarChart3, Zap,
   MessageCircle, Award, Shield, Users, Menu, X,
-  LayoutDashboard, LogOut
+  LayoutDashboard, LogOut, Briefcase
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
@@ -21,6 +21,7 @@ const navLinks = [
   { href: '/live-quiz', label: 'Quiz', icon: Zap },
   { href: '/dashboard/career-guidance', label: 'Career', icon: MessageCircle },
   { href: '/certifications', label: 'Certs', icon: Award },
+  { href: '/for-employers', label: 'Employers', icon: Briefcase },
   { href: '/support', label: 'Support', icon: Users },
   { href: '/admin', label: 'Admin', icon: Shield },
 ]
