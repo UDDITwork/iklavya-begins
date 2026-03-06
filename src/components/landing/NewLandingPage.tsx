@@ -24,25 +24,6 @@ const RevealSection = ({ children, className = '' }: { children: React.ReactNode
   </motion.div>
 )
 
-// --- Animated counter for stats ---
-function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
-  const motionVal = useMotionValue(0)
-  const spring = useSpring(motionVal, { stiffness: 50, damping: 30 })
-  const display = useTransform(spring, (v) => Math.round(v).toLocaleString())
-
-  useEffect(() => {
-    if (isInView) motionVal.set(target)
-  }, [isInView, motionVal, target])
-
-  return (
-    <span ref={ref}>
-      <motion.span>{display}</motion.span>{suffix}
-    </span>
-  )
-}
-
 // --- Visual Asset: High-Speed Interview Waveform ---
 const Waveform = () => (
   <div className="flex items-center gap-1 h-12">
@@ -74,45 +55,17 @@ const heroLabels = [
   'Career Success'
 ]
 
-// --- Logo data for marquee ---
-const colleges = [
-  'IIT Delhi', 'NIT Trichy', 'BITS Pilani', 'VIT Vellore',
-  'IIT Bombay', 'IIIT Hyderabad', 'DTU Delhi', 'NIT Warangal',
-  'IIT Madras', 'NSUT Delhi', 'IIT Kanpur', 'IIIT Bangalore'
-]
-
-// --- Testimonial data ---
-const testimonials = [
-  {
-    quote: "I used to freeze in every interview. After 3 weeks of AI mock interviews focusing on confidence and body language, I landed my dream role at Deloitte.",
-    name: "Arjun Mehta",
-    college: "NIT Trichy",
-    result: "Placed at Deloitte"
-  },
-  {
-    quote: "The live quiz arena pushed me to practice communication daily. My public speaking score went from 40th percentile to 95th. Got a direct-to-interview pass.",
-    name: "Priya Sharma",
-    college: "BITS Pilani",
-    result: "Placed at EY"
-  },
-  {
-    quote: "The personalized roadmap spotted my weak negotiation and teamwork skills. It shifted my entire learning path after one mock interview. Absolute game changer.",
-    name: "Siddharth Rao",
-    college: "IIT Madras",
-    result: "Placed at McKinsey"
-  }
+// --- Question tabs data ---
+const questionTabs = [
+  { question: 'Are you a Student?', href: '/about', icon: GraduationCap, color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/60' },
+  { question: 'Are you an Educational Institute?', href: '/about#institutions', icon: Building2, color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-amber-50/60' },
+  { question: 'Are you an Employer?', href: '/for-employers', icon: Briefcase, color: 'border-orange-600', textColor: 'text-orange-600', bg: 'bg-orange-50/60' },
 ]
 
 export default function NewLandingPage() {
   const [activeTab, setActiveTab] = useState('interview')
-  const [scrolled, setScrolled] = useState(false)
   const [currentHero, setCurrentHero] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [activeQuestion, setActiveQuestion] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,11 +74,18 @@ export default function NewLandingPage() {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveQuestion(prev => (prev + 1) % questionTabs.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
   const productFeatures: Record<string, { title: string; tag: string; desc: string; visual: React.ReactNode }> = {
     interview: {
       title: "Personal Interview Preparation (Text, Voice & Video)",
       tag: "Real-time AI",
-      desc: "Interviews are about communication, structure, and confidence. Our AI is trained on Indian interview formats \u2014 HR, technical, behavioral, and salary negotiation. Practice through text, voice, and video with structured feedback.",
+      desc: "Interviews are not only about knowledge. They are about communication, structure, confidence, and clarity. Our AI interview system is trained on Indian interview formats and recruiter behavior. You practice through text-based mock interviews, voice simulations, and video-based real interview scenarios.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="flex justify-between items-center mb-6">
@@ -155,7 +115,7 @@ export default function NewLandingPage() {
     resume: {
       title: "ATS-Verified Resume Creation",
       tag: "ATS Domination",
-      desc: "Most resumes fail before a recruiter ever sees them. ATS filters reject candidates silently. Our AI aligns your resume with the right keywords, skills, and achievements \u2014 tailored per job description.",
+      desc: "Most resumes fail before a recruiter even sees them. Companies use Applicant Tracking Systems (ATS) to filter candidates. Our AI studies the job description carefully. It aligns your resume with required keywords, skills, and measurable achievements. We create resumes tailored to each job you apply for.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           <div className="space-y-4">
@@ -185,9 +145,9 @@ export default function NewLandingPage() {
       )
     },
     guidance: {
-      title: "Personalized Growth Roadmap",
+      title: "AI Career Guidance Engine",
       tag: "Career GPS",
-      desc: "Our AI analyzes your skills, strengths, and market demand trends to suggest practical career paths. A step-by-step growth roadmap toward your target role, aligned with what employers actually need.",
+      desc: "Choosing a career path can feel overwhelming. Instead of guessing, our AI Career Guidance Engine analyzes your skills, strengths, and market demand trends in India. It suggests practical career paths aligned with hiring growth and industry demand. You get direction based on data \u2014 not assumptions.",
       visual: (
         <div className="bg-white rounded-xl p-6 shadow-2xl border border-slate-200">
           {/* Header */}
@@ -232,14 +192,6 @@ export default function NewLandingPage() {
   return (
     <div className="bg-[#FDFCF6] font-sans text-slate-900 selection:bg-green-100">
 
-      {/* Marquee CSS */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-
       {/* ===== 1. HERO ===== */}
       <section className="pt-16 sm:pt-20 md:pt-24 pb-10 sm:pb-14 md:pb-16 relative overflow-hidden">
         {/* Subtle background accents */}
@@ -250,16 +202,6 @@ export default function NewLandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left content */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-100 rounded-full">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                </span>
-                <p className="text-[10px] font-black text-green-800 uppercase tracking-widest">
-                  Live Competition Starts in 04:12:00
-                </p>
-              </div>
-
               <div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-serif font-bold text-slate-900 leading-[1.15] tracking-tight">
                   From Educated to{' '}
@@ -269,9 +211,13 @@ export default function NewLandingPage() {
                   <span className="text-green-800 italic">Career System</span>.
                 </h1>
                 <p className="mt-4 text-base sm:text-lg text-slate-500 font-light max-w-lg leading-relaxed">
-                  Built for Indian students. Designed for Indian employers. AI-powered interview prep, resume building, and career guidance &mdash; all in one platform.
+                  India&apos;s Own AI Career System &mdash; Built for Indian Students. Designed for Indian Employers.
                 </p>
               </div>
+
+              <p className="text-sm text-slate-600 leading-relaxed max-w-lg">
+                Every year, millions of students graduate with degrees. But only a small percentage feel truly confident walking into interviews. The problem is not intelligence. The problem is preparation aligned to real hiring expectations.
+              </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <Link href="/register">
@@ -284,22 +230,6 @@ export default function NewLandingPage() {
                     Sign In
                   </button>
                 </Link>
-              </div>
-
-              {/* Quick stats row */}
-              <div className="flex flex-wrap gap-6 pt-2 border-t border-slate-100">
-                <div>
-                  <p className="text-2xl font-bold text-slate-900">50K+</p>
-                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Students Trained</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-900">200+</p>
-                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Hiring Partners</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-900">92%</p>
-                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Placement Rate</p>
-                </div>
               </div>
             </div>
 
@@ -343,51 +273,63 @@ export default function NewLandingPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Floating accent card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3 hidden lg:flex items-center gap-3"
-              >
-                <div className="w-9 h-9 rounded-full bg-green-50 flex items-center justify-center">
-                  <TrendingUp className="w-4 h-4 text-green-700" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-800">Interview Score</p>
-                  <p className="text-[10px] text-green-700 font-semibold">+34% avg improvement</p>
-                </div>
-              </motion.div>
             </div>
           </div>
         </RevealSection>
       </section>
 
-      {/* ===== 2. LOGO MARQUEE ===== */}
-      <section className="py-10 bg-gray-50/80 border-y border-gray-100 overflow-hidden">
-        <p className="text-center text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-6">
-          Trusted by students from
-        </p>
-        <div className="relative">
-          <div className="flex whitespace-nowrap" style={{ animation: 'marquee 40s linear infinite' }}>
-            {[...colleges, ...colleges].map((name, i) => (
-              <div key={i} className="inline-flex items-center mx-4 sm:mx-8 shrink-0">
-                <div className="w-2 h-2 rounded-full bg-stone-400 mr-3" />
-                <span className="text-sm font-bold text-slate-500 tracking-wide">{name}</span>
-              </div>
+      {/* ===== 1.5 ANIMATED QUESTION TABS ===== */}
+      <section className="py-10 sm:py-14 bg-white border-y border-slate-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {questionTabs.map((tab, i) => (
+              <Link key={tab.question} href={tab.href}>
+                <motion.div
+                  animate={{
+                    scale: activeQuestion === i ? 1.03 : 1,
+                    borderColor: activeQuestion === i ? undefined : 'transparent',
+                  }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className={`relative p-6 rounded-2xl border-2 ${
+                    activeQuestion === i
+                      ? `${tab.color} ${tab.bg} shadow-lg`
+                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100'
+                  } cursor-pointer transition-colors duration-300 text-center space-y-3`}
+                >
+                  <div className={`mx-auto w-12 h-12 rounded-xl flex items-center justify-center ${
+                    activeQuestion === i ? tab.textColor : 'text-slate-400'
+                  } bg-white shadow-sm border border-slate-100`}>
+                    <tab.icon className="w-6 h-6" />
+                  </div>
+                  <p className={`text-sm font-bold ${
+                    activeQuestion === i ? tab.textColor : 'text-slate-600'
+                  }`}>
+                    {tab.question}
+                  </p>
+                  {activeQuestion === i && (
+                    <motion.div
+                      layoutId="questionHighlight"
+                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full ${tab.color.replace('border-', 'bg-')}`}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== 3. CORE ENGINE SHOWDOWN ===== */}
+      {/* ===== 2. CORE ENGINE SHOWDOWN ===== */}
       <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white relative">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-20">
               <p className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">Our Own AI Job Readiness Suite</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold">Everything Powered by In-House AI, Trained on Indian Hiring Data.</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold">Everything powered by our in-house AI system, trained on Indian hiring data.</h2>
+              <p className="text-lg text-slate-600 font-light mt-6 max-w-3xl mx-auto leading-relaxed">
+                This is not a generic global model adjusted for India. This is career intelligence built for this market.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-12 items-start">
@@ -426,13 +368,13 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
-      {/* ===== 4. HOW IT WORKS ===== */}
+      {/* ===== 3. HOW IT WORKS ===== */}
       <section className="py-14 sm:py-20 md:py-28 bg-[#FDFCF6]">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
-              <p className="text-sm font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">The Process</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold">How Iklavya Works</h2>
+              <p className="text-sm font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">Assured Placement Pathway</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold">We do not believe in random job applications.</h2>
             </div>
 
             <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 relative">
@@ -440,9 +382,9 @@ export default function NewLandingPage() {
               <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px] bg-gradient-to-r from-stone-400 via-amber-300 to-emerald-300" />
 
               {[
-                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Take AI Interview", desc: "Practice through text, voice, and video interviews trained on Indian hiring formats \u2014 HR, technical, behavioral, and salary negotiation.", color: "border-2 border-green-800", textColor: "text-green-800", delay: 0 },
-                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Analysis", desc: "Our AI evaluates your skills vs active job requirements \u2014 showing strengths, gaps, best-fit roles, and selection probability.", color: "border-2 border-amber-700", textColor: "text-amber-700", delay: 0.15 },
-                { step: 3, icon: <Target className="w-6 h-6" />, title: "Get Placed", desc: "IKLAVYA Verified Students get access to 150+ MNCs. We prepare you first \u2014 resume, interviews, communication, skill matching \u2014 then introduce you.", color: "border-2 border-emerald-700", textColor: "text-emerald-700", delay: 0.3 }
+                { step: 1, icon: <Mic className="w-6 h-6" />, title: "Practice AI Interviews", desc: "We train you for HR interviews, technical rounds, behavioral questions, and salary negotiation discussions. By the time you attend a real interview, it feels familiar \u2014 not frightening.", color: "border-2 border-green-800", textColor: "text-green-800", delay: 0 },
+                { step: 2, icon: <BarChart3 className="w-6 h-6" />, title: "Get Skill Matched", desc: "Our AI evaluates your skill set and compares it with active job requirements in the Indian market. It shows where you are strong, where you need improvement, and which roles suit you best.", color: "border-2 border-amber-700", textColor: "text-amber-700", delay: 0.15 },
+                { step: 3, icon: <Target className="w-6 h-6" />, title: "Get Placed", desc: "IKLAVYA Verified Students receive structured access to 150+ multinational companies. We prepare you first \u2014 resume, interviews, communication, skill matching \u2014 then introduce you.", color: "border-2 border-emerald-700", textColor: "text-emerald-700", delay: 0.3 }
               ].map((s) => (
                 <motion.div
                   key={s.step}
@@ -467,127 +409,60 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
-      {/* ===== 5. LIVE ARENA ===== */}
-      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-slate-50 overflow-hidden">
+      {/* ===== 4. IKLAVYA VERIFIED STUDENT ===== */}
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white relative">
         <RevealSection>
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 items-center">
-              <div className="relative">
-                <div className="bg-white border border-slate-200 rounded-2xl p-8 relative overflow-hidden shadow-lg">
-                  <div className="flex justify-between items-center mb-10">
-                    <div className="flex items-center gap-2">
-                      <Radio className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-[10px] font-black tracking-widest uppercase text-slate-800">Live Arena: Communication Challenge</span>
-                    </div>
-                    <div className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded text-[10px] font-bold border border-emerald-200">14,203 LIVE</div>
-                  </div>
-
-                  <div className="space-y-6">
-                    {[
-                      { name: "Arjun K.", score: "2840 pts", rank: 1, color: "text-amber-500" },
-                      { name: "Priya M.", score: "2790 pts", rank: 2, color: "text-slate-500" },
-                      { name: "Siddharth", score: "2650 pts", rank: 3, color: "text-orange-500" }
-                    ].map((user, i) => (
-                      <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
-                        <div className="flex items-center gap-4">
-                          <span className={`font-serif italic font-bold text-xl ${user.color}`}>#{user.rank}</span>
-                          <div>
-                            <p className="font-bold text-sm text-slate-800">{user.name}</p>
-                            <p className="text-[10px] text-slate-400 uppercase">NIT Trichy</p>
-                          </div>
-                        </div>
-                        <span className="font-mono text-amber-600 font-semibold">{user.score}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-10 p-4 border-2 border-green-800 rounded-lg text-center font-black uppercase text-xs tracking-widest text-green-800">
-                    Next Quiz Starts in 12:45
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-10">
-                <p className="text-sm font-black text-orange-500 uppercase tracking-[0.4em]">Live Competitions</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight text-slate-900">Prove Your Worth <br /> on the National Stage.</h2>
-                <p className="text-lg text-slate-600 font-light leading-relaxed">
-                  Don&apos;t just claim skills. Prove them. Compete in live quiz broadcasts, group discussion practice, and communication challenges. Top performers get direct job assistance and &quot;Direct-to-Interview&quot; passes from our 150+ employer partners.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
-                      <Trophy className="text-orange-500 w-5 h-5" />
-                    </div>
-                    <h5 className="font-bold text-slate-900">Live Broadcasts</h5>
-                    <p className="text-xs text-slate-500">Interact with experts in real-time quiz formats.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 bg-green-50/40 rounded-lg flex items-center justify-center">
-                      <Building2 className="text-green-800 w-5 h-5" />
-                    </div>
-                    <h5 className="font-bold text-slate-900">Job Assistance</h5>
-                    <p className="text-xs text-slate-500">Curated hiring pipelines connecting top performers to 150+ MNCs.</p>
-                  </div>
-                </div>
-              </div>
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <p className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">IKLAVYA Verified Student Advantage</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-6">Earned. Evaluated. Employer-Ready.</h2>
+            <p className="text-lg text-slate-600 font-light max-w-3xl mx-auto leading-relaxed mb-12">
+              An IKLAVYA Verified Student is not just registered on the platform &mdash; they are assessed, improved, and validated through our in-house AI system built for Indian hiring standards. This verification reflects structured preparation and real job readiness.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+              {[
+                'AI-based evaluation of resume, interviews, and skill readiness',
+                'ATS-optimized, role-specific resume approval',
+                'Interview performance validation (text, voice & video simulations)',
+                'Skill-to-job alignment scoring',
+                'Priority visibility to 150+ multinational companies & employers',
+                'Employer-recognized credibility backed by IKLAVYA\'s AI model',
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="flex items-start gap-3 p-4 bg-green-50/30 rounded-xl border border-green-100"
+                >
+                  <CheckCircle className="text-emerald-500 w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm font-medium text-slate-700">{item}</span>
+                </motion.div>
+              ))}
             </div>
           </div>
         </RevealSection>
       </section>
 
-      {/* ===== 6. STATS COUNTER STRIP ===== */}
-      <section className="py-12 sm:py-16 md:py-20 bg-white border-y border-slate-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
-            {[
-              { target: 520, suffix: '+', label: 'Students Trained', color: 'text-green-800' },
-              { target: 150, suffix: '+', label: 'Employer Partners', color: 'text-emerald-600' },
-              { target: 3200, suffix: '+', label: 'Interviews Simulated', color: 'text-orange-500' },
-              { target: 99.9, suffix: '%', label: 'Platform Uptime', color: 'text-amber-800', isDecimal: true }
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <p className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 ${stat.color}`}>
-                  {stat.isDecimal ? (
-                    <span>99.9%</span>
-                  ) : (
-                    <AnimatedCounter target={stat.target} suffix={stat.suffix} />
-                  )}
-                </p>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 7. PERSONALIZED LEARNING ===== */}
+      {/* ===== 5. DEMAND-BASED SKILLING ===== */}
       <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#FDFCF6]">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-20 items-center">
               <div className="flex-1 space-y-10">
-                <p className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">Personalized Learning</p>
+                <p className="text-sm font-black text-amber-800 uppercase tracking-[0.4em]">Demand-Based Skilling</p>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold leading-tight">Demand-Based <br /> Skilling Courses.</h2>
                 <p className="text-lg text-slate-600 font-light">
-                  Our courses focus on in-demand technologies, practical workplace competencies, and industry-relevant tools &mdash; not outdated syllabus content. Every lesson adapts based on your assessment performance. If you struggle with confidence, we inject communication modules. If you lack workplace skills, we build leadership and negotiation labs into your path.
+                  We continuously analyze what Indian employers are actively hiring for. You do not learn outdated syllabus material. You learn what companies are hiring for right now.
                 </p>
                 <div className="space-y-4">
-                  {["Dynamic Course Shifting", "Live 24/7 Expert Support", "Project-Based Learning", "Industry-Mentor Reviews"].map((item, i) => (
+                  {["In-demand technologies", "Practical workplace competencies", "Industry-relevant tools", "Market-ready knowledge"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <CheckCircle className="text-emerald-500 w-5 h-5" />
                       <span className="text-sm font-bold text-slate-700">{item}</span>
                     </div>
                   ))}
                 </div>
-                <Link href="/ai-courses" className="text-green-800 font-black uppercase text-xs tracking-widest flex items-center gap-2 group">
-                  Explore Our Module Catalog <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                </Link>
               </div>
 
               <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
@@ -606,7 +481,6 @@ export default function NewLandingPage() {
                       {cat.icon}
                     </div>
                     <h5 className="font-black uppercase text-[10px] tracking-widest text-slate-400">{cat.label}</h5>
-                    <p className="text-xs font-bold">45+ Adaptive Modules</p>
                   </motion.div>
                 ))}
               </div>
@@ -615,43 +489,8 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
-      {/* ===== 8. TESTIMONIALS ===== */}
-      <section className="py-14 sm:py-20 md:py-28 bg-white">
-        <RevealSection>
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <p className="text-sm font-black text-green-800 uppercase tracking-[0.4em] mb-4">Social Proof</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold">What Archers Say</h2>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-              {testimonials.map((t, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
-                  className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl border border-slate-100 shadow-lg relative"
-                >
-                  <Quote className="text-stone-300 w-8 h-8 mb-4" />
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">&quot;{t.quote}&quot;</p>
-                  <div className="border-t border-slate-100 pt-4">
-                    <p className="font-bold text-sm text-slate-900">{t.name}</p>
-                    <p className="text-[10px] text-slate-400 uppercase tracking-wider">{t.college}</p>
-                    <span className="inline-block mt-2 px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider rounded-full">
-                      {t.result}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </RevealSection>
-      </section>
-
-      {/* ===== 8.5. FOR INSTITUTIONS ===== */}
-      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#FDFCF6] border-t border-slate-100 relative overflow-hidden">
+      {/* ===== 6. FOR INSTITUTIONS ===== */}
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white border-t border-slate-100 relative overflow-hidden">
         {/* Subtle decorative gradient orbs */}
         <div className="absolute top-20 -left-40 w-80 h-80 bg-green-200/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-20 -right-40 w-80 h-80 bg-amber-200/10 rounded-full blur-3xl pointer-events-none" />
@@ -673,12 +512,12 @@ export default function NewLandingPage() {
                 for <span className="text-green-800 italic">Forward-Thinking</span> Institutions.
               </h2>
               <p className="text-lg sm:text-xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed mt-6">
-                Partner with us to strengthen placements, reputation &amp; employer trust. Today, institutions are judged not only by academic results &mdash; but by placement success, employer relationships, and student outcomes.
+                Today, institutions are judged not only by academic results &mdash; but by placement success, employer relationships, and student outcomes.
               </p>
             </div>
           </RevealSection>
 
-          {/* Stakeholder needs — elevated card design */}
+          {/* Stakeholder needs */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
             {[
               { icon: <GraduationCap className="w-7 h-7" />, label: 'Students want jobs', color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-white', glow: 'shadow-green-100/60' },
@@ -720,15 +559,15 @@ export default function NewLandingPage() {
             </div>
           </RevealSection>
 
-          {/* Partnership benefits — two-column layout */}
+          {/* Partnership benefits */}
           <div className="grid md:grid-cols-2 gap-10 sm:gap-16 items-start">
             <RevealSection>
               <div className="space-y-8">
                 <div>
-                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">A Strategic Partnership</span>
+                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">A Strategic Placement Partnership</span>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-tight mt-3">
-                    This Is Not Competition. <br />
-                    This Is <span className="text-green-800">Infrastructure Support</span>.
+                    This is not competition. <br />
+                    This is <span className="text-green-800">infrastructure support</span>.
                   </h3>
                 </div>
                 <p className="text-base text-slate-600 font-light leading-relaxed">
@@ -761,10 +600,10 @@ export default function NewLandingPage() {
 
             <div className="space-y-4">
               {[
-                { icon: <Target className="w-5 h-5" />, title: 'Improved Placement Rates', desc: 'AI-evaluated communication readiness, interview performance, skill-to-job alignment, and resume quality lead to higher shortlisting and better offer conversion.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40', borderAccent: 'border-l-green-800' },
+                { icon: <Target className="w-5 h-5" />, title: 'Improved Placement Rates', desc: 'Higher placement rates come from preparation aligned with employer demand. Our AI evaluates communication readiness, interview performance, skill-to-job alignment, and resume quality.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40', borderAccent: 'border-l-green-800' },
                 { icon: <Handshake className="w-5 h-5" />, title: 'Reputed Employers on Campus', desc: 'Through our verified student model, employers gain confidence in candidate quality \u2014 improving employer visits, campus hiring drives, and long-term corporate relationships.', iconColor: 'text-orange-500', iconBg: 'bg-orange-50', borderAccent: 'border-l-orange-500' },
                 { icon: <BarChart3 className="w-5 h-5" />, title: 'NAAC & Accreditation Support', desc: 'Organized placement databases, employer engagement records, skill development documentation, and structured reporting data for institutional audits.', iconColor: 'text-amber-700', iconBg: 'bg-amber-50', borderAccent: 'border-l-amber-700' },
-                { icon: <Zap className="w-5 h-5" />, title: 'AI-Based Infrastructure', desc: 'AI-proctored assessment classrooms, student performance evaluation, AI tutoring support, and structured placement data management.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50', borderAccent: 'border-l-emerald-600' },
+                { icon: <Zap className="w-5 h-5" />, title: 'AI-Based Infrastructure Support', desc: 'AI-proctored assessment classrooms, student performance evaluation, AI tutoring support, and structured placement data management.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50', borderAccent: 'border-l-emerald-600' },
               ].map((card, i) => (
                 <motion.div
                   key={i}
@@ -787,7 +626,7 @@ export default function NewLandingPage() {
             </div>
           </div>
 
-          {/* CTA — premium treatment */}
+          {/* CTA */}
           <RevealSection>
             <div className="text-center mt-16 sm:mt-24">
               <div className="inline-block bg-white rounded-3xl shadow-2xl shadow-green-100/40 border border-slate-100 px-8 sm:px-16 py-10 sm:py-14">
@@ -809,8 +648,8 @@ export default function NewLandingPage() {
         </div>
       </section>
 
-      {/* ===== 8.7. FOR EMPLOYERS ===== */}
-      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white border-t border-slate-100">
+      {/* ===== 7. FOR EMPLOYERS ===== */}
+      <section className="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#FDFCF6] border-t border-slate-100">
         <RevealSection>
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16 sm:mb-20">
@@ -829,7 +668,7 @@ export default function NewLandingPage() {
             {/* Key value cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
               {[
-                { icon: <Clock className="w-6 h-6" />, label: 'Training: 60 days to 2 weeks', color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/40' },
+                { icon: <Clock className="w-6 h-6" />, label: 'Reduce training from 60 days to 2 weeks', color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/40' },
                 { icon: <TrendingUp className="w-6 h-6" />, label: 'Reduce attrition by up to 60%', color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-amber-50/40' },
                 { icon: <ShieldCheck className="w-6 h-6" />, label: '90-day replacement guarantee', color: 'border-emerald-700', textColor: 'text-emerald-700', bg: 'bg-emerald-50/40' },
                 { icon: <Users className="w-6 h-6" />, label: '1,00,000+ verified candidates', color: 'border-orange-600', textColor: 'text-orange-600', bg: 'bg-orange-50/40' },
@@ -850,20 +689,18 @@ export default function NewLandingPage() {
               ))}
             </div>
 
-            {/* Two-column: AI verification + Hiring advantage */}
+            {/* Two-column */}
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-start">
               <div className="space-y-6">
                 <div>
-                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">AI-Verified Pipeline</span>
+                  <span className="text-[10px] font-black text-amber-800 uppercase tracking-widest">IKLAVYA Verified Candidates</span>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-slate-900 leading-tight mt-3">
-                    Candidates Verified <br />
-                    Before They Reach <span className="text-green-800">Your Desk</span>.
+                    Ready for Immediate <span className="text-green-800">Contribution</span>.
                   </h3>
                 </div>
                 <p className="text-base text-slate-600 font-light leading-relaxed">
-                  Our candidates go through AI-based resume validation, role-specific skill matching,
-                  structured interview simulations (text, voice &amp; video), communication readiness
-                  evaluation, and market alignment scoring.
+                  Our candidates are not raw graduates. Before they reach your desk, they go through AI-based resume validation, role-specific skill matching,
+                  structured interview simulations, communication readiness evaluation, and market alignment scoring.
                 </p>
                 <div className="space-y-4">
                   {[
@@ -889,10 +726,9 @@ export default function NewLandingPage() {
 
               <div className="space-y-4">
                 {[
-                  { icon: <Briefcase className="w-5 h-5" />, title: 'Job-Ready from Day One', desc: 'IKLAVYA candidates understand workplace communication, structured reporting, interview culture, and job-role clarity. Your teams become productive faster.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40' },
-                  { icon: <Handshake className="w-5 h-5" />, title: 'Lowest Industry Cost Per Hire', desc: 'Optimized, industry-competitive hiring models designed to lower your cost per hire while maintaining candidate quality. Reduce recruitment, re-hiring, and training overhead.', iconColor: 'text-orange-500', iconBg: 'bg-orange-50' },
+                  { icon: <Briefcase className="w-5 h-5" />, title: 'Lowest Industry Cost Per Hire', desc: 'Optimized, industry-competitive hiring models designed to lower your cost per hire while maintaining candidate quality. Reduce recruitment, re-hiring, and training overhead.', iconColor: 'text-green-800', iconBg: 'bg-green-50/40' },
                   { icon: <Target className="w-5 h-5" />, title: 'AI Skill-to-Job Matchmaking', desc: 'Role alignment before hiring ensures candidates understand job expectations clearly before joining. Better alignment leads to better retention.', iconColor: 'text-amber-700', iconBg: 'bg-amber-50' },
-                  { icon: <ShieldCheck className="w-5 h-5" />, title: 'Built for Indian Employers', desc: 'Our AI is built specifically for Indian hiring standards — fresher hiring challenges, corporate onboarding realities, skill-demand gaps, and attrition pressures.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50' },
+                  { icon: <ShieldCheck className="w-5 h-5" />, title: 'Built for Indian Employers', desc: 'Our AI is built specifically for Indian hiring standards \u2014 fresher hiring challenges, corporate onboarding realities, skill-demand gaps, and attrition pressures.', iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50' },
                 ].map((card, i) => (
                   <motion.div
                     key={i}
@@ -917,9 +753,6 @@ export default function NewLandingPage() {
 
             {/* CTA */}
             <div className="text-center mt-16 sm:mt-20">
-              <p className="text-xl sm:text-2xl font-serif font-bold text-green-800 italic mb-6">
-                Hire smarter. Hire prepared. Hire IKLAVYA Verified.
-              </p>
               <Link href="/for-employers">
                 <button className="border-2 border-green-800 text-green-800 hover:bg-green-50/50 px-6 sm:px-12 py-4 sm:py-5 font-black uppercase text-xs tracking-[0.2em] rounded-lg hover:scale-105 transition-all shadow-lg shadow-green-200/30">
                   Explore Employer Solutions
@@ -930,7 +763,7 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
-      {/* ===== 9. CTA FINAL ===== */}
+      {/* ===== 8. CTA FINAL ===== */}
       <section className="py-12 sm:py-16 md:py-20 bg-green-50/30">
         <RevealSection>
           <div className="max-w-4xl mx-auto px-6 text-center space-y-10">
@@ -959,16 +792,16 @@ export default function NewLandingPage() {
         </RevealSection>
       </section>
 
-      {/* ===== 9.5 INDIA MAP — BUILT FOR BHARAT ===== */}
+      {/* ===== 9. INDIA MAP — WHY IKLAVYA IS DIFFERENT ===== */}
       <section className="bg-[#FDFCF6] py-16 sm:py-20 md:py-28 overflow-hidden">
         <RevealSection>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             <span className="text-[10px] font-black text-green-800 uppercase tracking-widest">
-              Built for Bharat
+              Why IKLAVYA Is Different
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mt-4 leading-tight">
-              We Understand the Pressure. <br className="hidden sm:block" />
-              From <span className="text-green-800 italic">Campus Placements</span> to Career Success.
+              We built our own AI system <br className="hidden sm:block" />
+              to bridge the gap between <span className="text-green-800 italic">Indian students</span> and <span className="text-green-800 italic">Indian employers</span>.
             </h2>
 
             {/* India Map */}
@@ -1041,7 +874,7 @@ export default function NewLandingPage() {
             </div>
 
             <p className="text-lg sm:text-xl text-slate-600 font-light mt-10 sm:mt-14 max-w-2xl mx-auto leading-relaxed">
-              We understand campus placement pressure, Tier 2 and Tier 3 challenges, communication gaps, skill mismatch, and competitive realities. iKlavya brings <span className="text-green-800 font-bold">structured employability engineering</span> to every corner of India &mdash; affordable, multilingual, and AI-powered.
+              We understand campus placement pressure, Tier 2 and Tier 3 student challenges, communication confidence gaps, skill mismatch problems, and competitive hiring realities. Our AI model reflects these realities. This is not theory-based career advice. This is <span className="text-green-800 font-bold">structured employability engineering</span>.
             </p>
           </div>
         </RevealSection>
@@ -1057,14 +890,14 @@ export default function NewLandingPage() {
               <Link href="/" className="inline-block mb-4">
                 <Image
                   src="/iklavya logo.png"
-                  alt="iKlavya"
+                  alt="IKLAVYA"
                   width={160}
                   height={80}
                   className="h-12 w-auto object-contain brightness-0 invert"
                 />
               </Link>
               <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-                India&apos;s own AI career system. From educated to employed &mdash; AI-powered interview prep, resume building, and career guidance.
+                AI-powered career readiness platform. We take you from being an educated person to becoming a job-ready, employable professional.
               </p>
             </div>
             {/* Platform */}
@@ -1085,7 +918,6 @@ export default function NewLandingPage() {
                 <li><Link href="/career-guidance" className="hover:text-white transition-colors">Career Guidance</Link></li>
                 <li><Link href="/certifications" className="hover:text-white transition-colors">Certifications</Link></li>
                 <li><Link href="/support" className="hover:text-white transition-colors">Mentorship</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
                 <li><Link href="/support" className="hover:text-white transition-colors">FAQ</Link></li>
               </ul>
             </div>
@@ -1096,7 +928,6 @@ export default function NewLandingPage() {
                 <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
                 <li><Link href="/about#institutions" className="hover:text-white transition-colors">For Institutions</Link></li>
                 <li><Link href="/for-employers" className="hover:text-white transition-colors">For Employers</Link></li>
-                <li><Link href="/team" className="hover:text-white transition-colors">Team</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
                 <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               </ul>
@@ -1105,7 +936,7 @@ export default function NewLandingPage() {
           {/* Bottom bar */}
           <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500">
-              &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. Built for Bharat.
+              &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-slate-500">
               <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
