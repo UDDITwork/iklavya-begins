@@ -256,7 +256,7 @@ export default function AICoursesPage() {
                 We continuously analyze what Indian employers are actively hiring for. Based on this data, we train students in in-demand skills, prepare them for real hiring formats, and improve professional communication. Your students become employer-ready &mdash; not just academically qualified.
               </p>
             </div>
-            <a href="/about#institutions" className="shrink-0 px-6 py-3.5 border-2 border-amber-800 text-amber-800 hover:bg-amber-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
+            <a href="/students#institutions" className="shrink-0 px-6 py-3.5 border-2 border-amber-800 text-amber-800 hover:bg-amber-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
               Partner With Us
             </a>
           </div>

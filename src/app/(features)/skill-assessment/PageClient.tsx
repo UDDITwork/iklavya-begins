@@ -225,7 +225,7 @@ export default function SkillAssessmentPage() {
                 Every participating student receives AI-based readiness assessment. Skill gaps are identified early, resume quality is standardized, and job matching becomes intelligent. We help institutions produce employable graduates at scale with measurable performance data.
               </p>
             </div>
-            <a href="/about#institutions" className="shrink-0 px-6 py-3.5 border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
+            <a href="/students#institutions" className="shrink-0 px-6 py-3.5 border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
               Partner With Us
             </a>
           </div>

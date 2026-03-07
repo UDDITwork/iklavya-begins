@@ -21,8 +21,8 @@ const footerLinks = {
     { label: 'FAQ', href: '/support' },
   ],
   Company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'For Institutions', href: '/about#institutions' },
+    { label: 'For Students', href: '/students' },
+    { label: 'For Institutions', href: '/students#institutions' },
     { label: 'For Employers', href: '/for-employers' },
     { label: 'Team', href: '/team' },
     { label: 'Careers', href: '/careers' },

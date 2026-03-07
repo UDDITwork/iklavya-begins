@@ -1409,7 +1409,7 @@ export default function AIInterviewPage() {
                 We train students according to real employer expectations in India. Our AI conducts mock interviews, simulates group discussions, and improves professional communication &mdash; so your students enter placement season prepared, not panicked.
               </p>
             </div>
-            <a href="/about#institutions" className="shrink-0 px-6 py-3.5 border-2 border-green-800 text-green-800 hover:bg-green-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
+            <a href="/students#institutions" className="shrink-0 px-6 py-3.5 border-2 border-green-800 text-green-800 hover:bg-green-50 font-bold uppercase text-xs tracking-widest rounded-lg transition-all hover:scale-105 shadow-sm">
               Partner With Us
             </a>
           </div>

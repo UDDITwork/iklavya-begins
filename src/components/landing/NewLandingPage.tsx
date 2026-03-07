@@ -57,8 +57,8 @@ const heroLabels = [
 
 // --- Question tabs data ---
 const questionTabs = [
-  { question: 'Are you a Student?', href: '/about', icon: GraduationCap, color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/60' },
-  { question: 'Are you an Educational Institute?', href: '/about#institutions', icon: Building2, color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-amber-50/60' },
+  { question: 'Are you a Student?', href: '/students', icon: GraduationCap, color: 'border-green-800', textColor: 'text-green-800', bg: 'bg-green-50/60' },
+  { question: 'Are you an Educational Institute?', href: '/students#institutions', icon: Building2, color: 'border-amber-700', textColor: 'text-amber-700', bg: 'bg-amber-50/60' },
   { question: 'Are you an Employer?', href: '/for-employers', icon: Briefcase, color: 'border-orange-600', textColor: 'text-orange-600', bg: 'bg-orange-50/60' },
 ]
 
@@ -633,7 +633,7 @@ export default function NewLandingPage() {
                 <p className="text-lg sm:text-xl text-slate-600 font-light mb-8 max-w-2xl mx-auto leading-relaxed">
                   Built for Indian colleges. Built for Indian employers. IKLAVYA becomes your placement technology partner &mdash; working alongside you to deliver stronger results.
                 </p>
-                <Link href="/about#institutions">
+                <Link href="/students#institutions">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
@@ -925,8 +925,8 @@ export default function NewLandingPage() {
             <div>
               <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Company</h5>
               <ul className="space-y-2.5 text-sm text-slate-400">
-                <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="/about#institutions" className="hover:text-white transition-colors">For Institutions</Link></li>
+                <li><Link href="/students" className="hover:text-white transition-colors">For Students</Link></li>
+                <li><Link href="/students#institutions" className="hover:text-white transition-colors">For Institutions</Link></li>
                 <li><Link href="/for-employers" className="hover:text-white transition-colors">For Employers</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
                 <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
