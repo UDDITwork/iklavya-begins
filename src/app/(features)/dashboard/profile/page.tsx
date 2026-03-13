@@ -42,9 +42,9 @@ interface Profile {
   skills?: string[]
   achievements?: string[]
   extracurriculars?: string[]
-  work_experience?: Array<{ company: string; role: string; duration: string; description: string }>
-  projects?: Array<{ name: string; description: string; tech_stack: string; url: string }>
-  certifications?: Array<{ name: string; issuer: string; year: string }>
+  work_experience?: Record<string, string>[]
+  projects?: Record<string, string>[]
+  certifications?: Record<string, string>[]
 }
 
 const WORK_EXPERIENCE_FIELDS: FieldSchema[] = [
