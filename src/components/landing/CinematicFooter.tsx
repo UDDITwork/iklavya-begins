@@ -208,23 +208,23 @@ export default function CinematicFooter() {
         </div>
 
         {/* Partner Logos Section — all monochrome white for premium look */}
-        <div className="py-10 border-b border-slate-800/60">
-          <h4 className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] text-center mb-8">
+        <div className="py-12 border-b border-slate-800/60">
+          <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-10">
             Backed By &amp; Partnered With
           </h4>
-          <div className="grid grid-cols-4 sm:grid-cols-8 gap-x-6 gap-y-6 items-center justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-10 gap-y-8 items-center justify-items-center">
             {partnerLogos.map((logo) => (
               <div
                 key={logo.alt}
-                className="flex items-center justify-center h-10 sm:h-12 w-full"
+                className="flex items-center justify-center h-16 sm:h-20 w-full"
                 title={logo.alt}
               >
                 <Image
                   src={logo.src}
                   alt={logo.alt}
-                  width={120}
-                  height={48}
-                  className="max-h-9 sm:max-h-11 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-90 transition-opacity duration-300"
+                  width={200}
+                  height={80}
+                  className="max-h-14 sm:max-h-[4.5rem] w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
             ))}
