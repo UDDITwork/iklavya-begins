@@ -46,3 +46,7 @@ next-env.d.ts
 # python
 __pycache__/
 *.pyc
+
+# remotion generated files
+/remotion/output/
+/public/audio/*.mp3
