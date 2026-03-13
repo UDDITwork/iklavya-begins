@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react'
+import LocationPicker from '@/components/ui/LocationPicker'
 
 interface StepOneProps {
   form: {
@@ -11,6 +12,9 @@ interface StepOneProps {
     confirmPassword: string
     phone: string
     college: string
+    city: string
+    state: string
+    formattedAddress: string
   }
   onChange: (updates: Partial<StepOneProps['form']>) => void
   onSubmit: () => void
@@ -135,6 +139,14 @@ export default function StepOne({ form, onChange, onSubmit, isSubmitting, errors
         />
         {errors.college && <p className="mt-1 text-xs text-red-500">{errors.college}</p>}
       </div>
+
+      <LocationPicker
+        value={form.formattedAddress}
+        onChange={({ city, state, formattedAddress }) =>
+          onChange({ city, state, formattedAddress })
+        }
+        error={errors.city}
+      />
 
       <button
         type="button"

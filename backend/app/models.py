@@ -72,6 +72,17 @@ class UserProfile(Base):
     weaknesses: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array string
     languages: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array string
     career_aspiration_raw: Mapped[str] = mapped_column(Text, nullable=True)
+    # Professional / career fields
+    linkedin_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    portfolio_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    github_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    work_experience: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    projects: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    certifications: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    skills: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    achievements: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    extracurriculars: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    summary: Mapped[str] = mapped_column(Text, nullable=True)
     created_at: Mapped[str] = mapped_column(
         String(50), nullable=False, default=utc_now
     )

@@ -63,6 +63,16 @@ class ProfileCreateRequest(BaseModel):
     weaknesses: Optional[list[str]] = None
     languages: Optional[list[str]] = None
     career_aspiration_raw: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    portfolio_url: Optional[str] = None
+    github_url: Optional[str] = None
+    work_experience: Optional[list] = None
+    projects: Optional[list] = None
+    certifications: Optional[list] = None
+    skills: Optional[list[str]] = None
+    achievements: Optional[list[str]] = None
+    extracurriculars: Optional[list[str]] = None
+    summary: Optional[str] = None
 
 
 class ProfileUpdateRequest(ProfileCreateRequest):
@@ -92,6 +102,16 @@ class ProfileResponse(BaseModel):
     weaknesses: Optional[list[str]] = None
     languages: Optional[list[str]] = None
     career_aspiration_raw: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    portfolio_url: Optional[str] = None
+    github_url: Optional[str] = None
+    work_experience: Optional[list] = None
+    projects: Optional[list] = None
+    certifications: Optional[list] = None
+    skills: Optional[list[str]] = None
+    achievements: Optional[list[str]] = None
+    extracurriculars: Optional[list[str]] = None
+    summary: Optional[str] = None
     created_at: str
     updated_at: str
 

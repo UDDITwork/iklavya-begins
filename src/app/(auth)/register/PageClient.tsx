@@ -29,6 +29,9 @@ export default function RegisterPage() {
     confirmPassword: '',
     phone: '',
     college: '',
+    city: '',
+    state: '',
+    formattedAddress: '',
   })
 
   const [step2, setStep2] = useState({
@@ -115,7 +118,11 @@ export default function RegisterPage() {
       const res = await fetch('/api/profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(step2),
+        body: JSON.stringify({
+          ...step2,
+          city: step1.city,
+          state: step1.state,
+        }),
       })
 
       const data = await res.json()

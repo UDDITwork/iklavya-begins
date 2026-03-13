@@ -25,6 +25,8 @@ router = APIRouter(prefix="/profile", tags=["profile"])
 
 JSON_FIELDS = [
     "hobbies", "interests", "strengths", "weaknesses", "languages",
+    "work_experience", "projects", "certifications",
+    "skills", "achievements", "extracurriculars",
 ]
 
 
@@ -201,3 +203,80 @@ async def update_profile_image(
     db.commit()
     db.refresh(current_user)
     return {"profile_image": current_user.profile_image}
+
+
+# ─── Document Parsing ────────────────────────────────────────
+
+MAX_DOC_SIZE = 5 * 1024 * 1024  # 5MB
+
+
+@router.post(
+    "/parse-document",
+    response_model=ProfileResponse,
+    responses={400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}},
+)
+async def parse_and_save_document(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Upload a PDF resume/document, parse it with AI, and auto-fill the profile."""
+    from app.services.document_parsing_service import parse_document
+
+    # Validate file type
+    if file.content_type != "application/pdf":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only PDF files are accepted",
+        )
+
+    # Read and validate size
+    contents = await file.read()
+    if len(contents) > MAX_DOC_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File must be less than 5MB",
+        )
+
+    if len(contents) == 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The uploaded file is empty",
+        )
+
+    # Parse document via Claude
+    try:
+        extracted = await parse_document(contents)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to parse document. Please try again.",
+        )
+
+    # Get or create profile
+    profile = db.query(UserProfile).filter(
+        UserProfile.user_id == current_user.id
+    ).first()
+
+    db_data = _to_db(extracted)
+
+    if profile:
+        # Update only extracted fields (don't overwrite existing data with nulls)
+        for key, value in db_data.items():
+            if value is not None and hasattr(profile, key):
+                setattr(profile, key, value)
+    else:
+        clean_data = {k: v for k, v in db_data.items() if v is not None}
+        profile = UserProfile(user_id=current_user.id, **clean_data)
+        db.add(profile)
+
+    current_user.profile_completed = max(current_user.profile_completed, 1)
+    db.commit()
+    db.refresh(profile)
+
+    return ProfileResponse(**_from_db(profile))

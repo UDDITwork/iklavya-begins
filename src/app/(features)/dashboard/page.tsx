@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   Plus, Loader2, MessageSquare, FileText, Clock,
-  BarChart3, Calendar, Flame, ArrowRight, Activity, Camera,
+  BarChart3, Calendar, Flame, ArrowRight, Activity,
   type LucideIcon,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -344,8 +344,18 @@ export default function DashboardPage() {
   const [resumeSessions, setResumeSessions] = useState<ResumeSession[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
+  const [profileGender, setProfileGender] = useState<string | null>(null)
 
   const firstName = user?.name?.split(' ')[0] || 'there'
+
+  useEffect(() => {
+    fetch('/api/profile')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.gender) setProfileGender(data.gender)
+      })
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     async function load() {
@@ -527,13 +537,34 @@ export default function DashboardPage() {
         className="mb-6"
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-xl font-semibold text-gray-900">
-              Welcome back, {firstName}
-            </h1>
-            <p className="text-sm text-gray-400 mt-0.5">
-              Here is your activity overview
-            </p>
+          <div className="flex items-center gap-4">
+            {user?.profile_image ? (
+              <Image
+                src={user.profile_image}
+                alt={user.name}
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
+              />
+            ) : (
+              <div
+                className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-sm ${
+                  profileGender?.toLowerCase() === 'female'
+                    ? 'bg-gradient-to-br from-rose-400 to-rose-600'
+                    : 'bg-gradient-to-br from-slate-500 to-slate-700'
+                }`}
+              >
+                {user?.name?.charAt(0).toUpperCase() || 'U'}
+              </div>
+            )}
+            <div>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Welcome back, {firstName}
+              </h1>
+              <p className="text-sm text-gray-400 mt-0.5">
+                Here is your activity overview
+              </p>
+            </div>
           </div>
           <button
             onClick={handleNewSession}
@@ -545,35 +576,6 @@ export default function DashboardPage() {
           </button>
         </div>
       </motion.div>
-
-      {/* Profile Image Reminder */}
-      {!user?.profile_image && (
-        <motion.div
-          variants={fadeInUp}
-          initial="initial"
-          animate="animate"
-          transition={{ ...fadeInUpTransition, delay: 0.05 }}
-          className="mb-5"
-        >
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-              <Camera size={22} className="text-amber-600" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-amber-900">Complete your profile with a photo</p>
-              <p className="text-xs text-amber-700 mt-0.5">
-                Students with profile photos get 3x more engagement. Upload yours today!
-              </p>
-            </div>
-            <Link
-              href="/dashboard/profile"
-              className="px-4 py-2.5 rounded-lg bg-amber-600 text-white text-xs font-medium hover:bg-amber-700 transition-colors shrink-0 shadow-sm"
-            >
-              Upload Photo
-            </Link>
-          </div>
-        </motion.div>
-      )}
 
       {/* Row 2: Stat Cards */}
       <motion.div
