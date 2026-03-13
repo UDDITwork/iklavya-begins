@@ -6,8 +6,9 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Loader2, BookOpen, Clock, CheckCircle, PlayCircle, Lock, GraduationCap,
+  Loader2, BookOpen, Clock, CheckCircle, PlayCircle, Lock, GraduationCap, Database,
 } from 'lucide-react'
+import { useAuthStore } from '@/store/auth-store'
 import { fadeInUp, fadeInUpTransition, staggerContainer, staggerItem } from '@/lib/animations'
 import type { CourseModule, UserProgress } from '@/store/classroom-store'
 
@@ -17,8 +18,10 @@ interface ModuleWithProgress extends CourseModule {
 
 export default function ClassroomPage() {
   const router = useRouter()
+  const { user } = useAuthStore()
   const [modules, setModules] = useState<ModuleWithProgress[]>([])
   const [loading, setLoading] = useState(true)
+  const [seeding, setSeeding] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -143,6 +146,32 @@ export default function ClassroomPage() {
               Course modules are being prepared. Check back soon for interactive
               video lessons with quizzes.
             </p>
+            {user?.role === 'admin' && (
+              <button
+                onClick={async () => {
+                  setSeeding(true)
+                  try {
+                    const res = await fetch('/api/modules/seed')
+                    if (res.ok) {
+                      await loadData()
+                    }
+                  } catch {
+                    // silent
+                  } finally {
+                    setSeeding(false)
+                  }
+                }}
+                disabled={seeding}
+                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
+              >
+                {seeding ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : (
+                  <Database size={16} />
+                )}
+                {seeding ? 'Seeding Modules...' : 'Seed Course Modules'}
+              </button>
+            )}
           </div>
         </motion.div>
       ) : (

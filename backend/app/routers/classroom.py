@@ -37,158 +37,8 @@ def list_modules(
     )
 
 
-@router.get(
-    "/{module_id}",
-    response_model=ModuleDetailResponse,
-    responses={404: {"model": ErrorResponse}},
-)
-def get_module(
-    module_id: str,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    module = db.query(CourseModule).filter(
-        CourseModule.id == module_id,
-        CourseModule.is_published == 1,
-    ).first()
-    if not module:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Module not found",
-        )
-
-    quizzes = (
-        db.query(ModuleQuiz)
-        .filter(ModuleQuiz.module_id == module_id)
-        .order_by(ModuleQuiz.trigger_at_seconds.asc())
-        .all()
-    )
-
-    # Strip correct_index from quiz responses (don't leak answers to frontend)
-    quiz_responses = []
-    for q in quizzes:
-        qr = ModuleQuizResponse.model_validate(q)
-        quiz_responses.append(qr)
-
-    return ModuleDetailResponse(
-        module=CourseModuleResponse.model_validate(module),
-        quizzes=quiz_responses,
-    )
-
-
-@router.get(
-    "/{module_id}/progress",
-    response_model=UserProgressResponse,
-    responses={404: {"model": ErrorResponse}},
-)
-def get_progress(
-    module_id: str,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    progress = db.query(UserModuleProgress).filter(
-        UserModuleProgress.user_id == current_user.id,
-        UserModuleProgress.module_id == module_id,
-    ).first()
-    if not progress:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No progress found for this module",
-        )
-    return UserProgressResponse.model_validate(progress)
-
-
-@router.post(
-    "/sync",
-    response_model=UserProgressResponse,
-)
-def sync_progress(
-    data: ProgressSyncRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    # Verify module exists
-    module = db.query(CourseModule).filter(
-        CourseModule.id == data.module_id
-    ).first()
-    if not module:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Module not found",
-        )
-
-    # Upsert progress
-    progress = db.query(UserModuleProgress).filter(
-        UserModuleProgress.user_id == current_user.id,
-        UserModuleProgress.module_id == data.module_id,
-    ).first()
-
-    if not progress:
-        progress = UserModuleProgress(
-            user_id=current_user.id,
-            module_id=data.module_id,
-            last_position_seconds=data.last_position_seconds,
-            quizzes_passed_json=data.quizzes_passed_json,
-            score=data.score or 0,
-            is_completed=data.is_completed or 0,
-        )
-        db.add(progress)
-    else:
-        # Only update position forward (don't regress)
-        if data.last_position_seconds > progress.last_position_seconds:
-            progress.last_position_seconds = data.last_position_seconds
-        if data.quizzes_passed_json:
-            progress.quizzes_passed_json = data.quizzes_passed_json
-        if data.score is not None and data.score > progress.score:
-            progress.score = data.score
-        if data.is_completed == 1:
-            progress.is_completed = 1
-
-    db.commit()
-    db.refresh(progress)
-
-    return UserProgressResponse.model_validate(progress)
-
-
-@router.get("/progress/all", response_model=list[UserProgressResponse])
-def get_all_progress(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    progress_list = (
-        db.query(UserModuleProgress)
-        .filter(UserModuleProgress.user_id == current_user.id)
-        .all()
-    )
-    return [UserProgressResponse.model_validate(p) for p in progress_list]
-
-
-@router.post(
-    "/quiz/answer",
-    response_model=QuizAnswerResponse,
-    responses={404: {"model": ErrorResponse}},
-)
-def answer_quiz(
-    data: QuizAnswerRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    quiz = db.query(ModuleQuiz).filter(
-        ModuleQuiz.id == data.quiz_id
-    ).first()
-    if not quiz:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Quiz not found",
-        )
-
-    is_correct = data.selected_index == quiz.correct_index
-
-    return QuizAnswerResponse(
-        correct=is_correct,
-        correct_index=quiz.correct_index,
-        hint=quiz.hint if not is_correct else None,
-    )
+# NOTE: seed/init and progress/all must be defined BEFORE /{module_id}
+# to prevent FastAPI from matching "seed" or "progress" as a module_id.
 
 
 @router.get(
@@ -503,3 +353,157 @@ def seed_modules(
 
     db.commit()
     return {"message": f"Seeded {len(modules_data)} modules with quizzes"}
+
+
+@router.get("/progress/all", response_model=list[UserProgressResponse])
+def get_all_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    progress_list = (
+        db.query(UserModuleProgress)
+        .filter(UserModuleProgress.user_id == current_user.id)
+        .all()
+    )
+    return [UserProgressResponse.model_validate(p) for p in progress_list]
+
+
+@router.get(
+    "/{module_id}",
+    response_model=ModuleDetailResponse,
+    responses={404: {"model": ErrorResponse}},
+)
+def get_module(
+    module_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    module = db.query(CourseModule).filter(
+        CourseModule.id == module_id,
+        CourseModule.is_published == 1,
+    ).first()
+    if not module:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Module not found",
+        )
+
+    quizzes = (
+        db.query(ModuleQuiz)
+        .filter(ModuleQuiz.module_id == module_id)
+        .order_by(ModuleQuiz.trigger_at_seconds.asc())
+        .all()
+    )
+
+    # Strip correct_index from quiz responses (don't leak answers to frontend)
+    quiz_responses = []
+    for q in quizzes:
+        qr = ModuleQuizResponse.model_validate(q)
+        quiz_responses.append(qr)
+
+    return ModuleDetailResponse(
+        module=CourseModuleResponse.model_validate(module),
+        quizzes=quiz_responses,
+    )
+
+
+@router.get(
+    "/{module_id}/progress",
+    response_model=UserProgressResponse,
+    responses={404: {"model": ErrorResponse}},
+)
+def get_progress(
+    module_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    progress = db.query(UserModuleProgress).filter(
+        UserModuleProgress.user_id == current_user.id,
+        UserModuleProgress.module_id == module_id,
+    ).first()
+    if not progress:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No progress found for this module",
+        )
+    return UserProgressResponse.model_validate(progress)
+
+
+@router.post(
+    "/sync",
+    response_model=UserProgressResponse,
+)
+def sync_progress(
+    data: ProgressSyncRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Verify module exists
+    module = db.query(CourseModule).filter(
+        CourseModule.id == data.module_id
+    ).first()
+    if not module:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Module not found",
+        )
+
+    # Upsert progress
+    progress = db.query(UserModuleProgress).filter(
+        UserModuleProgress.user_id == current_user.id,
+        UserModuleProgress.module_id == data.module_id,
+    ).first()
+
+    if not progress:
+        progress = UserModuleProgress(
+            user_id=current_user.id,
+            module_id=data.module_id,
+            last_position_seconds=data.last_position_seconds,
+            quizzes_passed_json=data.quizzes_passed_json,
+            score=data.score or 0,
+            is_completed=data.is_completed or 0,
+        )
+        db.add(progress)
+    else:
+        # Only update position forward (don't regress)
+        if data.last_position_seconds > progress.last_position_seconds:
+            progress.last_position_seconds = data.last_position_seconds
+        if data.quizzes_passed_json:
+            progress.quizzes_passed_json = data.quizzes_passed_json
+        if data.score is not None and data.score > progress.score:
+            progress.score = data.score
+        if data.is_completed == 1:
+            progress.is_completed = 1
+
+    db.commit()
+    db.refresh(progress)
+
+    return UserProgressResponse.model_validate(progress)
+
+
+@router.post(
+    "/quiz/answer",
+    response_model=QuizAnswerResponse,
+    responses={404: {"model": ErrorResponse}},
+)
+def answer_quiz(
+    data: QuizAnswerRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    quiz = db.query(ModuleQuiz).filter(
+        ModuleQuiz.id == data.quiz_id
+    ).first()
+    if not quiz:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Quiz not found",
+        )
+
+    is_correct = data.selected_index == quiz.correct_index
+
+    return QuizAnswerResponse(
+        correct=is_correct,
+        correct_index=quiz.correct_index,
+        hint=quiz.hint if not is_correct else None,
+    )
