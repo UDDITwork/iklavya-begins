@@ -1,6 +1,6 @@
 'use client'
 
-import { Twitter, Linkedin, Instagram, Send, Mail, Phone, MapPin, ArrowUpRight, Loader2, CheckCircle } from 'lucide-react'
+import { Twitter, Linkedin, Instagram, Send, Mail, Phone, MapPin, Loader2, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -23,6 +23,7 @@ const footerSections = {
   ],
   Company: [
     { label: 'About Us', href: '/about' },
+    { label: 'Classroom', href: '/classroom' },
     { label: 'Support', href: '/support' },
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/support' },
@@ -36,14 +37,14 @@ const socialIcons = [
 ]
 
 const partnerLogos = [
-  { src: '/1.png', alt: 'MeitY - Ministry of Electronics & IT', invert: true },
-  { src: '/2.png', alt: 'ElevenLabs', invert: true },
-  { src: '/3.png', alt: 'DLabs - Indian School of Business', invert: false },
-  { src: '/4.png', alt: 'I-Venture Immersive', invert: false },
-  { src: '/5.png', alt: 'ISB - Indian School of Business', invert: false },
-  { src: '/6.png', alt: 'AIC - Indian School of Business', invert: false },
-  { src: '/7.png', alt: 'GL Bajaj Center for Research and Incubation', invert: true },
-  { src: '/8.png', alt: 'MeitY Startup Hub', invert: false },
+  { src: '/1.png', alt: 'MeitY - Ministry of Electronics & IT' },
+  { src: '/2.png', alt: 'ElevenLabs' },
+  { src: '/3.png', alt: 'DLabs - Indian School of Business' },
+  { src: '/4.png', alt: 'I-Venture Immersive' },
+  { src: '/5.png', alt: 'ISB - Indian School of Business' },
+  { src: '/6.png', alt: 'AIC - Indian School of Business' },
+  { src: '/7.png', alt: 'GL Bajaj Center for Research and Incubation' },
+  { src: '/8.png', alt: 'MeitY Startup Hub' },
 ]
 
 export default function CinematicFooter() {
@@ -80,7 +81,6 @@ export default function CinematicFooter() {
         toast.error(data.error || 'Subscription failed. Please try again.')
       }
     } catch {
-      // Fallback: even if API doesn't exist yet, show success for UX
       setSubscribed(true)
       setEmail('')
       toast.success('Thank you! We\'ll keep you updated.')
@@ -95,44 +95,38 @@ export default function CinematicFooter() {
       <div className="h-px bg-gradient-to-r from-transparent via-green-700/50 to-transparent" />
 
       {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-8">
 
-        {/* Top: Brand + Newsletter + Contact */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-12 border-b border-slate-800/60">
+        {/* Top: Brand + Links + Newsletter */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 pb-14 border-b border-slate-800/60">
 
-          {/* Brand column */}
+          {/* Brand column — all left-aligned */}
           <div className="lg:col-span-4 space-y-5">
-            <Link href="/" className="inline-flex items-center gap-3">
+            <Link href="/" className="inline-block">
               <Image
                 src="/iklavya logo.png"
                 alt="IKLAVYA"
                 width={220}
                 height={110}
-                className="h-20 w-auto object-contain brightness-0 invert"
+                className="h-16 w-auto object-contain brightness-0 invert"
               />
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-slate-400 text-[13px] leading-relaxed max-w-xs">
               India&apos;s AI-powered career readiness platform. From education to employment &mdash; built for Bharat.
             </p>
 
-            {/* Contact info */}
-            <div className="space-y-3 pt-2">
-              <a href="tel:+919599171744" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm group">
-                <div className="w-8 h-8 rounded-lg bg-slate-800/80 group-hover:bg-slate-800 flex items-center justify-center flex-shrink-0 transition-colors">
-                  <Phone size={14} />
-                </div>
+            {/* Contact info — lighter icons, no heavy bg boxes */}
+            <div className="space-y-2.5 pt-1">
+              <a href="tel:+919599171744" className="flex items-center gap-2.5 text-slate-400 hover:text-white transition-colors text-[13px] group">
+                <Phone size={15} className="text-slate-500 group-hover:text-green-500 transition-colors flex-shrink-0" />
                 +91 95991 71744
               </a>
-              <a href="mailto:contact@iklavya.in" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm group">
-                <div className="w-8 h-8 rounded-lg bg-slate-800/80 group-hover:bg-slate-800 flex items-center justify-center flex-shrink-0 transition-colors">
-                  <Mail size={14} />
-                </div>
+              <a href="mailto:contact@iklavya.in" className="flex items-center gap-2.5 text-slate-400 hover:text-white transition-colors text-[13px] group">
+                <Mail size={15} className="text-slate-500 group-hover:text-green-500 transition-colors flex-shrink-0" />
                 contact@iklavya.in
               </a>
-              <div className="flex items-center gap-3 text-slate-400 text-sm">
-                <div className="w-8 h-8 rounded-lg bg-slate-800/80 flex items-center justify-center flex-shrink-0">
-                  <MapPin size={14} />
-                </div>
+              <div className="flex items-center gap-2.5 text-slate-400 text-[13px]">
+                <MapPin size={15} className="text-slate-500 flex-shrink-0" />
                 Gaur City, Greater Noida West, UP
               </div>
             </div>
@@ -150,10 +144,9 @@ export default function CinematicFooter() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-slate-500 hover:text-white transition-colors duration-200 inline-flex items-center gap-1 group"
+                        className="text-[13px] text-slate-400 hover:text-white transition-colors duration-200"
                       >
                         {link.label}
-                        <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-0.5" />
                       </Link>
                     </li>
                   ))}
@@ -167,25 +160,25 @@ export default function CinematicFooter() {
             <h4 className="text-[11px] font-black text-slate-300 uppercase tracking-[0.15em] mb-2">
               Stay Updated
             </h4>
-            <p className="text-slate-500 text-sm mb-4">
+            <p className="text-slate-400 text-[13px] mb-4">
               Career tips, platform updates &amp; hiring insights.
             </p>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); if (subscribed) setSubscribed(false) }}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleSubscribe() }}
                 placeholder="Your email address"
-                className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-800
-                  text-white placeholder:text-slate-600 focus:outline-none
-                  focus:border-green-700 focus:ring-1 focus:ring-green-700/30
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-900/80 border border-slate-700/60
+                  text-white placeholder:text-slate-500 focus:outline-none
+                  focus:border-green-600 focus:ring-1 focus:ring-green-600/30
                   transition-all duration-200 text-sm"
               />
               <button
                 onClick={handleSubscribe}
                 disabled={subscribing || subscribed}
-                className="w-full px-5 py-3 rounded-lg bg-green-800 hover:bg-green-700 disabled:opacity-60 disabled:hover:bg-green-800 text-white text-sm font-bold uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2"
+                className="w-full px-5 py-2.5 rounded-lg bg-green-700 hover:bg-green-600 disabled:opacity-60 disabled:hover:bg-green-700 text-white text-xs font-bold uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2"
               >
                 {subscribing ? (
                   <><Loader2 size={14} className="animate-spin" /> Subscribing...</>
@@ -197,42 +190,41 @@ export default function CinematicFooter() {
               </button>
             </div>
 
-            {/* Social icons */}
-            <div className="flex gap-2 mt-6">
+            {/* Social icons — larger, no borders, more visible */}
+            <div className="flex gap-3 mt-5">
               {socialIcons.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800
-                    flex items-center justify-center text-slate-500 hover:text-white transition-all duration-200"
+                  className="w-10 h-10 rounded-xl bg-slate-800/60 hover:bg-green-700/20
+                    flex items-center justify-center text-slate-400 hover:text-white transition-all duration-200"
                   aria-label={social.label}
                 >
-                  <social.icon size={15} />
+                  <social.icon size={18} />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Partner Logos Section */}
+        {/* Partner Logos Section — all monochrome white for premium look */}
         <div className="py-10 border-b border-slate-800/60">
-          <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-8">
+          <h4 className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] text-center mb-8">
             Backed By &amp; Partnered With
           </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-x-6 gap-y-6 items-center justify-items-center">
             {partnerLogos.map((logo) => (
               <div
                 key={logo.alt}
-                className="flex items-center justify-center h-14 sm:h-16 w-full px-4"
+                className="flex items-center justify-center h-10 sm:h-12 w-full"
+                title={logo.alt}
               >
                 <Image
                   src={logo.src}
                   alt={logo.alt}
-                  width={160}
-                  height={64}
-                  className={`max-h-12 sm:max-h-14 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 ${
-                    logo.invert ? 'brightness-0 invert' : ''
-                  }`}
+                  width={120}
+                  height={48}
+                  className="max-h-9 sm:max-h-11 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-90 transition-opacity duration-300"
                 />
               </div>
             ))}
