@@ -216,7 +216,7 @@ export default function CinematicFooter() {
             {partnerLogos.map((logo) => (
               <div
                 key={logo.alt}
-                className="flex items-center justify-center h-16 sm:h-20 w-full"
+                className="flex items-center justify-center h-16 sm:h-20 w-full px-3 py-2 rounded-xl bg-white/90 hover:bg-white transition-all duration-300"
                 title={logo.alt}
               >
                 <Image
@@ -224,7 +224,7 @@ export default function CinematicFooter() {
                   alt={logo.alt}
                   width={200}
                   height={80}
-                  className="max-h-14 sm:max-h-[4.5rem] w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                  className="max-h-12 sm:max-h-16 w-auto object-contain"
                 />
               </div>
             ))}
