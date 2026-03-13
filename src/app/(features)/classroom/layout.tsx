@@ -1,4 +1,5 @@
 import Sidebar from '@/components/dashboard/Sidebar'
+import CinematicFooter from '@/components/landing/CinematicFooter'
 
 export default function ClassroomLayout({
   children,
@@ -8,7 +9,10 @@ export default function ClassroomLayout({
   return (
     <div className="flex min-h-[calc(100vh-4rem)]">
       <Sidebar />
-      <main className="flex-1 overflow-auto bg-[#F7F8FA]">{children}</main>
+      <main className="flex-1 overflow-auto bg-[#F7F8FA]">
+        {children}
+        <CinematicFooter />
+      </main>
     </div>
   )
 }

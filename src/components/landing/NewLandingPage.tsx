@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
+import CinematicFooter from '@/components/landing/CinematicFooter'
 import {
   Mic, FileText, Trophy, MessageSquare, CheckCircle,
   ArrowRight, Target, Zap, TrendingUp, BarChart3, Quote,
@@ -881,73 +882,7 @@ export default function NewLandingPage() {
       </section>
 
       {/* ===== 10. FOOTER ===== */}
-      <footer className="bg-slate-900 text-white pt-12 sm:pt-16 pb-8 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Top: Brand + Links */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-slate-700/50">
-            {/* Brand column */}
-            <div className="col-span-2">
-              <Link href="/" className="inline-block mb-4">
-                <Image
-                  src="/iklavya logo.png"
-                  alt="IKLAVYA"
-                  width={160}
-                  height={80}
-                  className="h-12 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
-              <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-                AI-powered career readiness platform. We take you from being an educated person to becoming a job-ready, employable professional.
-              </p>
-            </div>
-            {/* Platform */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Platform</h5>
-              <ul className="space-y-2.5 text-sm text-slate-400">
-                <li><Link href="/ai-interview" className="hover:text-white transition-colors">AI Interview</Link></li>
-                <li><Link href="/ai-courses" className="hover:text-white transition-colors">Video Courses</Link></li>
-                <li><Link href="/resume-builder" className="hover:text-white transition-colors">Resume Builder</Link></li>
-                <li><Link href="/skill-assessment" className="hover:text-white transition-colors">Skill Assessment</Link></li>
-                <li><Link href="/live-quiz" className="hover:text-white transition-colors">Live Quiz</Link></li>
-              </ul>
-            </div>
-            {/* Resources */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h5>
-              <ul className="space-y-2.5 text-sm text-slate-400">
-                <li><Link href="/career-guidance" className="hover:text-white transition-colors">Career Guidance</Link></li>
-                <li><Link href="/certifications" className="hover:text-white transition-colors">Certifications</Link></li>
-                <li><Link href="/support" className="hover:text-white transition-colors">Mentorship</Link></li>
-                <li><Link href="/support" className="hover:text-white transition-colors">FAQ</Link></li>
-              </ul>
-            </div>
-            {/* Company */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-wider text-white mb-4">Company</h5>
-              <ul className="space-y-2.5 text-sm text-slate-400">
-                <li><Link href="/students" className="hover:text-white transition-colors">For Students</Link></li>
-                <li><Link href="/students#institutions" className="hover:text-white transition-colors">For Institutions</Link></li>
-                <li><Link href="/for-employers" className="hover:text-white transition-colors">For Employers</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-          {/* Bottom bar */}
-          <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-slate-500">
-              &copy; {new Date().getFullYear()} IKLAVYA TECHNOLOGIES. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4 text-xs text-slate-500">
-              <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
-              <span className="text-slate-700">|</span>
-              <Link href="/support" className="hover:text-slate-300 transition-colors">Terms</Link>
-              <span className="text-slate-700">|</span>
-              <span>support@iklavya.in</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <CinematicFooter />
     </div>
   )
 }
