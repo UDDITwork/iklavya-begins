@@ -59,7 +59,7 @@ export default function ResumeSessionPage() {
       const res = await fetch(`/api/resume/sessions/${id}`)
       if (!res.ok) {
         toast.error('Resume session not found')
-        router.push('/resume-builder')
+        router.push('/dashboard/resume-builder')
         return
       }
       const data = await res.json()
@@ -237,7 +237,7 @@ export default function ResumeSessionPage() {
       <div className="flex items-center justify-between px-4 sm:px-6 h-14 border-b border-gray-200 bg-white shrink-0">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => router.push('/resume-builder')}
+            onClick={() => router.push('/dashboard/resume-builder')}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors"
           >
             <ArrowLeft size={18} />

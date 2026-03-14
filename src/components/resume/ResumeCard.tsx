@@ -21,11 +21,11 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
 
   return (
     <div
-      className={`spotlight-card rounded-xl bg-white border border-gray-200 shadow-sm p-5 hover:shadow-md transition-all duration-200 border-l-4 ${
+      className={`spotlight-card rounded-xl bg-white border border-gray-200 shadow-sm p-4 hover:shadow-md transition-all duration-200 border-l-4 ${
         isActive ? 'border-l-amber-500' : 'border-l-green-600'
       }`}
     >
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2">
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
             isActive ? 'bg-amber-50 text-amber-700' : 'bg-green-50 text-green-700'
@@ -45,7 +45,7 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
         </span>
       </div>
 
-      <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
+      <div className="flex items-center gap-4 text-xs text-gray-400 mb-3">
         <span className="flex items-center gap-1">
           <Clock size={12} />
           {date}
@@ -59,13 +59,13 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
       <div className="flex gap-2">
         {isActive ? (
           <Link href={`/resume-session/${session.id}`} className="flex-1">
-            <button className="w-full px-4 py-2 rounded-lg bg-green-800 text-white text-xs font-medium hover:bg-green-900 transition-colors duration-200">
+            <button className="w-full px-4 py-2 rounded-lg border border-gray-900 text-gray-900 text-xs font-medium hover:bg-gray-50 transition-colors duration-200">
               Continue
             </button>
           </Link>
         ) : (
           <Link href={`/resume-session/${session.id}`} className="flex-1">
-            <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">
+            <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-900 text-gray-900 text-xs font-medium hover:bg-gray-50 transition-colors">
               <Download size={12} />
               View & Download
             </button>
