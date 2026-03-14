@@ -50,3 +50,4 @@ __pycache__/
 # remotion generated files
 /remotion/output/
 /public/audio/*.mp3
+project-config.txt
