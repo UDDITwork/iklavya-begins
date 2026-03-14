@@ -431,3 +431,80 @@ class CertificateListResponse(BaseModel):
 
 class PromoteUserRequest(BaseModel):
     email: str = Field(min_length=1)
+
+
+# ─── Mentor Schemas ──────────────────────────────────────
+
+class MentorRegisterRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=100)
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=128)
+    phone: Optional[str] = Field(default=None, max_length=20)
+    specialization: Optional[str] = Field(default=None, max_length=200)
+    bio: Optional[str] = None
+    expertise: Optional[list[str]] = None
+    linkedin_url: Optional[str] = None
+    experience_years: Optional[int] = None
+
+
+class MentorLoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=1)
+
+
+class MentorProfileUpdateRequest(BaseModel):
+    name: Optional[str] = Field(default=None, max_length=100)
+    phone: Optional[str] = Field(default=None, max_length=20)
+    specialization: Optional[str] = Field(default=None, max_length=200)
+    bio: Optional[str] = None
+    expertise: Optional[list[str]] = None
+    linkedin_url: Optional[str] = None
+    experience_years: Optional[int] = None
+    is_available: Optional[int] = Field(default=None, ge=0, le=1)
+
+
+class MentorResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    phone: Optional[str] = None
+    specialization: Optional[str] = None
+    bio: Optional[str] = None
+    profile_image: Optional[str] = None
+    expertise_json: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    experience_years: Optional[int] = None
+    is_verified: int = 0
+    is_available: int = 1
+    created_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class MentorAuthResponse(BaseModel):
+    mentor: MentorResponse
+    token: str
+
+
+class MentorPublicResponse(BaseModel):
+    """Public mentor info shown to students (no email/phone)."""
+    id: str
+    name: str
+    specialization: Optional[str] = None
+    bio: Optional[str] = None
+    profile_image: Optional[str] = None
+    expertise_json: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    experience_years: Optional[int] = None
+    is_available: int = 1
+
+    model_config = {"from_attributes": True}
+
+
+class MentorListResponse(BaseModel):
+    mentors: list[MentorPublicResponse]
+
+
+class MentorVerifyRequest(BaseModel):
+    email: str = Field(min_length=1)
+    action: str = Field(pattern=r"^(verify|reject)$")

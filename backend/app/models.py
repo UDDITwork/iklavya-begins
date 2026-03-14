@@ -395,6 +395,43 @@ class UserModuleProgress(Base):
     )
 
 
+# ─── Mentors ─────────────────────────────────────────────
+
+
+class Mentor(Base):
+    __tablename__ = "mentors"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(255), nullable=False, unique=True, index=True
+    )
+    phone: Mapped[str] = mapped_column(String(20), nullable=True)
+    password_hash: Mapped[str] = mapped_column(Text, nullable=False)
+    specialization: Mapped[str] = mapped_column(String(200), nullable=True)
+    bio: Mapped[str] = mapped_column(Text, nullable=True)
+    profile_image: Mapped[str] = mapped_column(String(500), nullable=True)
+    expertise_json: Mapped[str] = mapped_column(
+        Text, nullable=True
+    )  # JSON array: ["Resume Building", "Interview Prep"]
+    linkedin_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    experience_years: Mapped[int] = mapped_column(Integer, nullable=True)
+    is_verified: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )  # 0 = pending, 1 = admin-verified
+    is_available: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=1
+    )  # 0 = unavailable, 1 = available
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+    updated_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now, onupdate=utc_now
+    )
+
+
 # ─── Assessments & Certificates ──────────────────────────
 
 

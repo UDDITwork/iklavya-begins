@@ -4,8 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import {
   Send, Loader2, Users, FileText, Briefcase,
-  MessageSquare, Clock, BookOpen, Code, Mic,
-  GraduationCap, ChevronRight, Sparkles,
+  MessageSquare, Clock, BookOpen, ChevronRight, Sparkles,
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -47,48 +46,43 @@ interface ActivityContext {
 /*  Mentor Data                                                        */
 /* ------------------------------------------------------------------ */
 
-const mentors = [
-  {
-    name: 'Priya Sharma',
-    specialization: 'Resume Building & ATS Optimization',
-    bio: '5+ years helping students craft winning resumes',
-    icon: FileText,
-    accent: 'from-emerald-500 to-teal-500',
-    available: true,
-  },
-  {
-    name: 'Arjun Mehta',
-    specialization: 'Communication & Interview Skills',
-    bio: 'Corporate trainer, 200+ mock interviews conducted',
-    icon: Mic,
-    accent: 'from-blue-500 to-indigo-500',
-    available: true,
-  },
-  {
-    name: 'Dr. Kavita Reddy',
-    specialization: 'Career Planning & Higher Education',
-    bio: 'PhD counselor, guides students on career paths',
-    icon: GraduationCap,
-    accent: 'from-amber-500 to-orange-500',
-    available: false,
-  },
-  {
-    name: 'Rahul Verma',
-    specialization: 'Technical Skills & Coding',
-    bio: 'Ex-Google engineer, mentors aspiring developers',
-    icon: Code,
-    accent: 'from-violet-500 to-purple-500',
-    available: true,
-  },
+interface MentorData {
+  id: string
+  name: string
+  specialization: string | null
+  bio: string | null
+  profile_image: string | null
+  expertise_json: string | null
+  linkedin_url: string | null
+  experience_years: number | null
+  is_available: number
+}
+
+const ACCENT_COLORS = [
+  'from-emerald-500 to-teal-500',
+  'from-blue-500 to-indigo-500',
+  'from-amber-500 to-orange-500',
+  'from-violet-500 to-purple-500',
+  'from-rose-500 to-pink-500',
+  'from-cyan-500 to-sky-500',
 ]
 
 /* ------------------------------------------------------------------ */
 /*  Mentor Card                                                        */
 /* ------------------------------------------------------------------ */
 
-function MentorCard({ mentor }: { mentor: typeof mentors[0] }) {
-  const Icon = mentor.icon
+function MentorCard({ mentor, index }: { mentor: MentorData; index: number }) {
   const initials = mentor.name.split(' ').map(n => n[0]).join('')
+  const accent = ACCENT_COLORS[index % ACCENT_COLORS.length]
+  const available = mentor.is_available === 1
+
+  let expertiseTags: string[] = []
+  if (mentor.expertise_json) {
+    try {
+      const parsed = JSON.parse(mentor.expertise_json)
+      expertiseTags = Array.isArray(parsed) ? parsed : []
+    } catch { /* ignore */ }
+  }
 
   return (
     <motion.div variants={staggerItem}>
@@ -96,23 +90,47 @@ function MentorCard({ mentor }: { mentor: typeof mentors[0] }) {
         <div className="absolute -inset-0.5 bg-gradient-to-r opacity-0 group-hover:opacity-100 rounded-2xl blur transition-opacity duration-300" style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))` }} />
         <div className="relative bg-white/80 backdrop-blur-xl rounded-xl border border-gray-200/60 p-5 hover:shadow-lg transition-all duration-300">
           <div className="flex items-start gap-3.5">
-            <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${mentor.accent} flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-sm`}>
-              {initials}
-            </div>
+            {mentor.profile_image ? (
+              <img
+                src={mentor.profile_image}
+                alt={mentor.name}
+                className="w-11 h-11 rounded-xl object-cover shrink-0 shadow-sm"
+              />
+            ) : (
+              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${accent} flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-sm`}>
+                {initials}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 mb-0.5">
                 <h3 className="text-sm font-semibold text-gray-900 truncate">{mentor.name}</h3>
-                <span className={`w-2 h-2 rounded-full shrink-0 ${mentor.available ? 'bg-green-500' : 'bg-gray-300'}`} />
+                <span className={`w-2 h-2 rounded-full shrink-0 ${available ? 'bg-green-500' : 'bg-gray-300'}`} />
               </div>
-              <p className="text-xs text-gray-500 mb-1.5">{mentor.specialization}</p>
-              <p className="text-[11px] text-gray-400 leading-relaxed">{mentor.bio}</p>
+              {mentor.specialization && (
+                <p className="text-xs text-gray-500 mb-1">{mentor.specialization}</p>
+              )}
+              {mentor.bio && (
+                <p className="text-[11px] text-gray-400 leading-relaxed line-clamp-2">{mentor.bio}</p>
+              )}
+              {mentor.experience_years != null && (
+                <p className="text-[10px] text-gray-400 mt-1">{mentor.experience_years}+ years experience</p>
+              )}
             </div>
           </div>
+          {expertiseTags.length > 0 && (
+            <div className="mt-2.5 flex flex-wrap gap-1">
+              {expertiseTags.slice(0, 3).map(tag => (
+                <span key={tag} className="px-1.5 py-0.5 rounded-md bg-gray-100 text-[10px] text-gray-500">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="mt-3 pt-3 border-t border-gray-100">
             <div className="flex items-center gap-1.5 text-[11px]">
-              <Icon size={12} className="text-gray-400" />
-              <span className={mentor.available ? 'text-green-600 font-medium' : 'text-gray-400'}>
-                {mentor.available ? 'Available for mentorship' : 'Currently unavailable'}
+              <Users size={12} className="text-gray-400" />
+              <span className={available ? 'text-green-600 font-medium' : 'text-gray-400'}>
+                {available ? 'Available for mentorship' : 'Currently unavailable'}
               </span>
             </div>
           </div>
@@ -164,6 +182,7 @@ export default function MentorshipPage() {
   const [input, setInput] = useState('')
   const [streaming, setStreaming] = useState(false)
   const [activity, setActivity] = useState<ActivityContext | null>(null)
+  const [mentors, setMentors] = useState<MentorData[]>([])
   const chatEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -172,6 +191,14 @@ export default function MentorshipPage() {
     fetch('/api/mentorship/context')
       .then(r => r.ok ? r.json() : null)
       .then(data => { if (data) setActivity(data) })
+      .catch(() => {})
+  }, [])
+
+  // Fetch verified mentors
+  useEffect(() => {
+    fetch('/api/mentors/verified')
+      .then(res => res.ok ? res.json() : { mentors: [] })
+      .then(data => setMentors(data.mentors || []))
       .catch(() => {})
   }, [])
 
@@ -297,12 +324,19 @@ export default function MentorshipPage() {
       </motion.div>
 
       {/* Mentor Cards */}
-      <motion.div
-        variants={staggerContainer} initial="initial" animate="animate"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5"
-      >
-        {mentors.map(m => <MentorCard key={m.name} mentor={m} />)}
-      </motion.div>
+      {mentors.length > 0 ? (
+        <motion.div
+          variants={staggerContainer} initial="initial" animate="animate"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5"
+        >
+          {mentors.map((m, i) => <MentorCard key={m.id} mentor={m} index={i} />)}
+        </motion.div>
+      ) : (
+        <div className="bg-white/80 rounded-xl border border-gray-200/60 p-6 mb-5 text-center">
+          <Users size={20} className="mx-auto text-gray-300 mb-2" />
+          <p className="text-sm text-gray-400">No mentors available yet. Check back soon!</p>
+        </div>
+      )}
 
       {/* Main Content: Chat + Timeline */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">

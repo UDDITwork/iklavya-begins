@@ -24,8 +24,8 @@ const sidebarLinks = [
   { href: '/dashboard/resume-builder', label: 'Resume Builder', icon: FileText },
   { href: '/dashboard/job-feed', label: 'Job Feed', icon: Briefcase },
   { href: '/dashboard/mentorship', label: 'Mentorship', icon: Users },
-  { href: '/classroom', label: 'Classroom', icon: PlaySquare },
-  { href: '/assessments', label: 'Assessments', icon: ClipboardCheck },
+  { href: '/dashboard/classroom', label: 'Classroom', icon: PlaySquare },
+  { href: '/dashboard/assessments', label: 'Assessments', icon: ClipboardCheck },
   { href: '/dashboard/profile', label: 'Profile', icon: User },
 ]
 
