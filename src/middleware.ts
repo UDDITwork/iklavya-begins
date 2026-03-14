@@ -4,7 +4,7 @@ import { jwtVerify } from 'jose'
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
 const COOKIE_NAME = 'iklavya-token'
 
-const protectedPaths = ['/dashboard', '/admin', '/session', '/sessions', '/profile', '/resume-builder', '/resume-session']
+const protectedPaths = ['/dashboard', '/admin', '/session', '/sessions', '/profile', '/resume-builder', '/resume-session', '/assessments']
 const authPaths = ['/login', '/register']
 // Public landing pages that should redirect to dashboard when authenticated
 const landingPaths = ['/', '/students', '/institutions', '/for-employers']
@@ -44,5 +44,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/students', '/institutions', '/for-employers', '/dashboard/:path*', '/admin/:path*', '/session/:path*', '/sessions/:path*', '/profile/:path*', '/resume-builder/:path*', '/resume-session/:path*', '/login', '/register', '/career-guidance/:path*'],
+  matcher: ['/', '/students', '/institutions', '/for-employers', '/dashboard/:path*', '/admin/:path*', '/session/:path*', '/sessions/:path*', '/profile/:path*', '/resume-builder/:path*', '/resume-session/:path*', '/login', '/register', '/career-guidance/:path*', '/assessments/:path*', '/cert/:path*'],
 }

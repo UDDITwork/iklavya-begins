@@ -363,11 +363,17 @@ class AssessmentStartResponse(BaseModel):
     questions: list[AssessmentQuestionPublic]
     expires_at: str
     time_limit_seconds: int
+    saved_answers: Optional[list] = None  # Restored answers for resumed attempt
 
 
 class AnswerItem(BaseModel):
     question_id: str
     selected_index: int = Field(ge=0, le=3)
+
+
+class AssessmentAutoSaveRequest(BaseModel):
+    attempt_id: str
+    answers: list[AnswerItem]
 
 
 class AssessmentSubmitRequest(BaseModel):

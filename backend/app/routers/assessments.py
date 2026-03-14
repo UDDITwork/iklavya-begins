@@ -22,6 +22,7 @@ from app.schemas import (
     AssessmentListResponse,
     AssessmentStartResponse,
     AssessmentQuestionPublic,
+    AssessmentAutoSaveRequest,
     AssessmentSubmitRequest,
     AssessmentResultResponse,
     QuestionReview,
@@ -225,13 +226,24 @@ def start_assessment(
             active.passed = 0
             db.commit()
         else:
-            # Return existing active attempt with questions
+            # Return existing active attempt with questions + saved answers
             questions = (
                 db.query(AssessmentQuestion)
                 .filter(AssessmentQuestion.assessment_id == assessment_id)
                 .order_by(AssessmentQuestion.order_index)
                 .all()
             )
+            # Restore saved answers
+            saved_answers = None
+            if active.answers_json:
+                try:
+                    saved_answers = json.loads(active.answers_json)
+                except (json.JSONDecodeError, TypeError):
+                    saved_answers = None
+
+            remaining = int((started + timedelta(seconds=assessment.time_limit_seconds) - _utc_now()).total_seconds())
+            remaining = max(remaining, 0)
+
             return AssessmentStartResponse(
                 attempt_id=active.id,
                 assessment_id=assessment_id,
@@ -245,7 +257,8 @@ def start_assessment(
                     for q in questions
                 ],
                 expires_at=(started + timedelta(seconds=assessment.time_limit_seconds)).isoformat(),
-                time_limit_seconds=assessment.time_limit_seconds,
+                time_limit_seconds=remaining,
+                saved_answers=saved_answers,
             )
 
     # Check 24h cooldown from last failed attempt
@@ -318,6 +331,48 @@ def start_assessment(
         expires_at=(now + timedelta(seconds=assessment.time_limit_seconds)).isoformat(),
         time_limit_seconds=assessment.time_limit_seconds,
     )
+
+
+@router.post(
+    "/assessments/{assessment_id}/autosave",
+    responses={400: {"model": ErrorResponse}},
+)
+def autosave_answers(
+    assessment_id: str,
+    body: AssessmentAutoSaveRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Save answers periodically during assessment (every 60s)."""
+    attempt = db.query(UserAssessment).filter(UserAssessment.id == body.attempt_id).first()
+    if not attempt or attempt.user_id != current_user.id:
+        raise HTTPException(status_code=404, detail="Attempt not found")
+    if attempt.status != "in_progress":
+        raise HTTPException(status_code=400, detail="Attempt not active")
+
+    # Validate time hasn't expired
+    started = _parse_iso(attempt.started_at)
+    assessment = db.query(Assessment).filter(Assessment.id == assessment_id).first()
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+
+    max_time = assessment.time_limit_seconds + 30
+    elapsed = (_utc_now() - started).total_seconds()
+    if elapsed > max_time:
+        attempt.status = "expired"
+        attempt.submitted_at = _utc_now().isoformat()
+        attempt.score = 0
+        attempt.passed = 0
+        db.commit()
+        raise HTTPException(status_code=400, detail="Time expired")
+
+    # Save answers to DB
+    attempt.answers_json = json.dumps(
+        [{"question_id": a.question_id, "selected_index": a.selected_index} for a in body.answers]
+    )
+    db.commit()
+
+    return {"status": "saved", "answers_count": len(body.answers)}
 
 
 @router.post(
@@ -416,7 +471,7 @@ def submit_assessment(
         submitted_at=attempt.submitted_at,
         questions=reviews,
         can_get_certified=passed == 1 and existing_cert is None,
-        certificate_id=existing_cert.id if existing_cert else None,
+        certificate_id=existing_cert.cert_slug if existing_cert else None,
     )
 
 
@@ -484,7 +539,7 @@ def get_assessment_result(
         submitted_at=attempt.submitted_at or "",
         questions=reviews,
         can_get_certified=attempt.passed == 1 and existing_cert is None,
-        certificate_id=existing_cert.id if existing_cert else None,
+        certificate_id=existing_cert.cert_slug if existing_cert else None,
     )
 
 
