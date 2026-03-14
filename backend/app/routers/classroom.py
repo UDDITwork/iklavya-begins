@@ -63,7 +63,7 @@ def seed_modules(
             "slug": "time-management",
             "description": "Master the art of managing your time effectively as you transition from college life to the professional world. Learn proven frameworks like Deep Work, the Pareto Principle, the Eisenhower Matrix, and the Pomodoro Technique.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/time-management.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/time-management-thumb.jpg",
+            "thumbnail_url": "/classroom/time-management.svg",
             "duration_seconds": 600,
             "category": "Productivity",
             "order_index": 0,
@@ -102,7 +102,7 @@ def seed_modules(
             "slug": "workplace-etiquette",
             "description": "Navigate the corporate world — from email hygiene and meeting discipline to giving & receiving feedback professionally.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/workplace-etiquette.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/workplace-etiquette-thumb.jpg",
+            "thumbnail_url": "/classroom/workplace-etiquette.svg",
             "duration_seconds": 600,
             "category": "Professional Skills",
             "order_index": 1,
@@ -141,7 +141,7 @@ def seed_modules(
             "slug": "social-communication",
             "description": "From active listening to assertiveness — learn the art of connection, networking, and voicing your opinion without conflict.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/social-communication.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/social-communication-thumb.jpg",
+            "thumbnail_url": "/classroom/social-communication.svg",
             "duration_seconds": 600,
             "category": "Communication",
             "order_index": 2,
@@ -180,7 +180,7 @@ def seed_modules(
             "slug": "resume-interview-mastery",
             "description": "Learn to craft ATS-friendly resumes, ace interviews using the STAR method, avoid common mistakes, and confidently negotiate your salary.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/resume-interview-mastery.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/resume-interview-mastery-thumb.jpg",
+            "thumbnail_url": "/classroom/resume-interview.svg",
             "duration_seconds": 600,
             "category": "Career Development",
             "order_index": 3,
@@ -219,7 +219,7 @@ def seed_modules(
             "slug": "financial-literacy-freshers",
             "description": "Your first salary is exciting — make it count. Learn practical budgeting, understand PF and taxes, discover saving vs investing, and protect yourself from common debt traps.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/financial-literacy-freshers.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/financial-literacy-freshers-thumb.jpg",
+            "thumbnail_url": "/classroom/financial-literacy.svg",
             "duration_seconds": 600,
             "category": "Personal Finance",
             "order_index": 4,
@@ -258,7 +258,7 @@ def seed_modules(
             "slug": "leadership-teamwork",
             "description": "You do not need a title to lead. Learn how to influence without authority, resolve conflicts constructively, delegate effectively, and build trust within your team.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/leadership-teamwork.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/leadership-teamwork-thumb.jpg",
+            "thumbnail_url": "/classroom/leadership-teamwork.svg",
             "duration_seconds": 600,
             "category": "Professional Skills",
             "order_index": 5,
@@ -297,7 +297,7 @@ def seed_modules(
             "slug": "digital-skills-personal-branding",
             "description": "In the digital age, your online presence is your first impression. Learn to optimize LinkedIn, build a killer portfolio, contribute to open source, and craft a personal brand that opens doors.",
             "video_url": "https://res.cloudinary.com/dr17ap4sb/video/upload/v1/classroom/digital-skills-personal-branding.mp4",
-            "thumbnail_url": "https://res.cloudinary.com/dr17ap4sb/image/upload/v1/classroom/digital-skills-personal-branding-thumb.jpg",
+            "thumbnail_url": "/classroom/digital-skills.svg",
             "duration_seconds": 600,
             "category": "Career Development",
             "order_index": 6,
@@ -353,6 +353,36 @@ def seed_modules(
 
     db.commit()
     return {"message": f"Seeded {len(modules_data)} modules with quizzes"}
+
+
+@router.get("/thumbnails/refresh")
+def refresh_thumbnails(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Update all module thumbnail URLs to local SVGs. Admin only."""
+    if current_user.role != "admin":
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    slug_to_svg = {
+        "time-management": "/classroom/time-management.svg",
+        "workplace-etiquette": "/classroom/workplace-etiquette.svg",
+        "social-communication": "/classroom/social-communication.svg",
+        "resume-interview-mastery": "/classroom/resume-interview.svg",
+        "financial-literacy-freshers": "/classroom/financial-literacy.svg",
+        "leadership-teamwork": "/classroom/leadership-teamwork.svg",
+        "digital-skills-personal-branding": "/classroom/digital-skills.svg",
+    }
+
+    updated = 0
+    modules = db.query(CourseModule).all()
+    for m in modules:
+        if m.slug in slug_to_svg:
+            m.thumbnail_url = slug_to_svg[m.slug]
+            updated += 1
+
+    db.commit()
+    return {"message": f"Updated {updated} module thumbnails"}
 
 
 @router.get("/progress/all", response_model=list[UserProgressResponse])

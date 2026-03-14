@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <rect width="400" height="225" fill="#FAFAFA"/>
+  <!-- Large speech bubble -->
+  <rect x="120" y="35" width="160" height="70" rx="16" stroke="#374151" stroke-width="2.5" fill="none"/>
+  <path d="M180 105 L170 125 L200 105" stroke="#374151" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <!-- Text lines in bubble -->
+  <line x1="145" y1="58" x2="255" y2="58" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  <line x1="145" y1="72" x2="235" y2="72" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  <line x1="145" y1="86" x2="210" y2="86" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round"/>
+  <!-- Person speaking -->
+  <circle cx="145" cy="145" r="16" stroke="#374151" stroke-width="2" fill="none"/>
+  <!-- Smile -->
+  <path d="M138 148 Q145 155 152 148" stroke="#374151" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <circle cx="140" cy="142" r="1.5" fill="#374151"/>
+  <circle cx="150" cy="142" r="1.5" fill="#374151"/>
+  <!-- Sound waves -->
+  <path d="M168 140 Q175 135 168 130" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M175 145 Q185 135 175 125" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Listener -->
+  <circle cx="255" cy="145" r="16" stroke="#374151" stroke-width="2" fill="none"/>
+  <!-- Ear highlight -->
+  <path d="M274 140 Q278 145 274 150" stroke="#374151" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <circle cx="250" cy="142" r="1.5" fill="#374151"/>
+  <circle cx="260" cy="142" r="1.5" fill="#374151"/>
+  <!-- Connection line -->
+  <line x1="170" y1="150" x2="235" y2="150" stroke="#D1D5DB" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- Title -->
+  <text x="200" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#374151">Social Communication</text>
+</svg>

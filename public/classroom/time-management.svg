@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <rect width="400" height="225" fill="#FAFAFA"/>
+  <!-- Clock face -->
+  <circle cx="200" cy="100" r="60" stroke="#374151" stroke-width="2.5" fill="none"/>
+  <circle cx="200" cy="100" r="3" fill="#374151"/>
+  <!-- Hour marks -->
+  <line x1="200" y1="44" x2="200" y2="50" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <line x1="200" y1="150" x2="200" y2="156" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <line x1="144" y1="100" x2="150" y2="100" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <line x1="250" y1="100" x2="256" y2="100" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <!-- Hour hand -->
+  <line x1="200" y1="100" x2="200" y2="65" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Minute hand -->
+  <line x1="200" y1="100" x2="225" y2="78" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <!-- Checklist to the right -->
+  <rect x="285" y="60" width="12" height="12" rx="2" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <polyline points="288,67 291,70 296,63" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="303" y1="66" x2="340" y2="66" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="285" y="82" width="12" height="12" rx="2" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <polyline points="288,89 291,92 296,85" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="303" y1="88" x2="330" y2="88" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="285" y="104" width="12" height="12" rx="2" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <line x1="303" y1="110" x2="345" y2="110" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="285" y="126" width="12" height="12" rx="2" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <line x1="303" y1="132" x2="335" y2="132" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pomodoro tomato hint -->
+  <circle cx="105" cy="80" r="14" stroke="#EF4444" stroke-width="1.5" fill="none"/>
+  <path d="M105 66 Q108 60 105 58 Q102 60 105 66" stroke="#16a34a" stroke-width="1.2" fill="none"/>
+  <!-- Small matrix grid -->
+  <rect x="80" y="110" width="50" height="36" rx="3" stroke="#374151" stroke-width="1.2" fill="none"/>
+  <line x1="105" y1="110" x2="105" y2="146" stroke="#374151" stroke-width="1"/>
+  <line x1="80" y1="128" x2="130" y2="128" stroke="#374151" stroke-width="1"/>
+  <!-- Title -->
+  <text x="200" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#374151">Time Management</text>
+</svg>

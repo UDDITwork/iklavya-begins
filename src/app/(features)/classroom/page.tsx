@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   Loader2, BookOpen, Clock, CheckCircle, PlayCircle, Lock, GraduationCap, Database,
@@ -49,8 +48,20 @@ export default function ClassroomPage() {
         progressData.forEach((p: UserProgress) => progressMap.set(p.module_id, p))
       }
 
+      // Map slug to local SVG thumbnail
+      const slugToSvg: Record<string, string> = {
+        'time-management': '/classroom/time-management.svg',
+        'workplace-etiquette': '/classroom/workplace-etiquette.svg',
+        'social-communication': '/classroom/social-communication.svg',
+        'resume-interview-mastery': '/classroom/resume-interview.svg',
+        'financial-literacy-freshers': '/classroom/financial-literacy.svg',
+        'leadership-teamwork': '/classroom/leadership-teamwork.svg',
+        'digital-skills-personal-branding': '/classroom/digital-skills.svg',
+      }
+
       const merged = (modulesData.modules || []).map((m: CourseModule) => ({
         ...m,
+        thumbnail_url: slugToSvg[m.slug] || m.thumbnail_url,
         progress: progressMap.get(m.id),
       }))
 
@@ -209,13 +220,12 @@ export default function ClassroomPage() {
                   >
                     <div className="flex flex-col sm:flex-row">
                       {/* Thumbnail */}
-                      <div className="relative w-full sm:w-56 h-36 sm:h-auto shrink-0 bg-gray-100 rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none overflow-hidden">
+                      <div className="relative w-full sm:w-56 h-36 sm:h-auto shrink-0 rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none overflow-hidden" style={{ backgroundColor: '#FAFAFA' }}>
                         {mod.thumbnail_url ? (
-                          <Image
+                          <img
                             src={mod.thumbnail_url}
                             alt={mod.title}
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-contain"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-100 to-green-100">

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" fill="none">
+  <rect width="400" height="225" fill="#FAFAFA"/>
+  <!-- Handshake -->
+  <path d="M155 95 Q170 80 185 90 L210 105 Q225 115 215 125" stroke="#374151" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M245 95 Q230 80 215 90 L195 105 Q180 115 190 125" stroke="#374151" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Left sleeve -->
+  <path d="M155 95 L130 110 L140 125 L165 115" stroke="#374151" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right sleeve -->
+  <path d="M245 95 L270 110 L260 125 L235 115" stroke="#374151" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Person left - head -->
+  <circle cx="120" cy="55" r="15" stroke="#374151" stroke-width="2" fill="none"/>
+  <!-- Person left - body -->
+  <line x1="120" y1="70" x2="120" y2="100" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <!-- Person left - tie -->
+  <path d="M120 72 L117 82 L120 90 L123 82 Z" stroke="#374151" stroke-width="1.2" fill="none"/>
+  <!-- Person right - head -->
+  <circle cx="280" cy="55" r="15" stroke="#374151" stroke-width="2" fill="none"/>
+  <!-- Person right - body -->
+  <line x1="280" y1="70" x2="280" y2="100" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+  <!-- Person right - tie -->
+  <path d="M280 72 L277 82 L280 90 L283 82 Z" stroke="#374151" stroke-width="1.2" fill="none"/>
+  <!-- Speech bubbles -->
+  <rect x="90" y="25" width="30" height="18" rx="8" stroke="#9CA3AF" stroke-width="1.2" fill="none"/>
+  <path d="M108 43 L112 48 L115 42" stroke="#9CA3AF" stroke-width="1" fill="none"/>
+  <rect x="268" y="25" width="30" height="18" rx="8" stroke="#9CA3AF" stroke-width="1.2" fill="none"/>
+  <path d="M280 43 L276 48 L273 42" stroke="#9CA3AF" stroke-width="1" fill="none"/>
+  <!-- Namaste hands hint -->
+  <path d="M195 145 Q200 135 205 145" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M193 148 Q200 138 207 148" stroke="#9CA3AF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Title -->
+  <text x="200" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#374151">Workplace Etiquette</text>
+</svg>
