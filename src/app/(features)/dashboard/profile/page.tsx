@@ -93,6 +93,7 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [parsingDoc, setParsingDoc] = useState(false)
+  const [parsedFields, setParsedFields] = useState<Set<string> | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const docInputRef = useRef<HTMLInputElement>(null)
 
@@ -171,6 +172,15 @@ export default function ProfilePage() {
         return
       }
 
+      // Track which fields were returned by parsing
+      const filled = new Set<string>()
+      for (const [k, v] of Object.entries(data)) {
+        if (k === 'id' || k === 'user_id') continue
+        if (v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0)) {
+          filled.add(k)
+        }
+      }
+      setParsedFields(filled)
       setProfile(data)
       playSuccess()
       toast.success('Profile auto-filled from your document. Review and save.')
@@ -240,6 +250,7 @@ export default function ProfilePage() {
       }
 
       if (res.ok) {
+        setParsedFields(null)
         playSuccess()
         toast.success('Profile updated successfully')
       } else {
@@ -257,6 +268,15 @@ export default function ProfilePage() {
 
   const inputClass =
     'w-full px-4 py-3 min-h-[44px] rounded-lg border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm'
+
+  // Show hint after PDF parsing: green for filled, amber for missing
+  function parseHint(fieldName: string) {
+    if (!parsedFields) return null
+    if (parsedFields.has(fieldName)) {
+      return <span className="text-[10px] text-green-600 mt-0.5 block">&#10003; Auto-filled from document</span>
+    }
+    return <span className="text-[10px] text-amber-500 mt-0.5 block">Not found in document — fill manually if needed</span>
+  }
 
   const avatarGradient =
     profile.gender?.toLowerCase() === 'female'
@@ -467,15 +487,16 @@ export default function ProfilePage() {
                   <input
                     type="date"
                     value={profile.date_of_birth || ''}
-                    onChange={(e) => setProfile({ ...profile, date_of_birth: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, date_of_birth: e.target.value }); setParsedFields(null) }}
                     className={inputClass}
                   />
+                  {parseHint('date_of_birth')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Gender</label>
                   <select
                     value={profile.gender || ''}
-                    onChange={(e) => setProfile({ ...profile, gender: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, gender: e.target.value }); setParsedFields(null) }}
                     className={inputClass}
                   >
                     <option value="">Select</option>
@@ -484,36 +505,40 @@ export default function ProfilePage() {
                     <option value="Other">Other</option>
                     <option value="Prefer not to say">Prefer not to say</option>
                   </select>
+                  {parseHint('gender')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">City</label>
                   <input
                     type="text"
                     value={profile.city || ''}
-                    onChange={(e) => setProfile({ ...profile, city: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, city: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. Mumbai"
                     className={inputClass}
                   />
+                  {parseHint('city')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">State</label>
                   <input
                     type="text"
                     value={profile.state || ''}
-                    onChange={(e) => setProfile({ ...profile, state: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, state: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. Maharashtra"
                     className={inputClass}
                   />
+                  {parseHint('state')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Pin Code</label>
                   <input
                     type="text"
                     value={profile.pin_code || ''}
-                    onChange={(e) => setProfile({ ...profile, pin_code: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, pin_code: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. 400001"
                     className={inputClass}
                   />
+                  {parseHint('pin_code')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Phone</label>
@@ -548,60 +573,66 @@ export default function ProfilePage() {
                   <input
                     type="text"
                     value={profile.education_level || ''}
-                    onChange={(e) => setProfile({ ...profile, education_level: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, education_level: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. Undergraduate"
                     className={inputClass}
                   />
+                  {parseHint('education_level')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Class / Year</label>
                   <input
                     type="text"
                     value={profile.class_or_year || ''}
-                    onChange={(e) => setProfile({ ...profile, class_or_year: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, class_or_year: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. 2nd Year"
                     className={inputClass}
                   />
+                  {parseHint('class_or_year')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Institution</label>
                   <input
                     type="text"
                     value={profile.institution || ''}
-                    onChange={(e) => setProfile({ ...profile, institution: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, institution: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. IIT Delhi"
                     className={inputClass}
                   />
+                  {parseHint('institution')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Board / University</label>
                   <input
                     type="text"
                     value={profile.board || ''}
-                    onChange={(e) => setProfile({ ...profile, board: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, board: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. CBSE, Delhi University"
                     className={inputClass}
                   />
+                  {parseHint('board')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Stream</label>
                   <input
                     type="text"
                     value={profile.stream || ''}
-                    onChange={(e) => setProfile({ ...profile, stream: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, stream: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. Computer Science"
                     className={inputClass}
                   />
+                  {parseHint('stream')}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">CGPA</label>
                   <input
                     type="text"
                     value={profile.cgpa || ''}
-                    onChange={(e) => setProfile({ ...profile, cgpa: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, cgpa: e.target.value }); setParsedFields(null) }}
                     placeholder="e.g. 8.5"
                     className={inputClass}
                   />
+                  {parseHint('cgpa')}
                 </div>
               </div>
             </div>
@@ -626,11 +657,12 @@ export default function ProfilePage() {
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Professional Summary</label>
                   <textarea
                     value={profile.summary || ''}
-                    onChange={(e) => setProfile({ ...profile, summary: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, summary: e.target.value }); setParsedFields(null) }}
                     rows={3}
                     placeholder="A brief professional summary or objective"
                     className={`${inputClass} resize-none`}
                   />
+                  {parseHint('summary')}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
@@ -638,47 +670,59 @@ export default function ProfilePage() {
                     <input
                       type="url"
                       value={profile.linkedin_url || ''}
-                      onChange={(e) => setProfile({ ...profile, linkedin_url: e.target.value })}
+                      onChange={(e) => { setProfile({ ...profile, linkedin_url: e.target.value }); setParsedFields(null) }}
                       placeholder="https://linkedin.com/in/..."
                       className={inputClass}
                     />
+                    {parseHint('linkedin_url')}
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1.5">GitHub URL</label>
                     <input
                       type="url"
                       value={profile.github_url || ''}
-                      onChange={(e) => setProfile({ ...profile, github_url: e.target.value })}
+                      onChange={(e) => { setProfile({ ...profile, github_url: e.target.value }); setParsedFields(null) }}
                       placeholder="https://github.com/..."
                       className={inputClass}
                     />
+                    {parseHint('github_url')}
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1.5">Portfolio URL</label>
                     <input
                       type="url"
                       value={profile.portfolio_url || ''}
-                      onChange={(e) => setProfile({ ...profile, portfolio_url: e.target.value })}
+                      onChange={(e) => { setProfile({ ...profile, portfolio_url: e.target.value }); setParsedFields(null) }}
                       placeholder="https://..."
                       className={inputClass}
                     />
+                    {parseHint('portfolio_url')}
                   </div>
                 </div>
-                <TagInput
-                  label="Skills"
-                  tags={profile.skills || []}
-                  onChange={(skills) => setProfile({ ...profile, skills })}
-                />
-                <TagInput
-                  label="Achievements"
-                  tags={profile.achievements || []}
-                  onChange={(achievements) => setProfile({ ...profile, achievements })}
-                />
-                <TagInput
-                  label="Extracurriculars"
-                  tags={profile.extracurriculars || []}
-                  onChange={(extracurriculars) => setProfile({ ...profile, extracurriculars })}
-                />
+                <div>
+                  <TagInput
+                    label="Skills"
+                    tags={profile.skills || []}
+                    onChange={(skills) => { setProfile({ ...profile, skills }); setParsedFields(null) }}
+                  />
+                  {parseHint('skills')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Achievements"
+                    tags={profile.achievements || []}
+                    onChange={(achievements) => { setProfile({ ...profile, achievements }); setParsedFields(null) }}
+                  />
+                  {parseHint('achievements')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Extracurriculars"
+                    tags={profile.extracurriculars || []}
+                    onChange={(extracurriculars) => { setProfile({ ...profile, extracurriculars }); setParsedFields(null) }}
+                  />
+                  {parseHint('extracurriculars')}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -767,42 +811,58 @@ export default function ProfilePage() {
                 <h2 className="text-sm font-semibold text-gray-900">About You</h2>
               </div>
               <div className="space-y-4">
-                <TagInput
-                  label="Hobbies"
-                  tags={profile.hobbies || []}
-                  onChange={(hobbies) => setProfile({ ...profile, hobbies })}
-                />
-                <TagInput
-                  label="Interests"
-                  tags={profile.interests || []}
-                  onChange={(interests) => setProfile({ ...profile, interests })}
-                />
-                <TagInput
-                  label="Strengths"
-                  tags={profile.strengths || []}
-                  onChange={(strengths) => setProfile({ ...profile, strengths })}
-                  maxTags={5}
-                />
-                <TagInput
-                  label="Weaknesses"
-                  tags={profile.weaknesses || []}
-                  onChange={(weaknesses) => setProfile({ ...profile, weaknesses })}
-                  maxTags={5}
-                />
-                <TagInput
-                  label="Languages"
-                  tags={profile.languages || []}
-                  onChange={(languages) => setProfile({ ...profile, languages })}
-                />
+                <div>
+                  <TagInput
+                    label="Hobbies"
+                    tags={profile.hobbies || []}
+                    onChange={(hobbies) => { setProfile({ ...profile, hobbies }); setParsedFields(null) }}
+                  />
+                  {parseHint('hobbies')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Interests"
+                    tags={profile.interests || []}
+                    onChange={(interests) => { setProfile({ ...profile, interests }); setParsedFields(null) }}
+                  />
+                  {parseHint('interests')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Strengths"
+                    tags={profile.strengths || []}
+                    onChange={(strengths) => { setProfile({ ...profile, strengths }); setParsedFields(null) }}
+                    maxTags={5}
+                  />
+                  {parseHint('strengths')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Weaknesses"
+                    tags={profile.weaknesses || []}
+                    onChange={(weaknesses) => { setProfile({ ...profile, weaknesses }); setParsedFields(null) }}
+                    maxTags={5}
+                  />
+                  {parseHint('weaknesses')}
+                </div>
+                <div>
+                  <TagInput
+                    label="Languages"
+                    tags={profile.languages || []}
+                    onChange={(languages) => { setProfile({ ...profile, languages }); setParsedFields(null) }}
+                  />
+                  {parseHint('languages')}
+                </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Career Aspiration</label>
                   <textarea
                     value={profile.career_aspiration_raw || ''}
-                    onChange={(e) => setProfile({ ...profile, career_aspiration_raw: e.target.value })}
+                    onChange={(e) => { setProfile({ ...profile, career_aspiration_raw: e.target.value }); setParsedFields(null) }}
                     rows={3}
                     placeholder="What career path excites you the most?"
                     className={`${inputClass} resize-none`}
                   />
+                  {parseHint('career_aspiration_raw')}
                 </div>
               </div>
             </div>

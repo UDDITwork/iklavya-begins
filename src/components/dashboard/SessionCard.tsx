@@ -21,8 +21,9 @@ export default function SessionCard({ session }: { session: Session }) {
   })
 
   return (
+    <Link href={`/session/${session.id}`} className="block">
     <div
-      className={`spotlight-card rounded-xl bg-white border border-gray-200 shadow-sm p-5 hover:shadow-md transition-all duration-200 border-l-4 ${
+      className={`spotlight-card rounded-xl bg-white border border-gray-200 shadow-sm p-5 hover:shadow-md transition-all duration-200 border-l-4 cursor-pointer ${
         isActive ? 'border-l-green-600' : 'border-l-gray-300'
       }`}
     >
@@ -59,37 +60,33 @@ export default function SessionCard({ session }: { session: Session }) {
 
       <div className="flex gap-2">
         {isActive ? (
-          <Link href={`/session/${session.id}`} className="flex-1">
-            <button className="w-full px-4 py-2 rounded-lg bg-green-800 text-white text-xs font-medium hover:bg-green-900 transition-colors duration-200">
-              Resume
-            </button>
-          </Link>
+          <button className="w-full px-4 py-2 rounded-lg bg-green-800 text-white text-xs font-medium hover:bg-green-900 transition-colors duration-200">
+            Resume
+          </button>
         ) : (
           <>
+            <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">
+              <BarChart3 size={12} />
+              {session.analysis_generated === 1 ? 'Analysis' : 'View'}
+            </button>
             {session.analysis_generated === 1 && (
-              <>
-                <Link href={`/session/${session.id}`} className="flex-1">
-                  <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">
-                    <BarChart3 size={12} />
-                    Analysis
-                  </button>
-                </Link>
-                <a
-                  href={`/api/sessions/${session.id}/report`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1"
-                >
-                  <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">
-                    <Download size={12} />
-                    Report
-                  </button>
-                </a>
-              </>
+              <a
+                href={`/api/sessions/${session.id}/report`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 text-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">
+                  <Download size={12} />
+                  Report
+                </button>
+              </a>
             )}
           </>
         )}
       </div>
     </div>
+    </Link>
   )
 }

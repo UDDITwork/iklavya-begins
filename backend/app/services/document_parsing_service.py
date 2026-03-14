@@ -33,6 +33,7 @@ Return a JSON object with these exact keys. Use null for any field you cannot fi
   "hobbies": ["array of strings"] or null,
   "interests": ["array of strings"] or null,
   "strengths": ["array of strings"] or null,
+  "weaknesses": ["array of strings"] or null,
   "languages": ["array of strings"] or null,
   "career_aspiration_raw": "string or null",
   "linkedin_url": "string or null",
@@ -140,4 +141,7 @@ async def parse_document(file_bytes: bytes) -> dict:
         "work_experience", "projects", "certifications",
     }
 
-    return {k: v for k, v in extracted.items() if k in allowed_keys and v is not None}
+    return {
+        k: v for k, v in extracted.items()
+        if k in allowed_keys and v is not None and v != "" and v != []
+    }
