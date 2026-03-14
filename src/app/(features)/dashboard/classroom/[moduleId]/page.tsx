@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { ArrowLeft, Loader2, BookOpen } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, Loader2, BookOpen, Award, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useClassroomStore } from '@/store/classroom-store'
@@ -16,9 +16,38 @@ export default function ClassroomModulePage() {
   const router = useRouter()
   const moduleId = params.moduleId as string
 
-  const { currentModule, setModule, setProgress, reset } = useClassroomStore()
+  const { currentModule, setModule, setProgress, reset, quizzesPassed, currentTime, duration } = useClassroomStore()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [assessmentId, setAssessmentId] = useState<string | null>(null)
+  const [showCompletionBanner, setShowCompletionBanner] = useState(false)
+
+  const allQuizzesPassed = quizzesPassed.length >= 3
+  const videoFinished = duration > 0 && currentTime >= duration - 5
+  const isModuleComplete = allQuizzesPassed && videoFinished
+
+  // Show completion banner when module is complete
+  useEffect(() => {
+    if (isModuleComplete && !showCompletionBanner) {
+      setShowCompletionBanner(true)
+    }
+  }, [isModuleComplete, showCompletionBanner])
+
+  // Fetch assessment for this module when complete
+  useEffect(() => {
+    if (!allQuizzesPassed || assessmentId) return
+    fetch('/api/assessments')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.assessments) {
+          const match = data.assessments.find(
+            (a: { module_id: string }) => a.module_id === moduleId
+          )
+          if (match) setAssessmentId(match.id)
+        }
+      })
+      .catch(() => {})
+  }, [allQuizzesPassed, assessmentId, moduleId])
 
   // Listen for seek events from curriculum sidebar
   useEffect(() => {
@@ -130,6 +159,49 @@ export default function ClassroomModulePage() {
           </p>
         )}
       </motion.div>
+
+      {/* Completion Banner */}
+      <AnimatePresence>
+        {showCompletionBanner && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mb-5 rounded-xl bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 border border-green-200 p-5"
+          >
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                  <Award size={20} className="text-green-700" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-green-900">Module Complete!</h3>
+                  <p className="text-xs text-green-700 mt-0.5">
+                    You&apos;ve passed all quizzes and finished the video. Ready for the assessment?
+                  </p>
+                </div>
+              </div>
+              {assessmentId ? (
+                <Link
+                  href={`/dashboard/assessments/${assessmentId}/take`}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-700 text-white text-sm font-semibold hover:bg-green-800 transition-colors shadow-sm"
+                >
+                  Proceed to Assessment
+                  <ChevronRight size={15} />
+                </Link>
+              ) : (
+                <Link
+                  href="/dashboard/assessments"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-700 text-white text-sm font-semibold hover:bg-green-800 transition-colors shadow-sm"
+                >
+                  View Assessments
+                  <ChevronRight size={15} />
+                </Link>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Two-pane layout */}
       <div className="flex flex-col lg:flex-row gap-6">

@@ -136,7 +136,7 @@ export default function AssessmentsPage() {
                 onClick={async () => {
                   setSeeding(true)
                   try {
-                    const res = await fetch('/api/dashboard/assessments/seed')
+                    const res = await fetch('/api/assessments/seed')
                     if (res.ok) {
                       await loadData()
                     }

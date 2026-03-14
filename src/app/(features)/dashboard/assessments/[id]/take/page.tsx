@@ -50,7 +50,7 @@ export default function AssessmentTakePage({
 
     async function startAssessment() {
       try {
-        const res = await fetch(`/api/dashboard/assessments/${id}/start`, { method: 'POST' })
+        const res = await fetch(`/api/assessments/${id}/start`, { method: 'POST' })
         const data = await res.json()
 
         if (!res.ok) {
@@ -118,7 +118,7 @@ export default function AssessmentTakePage({
       const currentJson = JSON.stringify(answersArray)
       if (currentJson === lastSavedRef.current) return // skip if nothing changed
 
-      fetch(`/api/dashboard/assessments/${id}/autosave`, {
+      fetch(`/api/assessments/${id}/autosave`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -161,7 +161,7 @@ export default function AssessmentTakePage({
 
     try {
       const answersArray = getAnswersArray()
-      const res = await fetch(`/api/dashboard/assessments/${id}/submit`, {
+      const res = await fetch(`/api/assessments/${id}/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

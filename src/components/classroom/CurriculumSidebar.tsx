@@ -1,6 +1,8 @@
 'use client'
 
-import { CheckCircle, Lock, PlayCircle, Clock } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { CheckCircle, Lock, PlayCircle, Clock, Award, PartyPopper } from 'lucide-react'
 import { useClassroomStore } from '@/store/classroom-store'
 
 interface Segment {
@@ -13,13 +15,36 @@ export default function CurriculumSidebar() {
   const { currentModule, quizzesPassed, currentTime, isPlaying, setPlaying, setCurrentTime } =
     useClassroomStore()
 
+  const [assessmentId, setAssessmentId] = useState<string | null>(null)
+  const [assessmentLoading, setAssessmentLoading] = useState(false)
+
+  const quizTimes = [150, 300, 450] // Standard quiz gates
+  const allQuizzesPassed = quizzesPassed.length >= quizTimes.length
+  const moduleId = currentModule?.id
+
+  // Fetch assessment ID when all quizzes are passed
+  useEffect(() => {
+    if (!allQuizzesPassed || assessmentId || !moduleId) return
+    setAssessmentLoading(true)
+    fetch('/api/assessments')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.assessments) {
+          const match = data.assessments.find(
+            (a: { module_id: string }) => a.module_id === moduleId
+          )
+          if (match) setAssessmentId(match.id)
+        }
+      })
+      .catch(() => {})
+      .finally(() => setAssessmentLoading(false))
+  }, [allQuizzesPassed, assessmentId, moduleId])
+
   if (!currentModule) return null
 
   const segments: Segment[] = currentModule.segments_json
     ? JSON.parse(currentModule.segments_json)
     : []
-
-  const quizTimes = [150, 300, 450] // Standard quiz gates
 
   function formatDuration(secs: number) {
     const m = Math.floor(secs / 60)
@@ -157,6 +182,31 @@ export default function CurriculumSidebar() {
           />
         </div>
       </div>
+
+      {/* Assessment CTA — shown when all quizzes passed */}
+      {allQuizzesPassed && (
+        <div className="px-5 py-4 border-t border-green-100 bg-gradient-to-b from-green-50 to-emerald-50">
+          <div className="flex items-center gap-2 mb-2">
+            <PartyPopper size={14} className="text-green-600" />
+            <span className="text-xs font-bold text-green-800">Module Complete!</span>
+          </div>
+          {assessmentLoading ? (
+            <div className="text-[11px] text-gray-400">Loading assessment...</div>
+          ) : assessmentId ? (
+            <Link
+              href={`/dashboard/assessments/${assessmentId}/take`}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-green-700 text-white text-sm font-semibold hover:bg-green-800 transition-colors"
+            >
+              <Award size={15} />
+              Take Assessment
+            </Link>
+          ) : (
+            <p className="text-[11px] text-green-700">
+              All quizzes passed! Assessment will be available soon.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   )
 }
