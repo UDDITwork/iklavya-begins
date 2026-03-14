@@ -296,7 +296,15 @@ export default function ChatBot() {
             className="fixed bottom-24 right-6 z-[9998] max-w-[260px] cursor-pointer"
             onClick={toggleChat}
           >
-            <div className="bg-white rounded-2xl rounded-br-sm shadow-xl border border-gray-100 px-4 py-3">
+            <div className="relative bg-white rounded-2xl rounded-br-sm shadow-xl border border-gray-100 px-4 py-3">
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowGreeting(false); setHasNewMessage(false) }}
+                className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
+              >
+                <svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
               <p className="text-sm text-gray-700 font-medium">
                 Hey! Need help with anything? I&apos;m here to assist you.
               </p>
