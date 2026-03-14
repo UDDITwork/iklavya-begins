@@ -303,6 +303,56 @@ class ModuleQuiz(Base):
     order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
 
+# ─── Job Feed ────────────────────────────────────────────
+
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    company: Mapped[str] = mapped_column(String(200), nullable=False)
+    location: Mapped[str] = mapped_column(String(200), nullable=True)
+    salary: Mapped[str] = mapped_column(String(100), nullable=True)
+    job_type: Mapped[str] = mapped_column(String(50), nullable=True)  # Full-time, Part-time, etc.
+    experience: Mapped[str] = mapped_column(String(100), nullable=True)
+    description: Mapped[str] = mapped_column(Text, nullable=True)
+    requirements_json: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    tags_json: Mapped[str] = mapped_column(Text, nullable=True)  # JSON array
+    role_category: Mapped[str] = mapped_column(
+        String(50), nullable=False, index=True
+    )  # sales, receptionist, admin, etc.
+    source_url: Mapped[str] = mapped_column(String(500), nullable=True)
+    source_name: Mapped[str] = mapped_column(String(100), nullable=True)
+    apply_link: Mapped[str] = mapped_column(String(500), nullable=True)
+    posted_at: Mapped[str] = mapped_column(String(50), nullable=True)
+    scraped_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
+class JobApplication(Base):
+    __tablename__ = "job_applications"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    job_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("jobs.id"), nullable=False, index=True
+    )
+    status: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="applied"
+    )  # applied, saved
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
 class UserModuleProgress(Base):
     __tablename__ = "user_module_progress"
 
