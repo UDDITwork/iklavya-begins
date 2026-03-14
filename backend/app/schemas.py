@@ -457,6 +457,7 @@ class MentorProfileUpdateRequest(BaseModel):
     phone: Optional[str] = Field(default=None, max_length=20)
     specialization: Optional[str] = Field(default=None, max_length=200)
     bio: Optional[str] = None
+    profile_image: Optional[str] = Field(default=None, max_length=500)
     expertise: Optional[list[str]] = None
     linkedin_url: Optional[str] = None
     experience_years: Optional[int] = None
