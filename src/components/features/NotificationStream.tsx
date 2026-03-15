@@ -3,17 +3,21 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Bell, Mail, MessageCircle, Award, BookOpen, Zap, CheckCircle2 } from 'lucide-react'
+import { Bell, Mail, MessageCircle, Award, BookOpen, Zap, CheckCircle2, Sparkles, Users, Briefcase } from 'lucide-react'
 import { useNotificationStore, AppNotification } from '@/store/notification-store'
 
 const typeConfig: Record<string, { icon: typeof Bell; color: string }> = {
+  welcome: { icon: Sparkles, color: '#059669' },
+  module_completed: { icon: BookOpen, color: '#059669' },
   mentor_reply: { icon: MessageCircle, color: '#166534' },
   session_accepted: { icon: CheckCircle2, color: '#166534' },
   session_rejected: { icon: Mail, color: '#991B1B' },
+  session_requested: { icon: Users, color: '#2563EB' },
   cert_earned: { icon: Award, color: '#92400E' },
   assessment_passed: { icon: Award, color: '#166534' },
   assessment_failed: { icon: BookOpen, color: '#991B1B' },
   assessment_available: { icon: Zap, color: '#166534' },
+  job_applied: { icon: Briefcase, color: '#7C3AED' },
   profile_reminder: { icon: Bell, color: '#6B7280' },
   system: { icon: Bell, color: '#6B7280' },
 }
@@ -33,7 +37,7 @@ function timeAgo(dateStr: string) {
 
 export default function NotificationStream() {
   const router = useRouter()
-  const { notifications, unreadCount, setNotifications, setUnreadCount, markRead, markAllRead } =
+  const { notifications, unreadCount, setNotifications, setUnreadCount, markRead, markAllRead, detectNewNotifications } =
     useNotificationStore()
 
   const fetchNotifications = useCallback(async () => {
@@ -45,7 +49,10 @@ export default function NotificationStream() {
       ])
       if (listRes.ok) {
         const data = await listRes.json()
-        setNotifications(data.notifications || [])
+        const notifs = data.notifications || []
+        setNotifications(notifs)
+        // Keep knownIds in sync (won't show duplicate toasts due to toast ID dedup)
+        detectNewNotifications(notifs)
       }
       if (countRes.ok) {
         const data = await countRes.json()
@@ -54,7 +61,7 @@ export default function NotificationStream() {
     } catch {
       // silent
     }
-  }, [setNotifications, setUnreadCount])
+  }, [setNotifications, setUnreadCount, detectNewNotifications])
 
   useEffect(() => {
     fetchNotifications()

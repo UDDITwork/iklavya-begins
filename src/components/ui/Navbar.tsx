@@ -8,10 +8,11 @@ import Image from 'next/image'
 import {
   Mic, BookOpen, FileText, BarChart3, Zap,
   MessageCircle, Award, Shield, Users, Menu, X,
-  LayoutDashboard, LogOut, Briefcase, GraduationCap, Building2, PlaySquare
+  LayoutDashboard, LogOut, Briefcase, GraduationCap, Building2, PlaySquare, Bell
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
+import { useNotificationStore } from '@/store/notification-store'
 
 const navLinks = [
   { href: '/ai-interview', label: 'Interview', icon: Mic },
@@ -112,6 +113,7 @@ export default function Navbar() {
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { user, isLoading, logout } = useAuthStore()
+  const { unreadCount } = useNotificationStore()
 
   const isAuthPage = pathname === '/login' || pathname === '/register'
   const isSessionPage = pathname.startsWith('/session/') || pathname.startsWith('/resume-session/')
@@ -183,6 +185,14 @@ export default function Navbar() {
                   <Link href="/dashboard" className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
                     <LayoutDashboard size={16} />
                     <span className="hidden sm:inline">Dashboard</span>
+                  </Link>
+                  <Link href="/dashboard/notifications" className="relative p-2 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors">
+                    <Bell size={18} />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-[9px] font-bold text-white animate-pulse">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    )}
                   </Link>
                   <Link href="/dashboard">
                     {user.profile_image ? (
@@ -301,16 +311,26 @@ export default function Navbar() {
                     )}
                     <span className="text-xs font-medium text-gray-900">{user.name}</span>
                   </div>
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false)
-                      handleLogout()
-                    }}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50"
-                  >
-                    <LogOut size={14} />
-                    Logout
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <Link href="/dashboard/notifications" onClick={() => setMobileMenuOpen(false)} className="relative p-2 rounded-lg text-gray-500 hover:bg-gray-50">
+                      <Bell size={16} />
+                      {unreadCount > 0 && (
+                        <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 flex items-center justify-center text-[8px] font-bold text-white">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                      )}
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false)
+                        handleLogout()
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50"
+                    >
+                      <LogOut size={14} />
+                      Logout
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">

@@ -19,6 +19,7 @@ from app.schemas import (
 )
 from app.auth import hash_password, verify_password, create_token, get_current_user
 from app.email import send_welcome_email, send_password_reset_email
+from app.routers.notifications import create_notification
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -45,6 +46,16 @@ def register(data: RegisterRequest, db: Session = Depends(get_db)):
         college=data.college,
     )
     db.add(user)
+    db.flush()
+
+    # Welcome notification
+    create_notification(
+        db, "student", user.id, "welcome",
+        "Welcome to IKLAVYA!",
+        "Your account is ready. Explore courses, build your resume, and start your career journey.",
+        "/dashboard",
+    )
+
     db.commit()
     db.refresh(user)
 

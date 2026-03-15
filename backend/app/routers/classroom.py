@@ -17,6 +17,7 @@ from app.schemas import (
     ErrorResponse,
 )
 from app.auth import get_current_user
+from app.routers.notifications import create_notification
 
 router = APIRouter(prefix="/modules", tags=["classroom"])
 
@@ -484,6 +485,8 @@ def sync_progress(
         UserModuleProgress.module_id == data.module_id,
     ).first()
 
+    was_completed = False
+
     if not progress:
         progress = UserModuleProgress(
             user_id=current_user.id,
@@ -494,6 +497,8 @@ def sync_progress(
             is_completed=data.is_completed or 0,
         )
         db.add(progress)
+        if data.is_completed == 1:
+            was_completed = True
     else:
         # Only update position forward (don't regress)
         if data.last_position_seconds > progress.last_position_seconds:
@@ -502,8 +507,18 @@ def sync_progress(
             progress.quizzes_passed_json = data.quizzes_passed_json
         if data.score is not None and data.score > progress.score:
             progress.score = data.score
-        if data.is_completed == 1:
+        if data.is_completed == 1 and progress.is_completed != 1:
             progress.is_completed = 1
+            was_completed = True
+
+    # Notify on module completion (only on transition)
+    if was_completed:
+        create_notification(
+            db, "student", current_user.id, "module_completed",
+            f"Module completed: {module.title}!",
+            "Great work! You can now take the assessment to earn your certificate.",
+            f"/dashboard/classroom/{module.id}",
+        )
 
     db.commit()
     db.refresh(progress)

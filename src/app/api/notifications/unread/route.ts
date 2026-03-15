@@ -12,6 +12,7 @@ export async function GET() {
 
     const res = await fetch(`${API_URL}/notifications/unread-count`, {
       headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store',
     })
 
     const data = await res.json()

@@ -11,6 +11,7 @@ import {
 import toast from 'react-hot-toast'
 import { useAuthStore } from '@/store/auth-store'
 import { useNotificationStore } from '@/store/notification-store'
+import { showNotificationToast } from '@/components/ui/NotificationToast'
 import { playPop } from '@/lib/sounds'
 
 interface SessionItem {
@@ -35,7 +36,7 @@ export default function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
   const { user, logout } = useAuthStore()
-  const { unreadCount: notifUnread, setUnreadCount: setNotifUnread } = useNotificationStore()
+  const { unreadCount: notifUnread, setUnreadCount: setNotifUnread, setNotifications, detectNewNotifications } = useNotificationStore()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [sessionsExpanded, setSessionsExpanded] = useState(false)
   const [sessions, setSessions] = useState<SessionItem[]>([])
@@ -71,25 +72,40 @@ export default function Sidebar() {
     }
   }, [])
 
-  // Poll for notification unread count
+  // Poll for notifications + detect new ones for toast
   useEffect(() => {
-    const fetchNotifUnread = async () => {
+    const fetchNotifications = async () => {
       if (document.visibilityState === 'hidden') return
       try {
-        const res = await fetch('/api/notifications/unread')
-        if (!res.ok) return
-        const data = await res.json()
-        setNotifUnread(data.count || 0)
+        const [countRes, listRes] = await Promise.all([
+          fetch('/api/notifications/unread'),
+          fetch('/api/notifications'),
+        ])
+        if (countRes.ok) {
+          const data = await countRes.json()
+          setNotifUnread(data.count || 0)
+        }
+        if (listRes.ok) {
+          const data = await listRes.json()
+          const notifs = data.notifications || []
+          setNotifications(notifs)
+
+          // Detect new notifications and show toasts
+          const newOnes = detectNewNotifications(notifs)
+          newOnes.slice(0, 3).forEach((notif, i) => {
+            setTimeout(() => showNotificationToast(notif), i * 300)
+          })
+        }
       } catch {
         // silent
       }
     }
 
-    fetchNotifUnread()
-    const interval = setInterval(fetchNotifUnread, 30000)
+    fetchNotifications()
+    const interval = setInterval(fetchNotifications, 30000)
 
     const handleVisibility = () => {
-      if (document.visibilityState === 'visible') fetchNotifUnread()
+      if (document.visibilityState === 'visible') fetchNotifications()
     }
     document.addEventListener('visibilitychange', handleVisibility)
 
@@ -97,7 +113,7 @@ export default function Sidebar() {
       clearInterval(interval)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
-  }, [setNotifUnread])
+  }, [setNotifUnread, setNotifications, detectNewNotifications])
 
   const isCareerGuidanceActive =
     pathname === '/dashboard/career-guidance' ||

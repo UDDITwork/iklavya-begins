@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.database import get_db
 from app.models import Job, JobApplication, User, UserProfile
+from app.routers.notifications import create_notification
 
 logger = logging.getLogger(__name__)
 
@@ -413,12 +414,25 @@ def apply_to_job(
         logger.info("[apply] user=%s already applied job=%s", current_user.id[:8], job_id[:8])
         return {"applied": True, "jobId": job_id, "message": "Already applied"}
 
+    # Look up job for notification content
+    job = db.query(Job).filter(Job.id == job_id).first()
+    job_title = job.title if job else "a position"
+    company_name = job.company if job else ""
+
     app = JobApplication(
         user_id=current_user.id,
         job_id=job_id,
         status="applied",
     )
     db.add(app)
+
+    create_notification(
+        db, "student", current_user.id, "job_applied",
+        f"Application submitted: {job_title}",
+        f"Your application to {company_name} has been recorded." if company_name else "Your application has been recorded.",
+        "/dashboard/job-feed",
+    )
+
     db.commit()
     logger.info("[apply] user=%s applied job=%s", current_user.id[:8], job_id[:8])
     return {"applied": True, "jobId": job_id}

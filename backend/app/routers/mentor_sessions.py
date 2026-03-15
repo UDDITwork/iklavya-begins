@@ -153,6 +153,15 @@ def book_session(
         preferred_time=body.preferred_time,
     )
     db.add(session)
+
+    # Notify mentor about new session request
+    create_notification(
+        db, "mentor", body.mentor_id, "session_requested",
+        f"New session request from {user.name}",
+        f"Topic: {body.topic}",
+        "/mentor/dashboard",
+    )
+
     db.commit()
     db.refresh(session)
 
