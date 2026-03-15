@@ -23,7 +23,7 @@ def send_email(to: str, subject: str, html: str):
         return
     try:
         r.Emails.send({
-            "from": "Iklavya <noreply@iklavya.in>",
+            "from": "Iklavya <noreply@uddit.site>",
             "to": to,
             "subject": subject,
             "html": html,
