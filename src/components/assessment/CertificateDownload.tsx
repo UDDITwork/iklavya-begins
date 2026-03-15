@@ -19,7 +19,7 @@ export default function CertificateDownload({ certRef, fileName = 'iklavya-certi
     try {
       const dataUrl = await toPng(certRef.current, {
         quality: 1,
-        pixelRatio: 2,
+        pixelRatio: 3,
         backgroundColor: '#ffffff',
       })
 

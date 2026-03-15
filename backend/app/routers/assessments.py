@@ -603,6 +603,7 @@ def generate_certificate(
         "student_name": current_user.name,
         "student_email": current_user.email,
         "college": current_user.college,
+        "profile_image": current_user.profile_image or "",
         "module_title": module.title if module else "",
         "module_category": module.category if module else "",
         "score": attempt.score,
