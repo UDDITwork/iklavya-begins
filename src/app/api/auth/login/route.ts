@@ -7,7 +7,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const res = await fetch(`${API_URL}/auth/login`, {
+    // TEMPORARY: Event entry (revert to /auth/login after 2026-03-24)
+    const res = await fetch(`${API_URL}/auth/event-entry`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),

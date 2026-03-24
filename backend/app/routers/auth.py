@@ -9,6 +9,7 @@ from app.models import User
 from app.schemas import (
     RegisterRequest,
     LoginRequest,
+    EventEntryRequest,
     AuthResponse,
     UserResponse,
     ErrorResponse,
@@ -82,6 +83,31 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
 
     token = create_token(user.id, user.email, user.role)
     return AuthResponse(user=UserResponse.model_validate(user), token=token)
+
+
+# ── TEMPORARY: Event entry (remove after 2026-03-24) ──
+@router.post(
+    "/event-entry",
+    response_model=AuthResponse,
+)
+def event_entry(data: EventEntryRequest, db: Session = Depends(get_db)):
+    """Temporary endpoint for public event — auto-creates user, no password needed."""
+    user = db.query(User).filter(User.email == data.email).first()
+    if not user:
+        user = User(
+            name=data.name,
+            email=data.email,
+            phone=data.phone or "",
+            password_hash=hash_password("event-guest-2024"),
+            college=data.college,
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    token = create_token(user.id, user.email, user.role)
+    return AuthResponse(user=UserResponse.model_validate(user), token=token)
+# ── END TEMPORARY ──
 
 
 @router.get(

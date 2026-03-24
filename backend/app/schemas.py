@@ -17,6 +17,16 @@ class LoginRequest(BaseModel):
     password: str = Field(min_length=1)
 
 
+# ── TEMPORARY: Event entry (remove after 2026-03-24) ──
+class EventEntryRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+    email: EmailStr
+    phone: str = Field(default="", max_length=20)
+    college: str = Field(min_length=1, max_length=200)
+    city: str = Field(default="", max_length=100)
+# ── END TEMPORARY ──
+
+
 class UserResponse(BaseModel):
     id: str
     name: str
