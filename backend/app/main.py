@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine, Base
-from app.routers import auth, profile, sessions, resume, classroom, jobs, mentorship, assessments, mentor_auth, mentor_sessions, notifications, analytics
+from app.routers import auth, profile, sessions, resume, resume_drafts, classroom, jobs, mentorship, assessments, mentor_auth, mentor_sessions, notifications, analytics
 
 Base.metadata.create_all(bind=engine)
 
@@ -29,6 +29,7 @@ app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(sessions.router)
 app.include_router(resume.router)
+app.include_router(resume_drafts.router)
 app.include_router(classroom.router)
 app.include_router(jobs.router)
 app.include_router(mentorship.router)

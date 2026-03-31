@@ -257,6 +257,52 @@ class ResumeListResponse(BaseModel):
     resumes: list[ResumeResponse]
 
 
+# ─── Resume Drafts (Form Editor) ──────────────────────────
+
+TEMPLATE_PATTERN = r"^(professional|modern|simple|rendercv|sidebar|jake)$"
+
+
+class ResumeDraftCreateRequest(BaseModel):
+    title: Optional[str] = Field(default="Untitled Resume", max_length=200)
+    template: Optional[str] = Field(default="professional", pattern=TEMPLATE_PATTERN)
+    source: Optional[str] = Field(default="scratch", pattern=r"^(scratch|upload|chat)$")
+
+
+class ResumeDraftResponse(BaseModel):
+    id: str
+    user_id: str
+    title: str
+    resume_json: str
+    template: str
+    source: str
+    session_id: Optional[str] = None
+    ats_score: Optional[int] = None
+    status: str
+    created_at: str
+    updated_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class ResumeDraftListResponse(BaseModel):
+    drafts: list[ResumeDraftResponse]
+
+
+class ResumeDraftUpdateRequest(BaseModel):
+    resume_json: str = Field(max_length=200000)
+    updated_at: str = Field(min_length=1)
+
+
+class ResumeDraftAIOptimizeRequest(BaseModel):
+    field: str = Field(min_length=1, max_length=100)
+    current_value: str = Field(max_length=5000)
+    context: Optional[dict] = None
+
+
+class ResumeDraftAIOptimizeResponse(BaseModel):
+    optimized_value: str
+
+
 # ─── Classroom ──────────────────────────────────────────────
 
 class CourseModuleResponse(BaseModel):

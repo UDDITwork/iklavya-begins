@@ -250,6 +250,42 @@ class Resume(Base):
     )
 
 
+class ResumeDraft(Base):
+    __tablename__ = "resume_drafts"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    title: Mapped[str] = mapped_column(
+        String(200), nullable=False, default="Untitled Resume"
+    )
+    resume_json: Mapped[str] = mapped_column(
+        Text, nullable=False, default="{}"
+    )
+    template: Mapped[str] = mapped_column(
+        String(30), nullable=False, default="professional"
+    )
+    source: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="scratch"
+    )  # scratch, upload, chat
+    session_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("resume_sessions.id"), nullable=True
+    )
+    ats_score: Mapped[int] = mapped_column(Integer, nullable=True)
+    status: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="draft"
+    )  # draft, completed
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+    updated_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now, onupdate=utc_now
+    )
+
+
 # ─── Classroom ────────────────────────────────────────────
 
 
