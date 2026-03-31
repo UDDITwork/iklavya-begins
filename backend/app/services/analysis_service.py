@@ -10,6 +10,63 @@ client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
 MODEL = "claude-sonnet-4-20250514"
 
 
+def extract_options(response_text: str) -> list[str] | None:
+    """Extract clickable answer options from <options> tag in AI response.
+
+    Returns a list of option strings, or None if no options tag found.
+    """
+    match = re.search(r"<options>\s*(\[.*?\])\s*</options>", response_text, re.DOTALL)
+    if not match:
+        return None
+    try:
+        options = json.loads(match.group(1))
+        if isinstance(options, list) and all(isinstance(o, str) for o in options):
+            return [o.strip() for o in options if o.strip()]
+    except (json.JSONDecodeError, TypeError):
+        pass
+    return None
+
+
+def extract_progress(response_text: str) -> dict | None:
+    """Extract progress data from <progress> tag in AI response.
+
+    Returns dict with percent, remaining_estimate, status or None if not found.
+    """
+    match = re.search(r"<progress>\s*(\{.*?\})\s*</progress>", response_text, re.DOTALL)
+    if not match:
+        return None
+    try:
+        data = json.loads(match.group(1))
+        percent = data.get("percent")
+        if not isinstance(percent, (int, float)):
+            return None
+        # Clamp percent to 0-100
+        percent = max(0, min(100, int(percent)))
+        remaining = data.get("remaining_estimate")
+        remaining = max(0, int(remaining)) if isinstance(remaining, (int, float)) else None
+        status = data.get("status", "on_track")
+        if status not in ("on_track", "direction_changed", "deepening", "ready"):
+            status = "on_track"
+        return {"percent": percent, "remaining_estimate": remaining, "status": status}
+    except (json.JSONDecodeError, TypeError, ValueError):
+        return None
+
+
+def clean_response_text(response_text: str) -> str:
+    """Remove all metadata tags from AI response before storing/displaying.
+
+    Strips <options>, <progress>, <analysis_json>, <analysis_markdown>, <roadmap_json> tags.
+    """
+    text = re.sub(r"<options>.*?</options>", "", response_text, flags=re.DOTALL)
+    text = re.sub(r"<progress>.*?</progress>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<analysis_json>.*?</analysis_json>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<analysis_markdown>.*?</analysis_markdown>", "", text, flags=re.DOTALL)
+    text = re.sub(r"<roadmap_json>.*?</roadmap_json>", "", text, flags=re.DOTALL)
+    # Collapse multiple blank lines into one
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
 def extract_analysis(response_text: str) -> dict | None:
     """Parse analysis, markdown, and roadmap from Claude's response using XML tags.
 

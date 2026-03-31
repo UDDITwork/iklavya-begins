@@ -22,6 +22,9 @@ from app.prompts import build_system_prompt
 from app.services.claude_service import stream_chat_response
 from app.services.analysis_service import (
     extract_analysis,
+    extract_options,
+    extract_progress,
+    clean_response_text,
     generate_session_summary,
     update_context_summary,
 )
@@ -198,18 +201,34 @@ async def send_message(
     user_id = current_user.id
     new_msg_order = msg_count + 2
 
-    # Stream response — collect full text, do DB work in finally block
+    # Stream response — collect full text, emit SSE events, then do DB work
     full_response_chunks = []
-    stream_completed = False
 
     async def event_generator():
-        nonlocal full_response_chunks, stream_completed
+        nonlocal full_response_chunks
+        complete_text = ""
         try:
             async for chunk in stream_chat_response(system_prompt, chat_history):
                 full_response_chunks.append(chunk)
                 yield f"event: message\ndata: {json.dumps({'text': chunk})}\n\n"
 
-            stream_completed = True
+            complete_text = "".join(full_response_chunks)
+
+            # Emit options event (clickable answer bubbles)
+            options_data = extract_options(complete_text)
+            if options_data:
+                yield f"event: options\ndata: {json.dumps({'options': options_data})}\n\n"
+
+            # Emit progress event (dynamic progress bar)
+            progress_data = extract_progress(complete_text)
+            if progress_data:
+                yield f"event: progress\ndata: {json.dumps(progress_data)}\n\n"
+
+            # Emit analysis event if analysis tags found
+            analysis_data = extract_analysis(complete_text)
+            if analysis_data:
+                yield f"event: analysis\ndata: {json.dumps(analysis_data)}\n\n"
+
             yield "event: done\ndata: {}\n\n"
 
         except Exception as e:
@@ -219,19 +238,23 @@ async def send_message(
             # Always save the assistant message if we got any response
             if full_response_chunks:
                 try:
-                    complete_text = "".join(full_response_chunks)
+                    raw_text = complete_text or "".join(full_response_chunks)
+                    # Strip metadata tags before storing — keeps DB clean and
+                    # prevents metadata leaking into future context windows
+                    stored_text = clean_response_text(raw_text)
+
                     assistant_msg = Message(
                         session_id=session_id,
                         user_id=user_id,
                         role="assistant",
-                        content=complete_text,
+                        content=stored_text,
                         message_order=new_msg_order,
                     )
                     db.add(assistant_msg)
                     db.commit()
 
-                    # Check for analysis tags
-                    analysis_data = extract_analysis(complete_text)
+                    # Check for analysis tags and persist to DB
+                    analysis_data = extract_analysis(raw_text)
                     if analysis_data:
                         analysis = SessionAnalysis(
                             session_id=session_id,
@@ -253,7 +276,7 @@ async def send_message(
 
                             # Generate session summary
                             summary = await generate_session_summary(chat_history + [
-                                {"role": "assistant", "content": complete_text}
+                                {"role": "assistant", "content": stored_text}
                             ])
                             session_obj.session_summary = summary
 

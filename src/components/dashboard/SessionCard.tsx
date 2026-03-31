@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { MessageSquare, Clock, BarChart3, Download } from 'lucide-react'
+import { MessageSquare, Clock, BarChart3, Download, Trophy } from 'lucide-react'
 
 interface Session {
   id: string
@@ -34,15 +34,23 @@ export default function SessionCard({ session }: { session: Session }) {
           </div>
           <h3 className="text-sm font-semibold text-gray-900 line-clamp-1">{session.title}</h3>
         </div>
-        <span
-          className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
-            isActive
-              ? 'bg-green-50 text-green-700 border border-green-200'
-              : 'bg-gray-100 text-gray-500 border border-gray-200'
-          }`}
-        >
-          {isActive ? 'Active' : 'Completed'}
-        </span>
+        <div className="flex items-center gap-1.5">
+          {!isActive && session.analysis_generated === 1 && (
+            <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+              <Trophy size={10} />
+              Report Ready
+            </span>
+          )}
+          <span
+            className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
+              isActive
+                ? 'bg-green-50 text-green-700 border border-green-200'
+                : 'bg-gray-100 text-gray-500 border border-gray-200'
+            }`}
+          >
+            {isActive ? 'Active' : 'Completed'}
+          </span>
+        </div>
       </div>
 
       <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">

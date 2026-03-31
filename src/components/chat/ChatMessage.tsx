@@ -11,8 +11,10 @@ interface ChatMessageProps {
 export default function ChatMessage({ role, content }: ChatMessageProps) {
   const isUser = role === 'user'
 
-  // Strip analysis and resume tags from displayed content
+  // Strip all metadata tags from displayed content (belt-and-suspenders safety)
   const displayContent = content
+    .replace(/<options>[\s\S]*?<\/options>/g, '')
+    .replace(/<progress>[\s\S]*?<\/progress>/g, '')
     .replace(/<analysis_json>[\s\S]*?<\/analysis_json>/g, '')
     .replace(/<analysis_markdown>[\s\S]*?<\/analysis_markdown>/g, '')
     .replace(/<roadmap_json>[\s\S]*?<\/roadmap_json>/g, '')
@@ -22,12 +24,17 @@ export default function ChatMessage({ role, content }: ChatMessageProps) {
   if (!displayContent) return null
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} items-end gap-2`}>
+      {!isUser && (
+        <div className="w-7 h-7 rounded-full bg-green-800 flex items-center justify-center shrink-0 mb-0.5">
+          <span className="text-white text-[10px] font-bold">AI</span>
+        </div>
+      )}
       <div
-        className={`max-w-[85%] sm:max-w-[75%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
+        className={`max-w-[85%] sm:max-w-[75%] text-sm leading-relaxed shadow-sm ${
           isUser
-            ? 'bg-white border-2 border-green-800 text-gray-900'
-            : 'bg-gray-50 border border-gray-200 text-gray-700'
+            ? 'bg-green-800 text-white rounded-2xl rounded-br-sm px-4 py-3'
+            : 'bg-white border border-gray-200 text-gray-800 rounded-2xl rounded-bl-sm px-4 py-3'
         }`}
       >
         {isUser ? (
