@@ -108,7 +108,7 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-800">
+              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-800">
                 <Mic size={22} />
               </div>
               <div>
@@ -145,7 +145,7 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
         >
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="w-16 h-16 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-300">
+              <div className="w-16 h-16 rounded-xl bg-green-50 flex items-center justify-center text-green-300">
                 <Mic size={30} />
               </div>
               <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-300 -ml-4 mt-4">

@@ -156,7 +156,7 @@ export default function SetupForm({ onStart, onBack }: SetupFormProps) {
               <select
                 value={selectedRole}
                 onChange={(e) => setSelectedRole(e.target.value)}
-                className="w-full appearance-none px-4 py-2.5 pr-10 rounded-lg border border-gray-300 bg-white text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+                className="w-full appearance-none px-4 py-2.5 pr-10 rounded-lg border border-gray-300 bg-white text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-green-100 focus:border-green-400"
               >
                 <option value="">Select a role...</option>
                 {JOB_ROLES.map((role) => (
@@ -172,7 +172,7 @@ export default function SetupForm({ onStart, onBack }: SetupFormProps) {
                 value={customRole}
                 onChange={(e) => setCustomRole(e.target.value)}
                 placeholder="Enter your target role..."
-                className="mt-2 w-full px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+                className="mt-2 w-full px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-green-100 focus:border-green-400"
               />
             )}
           </div>
@@ -246,7 +246,7 @@ export default function SetupForm({ onStart, onBack }: SetupFormProps) {
               onChange={(e) => setJobDescription(e.target.value)}
               placeholder="Paste the job description here for role-specific questions..."
               rows={4}
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-900 resize-none focus:outline-none focus:ring-1 focus:ring-green-100 focus:border-green-400"
             />
           </div>
 

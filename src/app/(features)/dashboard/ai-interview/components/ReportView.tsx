@@ -279,7 +279,7 @@ export default function ReportView({
           className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm mb-6"
         >
           <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Target size={16} className="text-indigo-500" />
+            <Target size={16} className="text-green-700" />
             Score Breakdown
           </h2>
           <motion.div
@@ -467,7 +467,7 @@ export default function ReportView({
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {q.better_words.map((bw, bwi) => (
-                              <span key={bwi} className="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-md">
+                              <span key={bwi} className="text-xs bg-green-50 text-green-800 px-2 py-1 rounded-md">
                                 <span className="line-through text-gray-400 mr-1">{bw.original}</span>
                                 {bw.suggestion}
                               </span>

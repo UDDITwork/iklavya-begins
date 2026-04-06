@@ -152,11 +152,11 @@ export default function AnalyzingScreen({ sessionId, onReportReady }: AnalyzingS
         {/* Animated Loader */}
         <div className="flex items-center justify-center mb-6">
           <motion.div
-            className="w-16 h-16 rounded-full bg-indigo-50 flex items-center justify-center"
+            className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center"
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           >
-            <Loader2 size={28} className="text-indigo-600" />
+            <Loader2 size={28} className="text-green-700" />
           </motion.div>
         </div>
 
@@ -170,7 +170,7 @@ export default function AnalyzingScreen({ sessionId, onReportReady }: AnalyzingS
         {/* Progress Bar */}
         <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden mb-3">
           <motion.div
-            className="h-full bg-indigo-500 rounded-full"
+            className="h-full bg-green-700 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
