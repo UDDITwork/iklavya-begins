@@ -670,3 +670,74 @@ class NotificationResponse(BaseModel):
 class NotificationListResponse(BaseModel):
     notifications: list[NotificationResponse]
     total: int
+
+
+# ─── AI Interview ──────────────────────────────────────
+
+
+class InterviewSessionCreateRequest(BaseModel):
+    job_role: str = Field(min_length=2, max_length=200)
+    job_description: Optional[str] = None
+
+
+class InterviewSessionResponse(BaseModel):
+    id: str
+    user_id: str
+    job_role: str
+    job_description: Optional[str] = None
+    resume_text: Optional[str] = None
+    questions_answered: int = 0
+    estimated_total: int = 18
+    status: str
+    duration_seconds: Optional[int] = None
+    started_at: str
+    interview_started_at: Optional[str] = None
+    ended_at: Optional[str] = None
+    created_at: str
+    # Computed (added by endpoint)
+    overall_score: Optional[int] = None
+
+    model_config = {"from_attributes": True}
+
+
+class InterviewSessionListResponse(BaseModel):
+    sessions: list[InterviewSessionResponse]
+
+
+class InterviewMessageResponse(BaseModel):
+    id: str
+    session_id: str
+    user_id: str
+    role: str
+    content: str
+    question_index: Optional[int] = None
+    is_follow_up: int = 0
+    message_order: int
+    created_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class InterviewSessionDetailResponse(BaseModel):
+    session: InterviewSessionResponse
+    messages: list[InterviewMessageResponse]
+
+
+class InterviewReportResponse(BaseModel):
+    id: str
+    session_id: str
+    user_id: str
+    report_json: str
+    overall_score: int
+    verdict: str
+    created_at: str
+
+    model_config = {"from_attributes": True}
+
+
+class InterviewTTSRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)
+
+
+class InterviewMessageSendRequest(BaseModel):
+    content: str = Field(min_length=1, max_length=10000)

@@ -18,5 +18,11 @@ CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 APP_URL = os.environ.get("APP_URL", "https://iklavya.in")
 
+# ElevenLabs (AI Interview TTS)
+ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
+ELEVENLABS_INTERVIEW_VOICE_ID = os.environ.get(
+    "ELEVENLABS_INTERVIEW_VOICE_ID", "21m00Tcm4TlvDq8ikWAM"
+)  # Default: Rachel
+
 # Turso docs: sqlite+{TURSO_DATABASE_URL}?secure=true
 SQLALCHEMY_DATABASE_URL = f"sqlite+{TURSO_DATABASE_URL}?secure=true"

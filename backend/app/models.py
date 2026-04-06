@@ -660,3 +660,86 @@ class Notification(Base):
     created_at: Mapped[str] = mapped_column(
         String(50), nullable=False, default=utc_now
     )
+
+
+# ─── AI Interview ──────────────────────────────────────
+
+
+class InterviewSession(Base):
+    __tablename__ = "interview_sessions"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    job_role: Mapped[str] = mapped_column(String(200), nullable=False)
+    job_description: Mapped[str] = mapped_column(Text, nullable=True)
+    resume_text: Mapped[str] = mapped_column(Text, nullable=True)
+    questions_answered: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )
+    estimated_total: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=18
+    )  # AI's dynamic estimate, ~15-20
+    status: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="setup"
+    )  # setup, active, completed, abandoned
+    duration_seconds: Mapped[int] = mapped_column(Integer, nullable=True)
+    started_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+    interview_started_at: Mapped[str] = mapped_column(String(50), nullable=True)
+    ended_at: Mapped[str] = mapped_column(String(50), nullable=True)
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
+class InterviewMessage(Base):
+    __tablename__ = "interview_messages"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    session_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("interview_sessions.id"), nullable=False, index=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    role: Mapped[str] = mapped_column(
+        String(20), nullable=False
+    )  # interviewer, candidate
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    question_index: Mapped[int] = mapped_column(Integer, nullable=True)
+    is_follow_up: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )  # 0 or 1
+    message_order: Mapped[int] = mapped_column(Integer, nullable=False)
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
+class InterviewReport(Base):
+    __tablename__ = "interview_reports"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    session_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("interview_sessions.id"), nullable=False, unique=True, index=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    report_json: Mapped[str] = mapped_column(Text, nullable=False)
+    overall_score: Mapped[int] = mapped_column(Integer, nullable=False)  # 0-100
+    verdict: Mapped[str] = mapped_column(
+        String(30), nullable=False
+    )  # ready, almost_ready, needs_practice
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
