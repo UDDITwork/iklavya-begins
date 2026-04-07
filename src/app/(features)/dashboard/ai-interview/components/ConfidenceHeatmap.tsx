@@ -36,16 +36,11 @@ export default function ConfidenceHeatmap({ questions, onSegmentClick }: Confide
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  // Intersection observer for scroll-triggered animation
+  // Animate on mount with small delay — IntersectionObserver doesn't work
+  // reliably in nested scroll containers (dashboard layout)
   useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
-      { threshold: 0.3 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsVisible(true), 300)
+    return () => clearTimeout(timer)
   }, [])
 
   if (questions.length === 0) return null
