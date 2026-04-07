@@ -160,12 +160,20 @@ def autosave_draft(
 ):
     draft = _get_draft_or_404(draft_id, current_user.id, db)
 
-    # Optimistic locking: reject if server version is newer than client's base
-    if draft.updated_at > data.updated_at:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="This resume was edited elsewhere. Please reload.",
-        )
+    # Optimistic locking: reject only if server is significantly newer (>5s)
+    # Turso's eventual consistency can cause minor timestamp drift
+    from datetime import datetime
+    try:
+        server_ts = datetime.fromisoformat(draft.updated_at.replace('Z', '+00:00'))
+        client_ts = datetime.fromisoformat(data.updated_at.replace('Z', '+00:00'))
+        diff = (server_ts - client_ts).total_seconds()
+        if diff > 5:  # Only reject if >5 second gap (real conflict, not drift)
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="This resume was edited elsewhere. Please reload.",
+            )
+    except (ValueError, TypeError):
+        pass  # If timestamps can't be parsed, allow the save
 
     # Validate JSON is parseable
     _validate_resume_json(data.resume_json)

@@ -88,9 +88,13 @@ export default function AnalyzingScreen({ sessionId, onReportReady }: AnalyzingS
               if (currentEvent === 'report') {
                 setProgress(100)
                 setStatusText('Complete!')
-                setTimeout(() => {
+                // Transition to report view
+                try {
                   onReportReady(data)
-                }, 600)
+                } catch {
+                  // If report data is bad, try fallback
+                  await fetchReportFallback()
+                }
                 return
               }
 
@@ -126,9 +130,7 @@ export default function AnalyzingScreen({ sessionId, onReportReady }: AnalyzingS
           : raw
         setProgress(100)
         setStatusText('Complete!')
-        setTimeout(() => {
-          onReportReady(reportData)
-        }, 600)
+        onReportReady(reportData)
       } else {
         setStatusText('Failed — please try again')
         setFailed(true)

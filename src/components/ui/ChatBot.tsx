@@ -157,6 +157,21 @@ export default function ChatBot() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [hasPlayedEntry, setHasPlayedEntry] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  // Hide chatbot for logged-in users (they have the dashboard mentorship chat)
+  useEffect(() => {
+    const checkAuth = () => {
+      const hasCookie = document.cookie.includes('iklavya-token')
+      setIsLoggedIn(hasCookie)
+    }
+    checkAuth()
+    // Re-check periodically (login/logout)
+    const interval = setInterval(checkAuth, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  if (isLoggedIn) return null
   const [hasNewMessage, setHasNewMessage] = useState(false)
   const [showGreeting, setShowGreeting] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)

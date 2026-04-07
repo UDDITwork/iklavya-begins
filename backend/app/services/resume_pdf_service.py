@@ -74,12 +74,16 @@ def _build_entry_row(left_text: str, right_text: str, s_left, s_right, total_wid
 
 
 def generate_resume_pdf(
-    resume_json: str,
+    resume_json,
     template: str = "professional",
     profile_image_url: str | None = None,
 ) -> bytes:
     """Generate resume PDF bytes for the given template."""
-    data = json.loads(resume_json)
+    # Handle both str (from DB) and dict (already parsed) inputs
+    if isinstance(resume_json, dict):
+        data = resume_json
+    else:
+        data = json.loads(resume_json)
     if template == "modern":
         return _generate_modern(data)
     elif template == "simple":

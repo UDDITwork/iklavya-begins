@@ -489,10 +489,14 @@ Rules for metadata:
 - topic: 2-4 word label of the current topic area
 
 ## When to End
-After approximately 15-20 exchanges, if you feel you have a comprehensive picture, end with:
+IMPORTANT: You MUST ask at least 10 questions before ending. Do NOT end the interview early, even if the candidate is struggling. If answers are weak, grill harder but keep going.
+
+After approximately 15-20 exchanges AND at least 10 questions have been asked, if you feel you have a comprehensive picture, end with:
 <interview_complete>true</interview_complete>
 
 And give a brief closing: "Thank you for your time. That concludes our interview. Your detailed performance report will be generated now."
+
+NEVER use <interview_complete> before question 10. If the candidate is giving poor answers, that is valuable data for the report — keep probing different topics.
 
 ## Context
 {resume_context}

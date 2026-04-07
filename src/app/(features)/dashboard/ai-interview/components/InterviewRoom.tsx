@@ -49,6 +49,14 @@ function highlightFillers(text: string): React.ReactNode[] {
   })
 }
 
+// Strip <interview_meta>...</interview_meta> and <interview_complete>...</interview_complete> from displayed text
+function stripMetaTags(text: string): string {
+  return text
+    .replace(/<interview_meta>[\s\S]*?<\/interview_meta>/g, '')
+    .replace(/<interview_complete>[\s\S]*?<\/interview_complete>/g, '')
+    .trim()
+}
+
 interface InterviewRoomProps {
   sessionId: string
   onInterviewEnd: () => void
@@ -203,7 +211,7 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         await parseSSE(res, {
           onTextChunk: (text) => {
             questionText += text
-            setCurrentQuestion(questionText)
+            setCurrentQuestion(stripMetaTags(questionText))
           },
           onMeta: (meta) => {
             if (meta.question_number) setQuestionNumber(meta.question_number as number)
@@ -213,14 +221,16 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
           },
         })
 
-        if (questionText) {
+        const cleanQuestion = stripMetaTags(questionText)
+        if (cleanQuestion) {
+          setCurrentQuestion(cleanQuestion)
           setQuestionNumber((prev) => prev || 1)
-          setTranscript((prev) => [...prev, { role: 'interviewer', text: questionText }])
+          setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
 
-          // Speak the question
+          // Speak the clean question (no meta tags)
           setIsAISpeaking(true)
-          await speak(questionText)
+          await speak(cleanQuestion)
           setIsAISpeaking(false)
 
           // Auto-start mic after TTS
@@ -278,7 +288,7 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         await parseSSE(res, {
           onTextChunk: (chunk) => {
             questionText += chunk
-            setCurrentQuestion(questionText)
+            setCurrentQuestion(stripMetaTags(questionText))
           },
           onMeta: (meta) => {
             if (meta.question_number) setQuestionNumber(meta.question_number as number)
@@ -302,13 +312,15 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
           return
         }
 
-        if (questionText) {
-          setTranscript((prev) => [...prev, { role: 'interviewer', text: questionText }])
+        const cleanQuestion = stripMetaTags(questionText)
+        if (cleanQuestion) {
+          setCurrentQuestion(cleanQuestion)
+          setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
 
-          // Speak next question
+          // Speak clean question (no meta tags in audio)
           setIsAISpeaking(true)
-          await speak(questionText)
+          await speak(cleanQuestion)
           setIsAISpeaking(false)
 
           // Auto-start mic
