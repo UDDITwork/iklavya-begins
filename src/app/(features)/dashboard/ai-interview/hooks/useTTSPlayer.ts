@@ -74,8 +74,6 @@ export function useTTSPlayer(): UseTTSPlayerReturn {
           const audio = new Audio(url)
           audioRef.current = audio
 
-          setIsSpeaking(true)
-
           audio.onended = () => {
             setIsSpeaking(false)
             resolve()
@@ -86,7 +84,10 @@ export function useTTSPlayer(): UseTTSPlayerReturn {
             resolve()
           }
 
-          audio.play().catch(() => {
+          // Only set isSpeaking=true AFTER audio actually starts playing
+          audio.play().then(() => {
+            setIsSpeaking(true)
+          }).catch(() => {
             setIsSpeaking(false)
             resolve()
           })
