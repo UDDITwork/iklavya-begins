@@ -311,7 +311,7 @@ async def start_interview(
     async def event_generator():
         nonlocal full_chunks, meta
         try:
-            async for chunk in stream_interview_question(system_prompt, []):
+            async for chunk in stream_interview_question(system_prompt, [{"role": "user", "content": "Begin the interview."}]):
                 full_chunks.append(chunk)
                 yield f"event: message\ndata: {json.dumps({'text': chunk})}\n\n"
 
