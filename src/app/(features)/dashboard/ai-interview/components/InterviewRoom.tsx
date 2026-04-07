@@ -228,12 +228,20 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         if (cleanQuestion) {
           setQuestionNumber((prev) => prev || 1)
           setWaitingForAI(false)
-          // Reveal text and speak simultaneously
+          // Stop mic FIRST so it doesn't pick up AI's voice
+          stopListening()
+          // Show "AI is about to speak" state but don't show question text yet
+          setIsAISpeaking(true)
+          // Start TTS — text appears only when audio starts playing
+          // The speak() function returns a promise that resolves when audio ends
+          // We show text right as we call speak (audio fetch takes ~1s, then plays)
+          const audioPromise = speak(cleanQuestion)
+          // Show text after a tiny delay to sync with audio start
           setCurrentQuestion(cleanQuestion)
           setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
-          setIsAISpeaking(true)
-          await speak(cleanQuestion)
+          await audioPromise
           setIsAISpeaking(false)
+          // Only start mic AFTER AI finishes speaking
           if (isSupported) startListening()
         }
       } catch { toast.error('Failed to start interview') }
@@ -467,29 +475,38 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
               )}
             </div>
 
-            {/* Question Overlay */}
+            {/* Question Overlay — only visible when AI is speaking or thinking */}
             <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
               <AnimatePresence mode="wait">
-                {(currentQuestion || (waitingForAI && !currentQuestion)) && (
+                {/* Show thinking dots while waiting */}
+                {waitingForAI && !isAISpeaking && (
                   <motion.div
-                    key={currentQuestion || 'thinking'}
+                    key="thinking"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-3"
+                  >
+                    <div className="flex items-center gap-2 text-gray-300">
+                      <div className="flex gap-1">
+                        {[0, 1, 2].map((i) => (
+                          <span key={i} className="w-1.5 h-1.5 rounded-full bg-green-400 animate-bounce" style={{ animationDelay: `${i * 150}ms` }} />
+                        ))}
+                      </div>
+                      <span className="text-xs">Thinking...</span>
+                    </div>
+                  </motion.div>
+                )}
+                {/* Show question text ONLY when TTS is actually playing */}
+                {isAISpeaking && currentQuestion && (
+                  <motion.div
+                    key={currentQuestion}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-3 max-h-32 overflow-y-auto"
                   >
-                    {waitingForAI && !currentQuestion ? (
-                      <div className="flex items-center gap-2 text-gray-300">
-                        <div className="flex gap-1">
-                          {[0, 1, 2].map((i) => (
-                            <span key={i} className="w-1.5 h-1.5 rounded-full bg-green-400 animate-bounce" style={{ animationDelay: `${i * 150}ms` }} />
-                          ))}
-                        </div>
-                        <span className="text-xs">Thinking...</span>
-                      </div>
-                    ) : (
-                      <p className="text-sm text-white leading-relaxed">{currentQuestion}</p>
-                    )}
+                    <p className="text-sm text-white leading-relaxed">{currentQuestion}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
