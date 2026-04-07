@@ -686,6 +686,9 @@ class InterviewSession(Base):
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="setup"
     )  # setup, active, completed, abandoned
+    warning_issued: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )  # 0 = no warning, 1 = warning given for unprofessional behavior
     duration_seconds: Mapped[int] = mapped_column(Integer, nullable=True)
     started_at: Mapped[str] = mapped_column(
         String(50), nullable=False, default=utc_now

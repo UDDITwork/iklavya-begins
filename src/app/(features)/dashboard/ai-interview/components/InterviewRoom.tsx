@@ -231,18 +231,14 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
           // Stop mic FIRST so it doesn't pick up AI's voice
           stopListening()
           // Show "AI is about to speak" state but don't show question text yet
-          setIsAISpeaking(true)
-          // Start TTS — text appears only when audio starts playing
-          // The speak() function returns a promise that resolves when audio ends
-          // We show text right as we call speak (audio fetch takes ~1s, then plays)
-          const audioPromise = speak(cleanQuestion)
-          // Show text after a tiny delay to sync with audio start
+          // Set text but DON'T manually set isAISpeaking — let the TTS hook control it
+          // The question overlay only shows when hook's isSpeaking becomes true (audio.play() fires)
           setCurrentQuestion(cleanQuestion)
           setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
-          await audioPromise
-          setIsAISpeaking(false)
-          // Only start mic AFTER AI finishes speaking
-          if (isSupported) startListening()
+          await speak(cleanQuestion)
+          // speak() resolved = audio finished, hook already set isSpeaking=false
+          // Reset transcript to discard any AI audio the mic may have picked up, then start fresh
+          if (isSupported) { resetTranscript(); startListening() }
         }
       } catch { toast.error('Failed to start interview') }
     }
@@ -287,12 +283,18 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
           setCurrentQuestion(cleanQuestion)
           setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
-          setIsAISpeaking(true); await speak(cleanQuestion); setIsAISpeaking(false)
+          await speak(cleanQuestion)
         }
         // THEN transition if interview is complete (after speaking the closing statement)
-        if (interviewDone) { onInterviewEnd(); return }
+        if (interviewDone) {
+          // Give 2s for user to process the closing statement before transitioning
+          await new Promise(r => setTimeout(r, 2000))
+          onInterviewEnd()
+          return
+        }
         if (cleanQuestion && !interviewDone) {
-          if (isSupported) startListening()
+          // Reset transcript to discard any AI audio the mic picked up
+          if (isSupported) { resetTranscript(); startListening() }
         }
       } catch { toast.error('Something went wrong') } finally { setIsProcessing(false) }
     },
@@ -431,15 +433,16 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
                     ))}
                   </motion.svg>
 
-                  {/* Center text */}
+                  {/* Center — pulsing core dot instead of text */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.span
-                      className="text-xl sm:text-2xl font-bold text-green-200/90 tracking-wider"
-                      animate={isAISpeaking ? { opacity: [0.7, 1, 0.7] } : { opacity: 0.8 }}
-                      transition={isAISpeaking ? { duration: 1.5, repeat: Infinity } : {}}
-                    >
-                      AI
-                    </motion.span>
+                    <motion.div
+                      className="w-3 h-3 rounded-full bg-green-400"
+                      animate={isAISpeaking
+                        ? { scale: [1, 1.8, 1], opacity: [0.6, 1, 0.6], boxShadow: ['0 0 0 0 rgba(74,222,128,0)', '0 0 12px 4px rgba(74,222,128,0.4)', '0 0 0 0 rgba(74,222,128,0)'] }
+                        : { scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }
+                      }
+                      transition={{ duration: isAISpeaking ? 1 : 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
                   </div>
                 </div>
 

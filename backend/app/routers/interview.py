@@ -456,10 +456,13 @@ async def send_interview_message(
             if meta:
                 yield f"event: meta\ndata: {json.dumps(meta)}\n\n"
 
-            # Check if interview is complete
+            # Check if interview is complete — enforce warning rule
             is_complete = check_interview_complete(complete_text)
             if is_complete:
-                yield f"event: interview_complete\ndata: {json.dumps({'complete': True})}\n\n"
+                # Only send complete event if warning was already issued OR 10+ questions
+                if session.warning_issued == 1 or session.questions_answered >= 10:
+                    yield f"event: interview_complete\ndata: {json.dumps({'complete': True})}\n\n"
+                # else: suppress the complete event — Claude tried to end without warning
 
             yield "event: done\ndata: {}\n\n"
 
@@ -490,18 +493,24 @@ async def send_interview_message(
                     if s and meta and meta.get("estimated_remaining") is not None:
                         s.estimated_total = meta["question_number"] + meta["estimated_remaining"]
 
-                    # Auto-complete if AI said so
+                    # Auto-complete if AI said so — but enforce warning rule
                     is_done = check_interview_complete(raw_text)
                     if is_done and s:
-                        s.status = "completed"
-                        s.ended_at = datetime.now(timezone.utc).isoformat()
-                        if s.interview_started_at:
-                            try:
-                                start = datetime.fromisoformat(s.interview_started_at)
-                                end = datetime.now(timezone.utc)
-                                s.duration_seconds = int((end - start).total_seconds())
-                            except (ValueError, TypeError):
-                                pass
+                        if s.warning_issued == 0 and s.questions_answered < 10:
+                            # First offense but no warning yet — DON'T end, mark warning issued
+                            s.warning_issued = 1
+                            # Don't set status to completed — interview continues
+                        else:
+                            # Warning was already issued OR enough questions asked — OK to end
+                            s.status = "completed"
+                            s.ended_at = datetime.now(timezone.utc).isoformat()
+                            if s.interview_started_at:
+                                try:
+                                    start = datetime.fromisoformat(s.interview_started_at)
+                                    end = datetime.now(timezone.utc)
+                                    s.duration_seconds = int((end - start).total_seconds())
+                                except (ValueError, TypeError):
+                                    pass
 
                     db.commit()
                 except Exception:
