@@ -159,15 +159,17 @@ export default function ChatBot() {
   const [hasPlayedEntry, setHasPlayedEntry] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  // Hide chatbot for logged-in users (they have the dashboard mentorship chat)
+  // Hide chatbot for logged-in users — check if on a dashboard route
+  // (cookie is httpOnly so JS can't read it, use pathname instead)
   useEffect(() => {
-    const checkAuth = () => {
-      const hasCookie = document.cookie.includes('iklavya-token')
-      setIsLoggedIn(hasCookie)
+    const check = () => {
+      const path = window.location.pathname
+      const dashboardPaths = ['/dashboard', '/session/', '/resume-session/', '/resume-editor/', '/mentor/']
+      setIsLoggedIn(dashboardPaths.some(p => path.startsWith(p)))
     }
-    checkAuth()
-    // Re-check periodically (login/logout)
-    const interval = setInterval(checkAuth, 3000)
+    check()
+    // Re-check on navigation
+    const interval = setInterval(check, 2000)
     return () => clearInterval(interval)
   }, [])
 
