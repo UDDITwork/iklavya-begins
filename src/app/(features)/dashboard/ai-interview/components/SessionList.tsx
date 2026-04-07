@@ -235,15 +235,10 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
 
                     return (
                       <motion.div key={session.id} variants={staggerItem}>
-                        <div className={`relative rounded-xl border border-gray-100 bg-white overflow-hidden transition-all hover:border-gray-200 hover:shadow-sm ${
+                        <div className={`rounded-xl border border-gray-200 bg-white overflow-hidden transition-all hover:border-green-300 hover:shadow-md ${
                           session.overall_score !== null ? 'cursor-pointer' : 'opacity-70'
                         }`}>
-                          {/* Score accent bar on left */}
-                          {session.overall_score !== null && (
-                            <div className={`absolute left-0 top-0 bottom-0 w-1 ${scoreBarColor(session.overall_score)}`} />
-                          )}
-
-                          <div className="flex items-center gap-4 p-4 pl-5">
+                          <div className="flex items-center gap-4 p-4">
                             {/* Role icon */}
                             <div className="w-11 h-11 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 shrink-0">
                               {roleIcon(session.job_role)}
