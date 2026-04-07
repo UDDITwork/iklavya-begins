@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from fastapi.responses import StreamingResponse, Response
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 from app.database import get_db
 from app.models import User, InterviewSession, InterviewMessage, InterviewReport
@@ -40,6 +41,30 @@ MAX_MESSAGES_PER_INTERVIEW = 60  # ~30 Q&A exchanges
 # Simple in-memory TTS rate limiter: {user_id: [timestamps]}
 _tts_calls: dict[str, list[float]] = {}
 TTS_MAX_CALLS_PER_MINUTE = 15
+
+
+# ── Migration helper (runs once) ───────────────────────
+
+@router.get("/migrate")
+def run_migration(db: Session = Depends(get_db)):
+    """Add missing columns to interview_sessions table. Safe to call multiple times."""
+    results = []
+    migrations = [
+        ("warning_issued", "ALTER TABLE interview_sessions ADD COLUMN warning_issued INTEGER NOT NULL DEFAULT 0"),
+    ]
+    for col_name, sql in migrations:
+        try:
+            db.execute(text(sql))
+            db.commit()
+            results.append(f"{col_name}: added")
+        except Exception as e:
+            db.rollback()
+            err = str(e)
+            if "duplicate column" in err.lower() or "already exists" in err.lower():
+                results.append(f"{col_name}: already exists")
+            else:
+                results.append(f"{col_name}: error - {err[:100]}")
+    return {"migrations": results}
 
 
 # ── Health check ───────────────────────────────────────
