@@ -49,12 +49,21 @@ function highlightFillers(text: string): React.ReactNode[] {
   })
 }
 
-// Strip <interview_meta>...</interview_meta> and <interview_complete>...</interview_complete> from displayed text
+// Strip meta tags from displayed text — handles both complete and partial (mid-stream) tags
 function stripMetaTags(text: string): string {
-  return text
+  // First strip complete tags
+  let clean = text
     .replace(/<interview_meta>[\s\S]*?<\/interview_meta>/g, '')
     .replace(/<interview_complete>[\s\S]*?<\/interview_complete>/g, '')
-    .trim()
+
+  // Also strip partial/incomplete tags at the end of streaming text
+  // e.g. "question? <interview_meta>{..." where closing tag hasn't arrived yet
+  const partialStart = clean.indexOf('<interview')
+  if (partialStart !== -1) {
+    clean = clean.substring(0, partialStart)
+  }
+
+  return clean.trim()
 }
 
 interface InterviewRoomProps {
