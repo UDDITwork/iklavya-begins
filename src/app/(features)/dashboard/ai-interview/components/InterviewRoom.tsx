@@ -85,6 +85,8 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
   const [isProcessing, setIsProcessing] = useState(false)
   const [started, setStarted] = useState(false)
   const [waitingForAI, setWaitingForAI] = useState(false)
+  const [pendingQuestion, setPendingQuestion] = useState('') // holds question until TTS starts
+  const [revealedQuestion, setRevealedQuestion] = useState('') // what's actually shown
   const [textInput, setTextInput] = useState('')
   const [videoEnabled, setVideoEnabled] = useState(true)
   const [audioMuted, setAudioMuted] = useState(false)
@@ -214,8 +216,9 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         const res = await fetch(`/api/interview/sessions/${sessionId}/start`, { method: 'POST' })
         if (!res.ok) { toast.error('Failed to start interview'); return }
         let questionText = ''
+        // Accumulate text silently — don't show yet
         await parseSSE(res, {
-          onTextChunk: (text) => { questionText += text; setCurrentQuestion(stripMetaTags(questionText)) },
+          onTextChunk: (text) => { questionText += text },
           onMeta: (meta) => {
             if (meta.question_number) setQuestionNumber(meta.question_number as number)
             if (meta.estimated_remaining != null) setEstimatedTotal((meta.question_number as number) + (meta.estimated_remaining as number))
@@ -223,10 +226,11 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         })
         const cleanQuestion = stripMetaTags(questionText)
         if (cleanQuestion) {
-          setCurrentQuestion(cleanQuestion)
           setQuestionNumber((prev) => prev || 1)
-          setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
+          // Reveal text and speak simultaneously
+          setCurrentQuestion(cleanQuestion)
+          setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setIsAISpeaking(true)
           await speak(cleanQuestion)
           setIsAISpeaking(false)
@@ -256,8 +260,9 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         if (!res.ok) { toast.error('Failed to send answer'); setIsProcessing(false); setWaitingForAI(false); return }
         let questionText = ''
         let interviewDone = false
+        // Accumulate text silently
         await parseSSE(res, {
-          onTextChunk: (chunk) => { questionText += chunk; setCurrentQuestion(stripMetaTags(questionText)) },
+          onTextChunk: (chunk) => { questionText += chunk },
           onMeta: (meta) => {
             if (meta.question_number) setQuestionNumber(meta.question_number as number)
             if (meta.estimated_remaining != null) setEstimatedTotal((meta.question_number as number) + (meta.estimated_remaining as number))
@@ -271,6 +276,7 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
         if (interviewDone) { onInterviewEnd(); return }
         const cleanQuestion = stripMetaTags(questionText)
         if (cleanQuestion) {
+          // Reveal text and speak at the same time
           setCurrentQuestion(cleanQuestion)
           setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
