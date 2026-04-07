@@ -8,6 +8,8 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { fadeInUp, fadeInUpTransition, staggerContainer, staggerItem } from '@/lib/animations'
+import ConfidenceHeatmap from './ConfidenceHeatmap'
+import MirrorEffect from './MirrorEffect'
 
 // Types for report data shape
 interface ScoreBreakdownItem {
@@ -314,6 +316,24 @@ export default function ReportView({
         </motion.div>
       )}
 
+      {/* Confidence Heatmap Timeline */}
+      {questions.length > 0 && (
+        <ConfidenceHeatmap
+          questions={questions.map((q, i) => ({
+            question_index: i,
+            question_text: q.question,
+            score: q.score,
+          }))}
+          onSegmentClick={(i) => {
+            toggleQuestion(i)
+            // Scroll to that question
+            setTimeout(() => {
+              document.getElementById(`question-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }, 100)
+          }}
+        />
+      )}
+
       {/* Filler Word Analysis */}
       {fillerWords.length > 0 && (
         <motion.div
@@ -367,7 +387,7 @@ export default function ReportView({
             {questions.map((q, i) => {
               const isExpanded = expandedQuestions.has(i)
               return (
-                <div key={i} className="border border-gray-100 rounded-xl overflow-hidden">
+                <div key={i} id={`question-${i}`} className="border border-gray-100 rounded-xl overflow-hidden">
                   {/* Accordion Header */}
                   <button
                     onClick={() => toggleQuestion(i)}
@@ -435,27 +455,20 @@ export default function ReportView({
                         </div>
                       )}
 
-                      {/* What you said */}
-                      {q.answer_summary && (
-                        <div className="bg-gray-50 rounded-lg px-3 py-2">
-                          <p className="text-[10px] font-semibold uppercase text-gray-400 mb-1">
-                            What you said
-                          </p>
-                          <p className="text-xs text-gray-600 leading-relaxed">
-                            {q.answer_summary}
-                          </p>
-                        </div>
+                      {/* Mirror Effect — side-by-side comparison */}
+                      {q.answer_summary && q.ideal_answer && (
+                        <MirrorEffect
+                          studentAnswer={q.answer_summary}
+                          idealAnswer={q.ideal_answer}
+                          betterWords={q.better_words}
+                        />
                       )}
 
-                      {/* Ideal answer */}
-                      {q.ideal_answer && (
-                        <div className="bg-green-50 rounded-lg px-3 py-2 border border-green-100">
-                          <p className="text-[10px] font-semibold uppercase text-green-600 mb-1">
-                            Ideal answer outline
-                          </p>
-                          <p className="text-xs text-green-800 leading-relaxed">
-                            {q.ideal_answer}
-                          </p>
+                      {/* Fallback: just answer if no ideal */}
+                      {q.answer_summary && !q.ideal_answer && (
+                        <div className="bg-gray-50 rounded-lg px-3 py-2">
+                          <p className="text-[10px] font-semibold uppercase text-gray-400 mb-1">What you said</p>
+                          <p className="text-xs text-gray-600 leading-relaxed">{q.answer_summary}</p>
                         </div>
                       )}
 

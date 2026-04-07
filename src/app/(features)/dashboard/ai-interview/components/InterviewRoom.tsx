@@ -10,6 +10,15 @@ import {
 import toast from 'react-hot-toast'
 import { useVoicePipeline } from '../hooks/useVoicePipeline'
 import { useTTSPlayer } from '../hooks/useTTSPlayer'
+import STARTracker from './STARTracker'
+
+// Dynamic Atmosphere — mood-based color system
+function getMood(fillerCount: number, questionNumber: number): { bg: string; globeGlow: string; label: string } {
+  const fillerRate = questionNumber > 0 ? fillerCount / questionNumber : 0
+  if (fillerRate > 3) return { bg: 'from-red-950 to-gray-950', globeGlow: 'rgba(239,68,68,0.3)', label: 'high-stress' }
+  if (fillerRate > 1.5) return { bg: 'from-amber-950 to-gray-950', globeGlow: 'rgba(245,158,11,0.2)', label: 'moderate' }
+  return { bg: 'from-gray-900 to-gray-950', globeGlow: 'rgba(34,197,94,0.2)', label: 'calm' }
+}
 
 interface TranscriptEntry {
   role: 'interviewer' | 'candidate'
@@ -302,9 +311,11 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
   const seconds = elapsed % 60
   const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
   const progress = estimatedTotal > 0 ? (questionNumber / estimatedTotal) * 100 : 0
+  const mood = getMood(fillerCount, questionNumber)
+  const currentCandidateText = (finalTranscript + ' ' + interimTranscript).trim()
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] bg-gray-950">
+    <div className={`flex flex-col h-[calc(100vh-64px)] bg-gradient-to-br ${mood.bg} transition-all duration-[3000ms]`}>
       {/* Top Bar */}
       <div className="shrink-0 bg-gray-900 border-b border-gray-800 px-4 sm:px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -511,6 +522,13 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
               <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-red-500/80 rounded-full px-2.5 py-1">
                 <Mic size={10} className="text-white" />
                 <span className="text-[10px] text-white font-medium">LIVE</span>
+              </div>
+            )}
+
+            {/* STAR Method Tracker */}
+            {currentCandidateText.length > 20 && (
+              <div className="absolute top-3 left-3">
+                <STARTracker candidateText={currentCandidateText} />
               </div>
             )}
 
