@@ -7,7 +7,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    HRFlowable, Drawing, Flowable,
+    HRFlowable, Flowable,
 )
 from reportlab.graphics.shapes import (
     Drawing as GDrawing, Rect, String, Line, Circle, Group,
