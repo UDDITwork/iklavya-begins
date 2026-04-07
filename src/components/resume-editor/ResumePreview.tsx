@@ -73,7 +73,7 @@ function ProfessionalPreview({ data }: { data: ResumeData }) {
   const p = data.personal_info
 
   return (
-    <div className="bg-white shadow-lg rounded-sm border border-gray-200 p-8 min-h-[842px] text-[11px] leading-[1.5] font-[system-ui]" style={{ fontFamily: "'Times New Roman', serif" }}>
+    <div className="bg-white shadow-lg rounded-sm border border-gray-200 p-8 min-h-[842px] text-[11px] leading-[1.5] text-justify font-[system-ui]" style={{ fontFamily: "'Times New Roman', serif" }}>
       {/* Header */}
       <div className="text-center mb-4">
         <h1 className="text-xl font-bold text-gray-900 tracking-wide">{p.name || 'Your Name'}</h1>
@@ -197,7 +197,7 @@ function ModernPreview({ data }: { data: ResumeData }) {
   const p = data.personal_info
 
   return (
-    <div className="bg-white shadow-lg rounded-sm border border-gray-200 flex min-h-[842px] text-[11px] leading-[1.5]">
+    <div className="bg-white shadow-lg rounded-sm border border-gray-200 flex min-h-[842px] text-[11px] leading-[1.5] text-justify">
       {/* Left sidebar */}
       <div className="w-[35%] bg-green-900 text-white p-5 space-y-4">
         <div>

@@ -306,7 +306,7 @@ export default function ResumeEditorPage() {
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* ── Header ── */}
-      <header className="flex items-center justify-between px-4 sm:px-6 h-14 border-b border-gray-200 bg-white shrink-0">
+      <header className="flex items-center justify-between px-4 sm:px-6 h-14 border-b border-gray-200 bg-white shrink-0 sticky top-0 z-30">
         <div className="flex items-center gap-3">
           <button onClick={() => router.push('/dashboard/resume-builder')} className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors">
             <ArrowLeft size={18} />
