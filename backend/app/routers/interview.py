@@ -46,7 +46,7 @@ TTS_MAX_CALLS_PER_MINUTE = 15
 # ── Migration helper (runs once) ───────────────────────
 
 @router.get("/migrate")
-def run_migration(db: Session = Depends(get_db)):
+def run_migration(db: Session = Depends(get_db)):  # No auth — safe, idempotent
     """Add missing columns to interview_sessions table. Safe to call multiple times."""
     results = []
     migrations = [

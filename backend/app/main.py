@@ -8,6 +8,19 @@ from app.routers import auth, profile, sessions, resume, resume_drafts, classroo
 
 Base.metadata.create_all(bind=engine)
 
+# Run lightweight migrations for new columns on existing tables
+from sqlalchemy import text as _text
+with engine.connect() as _conn:
+    _migrations = [
+        "ALTER TABLE interview_sessions ADD COLUMN warning_issued INTEGER NOT NULL DEFAULT 0",
+    ]
+    for _sql in _migrations:
+        try:
+            _conn.execute(_text(_sql))
+            _conn.commit()
+        except Exception:
+            _conn.rollback()  # Column already exists — ignore
+
 app = FastAPI(
     title="IKLAVYA API",
     description="Backend API for IKLAVYA Student Career Readiness Portal",
