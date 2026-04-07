@@ -500,8 +500,8 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
                     </div>
                   </motion.div>
                 )}
-                {/* Show question text ONLY when TTS is actually playing */}
-                {isAISpeaking && currentQuestion && (
+                {/* Show question text AFTER AI finishes speaking */}
+                {!isAISpeaking && !waitingForAI && currentQuestion && (
                   <motion.div
                     key={currentQuestion}
                     initial={{ opacity: 0, y: 10 }}
