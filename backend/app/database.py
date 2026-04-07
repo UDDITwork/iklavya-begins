@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 from app.config import SQLALCHEMY_DATABASE_URL, TURSO_AUTH_TOKEN
@@ -9,8 +9,6 @@ engine = create_engine(
     echo=False,
     pool_pre_ping=True,      # Test connection before using — prevents stale conn panics
     pool_recycle=300,         # Recycle connections every 5 min
-    pool_size=5,              # Keep pool small for serverless
-    max_overflow=10,
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
