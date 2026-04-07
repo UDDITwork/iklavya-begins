@@ -239,29 +239,34 @@ export default function ResumeBuilderPage() {
                           onClick={() => router.push(`/resume-editor/${draft.id}`)}
                           className="w-full text-left rounded-xl border border-gray-200 hover:border-green-400 hover:shadow-md transition-all bg-white overflow-hidden group"
                         >
-                          {/* Mini Resume Preview */}
-                          <div className="relative h-52 overflow-hidden bg-gray-50 border-b border-gray-100">
+                          {/* Mini Resume Preview — clipped to card width */}
+                          <div className="relative h-56 overflow-hidden bg-white border-b border-gray-100">
                             {previewData ? (
-                              <div
-                                className="origin-top-left pointer-events-none"
-                                style={{ transform: 'scale(0.28)', width: '794px', height: '1123px' }}
-                              >
-                                <ResumePreview data={previewData} template={draft.template} />
+                              <div className="absolute inset-0 overflow-hidden">
+                                <div
+                                  className="origin-top-left pointer-events-none"
+                                  style={{
+                                    transform: 'scale(0.35)',
+                                    transformOrigin: 'top center',
+                                    width: '794px',
+                                    position: 'relative',
+                                    left: '50%',
+                                    marginLeft: '-397px',
+                                  }}
+                                >
+                                  <ResumePreview data={previewData} template={draft.template} />
+                                </div>
                               </div>
                             ) : (
-                              <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
                                 <div className="text-center">
                                   <FileText size={32} className="text-gray-200 mx-auto mb-2" />
-                                  <p className="text-xs text-gray-300">No preview</p>
+                                  <p className="text-xs text-gray-300">No preview yet</p>
                                 </div>
                               </div>
                             )}
-                            {/* Hover overlay */}
-                            <div className="absolute inset-0 bg-green-800/0 group-hover:bg-green-800/10 transition-colors flex items-center justify-center">
-                              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium text-green-800 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm">
-                                Edit Resume
-                              </span>
-                            </div>
+                            {/* Subtle shadow at bottom to indicate more content */}
+                            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent" />
                           </div>
 
                           {/* Card Footer */}
