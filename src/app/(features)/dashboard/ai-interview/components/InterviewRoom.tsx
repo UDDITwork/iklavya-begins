@@ -273,14 +273,17 @@ export default function InterviewRoom({ sessionId, onInterviewEnd }: InterviewRo
           },
           onInterviewComplete: () => { interviewDone = true },
         })
-        if (interviewDone) { onInterviewEnd(); return }
         const cleanQuestion = stripMetaTags(questionText)
+        // Always show and speak the AI's response first — even if interview is ending
         if (cleanQuestion) {
-          // Reveal text and speak at the same time
           setCurrentQuestion(cleanQuestion)
           setTranscript((prev) => [...prev, { role: 'interviewer', text: cleanQuestion }])
           setWaitingForAI(false)
           setIsAISpeaking(true); await speak(cleanQuestion); setIsAISpeaking(false)
+        }
+        // THEN transition if interview is complete (after speaking the closing statement)
+        if (interviewDone) { onInterviewEnd(); return }
+        if (cleanQuestion && !interviewDone) {
           if (isSupported) startListening()
         }
       } catch { toast.error('Something went wrong') } finally { setIsProcessing(false) }
