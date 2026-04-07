@@ -173,7 +173,6 @@ export default function ChatBot() {
     return () => clearInterval(interval)
   }, [])
 
-  if (isLoggedIn) return null
   const [hasNewMessage, setHasNewMessage] = useState(false)
   const [showGreeting, setShowGreeting] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -299,6 +298,9 @@ export default function ChatBot() {
     'How do AI interviews work?',
     'Help me build a resume',
   ]
+
+  // Hide on dashboard routes (all hooks called above — safe)
+  if (isLoggedIn) return null
 
   return (
     <>
