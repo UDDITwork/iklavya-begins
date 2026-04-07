@@ -58,10 +58,10 @@ export default function ConfidenceHeatmap({ questions, onSegmentClick }: Confide
       </h2>
       <p className="text-xs text-gray-400 mb-5">Click any segment to jump to that question</p>
 
-      {/* Waveform */}
-      <div className="relative h-32 flex items-end gap-[2px]">
+      {/* Waveform — 128px tall, bars use pixel heights */}
+      <div className="relative flex items-end gap-[2px]" style={{ height: '128px' }}>
         {questions.map((q, i) => {
-          const height = (q.score / maxScore) * 100
+          const heightPx = Math.max((q.score / maxScore) * 128, 2) // min 2px so zero scores are visible
           const color = scoreToColor(q.score)
           const isHovered = hoveredIndex === i
 
@@ -69,7 +69,7 @@ export default function ConfidenceHeatmap({ questions, onSegmentClick }: Confide
             <div
               key={i}
               className="relative flex-1 flex flex-col items-center justify-end cursor-pointer group"
-              style={{ minWidth: `${barWidth}%` }}
+              style={{ minWidth: `${barWidth}%`, height: '128px' }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => onSegmentClick?.(i)}
@@ -87,15 +87,15 @@ export default function ConfidenceHeatmap({ questions, onSegmentClick }: Confide
                 </motion.div>
               )}
 
-              {/* Bar */}
+              {/* Bar — uses pixel height, not percentage */}
               <motion.div
-                className="w-full rounded-t-sm transition-all"
+                className="w-full rounded-t-sm"
                 style={{
                   backgroundColor: isHovered ? color : `${color}cc`,
                   boxShadow: isHovered ? `0 0 12px ${color}40` : 'none',
                 }}
                 initial={{ height: 0 }}
-                animate={isVisible ? { height: `${height}%` } : { height: 0 }}
+                animate={isVisible ? { height: heightPx } : { height: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.05, ease: [0.4, 0, 0.2, 1] }}
               />
 
@@ -107,15 +107,15 @@ export default function ConfidenceHeatmap({ questions, onSegmentClick }: Confide
           )
         })}
 
-        {/* Threshold lines */}
-        <div className="absolute left-0 right-0 top-[25%] border-t border-dashed border-green-200/50" />
-        <div className="absolute left-0 right-0 top-[55%] border-t border-dashed border-amber-200/50" />
-        <div className="absolute left-0 right-0 top-[75%] border-t border-dashed border-red-200/50" />
+        {/* Threshold lines — positioned from bottom using pixel calc */}
+        <div className="absolute left-0 right-0 border-t border-dashed border-green-200/50" style={{ bottom: `${(75/100)*128}px` }} />
+        <div className="absolute left-0 right-0 border-t border-dashed border-amber-200/50" style={{ bottom: `${(45/100)*128}px` }} />
+        <div className="absolute left-0 right-0 border-t border-dashed border-red-200/50" style={{ bottom: `${(25/100)*128}px` }} />
 
         {/* Axis labels */}
-        <div className="absolute -left-1 top-[23%] text-[8px] text-green-500 -translate-y-1/2">75</div>
-        <div className="absolute -left-1 top-[53%] text-[8px] text-amber-500 -translate-y-1/2">45</div>
-        <div className="absolute -left-1 top-[73%] text-[8px] text-red-500 -translate-y-1/2">25</div>
+        <div className="absolute -left-1 text-[8px] text-green-500" style={{ bottom: `${(75/100)*128 - 4}px` }}>75</div>
+        <div className="absolute -left-1 text-[8px] text-amber-500" style={{ bottom: `${(45/100)*128 - 4}px` }}>45</div>
+        <div className="absolute -left-1 text-[8px] text-red-500" style={{ bottom: `${(25/100)*128 - 4}px` }}>25</div>
       </div>
 
       {/* Legend */}
