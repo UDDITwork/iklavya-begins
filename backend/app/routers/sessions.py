@@ -33,7 +33,7 @@ from app.services.pdf_service import generate_pdf_report
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 
 MAX_ACTIVE_SESSIONS = 5
-MAX_MESSAGES_PER_SESSION = 30
+MAX_MESSAGES_PER_SESSION = 100
 FORCE_ANALYSIS_AFTER = 15
 
 

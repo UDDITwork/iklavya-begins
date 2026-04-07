@@ -12,6 +12,7 @@ import ResumeCard from '@/components/resume/ResumeCard'
 import TemplateSelector from '@/components/resume/TemplateSelector'
 import { playPop } from '@/lib/sounds'
 import { fadeInUp, fadeInUpTransition, staggerContainer, staggerItem } from '@/lib/animations'
+import ResumePreview from '@/components/resume-editor/ResumePreview'
 
 interface ResumeSession {
   id: string
@@ -29,6 +30,7 @@ interface ResumeDraft {
   status: string
   updated_at: string
   ats_score: number | null
+  resume_json: string
 }
 
 type ModalStep = 'template' | 'mode'
@@ -223,38 +225,71 @@ export default function ResumeBuilderPage() {
             <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ ...fadeInUpTransition, delay: 0.1 }}>
               <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <h2 className="text-base font-semibold text-gray-900 mb-4">Form Editor Resumes</h2>
-                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {drafts.map((draft) => (
-                    <motion.div key={draft.id} variants={staggerItem}>
-                      <button
-                        onClick={() => router.push(`/resume-editor/${draft.id}`)}
-                        className="w-full text-left p-4 rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-sm transition-all bg-white"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-semibold text-gray-900">{draft.title}</span>
-                          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
-                            draft.status === 'draft' ? 'bg-amber-50 text-amber-600' : 'bg-green-50 text-green-600'
-                          }`}>
-                            {draft.status === 'draft' ? 'Draft' : 'Complete'}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-400">
-                          <span className="capitalize">{draft.template}</span>
-                          <span>·</span>
-                          <span className="capitalize">{draft.source}</span>
-                          {draft.ats_score && (
-                            <>
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {drafts.map((draft) => {
+                    let previewData = null
+                    try {
+                      const parsed = typeof draft.resume_json === 'string' ? JSON.parse(draft.resume_json) : draft.resume_json
+                      if (parsed && parsed.personal_info) previewData = parsed
+                    } catch { /* ignore */ }
+
+                    return (
+                      <motion.div key={draft.id} variants={staggerItem}>
+                        <button
+                          onClick={() => router.push(`/resume-editor/${draft.id}`)}
+                          className="w-full text-left rounded-xl border border-gray-200 hover:border-green-400 hover:shadow-md transition-all bg-white overflow-hidden group"
+                        >
+                          {/* Mini Resume Preview */}
+                          <div className="relative h-52 overflow-hidden bg-gray-50 border-b border-gray-100">
+                            {previewData ? (
+                              <div
+                                className="origin-top-left pointer-events-none"
+                                style={{ transform: 'scale(0.28)', width: '794px', height: '1123px' }}
+                              >
+                                <ResumePreview data={previewData} template={draft.template} />
+                              </div>
+                            ) : (
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="text-center">
+                                  <FileText size={32} className="text-gray-200 mx-auto mb-2" />
+                                  <p className="text-xs text-gray-300">No preview</p>
+                                </div>
+                              </div>
+                            )}
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-green-800/0 group-hover:bg-green-800/10 transition-colors flex items-center justify-center">
+                              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium text-green-800 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm">
+                                Edit Resume
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Card Footer */}
+                          <div className="p-3.5">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm font-semibold text-gray-900 truncate">{draft.title}</span>
+                              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0 ml-2 ${
+                                draft.status === 'draft' ? 'bg-amber-50 text-amber-600' : 'bg-green-50 text-green-600'
+                              }`}>
+                                {draft.status === 'draft' ? 'Draft' : 'Complete'}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[11px] text-gray-400">
+                              <span className="capitalize">{draft.template}</span>
                               <span>·</span>
-                              <span className="text-green-600 font-medium">ATS: {draft.ats_score}/100</span>
-                            </>
-                          )}
-                        </div>
-                        <p className="text-[11px] text-gray-300 mt-1">
-                          Updated {new Date(draft.updated_at).toLocaleDateString()}
-                        </p>
-                      </button>
-                    </motion.div>
-                  ))}
+                              <span className="capitalize">{draft.source}</span>
+                              {draft.ats_score && (
+                                <>
+                                  <span>·</span>
+                                  <span className="text-green-600 font-medium">ATS {draft.ats_score}</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </button>
+                      </motion.div>
+                    )
+                  })}
                 </motion.div>
               </div>
             </motion.div>
