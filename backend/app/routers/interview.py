@@ -60,7 +60,7 @@ async def interview_health():
     except Exception as e:
         results["claude"] = f"error: {str(e)[:100]}"
 
-    # Test ElevenLabs
+    # Test ElevenLabs (use voices list endpoint — works with TTS-only keys)
     try:
         from app.config import ELEVENLABS_API_KEY
         if not ELEVENLABS_API_KEY:
@@ -69,7 +69,7 @@ async def interview_health():
             import httpx
             async with httpx.AsyncClient(timeout=10.0) as client:
                 r = await client.get(
-                    "https://api.elevenlabs.io/v1/user",
+                    "https://api.elevenlabs.io/v1/voices",
                     headers={"xi-api-key": ELEVENLABS_API_KEY},
                 )
                 if r.status_code == 200:
