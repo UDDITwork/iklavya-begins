@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Loader2, Plus, FileText, Sparkles, Download, Palette, X,
-  Upload, PenLine, MessageSquare, ArrowRight,
+  Upload, PenLine, MessageSquare, ArrowRight, Mic,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import ResumeCard from '@/components/resume/ResumeCard'
@@ -34,7 +34,7 @@ interface ResumeDraft {
 }
 
 type ModalStep = 'template' | 'mode'
-type BuildMode = 'upload' | 'scratch' | 'chat'
+type BuildMode = 'upload' | 'scratch' | 'chat' | 'voice'
 
 export default function ResumeBuilderPage() {
   const router = useRouter()
@@ -119,6 +119,28 @@ export default function ResumeBuilderPage() {
         }
         const data = await res.json()
         router.push(`/resume-editor/${data.id}`)
+      } catch {
+        toast.error('Something went wrong')
+      } finally {
+        setCreating(false)
+        setShowModal(false)
+      }
+    } else if (mode === 'voice') {
+      // Voice interview → same backend as chat, different frontend
+      setCreating(true)
+      try {
+        const res = await fetch('/api/resume/sessions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: 'New Resume', template: selectedTemplate }),
+        })
+        if (!res.ok) {
+          const data = await res.json()
+          toast.error(data.error || 'Failed to create')
+          return
+        }
+        const data = await res.json()
+        router.push(`/resume-voice/${data.id}`)
       } catch {
         toast.error('Something went wrong')
       } finally {
@@ -418,7 +440,24 @@ export default function ResumeBuilderPage() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900">Build with AI Chat</p>
-                          <p className="text-xs text-gray-400">Answer questions and let the AI build your resume for you</p>
+                          <p className="text-xs text-gray-400">Answer questions by typing and let the AI build your resume</p>
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* Voice Interview */}
+                    <button
+                      onClick={() => handleModeSelect('voice')}
+                      disabled={uploading || creating}
+                      className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50/30 transition-all group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600 group-hover:bg-orange-100">
+                          {creating ? <Loader2 size={18} className="animate-spin" /> : <Mic size={18} />}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">Voice Interview</p>
+                          <p className="text-xs text-gray-400">Talk to AI — build your resume by speaking your answers</p>
                         </div>
                       </div>
                     </button>
