@@ -76,10 +76,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '48x48' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: 'https://img.icons8.com/parakeet/48/teacher.png', sizes: '48x48', type: 'image/png' },
+      { url: 'https://img.icons8.com/parakeet/192/teacher.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: 'https://img.icons8.com/parakeet/192/teacher.png',
   },
   manifest: '/manifest.json',
   alternates: {
