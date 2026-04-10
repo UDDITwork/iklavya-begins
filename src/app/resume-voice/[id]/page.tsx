@@ -415,6 +415,17 @@ export default function VoiceResumePage() {
 
           <p className="text-sm text-green-300/60 mb-4">IKLAVYA Resume Assistant</p>
 
+          {/* Initial connecting state */}
+          {waitingForAI && questionCount === 0 && !isSpeaking && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4 text-center">
+              <div className="flex items-center justify-center gap-2 text-gray-400 mb-2">
+                <Loader2 size={14} className="animate-spin" />
+                <span className="text-xs">Connecting to AI assistant...</span>
+              </div>
+              <p className="text-[11px] text-gray-600">This may take a few seconds</p>
+            </motion.div>
+          )}
+
           {/* Waveform when speaking */}
           {isSpeaking && (
             <div className="flex items-center gap-[3px] mb-4">
