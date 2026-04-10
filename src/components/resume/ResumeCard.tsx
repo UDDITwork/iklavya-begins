@@ -22,7 +22,9 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
     year: 'numeric',
   })
 
-  const hasPreview = !isActive && session.resume_data && session.resume_data.personal_info
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const previewData = session.resume_data as any
+  const hasPreview = !isActive && previewData && previewData.personal_info
 
   return (
     <Link href={`/resume-session/${session.id}`}>
@@ -43,7 +45,7 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
                 }}
               >
                 <ResumePreview
-                  data={session.resume_data as Parameters<typeof ResumePreview>[0]['data']}
+                  data={previewData}
                   template={session.template || 'professional'}
                 />
               </div>
