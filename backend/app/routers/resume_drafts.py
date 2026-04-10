@@ -514,17 +514,28 @@ def download_pdf(
             detail="Resume data is invalid.",
         )
 
+    # Sanitize: replace None values with empty strings to prevent reportlab crashes
+    _sanitize_resume_data(resume_data)
+
     # Get profile image URL if available
     profile = db.query(UserProfile).filter(
         UserProfile.user_id == current_user.id
     ).first()
     profile_image_url = getattr(profile, "profile_image", None) if profile else None
 
-    pdf_bytes = generate_resume_pdf(
-        resume_json=resume_data,
-        template=draft.template,
-        profile_image_url=profile_image_url,
-    )
+    try:
+        pdf_bytes = generate_resume_pdf(
+            resume_json=resume_data,
+            template=draft.template,
+            profile_image_url=profile_image_url,
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"PDF generation failed: {type(e).__name__}: {str(e)[:200]}",
+        )
 
     return Response(
         content=pdf_bytes,
@@ -536,6 +547,25 @@ def download_pdf(
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
+
+def _sanitize_resume_data(data: dict) -> None:
+    """Replace None with '' in resume data to prevent reportlab crashes."""
+    if not isinstance(data, dict):
+        return
+    for key, val in data.items():
+        if val is None:
+            data[key] = ""
+        elif isinstance(val, dict):
+            _sanitize_resume_data(val)
+        elif isinstance(val, list):
+            for i, item in enumerate(val):
+                if item is None:
+                    val[i] = ""
+                elif isinstance(item, dict):
+                    _sanitize_resume_data(item)
+                elif not isinstance(item, str):
+                    val[i] = str(item)
+
 
 def _build_initial_json(user, profile=None) -> dict:
     """Build initial resume JSON pre-filled with user profile data."""

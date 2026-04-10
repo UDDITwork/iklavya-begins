@@ -21,10 +21,30 @@ export async function GET(
     })
 
     if (!res.ok) {
-      const errorData = await res.json()
+      let errorMsg = 'Download failed'
+      try {
+        const errorData = await res.json()
+        errorMsg = errorData.detail || errorMsg
+      } catch {
+        // Backend returned non-JSON error (HTML page, plain text, etc.)
+        const text = await res.text().catch(() => '')
+        errorMsg = `PDF generation failed (status ${res.status})`
+        console.error('[resume-download] Backend error:', res.status, text.slice(0, 500))
+      }
       return new Response(
-        JSON.stringify({ error: errorData.detail || 'Download failed' }),
+        JSON.stringify({ error: errorMsg }),
         { status: res.status, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Verify we actually got a PDF back, not an error page
+    const contentType = res.headers.get('Content-Type') || ''
+    if (!contentType.includes('pdf')) {
+      const body = await res.text().catch(() => '')
+      console.error('[resume-download] Expected PDF but got:', contentType, body.slice(0, 500))
+      return new Response(
+        JSON.stringify({ error: 'PDF generation failed — server returned unexpected response' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } }
       )
     }
 
@@ -35,7 +55,8 @@ export async function GET(
         'Content-Disposition': res.headers.get('Content-Disposition') || 'attachment; filename="resume.pdf"',
       },
     })
-  } catch {
+  } catch (err) {
+    console.error('[resume-download] Unexpected error:', err)
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
