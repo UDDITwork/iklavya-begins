@@ -20,6 +20,8 @@ interface ResumeSession {
   started_at: string
   status: string
   message_count: number
+  template: string
+  resume_data?: Record<string, unknown> | null  // fetched separately for completed sessions
 }
 
 interface ResumeDraft {
@@ -57,14 +59,34 @@ export default function ResumeBuilderPage() {
         fetch('/api/resume/sessions'),
         fetch('/api/resume-drafts'),
       ])
+      let loadedSessions: ResumeSession[] = []
       if (sessRes.ok) {
         const data = await sessRes.json()
-        setSessions(data.sessions || [])
+        loadedSessions = data.sessions || []
       }
       if (draftRes.ok) {
         const data = await draftRes.json()
         setDrafts(data.drafts || [])
       }
+
+      // Fetch resume data for completed sessions (for preview thumbnails)
+      const withPreviews = await Promise.all(
+        loadedSessions.map(async (s) => {
+          if (s.status === 'completed') {
+            try {
+              const res = await fetch(`/api/resume/by-session/${s.id}`)
+              if (res.ok) {
+                const resume = await res.json()
+                const parsed = typeof resume.resume_json === 'string'
+                  ? JSON.parse(resume.resume_json) : resume.resume_json
+                return { ...s, template: resume.template || 'professional', resume_data: parsed }
+              }
+            } catch { /* fallback to no preview */ }
+          }
+          return { ...s, template: s.template || 'professional', resume_data: null }
+        })
+      )
+      setSessions(withPreviews)
     } catch { /* silent */ }
     finally { setLoading(false) }
   }
