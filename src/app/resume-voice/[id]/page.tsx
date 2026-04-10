@@ -294,63 +294,189 @@ export default function VoiceResumePage() {
     )
   }
 
-  // ═══ RESUME COMPLETED SCREEN ═══
+  // ═══ RESUME COMPLETED SCREEN — Premium Glassmorphism ═══
   if (sessionStatus === 'completed' && resumeId) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full text-center"
-        >
-          {/* Success icon */}
+      <div className="relative min-h-screen overflow-hidden bg-[#f7f8fa]">
+        {/* Ambient gradient blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-5"
+            className="absolute w-[600px] h-[600px] rounded-full opacity-30"
+            style={{ background: 'radial-gradient(circle, rgba(22,163,74,0.25) 0%, transparent 70%)', top: '-10%', left: '-5%' }}
+            animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute w-[500px] h-[500px] rounded-full opacity-20"
+            style={{ background: 'radial-gradient(circle, rgba(5,150,105,0.2) 0%, transparent 70%)', bottom: '-15%', right: '-10%' }}
+            animate={{ x: [0, -25, 0], y: [0, -15, 0] }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute w-[300px] h-[300px] rounded-full opacity-15"
+            style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.2) 0%, transparent 70%)', top: '40%', right: '20%' }}
+            animate={{ x: [0, 15, 0], y: [0, -20, 0] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+
+        {/* Decorative vector elements — scattered around */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Top-left geometric */}
+          <svg className="absolute top-8 left-8 opacity-[0.06]" width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="55" stroke="#166534" strokeWidth="1"/>
+            <circle cx="60" cy="60" r="40" stroke="#166534" strokeWidth="0.5"/>
+            <circle cx="60" cy="60" r="25" stroke="#166534" strokeWidth="0.5"/>
+            <line x1="5" y1="60" x2="115" y2="60" stroke="#166534" strokeWidth="0.3"/>
+            <line x1="60" y1="5" x2="60" y2="115" stroke="#166534" strokeWidth="0.3"/>
+          </svg>
+
+          {/* Top-right document icon */}
+          <svg className="absolute top-12 right-16 opacity-[0.05]" width="80" height="100" viewBox="0 0 80 100" fill="none" stroke="#166534" strokeWidth="1.2">
+            <rect x="5" y="5" width="55" height="70" rx="4"/>
+            <path d="M60 5v20h15" /><line x1="15" y1="25" x2="50" y2="25"/><line x1="15" y1="35" x2="45" y2="35"/><line x1="15" y1="45" x2="50" y2="45"/><line x1="15" y1="55" x2="35" y2="55"/>
+          </svg>
+
+          {/* Bottom-left briefcase */}
+          <svg className="absolute bottom-16 left-12 opacity-[0.05]" width="90" height="80" viewBox="0 0 90 80" fill="none" stroke="#166534" strokeWidth="1">
+            <rect x="10" y="22" width="70" height="48" rx="6"/><path d="M30 22V14a6 6 0 016-6h18a6 6 0 016 6v8"/><line x1="10" y1="38" x2="80" y2="38"/>
+          </svg>
+
+          {/* Bottom-right star */}
+          <svg className="absolute bottom-20 right-24 opacity-[0.05]" width="70" height="70" viewBox="0 0 70 70" fill="none" stroke="#166534" strokeWidth="1">
+            <path d="M35 5l8 20h22l-17 14 6 21-19-12-19 12 6-21L5 25h22z"/>
+          </svg>
+
+          {/* Center-left pen */}
+          <svg className="absolute top-1/2 left-6 -translate-y-1/2 opacity-[0.04]" width="40" height="120" viewBox="0 0 40 120" fill="none" stroke="#166534" strokeWidth="1">
+            <rect x="10" y="10" width="20" height="80" rx="3"/><path d="M10 90l10 20 10-20"/><line x1="10" y1="25" x2="30" y2="25"/>
+          </svg>
+        </div>
+
+        {/* Main Content — centered glass card */}
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-4 sm:p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full max-w-lg"
           >
-            <CheckCircle2 size={32} className="text-green-400" />
+            {/* Glass card */}
+            <div
+              className="relative rounded-2xl border border-white/40 p-8 sm:p-10 text-center overflow-hidden"
+              style={{
+                background: 'rgba(255,255,255,0.72)',
+                backdropFilter: 'blur(24px) saturate(1.5)',
+                WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.6)',
+              }}
+            >
+              {/* Subtle inner glow */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-green-400/30 to-transparent" />
+
+              {/* Success checkmark with rings */}
+              <div className="relative w-20 h-20 mx-auto mb-6">
+                <motion.div
+                  className="absolute inset-0 rounded-full border border-green-200"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.1, duration: 0.5 }}
+                />
+                <motion.div
+                  className="absolute inset-2 rounded-full border border-green-300"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                />
+                <motion.div
+                  className="absolute inset-4 rounded-full bg-green-600 flex items-center justify-center"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3, type: 'spring', stiffness: 200, damping: 15 }}
+                  style={{ boxShadow: '0 4px 20px rgba(22,163,74,0.3)' }}
+                >
+                  <CheckCircle2 size={24} className="text-white" />
+                </motion.div>
+              </div>
+
+              {/* Heading */}
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-2xl font-bold text-gray-900 mb-2"
+              >
+                Your Resume is Ready
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="text-sm text-gray-500 mb-6 leading-relaxed max-w-sm mx-auto"
+              >
+                Built from your voice interview — reviewed, structured, and formatted for ATS compatibility.
+              </motion.p>
+
+              {/* Stats row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.55 }}
+                className="flex items-center justify-center gap-6 mb-8"
+              >
+                <div className="text-center">
+                  <p className="text-lg font-bold text-gray-900">{timeStr}</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">Duration</p>
+                </div>
+                <div className="w-px h-8 bg-gray-200" />
+                <div className="text-center">
+                  <p className="text-lg font-bold text-gray-900">{questionCount}</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">Exchanges</p>
+                </div>
+                <div className="w-px h-8 bg-gray-200" />
+                <div className="text-center">
+                  <p className="text-lg font-bold text-green-700">Ready</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">Status</p>
+                </div>
+              </motion.div>
+
+              {/* Action buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="space-y-3"
+              >
+                <button
+                  onClick={handleDownloadPDF}
+                  className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-green-800 text-white text-sm font-semibold hover:bg-green-900 transition-all shadow-lg shadow-green-800/20 hover:shadow-green-800/30"
+                >
+                  <Download size={16} />
+                  Download PDF Resume
+                </button>
+
+                <button
+                  onClick={() => router.push(`/resume-editor/${resumeId}`)}
+                  className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white text-gray-800 text-sm font-medium hover:bg-gray-50 transition-all border border-gray-200 shadow-sm"
+                >
+                  <PenLine size={16} />
+                  Edit in Resume Editor
+                </button>
+              </motion.div>
+
+              {/* Back link */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
+                <button
+                  onClick={() => router.push('/dashboard/resume-builder')}
+                  className="mt-5 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  Back to Resume Builder
+                </button>
+              </motion.div>
+            </div>
           </motion.div>
-
-          <h2 className="text-xl font-bold text-white mb-2">Resume Created!</h2>
-          <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-            Your resume has been generated from the voice interview. You can download it as PDF or edit it further.
-          </p>
-
-          {/* Duration + messages stats */}
-          <div className="flex items-center justify-center gap-4 mb-6 text-xs text-gray-500">
-            <span className="flex items-center gap-1"><Clock size={12} /> {timeStr}</span>
-            <span className="flex items-center gap-1"><MessageSquare size={12} /> {questionCount} exchanges</span>
-          </div>
-
-          {/* Action buttons */}
-          <div className="space-y-3">
-            <button
-              onClick={handleDownloadPDF}
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors"
-            >
-              <Download size={16} />
-              Download PDF Resume
-            </button>
-
-            <button
-              onClick={() => router.push(`/resume-editor/${resumeId}`)}
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gray-800 text-gray-200 text-sm font-medium hover:bg-gray-700 transition-colors border border-gray-700"
-            >
-              <PenLine size={16} />
-              Edit in Resume Editor
-            </button>
-
-            <button
-              onClick={() => router.push('/dashboard/resume-builder')}
-              className="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-gray-500 text-xs hover:text-gray-300 transition-colors"
-            >
-              Back to Resume Builder
-            </button>
-          </div>
-        </motion.div>
+        </div>
       </div>
     )
   }
