@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import { Clock, FileText, Download, ArrowRight } from 'lucide-react'
+import { Clock, FileText, ArrowRight } from 'lucide-react'
 
 interface ResumeSession {
   id: string
@@ -37,12 +36,11 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
             </div>
           ) : (
             <div className="absolute inset-0">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/resum1-preview.jpg"
-                alt="Resume preview"
-                fill
-                className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity"
-                sizes="(max-width: 640px) 100vw, 50vw"
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity"
               />
               {/* Completed overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
