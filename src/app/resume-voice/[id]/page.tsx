@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mic, MicOff, PhoneOff, ArrowLeft, Send, Clock,
   Volume2, VolumeX, MessageSquare, AlertTriangle, FileText,
+  Download, PenLine, CheckCircle2, Loader2,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useVoicePipeline } from '@/app/(features)/dashboard/ai-interview/hooks/useVoicePipeline'
@@ -192,10 +193,9 @@ export default function VoiceResumePage() {
         if (gotResumeReady) {
           setResumeId(readyResumeId)
           setSessionStatus('completed')
-          // Speak closing, then redirect
+          stopListening()
+          // Speak closing message, then show resume on this page
           if (cleanText && !audioMuted) await speak(cleanText)
-          toast.success('Resume created!')
-          router.push(`/resume-editor/${readyResumeId}`)
           return
         }
 
@@ -272,10 +272,85 @@ export default function VoiceResumePage() {
   const secs = elapsed % 60
   const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 
+  // Download PDF handler
+  async function handleDownloadPDF() {
+    if (!resumeId) return
+    try {
+      const res = await fetch(`/api/resume/${resumeId}/download`)
+      if (!res.ok) { toast.error('Download failed'); return }
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url; a.download = 'resume.pdf'; a.click()
+      URL.revokeObjectURL(url)
+    } catch { toast.error('Download failed') }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-950">
         <div className="w-8 h-8 border-2 border-green-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
+  // ═══ RESUME COMPLETED SCREEN ═══
+  if (sessionStatus === 'completed' && resumeId) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full text-center"
+        >
+          {/* Success icon */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+            className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-5"
+          >
+            <CheckCircle2 size={32} className="text-green-400" />
+          </motion.div>
+
+          <h2 className="text-xl font-bold text-white mb-2">Resume Created!</h2>
+          <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+            Your resume has been generated from the voice interview. You can download it as PDF or edit it further.
+          </p>
+
+          {/* Duration + messages stats */}
+          <div className="flex items-center justify-center gap-4 mb-6 text-xs text-gray-500">
+            <span className="flex items-center gap-1"><Clock size={12} /> {timeStr}</span>
+            <span className="flex items-center gap-1"><MessageSquare size={12} /> {questionCount} exchanges</span>
+          </div>
+
+          {/* Action buttons */}
+          <div className="space-y-3">
+            <button
+              onClick={handleDownloadPDF}
+              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors"
+            >
+              <Download size={16} />
+              Download PDF Resume
+            </button>
+
+            <button
+              onClick={() => router.push(`/resume-editor/${resumeId}`)}
+              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gray-800 text-gray-200 text-sm font-medium hover:bg-gray-700 transition-colors border border-gray-700"
+            >
+              <PenLine size={16} />
+              Edit in Resume Editor
+            </button>
+
+            <button
+              onClick={() => router.push('/dashboard/resume-builder')}
+              className="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-gray-500 text-xs hover:text-gray-300 transition-colors"
+            >
+              Back to Resume Builder
+            </button>
+          </div>
+        </motion.div>
       </div>
     )
   }

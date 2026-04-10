@@ -29,7 +29,7 @@ from app.services.ats_scoring_service import compute_ats_score
 router = APIRouter(prefix="/resume", tags=["resume"])
 
 MAX_RESUME_SESSIONS = 10
-MAX_MESSAGES_PER_SESSION = 25
+MAX_MESSAGES_PER_SESSION = 100
 FORCE_RESUME_AFTER = 12
 
 
