@@ -25,24 +25,24 @@ GRAY_200 = HexColor("#E5E7EB")
 WHITE = HexColor("#FFFFFF")
 
 
-# ─── Shared Design Tokens ───────────────────────────────────
-SIZE_NAME = 20
-SIZE_SECTION = 12
-SIZE_BODY = 10
-SIZE_ENTRY_TITLE = 10.5
-SIZE_SUB = 9
-SIZE_SMALL = 8
-SIZE_CONTACT = 9
+# ─── Shared Design Tokens (LaTeX-inspired tight spacing) ───────
+SIZE_NAME = 18
+SIZE_SECTION = 11
+SIZE_BODY = 9.5
+SIZE_ENTRY_TITLE = 10
+SIZE_SUB = 8.5
+SIZE_SMALL = 7.5
+SIZE_CONTACT = 8.5
 
 BULLET_CHAR = "\u2022"
 CONTACT_SEP = " \u00a0|\u00a0 "
 
-SPACE_SECTION_BEFORE = 6 * mm
-SPACE_SECTION_AFTER = 2.5 * mm
-SPACE_ENTRY_GAP = 2 * mm
+SPACE_SECTION_BEFORE = 3.5 * mm
+SPACE_SECTION_AFTER = 1.5 * mm
+SPACE_ENTRY_GAP = 1.2 * mm
 
-MARGIN_STANDARD = 18 * mm
-MARGIN_TIGHT = 15 * mm
+MARGIN_STANDARD = 10 * mm   # Was 18mm — now tight like LaTeX resumes
+MARGIN_TIGHT = 8 * mm       # Was 15mm
 
 
 def _leading(font_size: float, multiplier: float = 1.4) -> float:
@@ -116,135 +116,172 @@ def generate_resume_pdf(
 
 
 def _generate_professional(data: dict) -> bytes:
+    """Professional template — LaTeX-inspired tight layout with gray section headers."""
+    GRAY_BG = HexColor("#F0F0F0")
+
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
         buffer, pagesize=A4,
-        topMargin=MARGIN_STANDARD, bottomMargin=MARGIN_STANDARD,
+        topMargin=MARGIN_TIGHT, bottomMargin=MARGIN_TIGHT,
         leftMargin=MARGIN_STANDARD, rightMargin=MARGIN_STANDARD,
     )
     content_w = A4[0] - 2 * MARGIN_STANDARD
     styles = getSampleStyleSheet()
 
-    s_name = ParagraphStyle("PName", parent=styles["Title"], fontSize=SIZE_NAME, textColor=GREEN_800, spaceAfter=1 * mm, alignment=TA_LEFT)
-    s_contact = ParagraphStyle("PContact", parent=styles["Normal"], fontSize=SIZE_CONTACT, textColor=GRAY_600, spaceAfter=2 * mm)
-    s_section = ParagraphStyle("PSection", parent=styles["Heading2"], fontSize=SIZE_SECTION, textColor=GREEN_800, spaceBefore=SPACE_SECTION_BEFORE, spaceAfter=1 * mm, keepWithNext=1)
-    s_body = ParagraphStyle("PBody", parent=styles["Normal"], fontSize=SIZE_BODY, textColor=GRAY_700, leading=_leading(SIZE_BODY))
-    s_bullet = ParagraphStyle("PBullet", parent=styles["Normal"], fontSize=SIZE_BODY, textColor=GRAY_700, leading=_leading(SIZE_BODY), leftIndent=14, bulletIndent=4)
-    s_entry_title = ParagraphStyle("PEntryTitle", parent=styles["Normal"], fontSize=SIZE_ENTRY_TITLE, textColor=GRAY_900, leading=_leading(SIZE_ENTRY_TITLE))
-    s_entry_sub = ParagraphStyle("PEntrySub", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GRAY_400, leading=_leading(SIZE_SUB))
+    # Styles — tighter leading (1.3x) for dense packing
+    s_name = ParagraphStyle("PName", parent=styles["Title"], fontSize=SIZE_NAME, textColor=GRAY_900, spaceAfter=0, alignment=TA_LEFT, fontName="Helvetica-Bold")
+    s_contact = ParagraphStyle("PContact", parent=styles["Normal"], fontSize=SIZE_CONTACT, textColor=GRAY_600, spaceAfter=0, alignment=TA_RIGHT)
+    s_section = ParagraphStyle("PSection", parent=styles["Normal"], fontSize=SIZE_SECTION, textColor=GRAY_900, fontName="Helvetica-Bold", spaceBefore=SPACE_SECTION_BEFORE, spaceAfter=0, leading=_leading(SIZE_SECTION, 1.2))
+    s_body = ParagraphStyle("PBody", parent=styles["Normal"], fontSize=SIZE_BODY, textColor=GRAY_700, leading=_leading(SIZE_BODY, 1.3))
+    s_bullet = ParagraphStyle("PBullet", parent=styles["Normal"], fontSize=SIZE_BODY, textColor=GRAY_700, leading=_leading(SIZE_BODY, 1.3), leftIndent=12, bulletIndent=3, spaceBefore=0.3 * mm)
+    s_entry_title = ParagraphStyle("PEntryTitle", parent=styles["Normal"], fontSize=SIZE_ENTRY_TITLE, textColor=GRAY_900, leading=_leading(SIZE_ENTRY_TITLE, 1.3), fontName="Helvetica-Bold")
+    s_entry_sub = ParagraphStyle("PEntrySub", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GRAY_600, leading=_leading(SIZE_SUB, 1.3))
+    s_entry_right = ParagraphStyle("PEntryRight", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GRAY_600, leading=_leading(SIZE_SUB, 1.3), alignment=TA_RIGHT)
+    s_skill_inline = ParagraphStyle("PSkillInline", parent=styles["Normal"], fontSize=SIZE_BODY, textColor=GRAY_700, leading=_leading(SIZE_BODY, 1.3), spaceBefore=0.5 * mm)
 
     elements = []
     pi = data.get("personal_info", {})
 
-    # Name
-    elements.append(Paragraph(pi.get("name", ""), s_name))
+    # ── Header: Name left, Contact right (2-column table) ──
+    name_text = pi.get("name", "Your Name")
+    contact_parts = [p for p in [pi.get("email"), pi.get("phone"), pi.get("location")] if p]
+    link_parts = [p for p in [pi.get("linkedin"), pi.get("github"), pi.get("portfolio")] if p]
+    contact_right = "<br/>".join([CONTACT_SEP.join(contact_parts)] + ([CONTACT_SEP.join(link_parts)] if link_parts else []))
 
-    # Contact line
-    contact_parts = [p for p in [pi.get("email"), pi.get("phone"), pi.get("location"), pi.get("linkedin"), pi.get("portfolio")] if p]
-    elements.append(Paragraph(CONTACT_SEP.join(contact_parts), s_contact))
-    elements.append(HRFlowable(width="100%", thickness=1, color=GREEN_800, spaceAfter=3 * mm))
+    header = Table(
+        [[Paragraph(name_text, s_name), Paragraph(contact_right, s_contact)]],
+        colWidths=[content_w * 0.55, content_w * 0.45],
+    )
+    header.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    elements.append(header)
+    elements.append(HRFlowable(width="100%", thickness=1.5, color=GRAY_900, spaceAfter=2 * mm, spaceBefore=1.5 * mm))
 
-    # Objective
-    obj = data.get("objective", "")
-    if obj:
-        elements.append(Paragraph("CAREER OBJECTIVE", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
-        elements.append(Paragraph(obj, s_body))
+    # ── Helper: Section heading with gray background ──
+    def add_section(title):
+        s_hdr = ParagraphStyle("SHdr", parent=styles["Normal"], fontSize=SIZE_SECTION, textColor=GRAY_900, fontName="Helvetica-Bold", leading=_leading(SIZE_SECTION, 1.2))
+        t = Table([[Paragraph(title, s_hdr)]], colWidths=[content_w])
+        t.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), GRAY_BG),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("TOPPADDING", (0, 0), (-1, -1), 2.5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
+        ]))
+        elements.append(Spacer(1, SPACE_SECTION_BEFORE))
+        elements.append(t)
+        elements.append(Spacer(1, SPACE_SECTION_AFTER))
 
-    # Education
-    edu_list = data.get("education", [])
-    if edu_list:
-        elements.append(Paragraph("EDUCATION", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
-        for e in edu_list:
-            entry = []
-            line = f"<b>{e.get('degree', '')}</b>"
-            if e.get("institution"):
-                line += f" — {e['institution']}"
-            entry.append(Paragraph(line, s_entry_title))
-            sub_parts = [p for p in [e.get("year"), e.get("grade"), e.get("board")] if p]
-            if sub_parts:
-                entry.append(Paragraph(" | ".join(sub_parts), s_entry_sub))
-            entry.append(Spacer(1, SPACE_ENTRY_GAP))
-            elements.append(KeepTogether(entry))
-
-    # Experience
-    exp_list = data.get("experience", [])
-    if exp_list:
-        elements.append(Paragraph("EXPERIENCE", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
-        for exp in exp_list:
-            entry = []
-            line = f"<b>{exp.get('title', '')}</b>"
-            if exp.get("company"):
-                line += f" — {exp['company']}"
-            entry.append(Paragraph(line, s_entry_title))
-            if exp.get("duration"):
-                entry.append(Paragraph(exp["duration"], s_entry_sub))
-            for b in exp.get("bullets", []):
-                entry.append(Paragraph(b, s_bullet, bulletText=BULLET_CHAR))
-            entry.append(Spacer(1, SPACE_ENTRY_GAP))
-            elements.append(KeepTogether(entry))
-
-    # Projects
-    proj_list = data.get("projects", [])
-    if proj_list:
-        elements.append(Paragraph("PROJECTS", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
-        for p in proj_list:
-            entry = []
-            line = f"<b>{p.get('name', '')}</b>"
-            ts = p.get("tech_stack", [])
-            if ts:
-                line += f"  <font color='#9CA3AF'>({', '.join(ts)})</font>"
-            entry.append(Paragraph(line, s_entry_title))
-            if p.get("description"):
-                entry.append(Paragraph(p["description"], s_entry_sub))
-            for b in p.get("bullets", []):
-                entry.append(Paragraph(b, s_bullet, bulletText=BULLET_CHAR))
-            entry.append(Spacer(1, SPACE_ENTRY_GAP))
-            elements.append(KeepTogether(entry))
-
-    # Skills — use Paragraphs in cells for proper word-wrapping
-    skills = data.get("skills", {})
-    if any(skills.get(k) for k in ["technical", "soft", "languages", "tools"]):
-        elements.append(Paragraph("SKILLS", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
-        s_skill_label = ParagraphStyle("SkillLabel", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GREEN_800, leading=_leading(SIZE_SUB))
-        s_skill_value = ParagraphStyle("SkillValue", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GRAY_700, leading=_leading(SIZE_SUB))
-        skill_rows = []
-        if skills.get("technical"):
-            skill_rows.append([Paragraph("Technical", s_skill_label), Paragraph(", ".join(skills["technical"]), s_skill_value)])
-        if skills.get("soft"):
-            skill_rows.append([Paragraph("Soft Skills", s_skill_label), Paragraph(", ".join(skills["soft"]), s_skill_value)])
-        if skills.get("languages"):
-            skill_rows.append([Paragraph("Languages", s_skill_label), Paragraph(", ".join(skills["languages"]), s_skill_value)])
-        if skills.get("tools"):
-            skill_rows.append([Paragraph("Tools", s_skill_label), Paragraph(", ".join(skills["tools"]), s_skill_value)])
-
-        t = Table(skill_rows, colWidths=[content_w * 0.18, content_w * 0.82])
+    # ── Helper: Entry row (title left, date right) ──
+    def add_entry_row(left, right):
+        t = Table(
+            [[Paragraph(left, s_entry_title), Paragraph(right, s_entry_right)]],
+            colWidths=[content_w * 0.72, content_w * 0.28],
+        )
         t.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ("TOPPADDING", (0, 0), (-1, -1), 2),
-            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
             ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("TOPPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
         ]))
         elements.append(t)
 
-    # Achievements
+    # ── Objective ──
+    obj = data.get("objective", "")
+    if obj:
+        add_section("CAREER OBJECTIVE")
+        elements.append(Paragraph(obj, s_body))
+
+    # ── Education — bordered table (like GGSIPU template) ──
+    edu_list = data.get("education", [])
+    if edu_list:
+        add_section("EDUCATION")
+        edu_header = [
+            Paragraph("<b>Year</b>", ParagraphStyle("EH", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=WHITE, fontName="Helvetica-Bold", leading=_leading(SIZE_SUB, 1.2))),
+            Paragraph("<b>Degree / Certificate</b>", ParagraphStyle("EH2", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=WHITE, fontName="Helvetica-Bold", leading=_leading(SIZE_SUB, 1.2))),
+            Paragraph("<b>Institute</b>", ParagraphStyle("EH3", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=WHITE, fontName="Helvetica-Bold", leading=_leading(SIZE_SUB, 1.2))),
+            Paragraph("<b>CGPA / %</b>", ParagraphStyle("EH4", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=WHITE, fontName="Helvetica-Bold", leading=_leading(SIZE_SUB, 1.2))),
+        ]
+        edu_rows = [edu_header]
+        s_edu_cell = ParagraphStyle("ECell", parent=styles["Normal"], fontSize=SIZE_SUB, textColor=GRAY_700, leading=_leading(SIZE_SUB, 1.3))
+        for e in edu_list:
+            edu_rows.append([
+                Paragraph(e.get("year", ""), s_edu_cell),
+                Paragraph(f"{e.get('degree', '')}" + (f" ({e['stream']})" if e.get('stream') else ""), s_edu_cell),
+                Paragraph(e.get("institution", ""), s_edu_cell),
+                Paragraph(e.get("grade", ""), s_edu_cell),
+            ])
+        edu_t = Table(edu_rows, colWidths=[content_w * 0.15, content_w * 0.35, content_w * 0.35, content_w * 0.15])
+        edu_t.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), GREEN_800),
+            ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+            ("GRID", (0, 0), (-1, -1), 0.5, GRAY_400),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("TOPPADDING", (0, 0), (-1, -1), 3),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [WHITE, HexColor("#FAFAFA")]),
+        ]))
+        elements.append(edu_t)
+
+    # ── Experience ──
+    exp_list = data.get("experience", [])
+    if exp_list:
+        add_section("EXPERIENCE")
+        for exp in exp_list:
+            title = f"<b>{exp.get('title', '')}</b>"
+            if exp.get("company"):
+                title += f" | {exp['company']}"
+            add_entry_row(title, exp.get("duration", ""))
+            if exp.get("location"):
+                elements.append(Paragraph(exp["location"], s_entry_sub))
+            for b in exp.get("bullets", []):
+                elements.append(Paragraph(b, s_bullet, bulletText=BULLET_CHAR))
+            elements.append(Spacer(1, SPACE_ENTRY_GAP))
+
+    # ── Projects ──
+    proj_list = data.get("projects", [])
+    if proj_list:
+        add_section("PROJECTS")
+        for p in proj_list:
+            line = f"<b>{p.get('name', '')}</b>"
+            ts = p.get("tech_stack", [])
+            if ts:
+                ts_str = ", ".join(ts) if isinstance(ts, list) else str(ts)
+                line += f"  <font color='#6B7280'>({ts_str})</font>"
+            elements.append(Paragraph(line, s_entry_title))
+            if p.get("description"):
+                elements.append(Paragraph(p["description"], s_entry_sub))
+            for b in p.get("bullets", []):
+                elements.append(Paragraph(b, s_bullet, bulletText=BULLET_CHAR))
+            elements.append(Spacer(1, SPACE_ENTRY_GAP))
+
+    # ── Skills — inline format (no table, wraps naturally) ──
+    skills = data.get("skills", {})
+    if any(skills.get(k) for k in ["technical", "soft", "languages", "tools"]):
+        add_section("TECHNICAL SKILLS")
+        for label, key in [("Languages / Technologies", "technical"), ("Developer Tools", "tools"), ("Soft Skills", "soft"), ("Languages", "languages")]:
+            items = skills.get(key, [])
+            if items:
+                elements.append(Paragraph(f"<b>{label}:</b> {', '.join(items)}", s_skill_inline))
+
+    # ── Achievements ──
     achievements = data.get("achievements", [])
     if achievements:
-        elements.append(Paragraph("ACHIEVEMENTS", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("ACHIEVEMENTS")
         for a in achievements:
             elements.append(Paragraph(a, s_bullet, bulletText=BULLET_CHAR))
 
-    # Certifications
+    # ── Certifications ──
     certs = data.get("certifications", [])
     if certs:
-        elements.append(Paragraph("CERTIFICATIONS", s_section))
-        elements.append(HRFlowable(width="100%", thickness=0.5, color=GREEN_800, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("CERTIFICATIONS")
         for c in certs:
             line = f"<b>{c.get('name', '')}</b>"
             parts = [p for p in [c.get("issuer"), c.get("year")] if p]
@@ -875,7 +912,7 @@ def _generate_jake(data: dict) -> bytes:
     s_contact = ParagraphStyle(
         "JKContact", parent=styles["Normal"], fontSize=SIZE_CONTACT,
         textColor=JAKE_DARK, spaceAfter=4 * mm,
-        alignment=TA_CENTER, leading=_leading(SIZE_CONTACT),
+        alignment=TA_CENTER, leading=_leading(SIZE_CONTACT, 1.3),
     )
     s_section = ParagraphStyle(
         "JKSection", parent=styles["Heading2"], fontSize=SIZE_SECTION,
@@ -884,30 +921,30 @@ def _generate_jake(data: dict) -> bytes:
     )
     s_entry_bold = ParagraphStyle(
         "JKEntryBold", parent=styles["Normal"], fontSize=SIZE_ENTRY_TITLE,
-        textColor=JAKE_BLACK, leading=_leading(SIZE_ENTRY_TITLE), fontName="Helvetica-Bold",
+        textColor=JAKE_BLACK, leading=_leading(SIZE_ENTRY_TITLE, 1.3), fontName="Helvetica-Bold",
     )
     s_entry_right = ParagraphStyle(
         "JKEntryRight", parent=styles["Normal"], fontSize=SIZE_ENTRY_TITLE,
-        textColor=JAKE_BLACK, leading=_leading(SIZE_ENTRY_TITLE), fontName="Helvetica-Bold",
+        textColor=JAKE_BLACK, leading=_leading(SIZE_ENTRY_TITLE, 1.3), fontName="Helvetica-Bold",
         alignment=TA_RIGHT,
     )
     s_entry_italic = ParagraphStyle(
         "JKEntryItalic", parent=styles["Normal"], fontSize=SIZE_SUB,
-        textColor=JAKE_GRAY, leading=_leading(SIZE_SUB), fontName="Helvetica-Oblique",
+        textColor=JAKE_GRAY, leading=_leading(SIZE_SUB, 1.3), fontName="Helvetica-Oblique",
     )
     s_entry_italic_r = ParagraphStyle(
         "JKEntryItalicR", parent=styles["Normal"], fontSize=SIZE_SUB,
-        textColor=JAKE_GRAY, leading=_leading(SIZE_SUB), fontName="Helvetica-Oblique",
+        textColor=JAKE_GRAY, leading=_leading(SIZE_SUB, 1.3), fontName="Helvetica-Oblique",
         alignment=TA_RIGHT,
     )
     s_bullet = ParagraphStyle(
         "JKBullet", parent=styles["Normal"], fontSize=SIZE_BODY,
-        textColor=JAKE_DARK, leading=_leading(SIZE_BODY),
+        textColor=JAKE_DARK, leading=_leading(SIZE_BODY, 1.3),
         leftIndent=14, bulletIndent=4,
     )
     s_body = ParagraphStyle(
         "JKBody", parent=styles["Normal"], fontSize=SIZE_BODY,
-        textColor=JAKE_DARK, leading=_leading(SIZE_BODY),
+        textColor=JAKE_DARK, leading=_leading(SIZE_BODY, 1.3),
     )
 
     entry_style = TableStyle([
@@ -917,6 +954,21 @@ def _generate_jake(data: dict) -> bytes:
         ("TOPPADDING", (0, 0), (-1, -1), 0),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
     ])
+
+    GRAY_BG = HexColor("#F0F0F0")
+
+    def add_section(title):
+        s_hdr = ParagraphStyle("JHdr", parent=styles["Normal"], fontSize=SIZE_SECTION, textColor=JAKE_BLACK, fontName="Helvetica-Bold", leading=_leading(SIZE_SECTION, 1.2))
+        t = Table([[Paragraph(title, s_hdr)]], colWidths=[page_w])
+        t.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), GRAY_BG),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("TOPPADDING", (0, 0), (-1, -1), 2.5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
+        ]))
+        elements.append(Spacer(1, SPACE_SECTION_BEFORE))
+        elements.append(t)
+        elements.append(Spacer(1, SPACE_SECTION_AFTER))
 
     elements = []
     pi = data.get("personal_info", {})
@@ -941,44 +993,61 @@ def _generate_jake(data: dict) -> bytes:
     # ── Objective / Summary
     obj = data.get("objective", "")
     if obj:
-        elements.append(Paragraph("Summary", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Summary")
         elements.append(Paragraph(obj, s_body))
 
     # ── Education
     edu_list = data.get("education", [])
     if edu_list:
-        elements.append(Paragraph("Education", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Education")
+        s_edu_hdr = ParagraphStyle(
+            "JKEduHdr", parent=styles["Normal"], fontSize=SIZE_BODY,
+            textColor=WHITE, fontName="Helvetica-Bold", leading=_leading(SIZE_BODY, 1.3),
+        )
+        s_edu_cell = ParagraphStyle(
+            "JKEduCell", parent=styles["Normal"], fontSize=SIZE_BODY,
+            textColor=JAKE_DARK, leading=_leading(SIZE_BODY, 1.3),
+        )
+        edu_header = [
+            Paragraph("<b>Year</b>", s_edu_hdr),
+            Paragraph("<b>Degree / Certificate</b>", s_edu_hdr),
+            Paragraph("<b>Institute</b>", s_edu_hdr),
+            Paragraph("<b>CGPA / %</b>", s_edu_hdr),
+        ]
+        edu_rows = [edu_header]
         for e in edu_list:
-            entry = []
-            row1 = Table(
-                [[Paragraph(f"<b>{e.get('institution', '')}</b>", s_entry_bold),
-                  Paragraph(f"<b>{e.get('year', '')}</b>", s_entry_right)]],
-                colWidths=[page_w * 0.65, page_w * 0.35],
-            )
-            row1.setStyle(entry_style)
-            entry.append(row1)
-            sub_left = e.get("degree", "")
+            degree = e.get("degree", "")
             if e.get("stream"):
-                sub_left += f", {e['stream']}"
-            sub_right = e.get("grade", "")
-            if sub_left or sub_right:
-                row2 = Table(
-                    [[Paragraph(sub_left, s_entry_italic),
-                      Paragraph(sub_right, s_entry_italic_r)]],
-                    colWidths=[page_w * 0.65, page_w * 0.35],
-                )
-                row2.setStyle(entry_style)
-                entry.append(row2)
-            entry.append(Spacer(1, SPACE_ENTRY_GAP))
-            elements.append(KeepTogether(entry))
+                degree += f", {e['stream']}"
+            edu_rows.append([
+                Paragraph(e.get("year", ""), s_edu_cell),
+                Paragraph(degree, s_edu_cell),
+                Paragraph(e.get("institution", ""), s_edu_cell),
+                Paragraph(e.get("grade", ""), s_edu_cell),
+            ])
+        edu_col_widths = [page_w * 0.15, page_w * 0.35, page_w * 0.35, page_w * 0.15]
+        edu_table = Table(edu_rows, colWidths=edu_col_widths)
+        edu_ts = [
+            ("BACKGROUND", (0, 0), (-1, 0), JAKE_BLACK),
+            ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("GRID", (0, 0), (-1, -1), 0.5, GRAY_400),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("TOPPADDING", (0, 0), (-1, -1), 3),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ]
+        for i in range(1, len(edu_rows)):
+            bg = GRAY_BG if i % 2 == 0 else WHITE
+            edu_ts.append(("BACKGROUND", (0, i), (-1, i), bg))
+        edu_table.setStyle(TableStyle(edu_ts))
+        elements.append(edu_table)
 
     # ── Experience
     exp_list = data.get("experience", [])
     if exp_list:
-        elements.append(Paragraph("Experience", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Experience")
         for exp in exp_list:
             entry = []
             row1 = Table(
@@ -1004,8 +1073,7 @@ def _generate_jake(data: dict) -> bytes:
     # ── Projects
     proj_list = data.get("projects", [])
     if proj_list:
-        elements.append(Paragraph("Projects", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Projects")
         for p in proj_list:
             entry = []
             ts = p.get("tech_stack", [])
@@ -1027,16 +1095,14 @@ def _generate_jake(data: dict) -> bytes:
     # ── Achievements
     achievements = data.get("achievements", [])
     if achievements:
-        elements.append(Paragraph("Achievements", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Achievements")
         for a in achievements:
             elements.append(Paragraph(a, s_bullet, bulletText=BULLET_CHAR))
 
     # ── Skills
     skills = data.get("skills", {})
     if any(skills.get(k) for k in ["technical", "soft", "languages", "tools"]):
-        elements.append(Paragraph("Technical Skills", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Technical Skills")
         for label, key in [("Languages", "languages"), ("Technologies/Frameworks", "technical"), ("Developer Tools", "tools"), ("Soft Skills", "soft")]:
             if skills.get(key):
                 elements.append(Paragraph(f"<b>{label}:</b> {', '.join(skills[key])}", s_body))
@@ -1045,8 +1111,7 @@ def _generate_jake(data: dict) -> bytes:
     # ── Certifications
     certs = data.get("certifications", [])
     if certs:
-        elements.append(Paragraph("Certifications", s_section))
-        elements.append(HRFlowable(width="100%", thickness=1, color=JAKE_BLACK, spaceAfter=SPACE_SECTION_AFTER))
+        add_section("Certifications")
         for c in certs:
             line = f"<b>{c.get('name', '')}</b>"
             parts = [p for p in [c.get("issuer"), c.get("year")] if p]

@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import User, UserProfile, ResumeDraft
+from app.services.resume_enhance_service import enhance_resume_for_pdf
 from app.schemas import (
     ResumeDraftCreateRequest,
     ResumeDraftResponse,
@@ -499,7 +500,7 @@ async def get_ats_score(
 # ── PDF Download ─────────────────────────────────────────────────────────────
 
 @router.get("/{draft_id}/download")
-def download_pdf(
+async def download_pdf(
     draft_id: str,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -516,6 +517,9 @@ def download_pdf(
 
     # Sanitize: replace None values with empty strings to prevent reportlab crashes
     _sanitize_resume_data(resume_data)
+
+    # AI-enhance sparse content before PDF generation
+    resume_data = await enhance_resume_for_pdf(resume_data)
 
     # Get profile image URL if available
     profile = db.query(UserProfile).filter(

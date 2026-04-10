@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import User, UserProfile, ResumeSession, ResumeMessage, Resume
+from app.services.resume_enhance_service import enhance_resume_for_pdf
 from app.schemas import (
     ResumeSessionCreateRequest,
     ResumeSessionResponse,
@@ -389,7 +390,7 @@ async def get_ats_score(
     "/{resume_id}/download",
     responses={404: {"model": ErrorResponse}},
 )
-def download_resume(
+async def download_resume(
     resume_id: str,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -404,8 +405,12 @@ def download_resume(
             detail="Resume not found",
         )
 
+    # AI-enhance sparse content before PDF generation
+    resume_data = json.loads(resume.resume_json) if isinstance(resume.resume_json, str) else resume.resume_json
+    resume_data = await enhance_resume_for_pdf(resume_data)
+
     pdf_bytes = generate_resume_pdf(
-        resume.resume_json,
+        resume_data,
         resume.template,
         profile_image_url=current_user.profile_image,
     )
