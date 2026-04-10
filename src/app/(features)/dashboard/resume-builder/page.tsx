@@ -327,7 +327,7 @@ export default function ResumeBuilderPage() {
             <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ ...fadeInUpTransition, delay: 0.15 }}>
               <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <h2 className="text-base font-semibold text-gray-900 mb-4">AI Chat Resumes</h2>
-                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {sessions.map((session) => (
                     <motion.div key={session.id} variants={staggerItem}>
                       <ResumeCard session={session} />
