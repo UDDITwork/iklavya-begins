@@ -4,8 +4,10 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import {
   Users, BookOpen, Award, Activity, Download, Filter,
-  ArrowUp, ArrowDown, Target, Mic, FileText, Zap, Flame
+  ArrowUp, ArrowDown, Target, Mic, FileText, Zap, Flame,
+  Plus, Send, Loader2, CheckCircle, Trash2, RefreshCw
 } from 'lucide-react'
+import toast from 'react-hot-toast'
 import HeatmapVisualization from '@/components/features/HeatmapVisualization'
 
 const metrics = [
@@ -70,6 +72,287 @@ function AnimatedMetric({ value, change }: { value: number; change: number }) {
         {change >= 0 ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
         {Math.abs(change)}% this month
       </div>
+    </div>
+  )
+}
+
+interface AdminQuiz {
+  id: string
+  title: string
+  category: string
+  question_count: number
+  total_attempts: number
+  is_active: number
+  last_broadcast_at: string | null
+  created_at: string
+}
+
+function QuizBroadcastPanel() {
+  const [quizzes, setQuizzes] = useState<AdminQuiz[]>([])
+  const [seeding, setSeeding] = useState(false)
+  const [rebroadcasting, setRebroadcasting] = useState<string | null>(null)
+  const [showCreate, setShowCreate] = useState(false)
+  const [creating, setCreating] = useState(false)
+
+  // Create form state
+  const [title, setTitle] = useState('')
+  const [category, setCategory] = useState('general')
+  const [description, setDescription] = useState('')
+  const [questions, setQuestions] = useState([
+    { question: '', option_a: '', option_b: '', option_c: '', option_d: '', correct_option: 'a', explanation: '' },
+  ])
+
+  useEffect(() => { loadQuizzes() }, [])
+
+  async function loadQuizzes() {
+    try {
+      const res = await fetch('/api/broadcast-quiz')
+      if (res.ok) {
+        const data = await res.json()
+        setQuizzes(data.quizzes || [])
+      }
+    } catch { /* silent */ }
+  }
+
+  async function handleSeed() {
+    setSeeding(true)
+    try {
+      const res = await fetch('/api/broadcast-quiz/seed', { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        toast.success(`Seeded ${data.seeded} quizzes, notified ${data.students_notified} students`)
+        loadQuizzes()
+      } else {
+        toast.error(data.error || data.message || 'Failed')
+      }
+    } catch { toast.error('Failed to seed') }
+    finally { setSeeding(false) }
+  }
+
+  async function handleRebroadcast(quizId: string) {
+    setRebroadcasting(quizId)
+    try {
+      const res = await fetch(`/api/broadcast-quiz/${quizId}/rebroadcast`, { method: 'POST' })
+      const data = await res.json()
+      if (res.ok) {
+        toast.success(`Reminded ${data.reminded} students`)
+      }
+    } catch { toast.error('Failed') }
+    finally { setRebroadcasting(null) }
+  }
+
+  function addQuestion() {
+    setQuestions(prev => [...prev, { question: '', option_a: '', option_b: '', option_c: '', option_d: '', correct_option: 'a', explanation: '' }])
+  }
+
+  function removeQuestion(i: number) {
+    if (questions.length <= 2) return
+    setQuestions(prev => prev.filter((_, idx) => idx !== i))
+  }
+
+  function updateQuestion(i: number, field: string, value: string) {
+    setQuestions(prev => prev.map((q, idx) => idx === i ? { ...q, [field]: value } : q))
+  }
+
+  async function handleCreate() {
+    if (!title.trim()) { toast.error('Title required'); return }
+    const valid = questions.every(q => q.question && q.option_a && q.option_b && q.option_c && q.option_d)
+    if (!valid) { toast.error('Fill all question fields'); return }
+
+    setCreating(true)
+    try {
+      const res = await fetch('/api/broadcast-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title,
+          description: description || null,
+          category,
+          time_per_question: 30,
+          broadcast_interval_hours: 4,
+          questions,
+        }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        toast.success(`Quiz created! ${data.students_notified} students notified`)
+        setShowCreate(false)
+        setTitle('')
+        setDescription('')
+        setQuestions([{ question: '', option_a: '', option_b: '', option_c: '', option_d: '', correct_option: 'a', explanation: '' }])
+        loadQuizzes()
+      } else {
+        toast.error(data.error || 'Failed')
+      }
+    } catch { toast.error('Failed') }
+    finally { setCreating(false) }
+  }
+
+  return (
+    <div className="mt-8">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-lg font-bold text-gray-900">Quiz Broadcast</h3>
+          <p className="text-[13px] text-gray-500">Create quizzes and broadcast them as notifications to all students</p>
+        </div>
+        <div className="flex gap-2">
+          {quizzes.length === 0 && (
+            <button
+              onClick={handleSeed}
+              disabled={seeding}
+              className="flex items-center gap-2 h-9 px-4 rounded-lg border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            >
+              {seeding ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
+              Seed 4 Sample Quizzes
+            </button>
+          )}
+          <button
+            onClick={() => setShowCreate(!showCreate)}
+            className="flex items-center gap-2 h-9 px-4 rounded-lg bg-violet-600 text-white text-[13px] font-semibold hover:bg-violet-700 transition-colors"
+          >
+            <Plus size={14} /> Create Quiz
+          </button>
+        </div>
+      </div>
+
+      {/* Create form */}
+      {showCreate && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="rounded-xl border border-gray-200 bg-white p-5 mb-4 overflow-hidden"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <input
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              placeholder="Quiz title"
+              className="px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:ring-2 focus:ring-violet-200"
+            />
+            <select
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+              className="px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:ring-2 focus:ring-violet-200"
+            >
+              <option value="general">General</option>
+              <option value="banking">Banking</option>
+              <option value="communication">Communication</option>
+              <option value="aptitude">Aptitude</option>
+            </select>
+            <input
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder="Description (optional)"
+              className="px-3 py-2 rounded-lg border border-gray-200 text-[13px] focus:outline-none focus:ring-2 focus:ring-violet-200"
+            />
+          </div>
+
+          <h4 className="text-[12px] font-semibold text-gray-500 uppercase tracking-wider mb-3">Questions</h4>
+          <div className="space-y-4">
+            {questions.map((q, i) => (
+              <div key={i} className="p-4 rounded-lg border border-gray-100 bg-gray-50/50">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[12px] font-semibold text-gray-400">Q{i + 1}</span>
+                  {questions.length > 2 && (
+                    <button onClick={() => removeQuestion(i)} className="text-gray-400 hover:text-red-500 transition-colors">
+                      <Trash2 size={13} />
+                    </button>
+                  )}
+                </div>
+                <input
+                  value={q.question}
+                  onChange={e => updateQuestion(i, 'question', e.target.value)}
+                  placeholder="Question text"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-200 text-[13px] mb-2 focus:outline-none focus:ring-2 focus:ring-violet-200"
+                />
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  {(['a', 'b', 'c', 'd'] as const).map(opt => (
+                    <div key={opt} className="flex items-center gap-1.5">
+                      <input
+                        type="radio"
+                        name={`correct-${i}`}
+                        checked={q.correct_option === opt}
+                        onChange={() => updateQuestion(i, 'correct_option', opt)}
+                        className="accent-violet-600"
+                      />
+                      <input
+                        value={q[`option_${opt}` as keyof typeof q]}
+                        onChange={e => updateQuestion(i, `option_${opt}`, e.target.value)}
+                        placeholder={`Option ${opt.toUpperCase()}`}
+                        className="flex-1 px-2.5 py-1.5 rounded-md border border-gray-200 text-[12px] focus:outline-none focus:ring-2 focus:ring-violet-200"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <input
+                  value={q.explanation}
+                  onChange={e => updateQuestion(i, 'explanation', e.target.value)}
+                  placeholder="Explanation (optional)"
+                  className="w-full px-3 py-1.5 rounded-md border border-gray-200 text-[12px] focus:outline-none focus:ring-2 focus:ring-violet-200"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between mt-4">
+            <button
+              onClick={addQuestion}
+              className="flex items-center gap-1 text-[12px] font-medium text-violet-600 hover:text-violet-700"
+            >
+              <Plus size={12} /> Add Question
+            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowCreate(false)}
+                className="h-9 px-4 rounded-lg text-[13px] font-medium text-gray-500 hover:bg-gray-100 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCreate}
+                disabled={creating}
+                className="flex items-center gap-2 h-9 px-5 rounded-lg bg-violet-600 text-white text-[13px] font-semibold hover:bg-violet-700 disabled:opacity-50 transition-colors"
+              >
+                {creating ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                Create & Broadcast
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Quiz list */}
+      {quizzes.length > 0 && (
+        <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
+          <div className="divide-y divide-gray-100">
+            {quizzes.map(quiz => (
+              <div key={quiz.id} className="flex items-center gap-4 px-5 py-3.5">
+                <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                  <Zap size={16} className="text-violet-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[14px] font-semibold text-gray-900">{quiz.title}</span>
+                  <div className="flex items-center gap-3 text-[12px] text-gray-400 mt-0.5">
+                    <span className="capitalize">{quiz.category}</span>
+                    <span>·</span>
+                    <span>{quiz.question_count} questions</span>
+                    <span>·</span>
+                    <span>{quiz.total_attempts} attempts</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleRebroadcast(quiz.id)}
+                  disabled={rebroadcasting === quiz.id}
+                  className="flex items-center gap-1.5 h-8 px-3 rounded-lg border border-gray-200 text-[12px] font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                >
+                  {rebroadcasting === quiz.id ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
+                  Re-broadcast
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -236,6 +519,9 @@ export default function AdminPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Quiz Broadcast Section */}
+        <QuizBroadcastPanel />
       </div>
     </div>
   )

@@ -662,6 +662,80 @@ class Notification(Base):
     )
 
 
+# ─── Broadcast Quizzes ────────────────────────────────────
+
+
+class BroadcastQuiz(Base):
+    __tablename__ = "broadcast_quizzes"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    title: Mapped[str] = mapped_column(String(200), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=True)
+    category: Mapped[str] = mapped_column(
+        String(50), nullable=False, default="general"
+    )  # banking, communication, aptitude, general, etc.
+    time_per_question: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=30
+    )  # seconds
+    is_active: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=1
+    )  # 0 or 1
+    broadcast_interval_hours: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=4
+    )  # reminder interval in hours
+    last_broadcast_at: Mapped[str] = mapped_column(String(50), nullable=True)
+    total_attempts: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0
+    )
+    created_by: Mapped[str] = mapped_column(String(36), nullable=True)
+    created_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
+class BroadcastQuizQuestion(Base):
+    __tablename__ = "broadcast_quiz_questions"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    quiz_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("broadcast_quizzes.id"), nullable=False, index=True
+    )
+    question: Mapped[str] = mapped_column(Text, nullable=False)
+    option_a: Mapped[str] = mapped_column(String(300), nullable=False)
+    option_b: Mapped[str] = mapped_column(String(300), nullable=False)
+    option_c: Mapped[str] = mapped_column(String(300), nullable=False)
+    option_d: Mapped[str] = mapped_column(String(300), nullable=False)
+    correct_option: Mapped[str] = mapped_column(
+        String(1), nullable=False
+    )  # "a", "b", "c", "d"
+    explanation: Mapped[str] = mapped_column(Text, nullable=True)
+    question_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+
+class BroadcastQuizAttempt(Base):
+    __tablename__ = "broadcast_quiz_attempts"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=generate_uuid
+    )
+    quiz_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("broadcast_quizzes.id"), nullable=False, index=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=False, index=True
+    )
+    score: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    total: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    answers_json: Mapped[str] = mapped_column(Text, nullable=True)  # JSON of user answers
+    completed_at: Mapped[str] = mapped_column(
+        String(50), nullable=False, default=utc_now
+    )
+
+
 # ─── AI Interview ──────────────────────────────────────
 
 

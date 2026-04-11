@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 import Sidebar from '@/components/dashboard/Sidebar'
+import QuizBroadcastPopup from '@/components/dashboard/QuizBroadcastPopup'
 
 export default function DashboardLayout({
   children,
@@ -35,6 +36,7 @@ export default function DashboardLayout({
       <main className="flex-1 overflow-auto bg-[#F7F8FA]">
         {children}
       </main>
+      <QuizBroadcastPopup />
     </div>
   )
 }

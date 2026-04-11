@@ -23,6 +23,7 @@ const typeConfig: Record<string, { icon: typeof Bell; color: string; bg: string 
   mentor_reply:     { icon: MessageCircle,color: '#166534', bg: '#DCFCE7' },
   job_applied:      { icon: Briefcase,    color: '#7C3AED', bg: '#F5F3FF' },
   assessment_available: { icon: Zap,      color: '#166534', bg: '#DCFCE7' },
+  quiz_broadcast:   { icon: Zap,          color: '#7C3AED', bg: '#F5F3FF' },
   system:           { icon: Bell,         color: '#6B7280', bg: '#F9FAFB' },
 }
 
