@@ -80,7 +80,7 @@ export default function CareerGuidancePage() {
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-800">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-green-800">
                 <MessageSquare size={22} />
               </div>
               <div>
@@ -117,13 +117,13 @@ export default function CareerGuidancePage() {
         >
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="w-16 h-16 rounded-xl bg-green-50 flex items-center justify-center text-green-300">
+ <div className="w-16 h-16 rounded-xl flex items-center justify-center text-green-300">
                 <MessageSquare size={30} />
               </div>
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-300 -ml-4 mt-4">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-emerald-300 -ml-4 mt-4">
                 <TrendingUp size={22} />
               </div>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-300 -ml-3 mt-1">
+ <div className="w-10 h-10 rounded-xl flex items-center justify-center text-amber-300 -ml-3 mt-1">
                 <BookOpen size={18} />
               </div>
             </div>

@@ -712,7 +712,7 @@ export default function JobFeedPage() {
               className="w-9 h-9 rounded-full object-cover border border-gray-200"
             />
           ) : (
-            <div className="w-9 h-9 rounded-full bg-green-50 border border-green-200 flex items-center justify-center text-green-800 font-semibold text-sm">
+ <div className="w-9 h-9 rounded-full border border-green-200 flex items-center justify-center text-green-800 font-semibold text-sm">
               {user?.name?.charAt(0).toUpperCase() || 'U'}
             </div>
           )}

@@ -154,7 +154,7 @@ export default function AnalyzingScreen({ sessionId, onReportReady }: AnalyzingS
         {/* Animated Loader */}
         <div className="flex items-center justify-center mb-6">
           <motion.div
-            className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center"
+ className="w-16 h-16 rounded-full flex items-center justify-center"
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           >

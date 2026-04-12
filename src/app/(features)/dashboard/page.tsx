@@ -82,10 +82,10 @@ function AnimatedCounter({ value, duration = 800 }: { value: number; duration?: 
 /* ------------------------------------------------------------------ */
 
 const colorMap: Record<string, { bg: string; text: string }> = {
-  green:  { bg: 'bg-green-50',  text: 'text-green-700' },
-  blue:   { bg: 'bg-blue-50',   text: 'text-blue-700' },
-  purple: { bg: 'bg-purple-50', text: 'text-purple-700' },
-  amber:  { bg: 'bg-amber-50',  text: 'text-amber-700' },
+  green:  { bg: '',  text: 'text-green-700' },
+  blue:   { bg: '',   text: 'text-blue-700' },
+  purple: { bg: '', text: 'text-purple-700' },
+  amber:  { bg: '',  text: 'text-amber-700' },
 }
 
 function StatCard({
@@ -258,8 +258,8 @@ function RecentSessions({ sessions }: { sessions: MergedSession[] }) {
                 <div
                   className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
                     s.type === 'career'
-                      ? 'bg-green-50 text-green-700'
-                      : 'bg-cyan-50 text-cyan-700'
+                      ? 'text-green-700'
+                      : 'text-cyan-700'
                   }`}
                 >
                   {s.type === 'career' ? <MessageSquare size={14} /> : <FileText size={14} />}
@@ -780,7 +780,7 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {analytics.certificates.list.map((cert: { title: string; cert_number: string; issued_at: string }, idx: number) => (
                     <div key={idx} className="flex items-center gap-3 p-3 rounded-lg border border-amber-100 bg-amber-50/30">
-                      <div className="w-9 h-9 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                      <div className="w-9 h-9 rounded-lg text-amber-600 flex items-center justify-center shrink-0">
                         <Award size={16} />
                       </div>
                       <div className="min-w-0">

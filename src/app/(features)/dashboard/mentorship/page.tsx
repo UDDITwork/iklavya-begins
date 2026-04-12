@@ -474,7 +474,7 @@ export default function MentorshipPage() {
             <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4" style={{ background: 'linear-gradient(180deg, #fafbfc 0%, #f3f4f6 100%)' }}>
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                  <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-green-600 mb-4">
+ <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-green-600 mb-4">
                     <MessageSquare size={24} />
                   </div>
                   <h3 className="text-base font-semibold text-gray-800 mb-1.5">
@@ -566,7 +566,7 @@ export default function MentorshipPage() {
               <div className="space-y-1">
                 {/* Profile Completion */}
                 <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-50">
-                  <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center text-green-600 shrink-0">
+ <div className="w-7 h-7 rounded-lg flex items-center justify-center text-green-600 shrink-0">
                     <Users size={13} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -585,7 +585,7 @@ export default function MentorshipPage() {
 
                 {/* Resumes */}
                 <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
+ <div className="w-7 h-7 rounded-lg flex items-center justify-center text-purple-600 shrink-0">
                     <FileText size={13} />
                   </div>
                   <div className="flex-1">
@@ -601,7 +601,7 @@ export default function MentorshipPage() {
                     </div>
                     {activity.sessions.map((s, i) => (
                       <div key={i} className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+ <div className="w-7 h-7 rounded-lg flex items-center justify-center text-blue-600 shrink-0">
                           <MessageSquare size={13} />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -622,7 +622,7 @@ export default function MentorshipPage() {
                     </div>
                     {activity.job_clicks.map((j, i) => (
                       <div key={i} className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="w-7 h-7 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+ <div className="w-7 h-7 rounded-lg flex items-center justify-center text-amber-600 shrink-0">
                           <Briefcase size={13} />
                         </div>
                         <div className="flex-1 min-w-0">

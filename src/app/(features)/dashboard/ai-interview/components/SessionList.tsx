@@ -110,7 +110,7 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-800">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-green-800">
                 <Mic size={22} />
               </div>
               <div>
@@ -142,14 +142,14 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
             {/* Decorative illustration */}
             <div className="relative w-28 h-28 mx-auto mb-6">
-              <div className="absolute inset-0 rounded-full bg-green-50 animate-pulse" />
-              <div className="absolute inset-3 rounded-full bg-green-100 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full animate-pulse" />
+              <div className="absolute inset-3 rounded-full flex items-center justify-center">
                 <Mic size={36} className="text-green-600" />
               </div>
-              <div className="absolute -right-2 -top-1 w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center rotate-12">
+ <div className="absolute -right-2 -top-1 w-8 h-8 rounded-lg border border-amber-100 flex items-center justify-center rotate-12">
                 <Trophy size={14} className="text-amber-500" />
               </div>
-              <div className="absolute -left-2 bottom-1 w-7 h-7 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center -rotate-12">
+ <div className="absolute -left-2 bottom-1 w-7 h-7 rounded-lg border border-blue-100 flex items-center justify-center -rotate-12">
                 <Award size={12} className="text-blue-500" />
               </div>
             </div>
@@ -174,9 +174,9 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
             <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ ...fadeInUpTransition, delay: 0.05 }}>
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { label: 'Interviews', value: totalInterviews.toString(), icon: <Mic size={16} />, color: 'text-green-700 bg-green-50' },
-                  { label: 'Avg Score', value: `${avgScore}%`, icon: <BarChart3 size={16} />, color: 'text-blue-700 bg-blue-50' },
-                  { label: 'Best Score', value: `${bestScore}%`, icon: <Trophy size={16} />, color: 'text-amber-700 bg-amber-50' },
+                  { label: 'Interviews', value: totalInterviews.toString(), icon: <Mic size={16} />, color: 'text-green-700' },
+                  { label: 'Avg Score', value: `${avgScore}%`, icon: <BarChart3 size={16} />, color: 'text-blue-700' },
+                  { label: 'Best Score', value: `${bestScore}%`, icon: <Trophy size={16} />, color: 'text-amber-700' },
                 ].map((stat) => (
                   <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
                     <div className="flex items-center gap-2 mb-1">
@@ -203,7 +203,7 @@ export default function SessionList({ onNewInterview, onViewReport }: SessionLis
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {inProgressSessions.map((session) => (
                     <div key={session.id} className="flex items-center gap-3 p-3.5 rounded-xl bg-amber-50/50 border border-amber-100">
-                      <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+ <div className="w-9 h-9 rounded-lg flex items-center justify-center text-amber-700 shrink-0">
                         {roleIcon(session.job_role)}
                       </div>
                       <div className="flex-1 min-w-0">

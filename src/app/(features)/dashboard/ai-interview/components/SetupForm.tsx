@@ -198,7 +198,7 @@ export default function SetupForm({ onStart, onBack }: SetupFormProps) {
                     setResumeFile(null)
                     if (fileInputRef.current) fileInputRef.current.value = ''
                   }}
-                  className="w-6 h-6 rounded flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+ className="w-6 h-6 rounded flex items-center justify-center text-gray-400 hover:text-red-500 hover: transition-colors"
                 >
                   <X size={14} />
                 </button>

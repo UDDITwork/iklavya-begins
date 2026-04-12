@@ -28,7 +28,7 @@ export default function SessionCard({ session }: { session: Session }) {
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-            isActive ? 'bg-green-50 text-green-700' : 'bg-gray-50 text-gray-500'
+            isActive ? 'text-green-700' : 'text-gray-500'
           }`}>
             <MessageSquare size={16} />
           </div>

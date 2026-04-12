@@ -280,11 +280,11 @@ export default function ResultPage() {
           <div className="flex-1 text-center md:text-left space-y-4">
             <div className="flex items-center justify-center md:justify-start gap-3">
               {data.passed ? (
-                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+ <div className="w-10 h-10 rounded-full flex items-center justify-center">
                   <CheckCircle className="w-6 h-6 text-green-600" />
                 </div>
               ) : (
-                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+ <div className="w-10 h-10 rounded-full flex items-center justify-center">
                   <XCircle className="w-6 h-6 text-red-600" />
                 </div>
               )}

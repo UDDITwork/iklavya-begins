@@ -578,7 +578,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-blue-700">
                   <User size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Personal Information</h2>
@@ -664,7 +664,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-green-700">
                   <GraduationCap size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Education</h2>
@@ -749,7 +749,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-indigo-700">
                   <Briefcase size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Professional</h2>
@@ -838,7 +838,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-amber-700">
                   <Briefcase size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Work Experience</h2>
@@ -861,7 +861,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-cyan-50 flex items-center justify-center text-cyan-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-cyan-700">
                   <Code size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Projects</h2>
@@ -884,7 +884,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center text-violet-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-violet-700">
                   <FileText size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Certifications</h2>
@@ -907,7 +907,7 @@ export default function ProfilePage() {
           >
             <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700">
+ <div className="w-8 h-8 rounded-lg flex items-center justify-center text-emerald-700">
                   <Heart size={16} />
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">About You</h2>

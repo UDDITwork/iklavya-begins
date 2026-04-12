@@ -97,7 +97,7 @@ export default function AssessmentsPage() {
       >
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-emerald-800">
               <ClipboardCheck size={22} />
             </div>
             <div>

@@ -103,7 +103,7 @@ export default function ClassroomPage() {
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center text-violet-800">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-violet-800">
                 <GraduationCap size={22} />
               </div>
               <div>

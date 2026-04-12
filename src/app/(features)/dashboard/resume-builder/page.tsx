@@ -214,7 +214,7 @@ export default function ResumeBuilderPage() {
         <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-800">
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-cyan-800">
                 <FileText size={22} />
               </div>
               <div>
@@ -245,9 +245,9 @@ export default function ResumeBuilderPage() {
         <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ ...fadeInUpTransition, delay: 0.1 }}>
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center shadow-sm">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="w-16 h-16 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-300"><FileText size={30} /></div>
-              <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-300 -ml-4 mt-4"><Download size={22} /></div>
-              <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-violet-300 -ml-3 mt-1"><Palette size={18} /></div>
+ <div className="w-16 h-16 rounded-xl flex items-center justify-center text-cyan-300"><FileText size={30} /></div>
+ <div className="w-12 h-12 rounded-xl flex items-center justify-center text-green-300 -ml-4 mt-4"><Download size={22} /></div>
+ <div className="w-10 h-10 rounded-xl flex items-center justify-center text-violet-300 -ml-3 mt-1"><Palette size={18} /></div>
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-3">Build Your First Resume</h2>
             <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
@@ -423,7 +423,7 @@ export default function ResumeBuilderPage() {
                       className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100">
+ <div className="w-10 h-10 rounded-lg flex items-center justify-center text-blue-600 group-hover:">
                           {uploading ? <Loader2 size={18} className="animate-spin" /> : <Upload size={18} />}
                         </div>
                         <div>
@@ -440,7 +440,7 @@ export default function ResumeBuilderPage() {
                       className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-700 group-hover:bg-green-100">
+ <div className="w-10 h-10 rounded-lg flex items-center justify-center text-green-700 group-hover:">
                           {creating ? <Loader2 size={18} className="animate-spin" /> : <PenLine size={18} />}
                         </div>
                         <div>
@@ -457,7 +457,7 @@ export default function ResumeBuilderPage() {
                       className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center text-violet-600 group-hover:bg-violet-100">
+ <div className="w-10 h-10 rounded-lg flex items-center justify-center text-violet-600 group-hover:">
                           <MessageSquare size={18} />
                         </div>
                         <div>
@@ -474,7 +474,7 @@ export default function ResumeBuilderPage() {
                       className="w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600 group-hover:bg-orange-100">
+ <div className="w-10 h-10 rounded-lg flex items-center justify-center text-orange-600 group-hover:">
                           {creating ? <Loader2 size={18} className="animate-spin" /> : <Mic size={18} />}
                         </div>
                         <div>

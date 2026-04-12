@@ -68,7 +68,7 @@ export default function QuizBroadcastPopup() {
             <div className="p-4">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+ <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0">
                     <Zap size={16} className="text-violet-600" />
                   </div>
                   <div className="min-w-0">
