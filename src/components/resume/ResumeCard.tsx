@@ -51,9 +51,9 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
               </div>
             </div>
           ) : isActive ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50">
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
               <div className="text-center">
-                <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mx-auto mb-2">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
                   <FileText size={22} className="text-amber-600" />
                 </div>
                 <p className="text-xs font-medium text-amber-700">In Progress</p>
@@ -96,7 +96,7 @@ export default function ResumeCard({ session }: { session: ResumeSession }) {
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-sm font-semibold text-gray-900 truncate">{session.title}</h3>
             <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-              isActive ? 'bg-amber-50 text-amber-600' : 'bg-green-50 text-green-600'
+              isActive ? 'text-amber-600' : 'text-green-600'
             }`}>
               {isActive ? 'Building' : 'Completed'}
             </span>

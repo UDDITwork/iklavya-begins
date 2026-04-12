@@ -318,7 +318,7 @@ export default function ResumeBuilderPage() {
                             <div className="flex items-center justify-between mb-1">
                               <span className="text-sm font-semibold text-gray-900 truncate">{draft.title}</span>
                               <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0 ml-2 ${
-                                draft.status === 'draft' ? 'bg-amber-50 text-amber-600' : 'bg-green-50 text-green-600'
+                                draft.status === 'draft' ? 'text-amber-600' : 'text-green-600'
                               }`}>
                                 {draft.status === 'draft' ? 'Draft' : 'Complete'}
                               </span>
