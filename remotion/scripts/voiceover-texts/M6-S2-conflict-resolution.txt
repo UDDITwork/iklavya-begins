@@ -1,0 +1,21 @@
+Module 6 — Leadership & Teamwork
+Segment 2: Conflict Resolution in Teams
+Duration: 150 seconds
+
+---
+
+Let us be honest. Conflict in teams is inevitable. Put five or six people together, each with different backgrounds, working styles, and opinions, and disagreements will happen. In the Indian workplace, this is complicated by hierarchy, cultural deference, and sometimes regional or language dynamics. The question is not whether conflict will arise — it is how you handle it when it does.
+
+First, understand that not all conflict is bad. Healthy conflict — where team members debate ideas, challenge assumptions, and push for better solutions — actually leads to stronger outcomes. The problem is unhealthy conflict — personal attacks, silent grudges, passive-aggressive behavior, and gossip behind people's backs.
+
+Let me walk you through a common scenario. You are working on a project at a Bengaluru startup. You and your teammate Karthik have different opinions on the database design. You think MongoDB is the right choice for flexibility. He insists on PostgreSQL for data integrity. The discussion gets heated in a team call, and afterward, you both stop talking to each other. The project suffers because you are not collaborating.
+
+Here is how to handle this constructively. Step one — separate the person from the problem. Karthik is not your enemy. He has a different technical perspective. Frame the conflict as us versus the problem, not you versus me. Say something like, we both want the best database solution for the project. Let us evaluate both options against our specific requirements.
+
+Step two — listen to understand, not to respond. Go back to the active listening skills from Module Three. Let Karthik fully explain why he prefers PostgreSQL. Ask genuine questions. You might actually learn something that changes your mind — or at least helps you understand his reasoning.
+
+Step three — find common ground. Maybe the answer is neither pure MongoDB nor pure PostgreSQL, but a combination that uses PostgreSQL for transactional data and MongoDB for the flexible user profile data. Most conflicts have a middle path that neither party initially sees.
+
+Step four — if you cannot resolve it between yourselves, escalate constructively. Go to your team lead together — not separately. Separately means one person is complaining and the other is blindsided. Together means we have a technical disagreement and we would like your input. This shows maturity.
+
+Step five — after resolution, let it go. Do not hold grudges. Do not bring up last month's database argument in next month's sprint retrospective. Resolve, learn, and move forward. The best teams are not the ones that avoid conflict — they are the ones that handle conflict well and come out stronger on the other side.

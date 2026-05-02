@@ -1,0 +1,19 @@
+Module 1 — Time Management for Young Professionals
+Segment 2: The Eisenhower Matrix
+Duration: 150 seconds
+
+---
+
+Alright, now that you understand Deep Work and the Pareto Principle, let us talk about a framework that will help you decide what to work on and when. It is called the Eisenhower Matrix, named after Dwight Eisenhower, the thirty-fourth President of the United States, who was famous for being incredibly productive.
+
+The matrix divides all your tasks into four quadrants based on two dimensions: urgency and importance.
+
+Quadrant One is Urgent and Important. These are your fires — a production bug that is affecting customers, a client deliverable due today, or your manager asking for a report before a board meeting. You have to do these immediately. No choice.
+
+Quadrant Two is Important but Not Urgent. This is where the magic happens. These are tasks like learning a new framework, building relationships with your team, working on a side project that boosts your skills, or preparing for that upcoming presentation well in advance. Most people neglect this quadrant because nothing is screaming for attention. But the best professionals spend most of their time here.
+
+Quadrant Three is Urgent but Not Important. These are interruptions — a colleague asking you to help with something that is not your responsibility, most meetings that could have been an email, or random Slack pings. The trick here is to delegate or set boundaries.
+
+Quadrant Four is Neither Urgent nor Important. This is scrolling social media at work, gossiping near the chai counter for forty-five minutes, or reorganizing your desktop icons for the third time this week. Eliminate these ruthlessly.
+
+Let me give you a real example. Say you are a fresher at Wipro. Your manager asks you to update a spreadsheet by end of day — that is Quadrant One. Learning Python for an upcoming project is Quadrant Two. A colleague asking you to help them format their slides is Quadrant Three. And binge-watching reels during lunch break that extends to two hours — that is Quadrant Four. Once you start categorizing your tasks this way, you will notice that you automatically become more intentional with your time. You stop reacting and start planning.

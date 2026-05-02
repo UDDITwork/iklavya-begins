@@ -1,0 +1,17 @@
+Module 6 — Leadership & Teamwork
+Segment 3: The Art of Delegation
+Duration: 150 seconds
+
+---
+
+Now, you might think — I am a fresher, who am I going to delegate to? But delegation is not just about assigning tasks to people who report to you. It is about knowing how to distribute work effectively, even among peers, in group projects, hackathons, or cross-functional teams. And understanding delegation early will prepare you for when you do become a team lead.
+
+The biggest mistake people make with delegation is either doing everything themselves or dumping tasks on others without context. Let us talk about how to do it right.
+
+First, understand that delegation is not about avoiding work — it is about leveraging strengths. In any team, different people have different skills. If you are great at frontend but weak at database design, and your teammate is the opposite, it makes zero sense for both of you to struggle with your weak areas when you could each focus on your strengths.
+
+There is a simple framework called the Delegation Matrix. It maps tasks based on two factors — their importance and whether you are the best person to do them. High importance tasks that require your specific skills — do them yourself. High importance tasks that someone else can do better or equally well — delegate with clear instructions and checkpoints. Low importance tasks — delegate broadly or automate.
+
+When you delegate, follow these five steps. One, clearly define the task. Not just what needs to be done, but what done looks like. Instead of saying handle the testing, say write integration tests for the payment module covering these five user flows. All tests should pass in the CI pipeline by Thursday. Two, provide context. Explain why the task matters. People do better work when they understand the purpose. Three, give appropriate authority. If you are asking someone to make decisions about the UI design, let them actually make decisions. Do not micromanage every pixel. Four, set check-in points. For a task due in a week, schedule a mid-week check-in to see progress and remove blockers. Five, give credit. When the work is done well, publicly acknowledge the person who did it. Nothing kills motivation faster than a team lead who takes credit for their team's work.
+
+Here is a common Indian workplace dynamic. Many freshers are hesitant to delegate to peers because they do not want to seem bossy or arrogant. The key is framing. Instead of saying you do this, try hey, I think you would be great at the API documentation since you understand the endpoints so well. I will handle the testing if you can take that on. Would that work? This is collaborative delegation — and it works beautifully.

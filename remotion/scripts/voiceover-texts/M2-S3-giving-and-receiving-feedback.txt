@@ -1,0 +1,15 @@
+Module 2 — Workplace Etiquette for Indian Professionals
+Segment 3: Giving & Receiving Feedback
+Duration: 150 seconds
+
+---
+
+Let me share something that trips up almost every fresher. In college, feedback was simple — you got marks on your exam, you either passed or failed, and that was that. But in the workplace, feedback is continuous, nuanced, and sometimes uncomfortable. Learning to give and receive feedback gracefully is one of the most important skills you will develop.
+
+Let us start with receiving feedback, because that is what you will experience first. Imagine this scenario. You have been at Accenture for two months. Your team lead reviews your code and says, this function is poorly structured, you need to refactor the entire thing. Your first instinct might be to feel defensive. You might think, I worked on this for two days, how dare they dismiss it. But here is the thing — that feedback is a gift. Your team lead is investing their time in making you better. The worst thing that can happen is not getting harsh feedback — it is getting no feedback at all, because that means nobody cares about your growth.
+
+When you receive feedback, follow this framework. First, listen fully without interrupting. Let the person finish. Second, ask clarifying questions. Instead of getting defensive, say something like, could you help me understand what specifically needs to change in the function structure? Third, thank them. Even if the feedback stings, say thank you for pointing this out, I will work on it. Fourth, act on it. If you receive the same feedback twice, it means you did not take it seriously the first time. That is a red flag.
+
+Now, giving feedback is equally important, even as a junior team member. The key here is to use the SBI model — Situation, Behavior, Impact. Instead of saying Amit, you are always late, say Amit, in our last three stand-up meetings, you joined ten minutes late. Because of that, we had to repeat the updates, which cost the team fifteen minutes each time. See the difference? The first one is a personal attack. The second one is specific, factual, and focused on impact.
+
+One cultural note — in many Indian workplaces, there is a hierarchy where juniors are hesitant to give feedback to seniors. But good organizations are changing this. Companies like Flipkart and Razorpay actively encourage upward feedback. If your workplace supports it, use it. If it does not, start with peers and build the muscle gradually.

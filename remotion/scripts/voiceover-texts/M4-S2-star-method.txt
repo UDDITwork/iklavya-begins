@@ -1,0 +1,23 @@
+Module 4 — Resume & Interview Mastery
+Segment 2: The STAR Method for Interviews
+Duration: 150 seconds
+
+---
+
+Congratulations, your resume made it through the ATS. Now comes the interview. And here is where most Indian graduates make a critical mistake — they ramble. When an interviewer asks tell me about a time you faced a challenge, most candidates go on a five-minute unstructured monologue that leaves the interviewer confused about what actually happened and what the candidate actually did.
+
+The STAR method is your weapon against rambling. STAR stands for Situation, Task, Action, and Result. It gives you a clear framework to answer any behavioral interview question concisely and powerfully.
+
+Let me walk you through an example. Suppose the interviewer asks — Tell me about a time you worked under pressure.
+
+Situation: During my final year at VIT, our team of four was building an e-commerce platform for our capstone project. Two weeks before the submission deadline, one team member dropped out due to a medical emergency, and we discovered a major bug in the payment integration module.
+
+Task: As the team lead, I needed to redistribute the workload and fix the payment bug while ensuring we still met the submission deadline.
+
+Action: I reorganized the remaining tasks, assigning myself the payment module since I had the strongest backend skills. I set up daily thirty-minute sync calls with the team to track progress. I also reached out to our professor for a two-day extension, presenting a clear plan of what we would deliver and by when.
+
+Result: We delivered the project on time with the extension, received an A grade, and our professor specifically appreciated our crisis management. The payment module worked flawlessly during the demo.
+
+Notice how that answer is structured, specific, and results-oriented. It took about ninety seconds — which is the ideal length for a STAR response. Not too short, not too long.
+
+Here is a pro tip. Before any interview, prepare eight to ten STAR stories from your college experience, internships, or personal projects. Cover themes like teamwork, conflict, leadership, failure, tight deadlines, and learning something new. Most behavioral questions can be answered by adapting one of these prepared stories. Practice them out loud — not memorized word for word, but enough that the structure flows naturally. Companies like Amazon are famous for behavioral interviews, and they specifically train interviewers to evaluate STAR-structured answers.

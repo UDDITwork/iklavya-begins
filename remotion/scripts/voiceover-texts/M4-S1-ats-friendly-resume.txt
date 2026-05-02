@@ -1,0 +1,19 @@
+Module 4 — Resume & Interview Mastery
+Segment 1: Building an ATS-Friendly Resume
+Duration: 150 seconds
+
+---
+
+Here is a harsh reality that most college placement cells do not tell you. When you apply to a company like Infosys, Deloitte, or even a well-funded startup through their careers page, your resume is almost never seen by a human first. It goes through an Applicant Tracking System, or ATS — software that scans your resume for relevant keywords, experience, and formatting before deciding whether a recruiter should even look at it. Studies show that up to seventy-five percent of resumes are rejected by ATS before a human ever reads them. Let that sink in.
+
+So how do you build a resume that beats the ATS and impresses the human on the other side?
+
+First, formatting. Keep it clean and simple. Use a single-column layout. Avoid fancy graphics, tables, icons, or headers and footers — ATS software cannot read these. Use standard section headings like Education, Experience, Skills, and Projects. Use a standard font like Calibri, Arial, or Times New Roman at ten to twelve point size. Save it as a PDF unless the job posting specifically asks for a Word document.
+
+Second, keywords are everything. Read the job description carefully and mirror the exact language they use. If the posting says proficiency in React.js, do not write I know React — write React.js in your skills section. If they mention Agile methodology, include that exact phrase. ATS works on keyword matching, so the closer your language matches the job description, the higher your score.
+
+Third, structure your experience with impact. Do not write responsible for testing software. Instead, write executed 200-plus test cases across 3 modules, reducing production bugs by 30 percent in Q2 2025. Use the formula — Action Verb plus Task plus Quantifiable Result. Every bullet point under your experience should follow this pattern.
+
+Fourth, for freshers who lack work experience, your projects section is gold. Did you build a full-stack app for your final year project? Did you contribute to an open-source library? Did you complete a virtual internship with a company like Goldman Sachs through Forage? List these with the same impact-driven bullet points. A strong projects section can absolutely compensate for limited work experience.
+
+One more thing — do not use the same resume for every application. Tailor it for each role. Yes, it takes more time. But sending out a hundred generic resumes is far less effective than sending twenty customized ones.

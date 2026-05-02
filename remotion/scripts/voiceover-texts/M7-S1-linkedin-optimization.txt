@@ -1,0 +1,19 @@
+Module 7 — Digital Skills & Personal Branding
+Segment 1: LinkedIn Optimization for Indian Professionals
+Duration: 150 seconds
+
+---
+
+Let me ask you a question. If a recruiter from Google, Amazon, or Flipkart searched for someone with your skills on LinkedIn right now, would your profile show up? More importantly, if it did show up, would it convince them to reach out? For most Indian freshers, the answer to both questions is no. And that is a massive missed opportunity.
+
+LinkedIn is not just a social media platform — it is the single most important professional networking tool in India today. Over one hundred million Indians are on LinkedIn, and recruiters at every major company use it as their primary sourcing tool. Here is how to make your profile work for you.
+
+First, your profile photo. This is not Instagram. Use a professional headshot with a clean background. You do not need a studio photo — a well-lit photo taken on a phone with a plain wall behind you works perfectly. Dress in what you would wear to a business casual office. Smile. Profiles with photos get twenty-one times more views.
+
+Second, your headline. Most people have their headline as student at XYZ College or fresher. That tells recruiters nothing. Instead, write a headline that showcases your value. Something like Full-Stack Developer with a passion for React and Node.js or Aspiring Data Scientist with published research in NLP at IIT Madras. Your headline appears in search results, so pack it with relevant keywords.
+
+Third, your About section. This is your elevator pitch in two hundred words or less. Write in first person. Share what drives you, what you have built, and what you are looking for. Keep it conversational but professional. Something like I am a computer science graduate from BITS Pilani who loves building products that solve real problems. During my internship at PhonePe, I worked on the merchant onboarding flow, reducing drop-off rates by fifteen percent. I am currently exploring opportunities in product engineering where I can combine my backend skills with user-facing impact.
+
+Fourth, your Experience and Projects sections. Treat these like your resume — use impact-driven bullet points with numbers. Do not just say worked on frontend development. Say built and deployed a React-based dashboard serving ten thousand daily active users, reducing page load time by forty percent.
+
+Fifth, engage actively. Follow companies you admire. Comment thoughtfully on posts by industry leaders. Share your learnings — even a simple post about what you learned from a coding challenge can get hundreds of views. The LinkedIn algorithm favors consistent engagement. Post once or twice a week and within three months, you will have a visible presence. Recruiters do not just search for candidates — they notice people who show up regularly with valuable content.

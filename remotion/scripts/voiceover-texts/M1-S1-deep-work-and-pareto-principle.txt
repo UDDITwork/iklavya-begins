@@ -1,0 +1,15 @@
+Module 1 — Time Management for Young Professionals
+Segment 1: Deep Work & The Pareto Principle
+Duration: 150 seconds
+
+---
+
+Let me ask you something. During your final year of college, how many times did you sit down to study for an exam, only to find yourself scrolling through Instagram thirty minutes later? Don't worry, we have all been there. But here is the thing — in the professional world, that habit can seriously hurt your career.
+
+Welcome to your first lesson on time management. Today we are going to talk about two powerful ideas: Deep Work and the Pareto Principle.
+
+Deep Work is a concept popularized by Cal Newport. It means focusing without distraction on a cognitively demanding task. Think about the best coders at companies like Infosys or TCS. The ones who get promoted fast are not the ones who spend eight hours in front of a screen — they are the ones who can lock in for two or three hours of truly focused work and produce something remarkable.
+
+Here is how Deep Work looks in practice. Imagine you just joined a Bangalore-based startup as a junior developer. Your tech lead gives you a module to build. Instead of having Slack open, YouTube running in a tab, and your phone buzzing with WhatsApp messages, you close everything. You put your phone on Do Not Disturb. You set a timer for ninety minutes. And you code. That ninety minutes of Deep Work will produce more output than an entire day of scattered attention.
+
+Now let us pair this with the Pareto Principle, also called the Eighty-Twenty rule. It says that roughly eighty percent of your results come from just twenty percent of your efforts. In a real workplace, this means that not all tasks are equally important. Maybe out of ten tasks on your to-do list, only two truly move the needle for your project. Your job is to identify those two tasks and give them your Deep Work hours. The remaining eight tasks? Handle them in your shallow work time — answering emails, attending stand-ups, updating Jira tickets. Learning to distinguish between the vital few and the trivial many is one of the most valuable skills you will ever develop.

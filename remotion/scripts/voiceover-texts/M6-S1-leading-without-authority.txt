@@ -1,0 +1,19 @@
+Module 6 — Leadership & Teamwork
+Segment 1: Leading Without Authority
+Duration: 150 seconds
+
+---
+
+There is a myth that many freshers believe — leadership is for managers and seniors, not for someone who just joined. I am a junior developer, who am I to lead? Let me tell you something. Some of the most impactful leaders I have seen in Indian tech companies were not the ones with fancy titles. They were the junior engineers who stepped up, took initiative, and influenced outcomes without having any formal authority.
+
+Leading without authority means making things happen through influence, initiative, and credibility rather than through positional power. And it is one of the fastest ways to accelerate your career.
+
+Let me give you a real example. At a Hyderabad-based product company, there was a fresher named Ananya who noticed that the team was spending a lot of time on manual deployment — about two hours every release cycle. She was not the team lead. She was not even the most experienced developer. But she spent her weekends learning about CI/CD pipelines, built a proof of concept using Jenkins, and presented it to her manager with a clear estimate of time savings. The team adopted her solution, and within three months, she was recognized in the company's quarterly town hall. She did not wait for someone to assign her a leadership role — she created one.
+
+So how do you lead without authority? First, identify problems before being asked. Look around your team and notice inefficiencies, pain points, and gaps. Then propose solutions. Do not just complain about a problem in a team chat — come with a suggestion. Instead of saying our documentation is terrible, say I have noticed our onboarding documentation is outdated. I would like to spend a few hours this week updating it. Would that be okay?
+
+Second, be the person who follows through. In every team, there are people who talk about doing things and people who actually do them. Be the latter. When you take an action item in a meeting, deliver on it. When you promise to share a document, share it the same day. Reliability is the foundation of influence.
+
+Third, help others succeed. Share useful articles, teach a concept to a struggling teammate, or volunteer to do a knowledge-sharing session. When you become the person who lifts others, people naturally look to you for guidance — regardless of your designation.
+
+Fourth, manage up. Keep your manager informed about your initiatives without being asked. A simple weekly email saying here is what I worked on this week, here is what I am planning next week goes a long way. It shows ownership and strategic thinking. The people who get promoted fastest are not always the most talented — they are the ones who demonstrate leadership behavior before getting the title.

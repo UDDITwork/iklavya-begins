@@ -1,0 +1,23 @@
+Module 5 — Financial Literacy for Freshers
+Segment 2: Understanding PF, Taxes & Your Payslip
+Duration: 150 seconds
+
+---
+
+Your first payslip is going to confuse you. Guaranteed. You were told your CTC is five lakhs, but the number in your bank account is nowhere close to five lakhs divided by twelve. Where did the rest go? Let us break it down.
+
+CTC stands for Cost to Company. It includes everything the company spends on you — not just your take-home pay. Your CTC is broken into several components.
+
+Basic Salary is usually forty to fifty percent of your CTC. This is important because your PF contribution and gratuity are calculated on this amount.
+
+HRA, or House Rent Allowance, is a portion meant to cover your rent. If you are living in a rented apartment and paying rent, you can claim HRA exemption while filing taxes — this saves you money.
+
+Special Allowance is a catch-all component that makes up the remaining amount.
+
+Employee Provident Fund, or EPF, is where twelve percent of your basic salary is deducted from your paycheck and deposited into your PF account. Your employer also contributes twelve percent. Think of this as forced retirement savings. Your PF balance earns around eight percent interest, which is higher than most savings accounts. Do not withdraw it when you switch jobs — transfer it. That money compounding over thirty years will become a substantial corpus.
+
+Now, taxes. Under the new tax regime, which most freshers should choose for simplicity, income up to three lakh rupees is tax-free. From three to seven lakhs, you pay five percent. From seven to ten lakhs, ten percent. And so on. Your company deducts TDS — Tax Deducted at Source — from your salary every month based on your declared investments and projected annual income.
+
+Here is what freshers must do. Fill out your investment declaration form carefully during the start of the financial year, usually in April. If you plan to invest in ELSS mutual funds, PPF, or pay life insurance premiums, declare these under Section 80C of the old regime or use the new regime's standard deduction. This ensures the right amount of TDS is deducted each month, so you do not end up with a huge tax bill or an unnecessarily large refund at year-end.
+
+File your Income Tax Return every year, even if your income is below the taxable limit. It creates a financial track record that helps when you apply for loans or credit cards later. Use the Income Tax Department's e-filing portal or apps like ClearTax and Quicko. Filing is free for salaried individuals with income under a certain limit, and the process takes about fifteen minutes once you have your Form 16 from your employer.

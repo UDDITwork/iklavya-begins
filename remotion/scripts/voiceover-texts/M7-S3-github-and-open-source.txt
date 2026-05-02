@@ -1,0 +1,19 @@
+Module 7 — Digital Skills & Personal Branding
+Segment 3: GitHub & Open-Source Contributions
+Duration: 150 seconds
+
+---
+
+If LinkedIn is your professional face, GitHub is your technical proof. And for software developers in India, a strong GitHub profile can literally be the difference between getting hired and getting ignored.
+
+Let me be blunt. When a hiring manager at a product company like Atlassian, Razorpay, or Slice reviews your application, they will check your GitHub. And here is what they are looking for — not a profile full of forked repositories that you never touched. They want to see original projects, meaningful commits, clean code, good documentation, and ideally, contributions to open-source projects.
+
+Let us start with your GitHub profile. Pin your six best repositories. Each pinned repo should have a clear README file with a project description, setup instructions, screenshots if applicable, and the tech stack. A repository without a README is like a book without a cover — nobody will open it.
+
+Now let us talk about open-source contributions, because this is where things get exciting. Contributing to open source is one of the most powerful things a fresher can do. It proves that you can read and understand someone else's code, follow contribution guidelines, write clean PRs with proper descriptions, and collaborate with developers worldwide.
+
+But where do you start? The whole thing can feel intimidating. Here are practical steps. First, look for repositories with labels like good-first-issue, beginner-friendly, or help-wanted on GitHub. Websites like goodfirstissue dot dev and up-for-grabs dot net curate these specifically for beginners. Second, start with documentation fixes. Correcting a typo in a README or improving setup instructions is a legitimate contribution that gets your name into the project's contributor list. Third, graduate to bug fixes and small features. Pick an issue that is clearly defined, understand the codebase, and submit a well-documented pull request.
+
+Some Indian open-source projects are great starting points. Check out projects by organizations like Postman, Hasura, and Appwrite — all founded by Indians and very welcoming to new contributors. There is also Hacktoberfest every October, where you can earn swag by contributing to open source.
+
+One thing that impresses hiring managers enormously is a contribution graph that shows consistent activity. You do not need to commit every day, but regular contributions — even small ones — show discipline and passion. Think of your GitHub profile as a garden. A few commits here and there is fine, but consistent nurturing over months creates something truly impressive.

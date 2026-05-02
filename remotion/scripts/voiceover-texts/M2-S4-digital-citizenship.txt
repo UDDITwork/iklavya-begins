@@ -1,0 +1,17 @@
+Module 2 — Workplace Etiquette for Indian Professionals
+Segment 4: Digital Citizenship at Work
+Duration: 150 seconds
+
+---
+
+Here is a story I hear far too often. A fresher at an MNC posts a photo on their Instagram story from inside the office, and in the background you can see a whiteboard with client project details. They think nothing of it. A week later, they are called into HR because the client found out. That one careless story could have cost the company an entire account.
+
+Welcome to the world of digital citizenship at work. In today's hyper-connected world, your online behavior is an extension of your professional identity. Let us break down the rules.
+
+First, email etiquette. Your emails at work are not WhatsApp messages. Use a clear subject line. Start with a proper greeting. Keep the body concise and structured — use bullet points for multiple items. End with a clear call to action. And for the love of everything professional, proofread before hitting send. I have seen freshers accidentally send emails with hey bro to their clients because they were in the habit of texting casually. Your email address at work has the company domain. Everything you send represents the organization.
+
+Second, Slack and Teams messaging. Keep it professional but not robotic. It is okay to use a friendly tone, but avoid excessive memes and GIFs in work channels. If you need to discuss something personal with a colleague, take it to a private message. And here is a big one — do not send just hi and wait. Write your complete message. Instead of typing hi followed by silence, write Hi Neha, I had a question about the API endpoint for the payment module. Can you help me understand the authentication flow? This saves everyone time.
+
+Third, social media boundaries. Be very careful about what you post about your workplace. Never share proprietary information, client names, internal screenshots, or anything that could violate your NDA. Even vague complaints like ugh, my company is so frustrating can come back to haunt you. Recruiters and hiring managers check social media profiles.
+
+Fourth, respect data privacy. If you have access to customer data, employee records, or financial information, treat it like it is sacred. Do not share it, do not screenshot it, do not transfer it to personal devices. At companies like Infosys and Wipro, data security violations can result in immediate termination. It is not just about rules — it is about trust. When your organization trusts you with sensitive information, honoring that trust is the foundation of your professional reputation.

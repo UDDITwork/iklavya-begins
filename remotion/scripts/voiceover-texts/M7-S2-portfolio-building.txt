@@ -1,0 +1,17 @@
+Module 7 — Digital Skills & Personal Branding
+Segment 2: Building a Portfolio That Gets Noticed
+Duration: 150 seconds
+
+---
+
+Your resume says what you can do. Your portfolio proves it. In 2025 and beyond, every tech professional — whether you are a developer, designer, data analyst, or content creator — needs a portfolio. And no, your GitHub repository with a single to-do app from a tutorial does not count.
+
+Let me tell you what a strong portfolio looks like. Take the example of Priya, a twenty-three-year-old developer from Chennai. She built a personal portfolio website using Next.js and deployed it on Vercel. On her site, she has four projects — not twenty, just four solid ones. Each project page includes a live demo link, the GitHub repository, a clear description of the problem it solves, the tech stack used, screenshots of the interface, challenges she faced during development and how she overcame them, and what she would do differently if she rebuilt it. One of her projects is a real tool that two hundred people actually use — a college canteen menu tracker. That single project, because it has real users and real impact, is worth more than ten tutorial-based projects.
+
+So how do you build portfolio-worthy projects? Start with problems you actually face. Is there an attendance tracking problem at your college? Build a solution. Is there no good way to split expenses in your friend group? Build that. Does your local chai shop struggle with orders during rush hour? Build a simple ordering system. Real-world problems make for the best projects because they demonstrate that you can identify needs and build solutions — which is exactly what companies pay you to do.
+
+For non-technical professionals, a portfolio looks different but is equally important. If you are a content writer, create a personal blog using WordPress or Medium. If you are into marketing, document a case study of a social media campaign you ran — even for a college fest. If you are a designer, use Behance or Dribbble to showcase your work.
+
+Here is the technical setup I recommend. Buy a custom domain — your name dot com or your name dot dev. It costs about five hundred to a thousand rupees per year. Use a modern framework — Next.js, Astro, or even a clean HTML and CSS site. Host it for free on Vercel, Netlify, or GitHub Pages. Make sure it is mobile-responsive and loads fast. Add a clear call to action — a way for recruiters to contact you or download your resume.
+
+One more thing — your portfolio is never done. Update it every time you complete a new project or learn a new skill. A portfolio that was last updated eighteen months ago looks abandoned. A portfolio updated last week looks like you are active, growing, and serious about your craft.

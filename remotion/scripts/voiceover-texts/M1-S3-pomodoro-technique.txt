@@ -1,0 +1,19 @@
+Module 1 — Time Management for Young Professionals
+Segment 3: The Pomodoro Technique
+Duration: 150 seconds
+
+---
+
+So we have covered what to work on and how to prioritize. Now let us talk about how to actually execute — because knowing what to do and doing it are two very different things. Enter the Pomodoro Technique.
+
+Invented by Francesco Cirillo in the late nineteen eighties, the Pomodoro Technique is beautifully simple. You work for twenty-five minutes with absolute focus. Then you take a five-minute break. That is one Pomodoro. After four Pomodoros, you take a longer break of fifteen to thirty minutes.
+
+Now, why does this work so well? Because our brains are not designed for marathon focus sessions. Think of it like going to the gym. You do not lift weights for three hours straight — you do sets with rest in between. The Pomodoro Technique does the same thing for your mind.
+
+Here is how I would recommend you use it at work. Let us say you have just joined Cognizant and you have been assigned to write test cases for a module. Instead of staring at your screen thinking about how much work there is, you set a timer for twenty-five minutes and commit to just starting. You tell yourself — I only have to focus for twenty-five minutes, that is it. And here is the beautiful part — once you start, momentum kicks in. You often find yourself wanting to keep going even after the timer rings.
+
+During your five-minute break, stand up and stretch. Get some water. Do not check Instagram — that is a trap. The break is meant to rest your brain, not overstimulate it.
+
+There are some great tools for this. On your phone, you can use the Forest app — it gamifies focus by growing a virtual tree while you work. On your laptop, there is Pomofocus dot io, which is free and simple. Some teams at companies like Freshworks and Zoho even do team Pomodoros, where the entire team focuses together and takes breaks together. It builds a culture of focused work.
+
+One tip from my side — track your Pomodoros for a week. You will be surprised to discover how many focused twenty-five-minute blocks you can actually complete in a day. Most people find it is somewhere between eight and twelve. That is real, productive work — and it adds up incredibly fast.

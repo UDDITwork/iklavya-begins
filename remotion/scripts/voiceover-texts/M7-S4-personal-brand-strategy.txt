@@ -1,0 +1,21 @@
+Module 7 — Digital Skills & Personal Branding
+Segment 4: Personal Brand Strategy
+Duration: 150 seconds
+
+---
+
+Let us tie everything together. You have optimized your LinkedIn, built a portfolio, and started contributing on GitHub. Now it is time to think about something bigger — your personal brand. And no, personal branding is not about becoming a LinkedIn influencer who posts motivational quotes every morning. It is about being intentionally known for something valuable.
+
+Your personal brand is the answer to this question: when someone in your industry hears your name, what do they think of? Right now, as a fresher, the answer might be nothing — they have never heard of you. Your goal over the next one to two years is to change that. You want people in your niche to associate your name with expertise, reliability, and a specific area of knowledge.
+
+Step one — pick your niche. You cannot be known for everything. Are you passionate about frontend development? Backend systems? Machine learning? Cloud architecture? DevOps? Choose one area and go deep. It is better to be the go-to person for React development in your network than to be vaguely known as a software developer.
+
+Step two — create content consistently. This does not mean you need to become a YouTuber. Start with what feels comfortable. Write a blog post on Hashnode or Dev.to about something you learned. Tweet about a technical problem you solved. Make a short LinkedIn post about a book you read. Share a thread about your open-source journey. The format matters less than the consistency. Once a week is a great starting point.
+
+Step three — speak at events. Start small. Give a lightning talk at your local tech meetup. Present at your company's internal knowledge-sharing session. Apply to speak at college tech fests. Every talk builds your confidence and expands your network. Cities like Bangalore, Hyderabad, Pune, and Chennai have thriving tech meetup communities — look for groups on meetup dot com, Luma, or Twitter.
+
+Step four — build in public. Share your journey as you learn and grow. Document your hundred-day coding challenge. Share your experience preparing for system design interviews. Be honest about failures and learnings — people connect more with authentic journeys than polished highlight reels.
+
+Step five — network with intention. Follow and engage with people you admire in your field. Reply to their tweets. Comment on their blog posts. Attend their talks and ask thoughtful questions. Over time, these one-way interactions become two-way relationships. I have seen Indian freshers land incredible opportunities — from referrals at FAANG companies to speaking invitations at major conferences — purely because they built a strong personal brand online.
+
+Here is the long game. Your personal brand compounds over time, just like investments. The blog post you write today might be read by a recruiter two years from now. The meetup talk you give this month might be remembered by an attendee who becomes a hiring manager. Every piece of content, every interaction, every contribution is a brick in the building of your professional reputation. Start laying those bricks today.

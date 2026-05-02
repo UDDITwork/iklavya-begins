@@ -1,0 +1,17 @@
+Module 4 — Resume & Interview Mastery
+Segment 3: Common Interview Mistakes to Avoid
+Duration: 150 seconds
+
+---
+
+I have spoken to dozens of hiring managers at Indian companies — from service giants like Wipro and Cognizant to product companies like Razorpay and Swiggy. I asked them one question — what are the most common reasons you reject candidates who otherwise look good on paper? Their answers were remarkably consistent. Let me share the top mistakes so you can avoid them.
+
+Mistake number one — not researching the company. When an interviewer asks why do you want to work here and your answer is because it is a good company with great opportunities, you have already lost points. That answer could apply to literally any company on the planet. Instead, say something specific. For example, I have been following Razorpay's expansion into international payments, and the engineering blog post about your microservices migration was fascinating. I want to be part of a team solving payments at that scale. That shows genuine interest and effort.
+
+Mistake number two — badmouthing previous employers or colleges. Even if your internship experience was terrible, even if your college had outdated labs, never speak negatively about past experiences. Instead, frame it positively. Rather than saying my internship was a waste of time, say the internship taught me the importance of choosing roles aligned with my interests, which is why I am so excited about this position.
+
+Mistake number three — not asking questions. When the interviewer says do you have any questions for us and you say no, I think you covered everything, you are signaling a lack of curiosity. Always have three to four thoughtful questions ready. Ask about the team structure, the tech stack, what success looks like in the first ninety days, or what the biggest challenge facing the team is right now.
+
+Mistake number four — poor body language on video interviews. With remote hiring becoming common, your video interview setup matters. Make sure you have a clean background, decent lighting from the front not the back, and your camera at eye level. Look at the camera when speaking, not at the screen — this simulates eye contact. And please, test your internet connection beforehand. Nothing kills momentum like a laggy call.
+
+Mistake number five — lying or exaggerating. If you put expert in Python on your resume and cannot solve a basic problem during the technical round, you have destroyed your credibility. Be honest about your skill level. It is far better to say I have intermediate knowledge of Python and I am actively deepening it than to claim expertise you do not have. Interviewers respect honesty. They can train skills, but they cannot train integrity.
